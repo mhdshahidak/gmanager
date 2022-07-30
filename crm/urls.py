@@ -3,4 +3,7 @@ from . import views
 
 app_name = 'crm'
 
-urlpatterns = []
+urlpatterns = [
+    path('',views.crmHome,name="crmhome"),
+    path('enquirylist',views.enquiryList,name="enquirylist"),
+]
