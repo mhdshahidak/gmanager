@@ -11,18 +11,21 @@
                 <li>
                     <a href=""><i class="la la-dashboard"></i> <span> Profile</span></a>
                 </li>
-                <li class="submenu">
+                <li>
+                    <a href="{% url 'employee:allprojects' %}"><i class="la la-rocket"></i> <span> Projects</span></a>
+                </li>
+                <!-- <li class="submenu">
                     <a href="#"><i class="la la-rocket"></i> <span> My Projects</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="">Projects</a></li>
+                        <li><a href="{% url 'employee:allprojects' %}">Projects</a></li>
                         <li><a href="">Assigned Projects</a></li>
                         <li><a href="">Rework Projects</a></li>
                         <li><a href="">Completed Projects</a></li>
                         <li><a href=""> SRS</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li>
-                    <a href=""><i class="la la-tasks"></i> <span> Task</span></a>
+                    <a href="{% url 'employee:emptask' %}"><i class="la la-tasks"></i> <span> Task</span></a>
                 </li>
                 <li>
                     <a href="{% url 'employee:empteam' %}"><i class="la la-users-cog"></i> <span> Team</span></a>
