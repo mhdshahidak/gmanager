@@ -42,9 +42,32 @@ def employeeprofile(request):
 
 
 
+def departmentwise(request):
+    return render (request,'ceo/departmentwise.html')    
 
-      
+
+ 
+
+def employeelist(request):
+    return render (request,'ceo/employeelist.html')        
 
 
+def allstaff(request):
+    return render (request,'ceo/allstaff.html')   
 
+
+def dailychecked(request):
+    return render (request,'ceo/dailychecked.html') 
+
+
+def project(request):
+    return render (request,'ceo/project/project.html')    
+
+
+def projectlist(request):
+    return render (request,'ceo/project/projectlist.html')  
+
+
+def viewproject(request):
+    return render (request,'ceo/project/viewproject.html')        
     

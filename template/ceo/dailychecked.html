@@ -1,0 +1,665 @@
+{% extends 'ceo/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+     
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Project Id</th>
+                                <th>Status</th>
+                                <th>Team</th>
+                                <th>Deadline</th>
+                                <th class="text-end">Priority</th>
+                             
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Office Management</a>
+                                </td>
+                                <td>PRO-0001</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members text-nowrap">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li class="dropdown avatar-dropdown">
+                                            <a href="#" class="all-users dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">+15</a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <div class="avatar-group">
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-11.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-12.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-13.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-01.jpg' %}">
+                                                    </a>
+                                                    <a class="avatar avatar-xs" href="#">
+                                                        <img alt="" src="{% static 'ceo/img/profiles/avatar-16.jpg' %}">
+                                                    </a>
+                                                </div>
+                                                <div class="avatar-pagination">
+                                                    <ul class="pagination">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">«</span>
+                                                                <span class="visually-hidden">Previous</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <span aria-hidden="true">»</span>
+                                                            <span class="visually-hidden">Next</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Project Management</a>
+                                </td>
+                                <td>PRO-0002</td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"  title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-warning"></i> Medium </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Video Calling App</a>
+                                </td>
+                                <td>PRO-0003</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-success"></i> Low </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Hospital Administration</a>
+                                </td>
+                                <td>PRO-0004</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Office Management</a>
+                                </td>
+                                <td>PRO-0005</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Project Management</a>
+                                </td>
+                                <td>PRO-0006</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Video Calling App</a>
+                                </td>
+                                <td>PRO-0007</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Hospital Administration</a>
+                                </td>
+                                <td>PRO-0008</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Office Management</a>
+                                </td>
+                                <td>PRO-0009</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Project Management</a>
+                                </td>
+                                <td>PRO-0010</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="project-view.html">Video Calling App</a>
+                                </td>
+                                <td>PRO-0011</td>
+                                <td>
+                                   <ul class="team-members">
+                                        <li>
+                                            <a href="#" class="btn btn-success " data-bs-toggle="tooltip" title="Checked"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-warning " data-bs-toggle="tooltip" title="Late"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="btn btn-danger " data-bs-toggle="tooltip" title="Not checked"></a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="team-members">
+                                        <li>
+                                            <a href="#" title="John Doe" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Richard Miles" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="John Smith" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" title="Mike Litorus" data-bs-toggle="tooltip"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="all-users">+15</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>17 Apr 2019 </td>
+                                <td>
+                                    <div class="dropdown action-label">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-dot-circle-o text-danger"></i> High </a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> High</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-warning"></i> Medium</a>
+                                            <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Low</a>
+                                        </div>
+                                    </div>
+                                </td>
+                               
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+    
+    
+</div>
+{% endblock %}

@@ -25,49 +25,52 @@
                 <li class="submenu">
                     <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="">All Employees</a></li>
+                        <!-- <li><a href="">All Employees</a></li>
                         <li><a href="">Leaves </a></li>
                         <li><a href="">Leave Settings</a></li>
-                        <li><a href="">Attendance</a></li>
-                        <li><a href="">Departments</a></li>
+                        <li><a href="">Attendance</a></li> -->
+                        <li><a href="{% url 'ceo:departmentwise' %}">Departments</a></li>
                     </ul>
                 </li>
                
                 <li class="submenu">
                     <a href="#" class="noti-dot"><i class="la la-users"></i> <span> Managements</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="">All Staffs</a></li>
-                        <li><a href="">Leaves </a></li>
+                        <li><a href="{% url 'ceo:allstaff' %}">All Staffs</a></li>
+                        <!-- <li><a href="">Leaves </a></li>
                         <li><a href="">Leave Settings</a></li>
-                        <li><a href="">Attendance </a></li>
+                        <li><a href="">Attendance </a></li> -->
                     </ul>
                 </li>
-                <li> 
+                <!-- <li> 
                     <a href=""><i class="la la-bullhorn"></i> <span>Enquiries</span></a>
+                </li> -->
+                <li> 
+                    <a href="{% url 'ceo:project' %}"><i class="la la-rocket"></i> <span>Projects</span></a>
                 </li>
-                <li class="submenu">
+                <!-- <li class="submenu">
                     <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="">Projects</a></li>
+                        <li><a href="{% url 'ceo:project' %}">Projects</a></li>
                         <li><a href="">Tasks</a></li>
                         <li><a href="">Task Board</a></li>
                     </ul>
-                </li>
-                <li> 
+                </li> -->
+                <!-- <li> 
                     <a href=""><i class="la la-user-secret"></i> <span>Leads</span></a>
-                </li>
+                </li> -->
                 <li> 
-                    <a href=""><i class="la la-ticket"></i> <span>Unchecked Daily Progress</span></a>
+                    <a href="{% url 'ceo:dailychecked' %}"><i class="la la-ticket"></i> <span>Unchecked Daily Progress</span></a>
                 </li>
               
-                <li class="submenu">
+                <!-- <li class="submenu">
                     <a href="#"><i class="la la-user"></i> <span> Profile </span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li><a href=""> Management Profile </a></li>
                         <li><a href=""> Employee Profile </a></li>
                         <li><a href=""> Client Profile </a></li>
                     </ul>
-                </li>
+                </li> -->
              
                 
                
