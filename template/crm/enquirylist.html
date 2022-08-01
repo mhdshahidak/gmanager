@@ -630,6 +630,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 col-lg-12 col-xl-12 ">
+                                <textarea id="mytextarea" name="instruction" style="min-height: 300px;" ></textarea>                              
+                            </div>                                            
+                        </div>
                         <div class="form-group">
                             <label>Description</label>
                             <div id="editor"></div>
@@ -812,5 +817,14 @@
     <!-- /Delete Project Modal -->
     
 </div>
+
+
+<script src="https://cdn.tiny.cloud/1/nklzzr80nbh42fu5eby0d4ipfkv57tp61il9if12c53ie9le/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: "#mytextarea"
+    });
+    
+</script>
 
 {% endblock %}
