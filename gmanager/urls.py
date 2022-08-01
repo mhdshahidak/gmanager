@@ -23,5 +23,10 @@ urlpatterns = [
     path('ceo/',include('ceo.urls')),
     path('employee/',include('employee.urls')),
     path('crm/',include('crm.urls')),
+    path('hrm/',include('hrm.urls')),
+    path('accounts/',include('accounts.urls')),
+    path('clients/',include('clients.urls')),
+    path('gm/',include('gm.urls')),
+    path('pm/',include('pm.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,0 +1,58 @@
+{% extends "employee/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Tasks</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'employee:employeehome' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Tasks</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="table-responsive" style="padding: 20px;"> 
+                            <table class="table table-center table-hover datatable" style="padding: 20px;border-radius: 20px;">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Project</th>
+                                        <th>Client</th>
+                                        <th>Note</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td> 16 Nov 2020 </td>
+                                        <td> Brothers Group of company </td>
+                                        <td>bro</td>
+                                        <td> Change images and font size </td>
+                                        <td><span class="badge badge-pill bg-success-light">Completed</span></td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+

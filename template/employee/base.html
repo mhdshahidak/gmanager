@@ -1,17 +1,18 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- <meta charset="utf-8">
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="description" content="Smarthr - Bootstrap Admin Template">
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
-        <meta name="robots" content="noindex, nofollow"> -->
-        <title>g-manager </title>
+        <meta name="robots" content="noindex, nofollow">
+        <title>Employee Dashboard -- Gedexo</title>
 		
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'ceo/img/favicon.png' %}">
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'g.png' %}">
 		
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'ceo/css/bootstrap.min.css' %}">
@@ -24,21 +25,20 @@
 		
 		<!-- Chart CSS -->
 		<link rel="stylesheet" href="{% static 'ceo/plugins/morris/morris.css' %}">
-		
-		<!-- Main CSS -->
-        <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
 
-		<!-- Datatable CSS -->
+        <!-- Datatable CSS -->
 		<link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}">
 		
 		<!-- Select2 CSS -->
 		<link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
-
-
-
+		
+		<!-- Datetimepicker CSS -->
 		<link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
 		
-	
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
+
+        <link rel="stylesheet" href="{% static 'employee/css/style.css' %}">
 		
 		<!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -46,24 +46,21 @@
 			<script src="{% static 'ceo/js/respond.min.js' %}"></script>
 		<![endif]-->
     </head>
-	
-    <body>
-		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
-			<!-- Header -->
-           {% include 'ceo/partials/header.html' %}
-			<!-- /Header -->
-			
-			<!-- Sidebar -->
-            {% include 'ceo/partials/sidebar.html' %}
-			<!-- /Sidebar -->
-			
-			<!-- Page Wrapper -->
-           {% block content %}
-		   {% endblock %}
-			<!-- /Page Wrapper -->
-			
+
+<body>	
+    <div id="main-wrapper">
+
+        <!-- Header -->
+        {% include 'employee/partials/navbar.html' %}
+        <!-- /Header -->
+
+        <!-- Sidebar -->
+        {% include 'employee/partials/sidebar.html' %}
+        <!-- /Sidebar -->
+
+        {% block content %}
+
+        {% endblock %}
         </div>
 		<!-- /Main Wrapper -->
 		
@@ -80,24 +77,31 @@
 		<script src="{% static 'ceo/plugins/morris/morris.min.js' %}"></script>
 		<script src="{% static 'ceo/plugins/raphael/raphael.min.js' %}"></script>
 		<script src="{% static 'ceo/js/chart.js' %}"></script>
-		
-		<!-- Custom JS -->
-		<script src="{% static 'ceo/js/app.js' %}"></script>
 
-
-		<!-- Select2 JS -->
+        <!-- Select2 JS -->
 		<script src="{% static 'ceo/js/select2.min.js' %}"></script>
 		
-		<!-- Datatable JS -->
-		<script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
-		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script>
-
-
 		<!-- Datetimepicker JS -->
 		<script src="{% static 'ceo/js/moment.min.js' %}"></script>
 		<script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
 		
+		<!-- Datatable JS -->
+		<script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script>
 		
+		<!-- Custom JS -->
+		<script src="{% static 'ceo/js/app.js' %}"></script>
+
+        <script>
+            if ($('.datatable').length > 0) {
+                $('.datatable').DataTable({
+                    language: {
+                        search: '<i class="fa fa-search"></i>',
+                        searchPlaceholder: "Search"
+                    }
+                });
+            }
+        </script>
 		
     </body>
 </html>
