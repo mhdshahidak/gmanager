@@ -1,0 +1,43 @@
+
+.card {
+    background: #fff;
+    -webkit-box-shadow: 0 0 13px 0 rgba(82,63,105,0.05);
+    box-shadow: 0 0 13px 0 rgba(82,63,105,0.05);
+    margin-bottom: 30px;
+    border-radius: 2%;
+    border: 0;
+}
+.card-body {
+    position: relative;
+    padding: 1.5rem;
+}
+.card-table .card-body {
+	padding: 0;
+}
+.card-body {
+    position: relative;
+    padding: 1.5rem;
+}
+/* div.dataTables_wrapper div.dataTables_filter label i {
+    position: absolute;
+    top: 13px;
+    left: 10px;
+    font-size: 14px;
+} */
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0;
+    display: inline-block;
+    width: auto;
+    padding-left: 30px;
+    border: 1px solid #E5E5E5;
+    color: #1B2559;
+    height: 40px;
+    border-radius: 8px;
+}
+.form-control-sm {
+    height: calc(1.5em + 1rem);
+    padding: 0.4375rem 0.65625rem;
+    font-size: .8125rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
