@@ -13,6 +13,9 @@ def allProjects(request):
 def empTask(request):
     return render(request,'employee/task.html')
 
+def empHomework(request):
+    return render(request,'employee/homework.html')
+
 
 
 # ----- employee ------
