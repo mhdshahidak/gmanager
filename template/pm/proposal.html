@@ -1,0 +1,261 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Proposal List</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Proposal</li>
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Project Name </th>
+                                <th>Client Name </th>
+                                <th>Whatsapp  Number </th>
+                                <th>Email </th>
+                                <th>Proposal Pdf</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Leave Policy
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">Web App </span>
+                                    </small>
+                                </td>
+                                <td>Shahil khan</td>
+                                <td>86876860739</td>
+                                <td>shahil@gmail.com</td>
+                                <td>
+                                    <input type="file" class="form-control" id="policy_upload"></td>
+                                <td class="text-end">
+                                    
+                                    <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Permission Policy
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">Mobile App </span>
+                                    </small>
+                                </td>
+                                <td>shahid</td>
+                                <td>899827638769</td>
+                                <td>shahid@gmail.com</td>
+                                <td>
+                                    <input type="file" class="form-control" id="policy_upload"></td>
+                                    <td class="text-end">
+                                    
+                                        <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
+                                        
+                                    </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </div>
+    <!-- /Page Content -->
+
+
+
+
+
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Sented Proposal</h3>
+                   
+                </div>
+               
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Project Name </th>
+                                <th>Client Name </th>
+                                <th>Whatsapp  Number </th>
+                                <th>Email </th>
+                              
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Leave Policy
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">Web App </span>
+                                    </small>
+                                </td>
+                                <td>Shahil khan</td>
+                                <td>86876860739</td>
+                                <td>shahil@gmail.com</td>
+                               
+                                <td class="text-end">
+                                    <button class="btn  badge-pill bg-info-light m-t-10" >Accepted </button>
+                                    <button class="btn  badge-pill bg-warning-light m-t-10" data-bs-toggle="modal" data-bs-target="#resent_modal" > Resent </button>
+                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal" data-bs-target="#rejected_modal">Rejected </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Permission Policy
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">Mobile App </span>
+                                    </small>
+                                </td>
+                                <td>shahid</td>
+                                <td>899827638769</td>
+                                <td>shahid@gmail.com</td>
+                                
+                                <td class="text-end">
+                                    <button class="btn  badge-pill bg-info-light m-t-10" >Accepted </button>
+                                    <button class="btn  badge-pill bg-warning-light m-t-10" data-bs-toggle="modal" data-bs-target="#resent_modal" > Resent </button>
+                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal" data-bs-target="#rejected_modal">Rejected </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </div>
+
+
+    <!-- Add Policy Modal -->
+    <div id="rejected_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejected Reason</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                       
+                        <div class="form-group">
+                            <label>Reason <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="4"></textarea>
+                        </div>
+                        
+                        
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Policy Modal -->
+    
+    <!-- Edit Policy Modal -->
+    <div id="resent_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Resent Praposal</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Client Whatsapp Number <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" value="545645645">
+                        </div>
+                        <div class="form-group">
+                            <label>Client Email Address<span class="text-danger">*</span></label>
+                            <input class="form-control" type="email" value="swhhj@gmail.com">
+                        </div>
+                        
+                      
+                        <div class="form-group">
+                            <label>Upload Policy <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" id="edit_policy_upload">
+                        </div>
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Policy Modal -->
+    
+    <!-- Delete Policy Modal -->
+    <div class="modal custom-modal fade" id="delete_policy" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Policy</h3>
+                        <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Policy Modal -->
+
+</div>
+
+{% endblock %}
