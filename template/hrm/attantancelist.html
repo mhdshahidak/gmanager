@@ -1,0 +1,201 @@
+{% extends "hrm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Employee</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Employee</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Date</th>
+                                <th>Department</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                        <a href="profile.html">John Doe <span>#0001</span></a>
+                                    </h2>
+                                </td>
+                                <td>20 Dec 2020</td>
+                                <td>Design</td>
+                                <td class="text-center">
+                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
+                                        <a href="profile.html">Richard Miles <span>#0002</span></a>
+                                    </h2>
+                                </td>
+                                <td>20 Dec 2020</td>
+                                <td>Web Developer</td>
+                                <td class="text-center">
+                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
+                                        <a href="profile.html">John Smith <span>#003</span></a>
+                                    </h2>
+                                </td>
+                                <td>20 Dec 2020</td>
+                                <td>Android Developer</td>
+                                <td class="text-center">
+                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
+                                        <a href="profile.html">Mike Litorus <span>#004</span></a>
+                                    </h2>
+                                </td>
+                                <td>20 Dec 2020</td>
+                                <td>IOS Developer</td>
+                                <td class="text-center">
+                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-11.jpg' %}"></a>
+                                        <a href="profile.html">Wilmer Deluna <span>#005</span></a>
+                                    </h2>
+                                </td>
+                                <td>20 Dec 2020</td>
+                                <td>Team Leader</td>
+                                <td class="text-center">
+                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    <!-- Add Attantance modal -->
+				<div id="add_client" class="modal custom-modal fade" role="dialog">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Add Client</h5>
+								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="col-form-label">Name </label>
+												<input class="form-control" type="text">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="col-form-label">Employee ID </label>
+												<input class="form-control" type="text">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="col-form-label">Puch In Time </label>
+												<input class="form-control floating" type="email">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="col-form-label">Punch Out</label>
+												<input class="form-control" type="password">
+											</div>
+										</div>
+										
+									</div>
+									<div class="table-responsive m-t-15">
+										<table class="table table-striped custom-table">
+											<thead>
+												<tr>
+													<th>Module Permission</th>
+													<th class="text-center">Morning</th>
+													<th class="text-center">After Noon</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Today Attantance</td>
+													<td class="text-center">
+														<input checked="" type="checkbox">
+													</td>
+													<td class="text-center">
+														<input checked="" type="checkbox">
+													</td>
+													
+												</tr>
+												<tr>
+													<td>Yesterday Attantance</td>
+													<td class="text-center">
+														<input checked="" type="checkbox">
+													</td>
+													<td class="text-center">
+														<input checked="" type="checkbox">
+													</td>
+													
+												</tr>
+												
+											</tbody>
+										</table>
+									</div>
+									<div class="submit-section">
+										<button class="btn btn-primary submit-btn">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Add Client Modal -->
+    
+</div>
+
+
+
+
+
+{% endblock %}
