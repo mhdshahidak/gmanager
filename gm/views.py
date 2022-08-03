@@ -12,4 +12,8 @@ def paymentdetails(request):
 
 def viewhistory(request):
     return render (request,'gm/viewhistory.html')  
+
+
+def salary(request):
+    return render (request,'gm/salary.html')  
     

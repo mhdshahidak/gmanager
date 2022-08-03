@@ -9,12 +9,20 @@
                 <li> 
                     <a href="{% url 'gm:home' %}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
                 </li>
-                <li> 
+                <!-- <li> 
                     <a href="{% url 'gm:paymentdetails' %}"><i class="la la-edit"></i> <span>Payment Details</span></a>
+                </li> -->
+                  <li class="submenu">
+                    <a href="#"><i class="las la-money-bill"></i> <span> Payment Details</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="{% url 'gm:paymentdetails' %}">Projects Payment</a></li>
+                        <li><a href="{% url 'gm:salary' %}">Employee Payments</a></li>
+                        <!-- <li><a href="">Task Board</a></li> -->
+                    </ul>
                 </li>
-                <li> 
+                <!-- <li> 
                     <a href=""><i class="la la-tasks"></i> <span>Feed Back Section</span></a>
-                </li>
+                </li> -->
                
                
                 <li class="menu-title"> 

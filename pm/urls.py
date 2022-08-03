@@ -23,7 +23,7 @@ urlpatterns = [
     path('dailyprogress', views.dailyprogress, name='dailyprogress'),
     path('viewdailyreport', views.viewdailyreport, name='viewdailyreport'),
     path('qcapprovel', views.qcapprovel, name='qcapprovel'),
-
+    path('leaverequest', views.leaverequest, name='leaverequest'),
 
     
 ]

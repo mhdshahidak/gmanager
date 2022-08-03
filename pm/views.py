@@ -66,5 +66,7 @@ def viewdailyreport(request):
 
 def qcapprovel(request):
     return render (request,'pm/qcapprovel.html')  
-    
+
+def leaverequest(request):
+    return render (request,'pm/leaverequest.html')    
     
