@@ -10,6 +10,12 @@ def employeeHome(request):
 def allProjects(request):
     return render(request,'employee/projects.html')
 
+def empDailyProgress(request):
+    return render(request,'employee/daily_progress.html')
+
+def empProgressReport(request):
+    return render(request,'employee/progress_report.html')
+
 def empTask(request):
     return render(request,'employee/task.html')
 
