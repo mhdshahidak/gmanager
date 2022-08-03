@@ -1,0 +1,121 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Leave Request</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Leave Request</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+
+
+        <div class="row staff-grid-row">
+
+            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+                <div class="profile-widget">
+                    <div class="profile-img">
+                        <a href="client-profile.html" class="avatar"><img alt=""
+                                src="{% static 'ceo/img/profiles/avatar-29.jpg' %}"></a>
+                    </div>
+
+                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html">Delta
+                            Infotech</a></h4>
+                    <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html">Web Developer</a></h5>
+                    <div class="small text-muted"><a href="#" class="btn btn-white btn-sm m-t-10"
+                            data-bs-toggle="modal" data-bs-target="#edit_client">View Reason</a></div>
+                    <a href="#" class="btn btn-white btn-sm m-t-10">Accept</a>
+                    <a href="#" class="btn btn-white btn-sm m-t-10" data-bs-toggle="modal"
+                        data-bs-target="#delete_client">Delect</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    <!-- Add Client Modal -->
+
+    <!-- /Add Client Modal -->
+
+    <!-- Edit Client Modal -->
+    <div id="edit_client" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">View Reason </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Blockquotes</h4>
+                            <blockquote>
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                    erat a ante.</p>
+                            </blockquote>
+                            <blockquote class="blockquote">
+                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere
+                                    erat a ante.</p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Client Modal -->
+
+    <!-- Delete Client Modal -->
+   
+    <!-- /Delete Client Modal -->
+
+
+
+
+    <div id="delete_client" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejected Reason</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                       
+                        <div class="form-group">
+                            <label>Reason <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="4"></textarea>
+                        </div>
+                        
+                        
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

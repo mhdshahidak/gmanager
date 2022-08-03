@@ -1,0 +1,106 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Daily View</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Project</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="project-task">
+                    <ul class="nav nav-tabs nav-tabs-top nav-justified mb-0">
+                        <li class="nav-item"><a class="nav-link active" href="#all_tasks" data-bs-toggle="tab"
+                                aria-expanded="true">Morning</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#pending_tasks" data-bs-toggle="tab"
+                                aria-expanded="false">Afternoon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#completed_tasks" data-bs-toggle="tab"
+                                aria-expanded="false">Evenging</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="all_tasks">
+                            <div class="card-body">
+                                <div class="tab-content pt-0">
+                                    <div>
+                                        <h5 class="card-title">project 1</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make
+                                            up the bulk of the card's content.</p>
+                                        <h5 class="card-title">project 2</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make
+                                            up the bulk of the card's content.</p>
+                                        <div class="text-end">
+                                            <button class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pending_tasks">
+                            <div class="card-body">
+                                <div class="tab-content pt-0">
+                                    <div>
+                                        <h5 class="card-title">project 1</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make
+                                            up the bulk of the card's content.</p>
+                                        <div class="text-end">
+                                            <button class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="completed_tasks">
+                            <div class="card-body">
+                                <div class="tab-content pt-0">
+                                    <div>
+                                        <h5 class="card-title">project 1</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make
+                                            up the bulk of the card's content.</p>
+                                        <div class="text-end">
+                                            <button class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Content -->
+
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}
