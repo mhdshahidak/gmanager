@@ -62,3 +62,9 @@ def dailyprogress(request):
 def viewdailyreport(request):
     return render (request,'pm/viewdailyreport.html')  
     
+
+
+def qcapprovel(request):
+    return render (request,'pm/qcapprovel.html')  
+    
+    
