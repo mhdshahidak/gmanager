@@ -19,6 +19,8 @@ urlpatterns = [
     path('addschedule', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
     path('viewtask', views.viewtask, name='viewtask'),
+    path('srs', views.srs, name='srs'),
+
 
     path('dailyprogress', views.dailyprogress, name='dailyprogress'),
     path('viewdailyreport', views.viewdailyreport, name='viewdailyreport'),
