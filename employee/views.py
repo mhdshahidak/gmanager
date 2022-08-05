@@ -23,6 +23,13 @@ def projectSrs(request):
     }
     return render(request,'employee/srs.html',context)
 
+def empRework(request):
+    context = {
+        "is_rework":True,
+    }
+    return render(request,'employee/rework.html',context)
+
+
 def empDailyProgress(request):
     context = {
         "is_dailyprogress":True,
