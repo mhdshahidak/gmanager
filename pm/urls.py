@@ -20,6 +20,7 @@ urlpatterns = [
     path('task', views.task, name='task'),
     path('viewtask', views.viewtask, name='viewtask'),
     path('srs', views.srs, name='srs'),
+    path('fullprojectlist', views.fullprojectlist, name='fullprojectlist'),
 
 
     path('dailyprogress', views.dailyprogress, name='dailyprogress'),
