@@ -7,6 +7,13 @@ def base(request):
     return render (request,'ceo/partials/base.html')
 
 
+
+
+
+def login(request):
+    return render (request,'ceo/login.html')  
+
+
 def admin(request):
     return render (request,'ceo/dashboard/admin.html')  
 
