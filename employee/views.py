@@ -1,44 +1,91 @@
+from multiprocessing import context
 from django.shortcuts import render
 
 # Create your views here.
 
 def employeeHome(request):
-    return render(request,'employee/home.html')
+    context={
+        "is_home":True,
+    }
+    return render(request,'employee/home.html',context)
 
 
 # ----- Projects ------
 def allProjects(request):
-    return render(request,'employee/projects.html')
+    context = {
+        "is_allprojects":True,
+    }
+    return render(request,'employee/projects.html',context)
+
+def projectSrs(request):
+    context = {
+        "is_srs":True,
+    }
+    return render(request,'employee/srs.html',context)
 
 def empDailyProgress(request):
-    return render(request,'employee/daily_progress.html')
+    context = {
+        "is_dailyprogress":True,
+    }
+    return render(request,'employee/daily_progress.html',context)
 
 def empProgressReport(request):
-    return render(request,'employee/progress_report.html')
+    context = {
+        "is_progressreport":True,
+    }
+    return render(request,'employee/progress_report.html',context)
 
 def empTask(request):
-    return render(request,'employee/task.html')
+    context = {
+        "is_task":True,
+    }
+    return render(request,'employee/task.html',context)
 
 def empHomework(request):
-    return render(request,'employee/homework.html')
+    context = {
+        "is_homework":True,
+    }
+    return render(request,'employee/homework.html',context)
+
+# ------ Leaves ------
+def empAttendance(request):
+    context = {
+        "is_attendance":True,
+    }
+    return render(request,'employee/attendance.html',context)
 
 
 
 # ----- employee ------
 def allEmployees(request):
-    return render(request,'employee/all_employees.html')
+    context = {
+        "is_employee":True,
+    }
+    return render(request,'employee/all_employees.html',context)
 
 def empDepartment(request):
-    return render(request,'employee/department.html')
+    context = {
+        "is_department":True,
+    }
+    return render(request,'employee/department.html',context)
 
 def empTimeline(request):
-    return render(request,'employee/timeline.html')
-# ------ team -------
+    context = {
+        "is_timeline":True,
+    }
+    return render(request,'employee/timeline.html',context)
 
+# ------ team -------
 def empTeam(request):
-    return render(request,'employee/team.html')
+    context = {
+        "is_team":True,
+    }
+    return render(request,'employee/team.html',context)
 
 
 #------ Profile ------
 def empProfile(request):
-    return render(request,'employee/profile.html')
+    context = {
+        "is_profile":True,
+    }
+    return render(request,'employee/profile.html',context)
