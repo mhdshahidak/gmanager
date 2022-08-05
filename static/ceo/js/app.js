@@ -166,6 +166,14 @@ $(document).ready(function() {
 			"bFilter": false,
 		});
 	}
+	// if ($('.datatable').length > 0) {
+    //     $('.datatable').DataTable({
+    //         language: {
+    //             search: '<i class="fas fa-search"></i>',
+    //             searchPlaceholder: "Search"
+    //         }
+    //     });
+    // }
 	
 	// Tooltip
 

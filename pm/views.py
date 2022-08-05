@@ -60,6 +60,12 @@ def srs(request):
     return render (request,'pm/project/srs.html')  
 
 
+
+def fullprojectlist(request):
+    return render (request,'pm/project/fullprojectlist.html')  
+
+
+
 def dailyprogress(request):
     return render (request,'pm/dailyprogress.html')    
 
