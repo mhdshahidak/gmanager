@@ -8,27 +8,49 @@
                 <li class="menu-title">
                     <span>Main</span>
                 </li>
-                <li>
+                <li {% if is_home %} class="active" {% endif %}>
                     <a href="{% url 'employee:employeehome' %}"><i class="la la-dashboard"></i> <span> Profile</span></a>
                 </li>
-                <li>
+                <li {% if is_allprojects %} class="active" {% endif %}>
                     <a href="{% url 'employee:allprojects' %}"><i class="la la-rocket"></i> <span> Projects</span></a>
                 </li>
-                <!-- <li class="submenu">
-                    <a href="#"><i class="la la-rocket"></i> <span> My Projects</span> <span class="menu-arrow"></span></a>
-                    <ul style="display: none;">
-                        <li><a href="{% url 'employee:allprojects' %}">Projects</a></li>
-                        <li><a href="">Assigned Projects</a></li>
-                        <li><a href="">Rework Projects</a></li>
-                        <li><a href="">Completed Projects</a></li>
-                        <li><a href=""> SRS</a></li>
-                    </ul>
-                </li> -->
-                <li>
+                <li {% if is_srs %} class="active" {% endif %}>
+                    <a href="{% url 'employee:projectsrs' %}"><i class="la la-tasks"></i> <span> SRS</span></a>
+                </li>
+                <li {% if is_task %} class="active" {% endif %}>
                     <a href="{% url 'employee:emptask' %}"><i class="la la-tasks"></i> <span> Task</span></a>
                 </li>
-                <li>
+                <li {% if is_team %} class="active" {% endif %}>
                     <a href="{% url 'employee:empteam' %}"><i class="la la-users-cog"></i> <span> Team</span></a>
+                </li>
+                <li {% if is_homework %} class="active" {% endif %}>
+                    <a href="{% url 'employee:emphomework' %}"><i class="la la-desktop"></i> <span> Home Work</span></a>
+                </li>
+                <li>
+                    <a href=""><i class="la la-certificate"></i> <span> Course</span></a>
+                </li>
+
+
+                <li class="menu-title">
+                    <span>Employees</span>
+                </li>
+                <li class="submenu" 
+                    {% if is_employee %} class="active" {% endif %}
+                    {% if is_department %} class="active" {% endif %}
+                    {% if is_timeline %} class="active" {% endif %} >
+                    <a href="#"><i class="la la-user"></i> 
+                        <span> Employees</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li {% if is_employee %} class="active" {% endif %}>
+                            <a href="{% url 'employee:allemployees' %}">All Employees</a>
+                        </li>
+                        <li {% if is_department %} class="active" {% endif %}>
+                            <a href="{% url 'employee:department' %}">Department</a>
+                        </li>
+                        <li {% if is_timeline %} class="active" {% endif %}>
+                            <a href="{% url 'employee:emptimeline' %}">TimeLine</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="la la-user"></i> <span> Leave</span> <span
@@ -39,27 +61,11 @@
                         <li><a href="">Excuse Form</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href=""><i class="la la-dashboard"></i> <span> Attendance</span></a>
+                <li {% if is_attendance %} class="active" {% endif %}>
+                    <a href="{% url 'employee:empattendance' %}"><i class="la la-dashboard"></i> <span> Attendance</span></a>
                 </li>
-                <li>
-                    <a href="{% url 'employee:emphomework' %}"><i class="la la-desktop"></i> <span> Home Work</span></a>
-                </li>
-                <li>
-                    <a href=""><i class="la la-certificate"></i> <span> Course</span></a>
-                </li>
-                <li class="menu-title">
-                    <span>Employees</span>
-                </li>
-                <li class="submenu">
-                    <a href="#"><i class="la la-user"></i> <span> Employees</span> <span
-                            class="menu-arrow"></span></a>
-                    <ul style="display: none;">
-                        <li><a href="{% url 'employee:allemployees' %}">All Employees</a></li>
-                        <li><a href="{% url 'employee:department' %}">Department</a></li>
-                        <li><a href="{% url 'employee:emptimeline' %}">TimeLine</a></li>
-                    </ul>
-                </li>
+
+
                 <li class="menu-title"> 
                     <span>More</span>
                 </li>
