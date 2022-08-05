@@ -1,0 +1,85 @@
+{% extends "employee/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Data Tables</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Data Tables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-0">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Upload SRS</h4>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="datatable table table-stripped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Project Name</th>
+                                        <th>Client Name</th>
+                                        <th>note</th>
+                                        <th>SRS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="color: NAVY;">ONFLAP TECHNOLOGY</td>
+                                        <td>ONFLAP TECHNOLOGY QWAIT</td>
+                                        <td>it solution service center</td>
+                                        <td>
+                                            <form action="">
+                                                <input type="file">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: NAVY;">ONFLAP TECHNOLOGY</td>
+                                        <td class="text-lowercase">ONFLAP TECHNOLOGY QWAIT</td>
+                                        <td>it solution service center</td>
+                                        <td>
+                                            <form action="">
+                                                <input type="file">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: NAVY;">ONFLAP TECHNOLOGY</td>
+                                        <td>ONFLAP TECHNOLOGY QWAIT</td>
+                                        <td>it solution service center</td>
+                                        <td>
+                                            <form action="">
+                                                <input type="file">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>			
+</div>
+<!-- /Page Wrapper -->
+
+{% endblock %}
