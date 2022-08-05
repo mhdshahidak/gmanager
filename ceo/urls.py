@@ -6,7 +6,8 @@ app_name = 'ceo'
 urlpatterns = [
     path('base', views.base, name='base'),
     # dashboard
-    path('', views.admin, name='admin'),
+    path('', views.login, name='login'),
+    path('admin', views.admin, name='admin'),
     path('crm', views.crm, name='crm'),
     path('employee', views.employee, name='employee'),
     path('hr', views.hr, name='hr'),

@@ -55,6 +55,11 @@ def viewtask(request):
     return render (request,'pm/project/viewtask.html')  
 
 
+
+def srs(request):
+    return render (request,'pm/project/srs.html')  
+
+
 def dailyprogress(request):
     return render (request,'pm/dailyprogress.html')    
 
