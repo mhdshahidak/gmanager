@@ -1,0 +1,190 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+
+
+
+
+
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Qc Approvel List</h3>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Project Name </th>
+                                <th>Username </th>
+                                <th>Password </th>
+                                <th>Download </th>
+                                <th>ReWork Count</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Leave Policy
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">WebApp.geany.website </span>
+                                    </small>
+                                </td>
+                                <td>Shahil khan</td>
+                                <td>86876860739</td>
+                                <td> <button class="btn  badge-pill bg-success-light m-t-10">Download </button></td>
+<td></td>
+                                <td class="text-end">
+                                    <button class="btn  badge-pill bg-info-light m-t-10">Accepted </button>
+                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
+                                        data-bs-target="#rejected_modal">Rework </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Permission Policy
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">abc.herokuapp.com </span>
+                                    </small>
+                                </td>
+                                <td>shahid</td>
+                                <td>899827638769</td>
+                                <td> <button class="btn  badge-pill bg-success-light m-t-10">Download </button>
+                                </td>
+                                <td class="text-center">
+                                    <ul class="team-members text-nowrap ">
+                                     
+                                        <li class="dropdown avatar-dropdown ">
+                                            <a href="#" class="all-users dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">+15</a>
+
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td class="text-end">
+                                    <button class="btn  badge-pill bg-info-light m-t-10">Accepted </button>
+                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
+                                        data-bs-target="#rejected_modal">ReWork </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+    <!-- Add Policy Modal -->
+    <div id="rejected_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Reason For Rejection</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label>Reason <span class="text-danger">*</span></label>
+                            <textarea class="form-control" rows="6"></textarea>
+                        </div>
+
+
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Policy Modal -->
+
+    <!-- Edit Policy Modal -->
+    <div id="resent_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Resent Praposal</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Client Whatsapp Number <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" value="545645645">
+                        </div>
+                        <div class="form-group">
+                            <label>Client Email Address<span class="text-danger">*</span></label>
+                            <input class="form-control" type="email" value="swhhj@gmail.com">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Upload Policy <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" id="edit_policy_upload">
+                        </div>
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Policy Modal -->
+
+    <!-- Delete Policy Modal -->
+    <div class="modal custom-modal fade" id="delete_policy" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Policy</h3>
+                        <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                    class="btn btn-primary cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Policy Modal -->
+
+</div>
+
+{% endblock %}

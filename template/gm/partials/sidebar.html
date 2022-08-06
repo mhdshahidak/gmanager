@@ -1,0 +1,43 @@
+{% load static %}
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="menu-title"> 
+                    <span>Main</span>
+                </li>
+                <li> 
+                    <a href="{% url 'gm:home' %}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
+                </li>
+                <!-- <li> 
+                    <a href="{% url 'gm:paymentdetails' %}"><i class="la la-edit"></i> <span>Payment Details</span></a>
+                </li> -->
+                  <li class="submenu">
+                    <a href="#"><i class="las la-money-bill"></i> <span> Payment Details</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="{% url 'gm:paymentdetails' %}">Projects Payment</a></li>
+                        <li><a href="{% url 'gm:salary' %}">Employee Payments</a></li>
+                        <!-- <li><a href="">Task Board</a></li> -->
+                    </ul>
+                </li>
+                <!-- <li> 
+                    <a href=""><i class="la la-tasks"></i> <span>Feed Back Section</span></a>
+                </li> -->
+               
+               
+                <li class="menu-title"> 
+                    <span>More</span>
+                </li>
+                <!-- <li {% if is_leaves %} class="active" {% endif %} > 
+                    <a href="{% url 'crm:leaves' %}"><i class="la la-sign-out-alt"></i> <span>Leaves</span></a>
+                </li>
+                <li {% if is_attantance %} class="active" {% endif %}> 
+                    <a href="{% url 'crm:attantance' %}"><i class="la la-calendar-check"></i> <span>Attendance</span></a>
+                </li> -->
+                <li {% if is_settings %} class="active" {% endif %}> 
+                    <a href="{% url 'crm:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

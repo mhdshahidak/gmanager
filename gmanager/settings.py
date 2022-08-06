@@ -42,6 +42,12 @@ INSTALLED_APPS = [
     'ceo',
     'employee',
     'crm',
+    'hrm',
+    'gm',
+    'clients',
+    'accounts',
+    'pm',
+
 ]
 
 MIDDLEWARE = [
