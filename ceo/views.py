@@ -22,7 +22,7 @@ def crm(request):
     return render (request,'ceo/dashboard/crm.html')  
 
 
-def employee(request):
+def employe(request):
     return render (request,'ceo/dashboard/employee.html')  
 
 
