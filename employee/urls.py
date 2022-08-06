@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('allprojects',views.allProjects,name='allprojects'),
     path('projectsrs',views.projectSrs,name='projectsrs'),
+    path('emprework',views.empRework,name='emprework'),
     path('dailyprogress',views.empDailyProgress,name='dailyprogress'),
     path('progressreport',views.empProgressReport,name='progressreport'),   
     path('emptask',views.empTask,name='emptask'),
