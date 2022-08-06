@@ -1,0 +1,76 @@
+{% extends "employee/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Profile</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'employee:employeehome' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!--   rework   -->
+        <div class="col-md-12">
+            <div class="card card-table card1">
+                <div class="card-body">
+                    <div class="table-responsive" style="padding: 20px;">
+                        <table class="table table-center table-hover datatable"
+                            style="padding: 20px;border-radius: 20px;">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th> Date</th>
+                                    <th>Project</th>
+                                    <th>client</th>
+                                    <th>Note</th>
+                                    <th>Documents</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        12/02/2022
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'employee:progressreport' %}">Onflap</a>
+                                    </td>
+                                    <td>onflap it solutions </td>
+                                    <td>
+                                        <p>Lorem ipsum doloritaque incidunt quis. <br> Molestias  similique soluta!</p>
+                                    </td>
+                                    <td>
+                                        <a href="">uploaded video</a>
+                                    </td>
+                                    <td>
+                                        <a href="">
+                                            <span class="badge badge-pill bg-success-light text-center">
+                                                Complted</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  /rework  -->
+
+    </div>
+</div>
+
+
+{% endblock %}
