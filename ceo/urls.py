@@ -8,12 +8,12 @@ urlpatterns = [
     # dashboard
     path('', views.login, name='login'),
     path('admin', views.admin, name='admin'),
-    path('crm', views.crm, name='crm'),
+    path('crms', views.crm, name='crms'),
     path('employe', views.employe, name='employe'),
-    path('hr', views.hr, name='hr'),
+    # path('hr', views.hr, name='hr'),
     path('projectmanager', views.projectmanager, name='projectmanager'),
-    path('accounts', views.accounts, name='accounts'),
-    path('gm', views.gm, name='gm'),
+    # path('accounts', views.accounts, name='accounts'),
+    # path('gm', views.gm, name='gm'),
 
 
 

@@ -26,8 +26,8 @@ def employe(request):
     return render (request,'ceo/dashboard/employee.html')  
 
 
-def hr(request):
-    return render (request,'ceo/dashboard/hr.html')  
+# def hr(request):
+#     return render (request,'ceo/dashboard/hr.html')  
 
 
 
@@ -35,12 +35,12 @@ def projectmanager(request):
     return render (request,'ceo/dashboard/projectmanager.html')          
 
 
-def accounts(request):
-    return render (request,'ceo/dashboard/accounts.html')  
+# def accounts(request):
+#     return render (request,'ceo/dashboard/accounts.html')  
 
 
-def gm(request):
-    return render (request,'ceo/dashboard/gm.html')    
+# def gm(request):
+#     return render (request,'ceo/dashboard/gm.html')    
 
 
 
