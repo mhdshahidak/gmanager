@@ -6,6 +6,8 @@ app_name = 'employee'
 urlpatterns = [
     path('',views.employeeHome,name='employeehome'),
 
+    path('meetings',views.empMeetingLink,name='meetings'),
+
     path('allprojects',views.allProjects,name='allprojects'),
     path('projectsrs',views.projectSrs,name='projectsrs'),
     path('emprework',views.empRework,name='emprework'),

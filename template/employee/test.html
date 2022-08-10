@@ -1,6 +1,3 @@
-{% load static %}
-
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
@@ -34,8 +31,8 @@
                 <li class="menu-title">
                     <span>Projects</span>
                 </li>
-                <li {% if is_meeting %} class="active" {% endif %}>
-                    <a href="{% url 'employee:meetings' %}"><i class="la la-dashboard"></i> <span> Meeting LIst</span></a>
+                <li>
+                    <a href=""><i class="la la-dashboard"></i> <span> Meeting LIst</span></a>
                 </li>
                 <li {% if is_srs %} class="active" {% endif %}>
                     <a href="{% url 'employee:projectsrs' %}"><i class="la la-tasks"></i> <span> SRS</span></a>
@@ -80,4 +77,151 @@
         </div>
     </div>
 </div>
-<!-- /Sidebar -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow"> -->
+    <title>Employee Dashboard -- Gedexo</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'g.png' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/bootstrap.min.css' %}">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/font-awesome.min.css' %}">
+
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/line-awesome.min.css' %}">
+
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/plugins/morris/morris.css' %}">
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'employee/css/style.css' %}">
+
+    <!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+			<script src="{% static 'ceo/js/html5shiv.min.js' %}"></script>
+			<script src="{% static 'ceo/js/respond.min.js' %}"></script>
+		<![endif]-->
+</head>
+
+<body>
+    <div id="main-wrapper">
+
+        <!-- Header -->
+        {% include 'employee/partials/navbar.html' %}
+        <!-- /Header -->
+
+        <!-- Sidebar -->
+        {% include 'employee/partials/sidebar.html' %}
+        <!-- /Sidebar -->
+
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'ceo/js/jquery-3.6.0.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'ceo/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="{% static 'ceo/js/jquery.slimscroll.min.js' %}"></script>
+
+    <!-- Chart JS -->
+    <script src="{% static 'ceo/plugins/morris/morris.min.js' %}"></script>
+    <script src="{% static 'ceo/plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'ceo/js/chart.js' %}"></script>
+
+    <!-- Select2 JS -->
+    <script src="{% static 'ceo/js/select2.min.js' %}"></script>
+
+    <!-- Datetimepicker JS -->
+    <script src="{% static 'ceo/js/moment.min.js' %}"></script>
+    <script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
+
+    <!-- Datatable JS -->
+    <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'ceo/js/app.js' %}"></script>
+
+    <script>
+        
+
+
+        
+        if ($('.datatable').length > 0) {
+            $('.datatable').DataTable({
+                language: {
+                    search: '<i class="fa fa-search"></i>',
+                    searchPlaceholder: "Search"
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
