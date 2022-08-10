@@ -165,7 +165,7 @@ $(document).ready(function() {
 		$('.datatable').DataTable({
 			"bFilter": false,
 		});
-	}
+	// }
 	// if ($('.datatable').length > 0) {
     //     $('.datatable').DataTable({
     //         language: {
