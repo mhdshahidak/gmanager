@@ -13,3 +13,9 @@ def home(request):
 
 def updation(request):
     return render (request,'clients/updation.html')
+
+
+
+
+def payment(request):
+    return render (request,'clients/payment.html')    

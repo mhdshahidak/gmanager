@@ -10,5 +10,6 @@ urlpatterns = [
     path('viewhistory', views.viewhistory, name='viewhistory'),
 
     path('salary', views.salary, name='salary'),
+    path('projectlist', views.projectlist, name='projectlist'),
 
 ]
