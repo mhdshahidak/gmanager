@@ -3,6 +3,32 @@ from django.shortcuts import render
 # Create your views here.
 
 
+
+
+# def log_in(request):
+# if request.method == 'POST':
+#     email = request.POST['email']
+#     password = request.POST['password']
+
+#     user = authenticate(email=email, password=password)
+#     if user is not None:
+#         login(request, user)
+#         if user.is_superuser == True:
+#             return redirect('admins:admindash')
+#         elif user.branch != None:
+#             return redirect('branch:master')
+#         elif user.teacher != None:
+#             return redirect('teacher:profile')
+#         elif user.Student !=None:
+#             return redirect('student:home')
+#     else:
+#         msg = "* Incorrect email or password *"
+#         return render(request,'adminapps/login.html',{'msg':msg,})
+# return render(request,'adminapps/login.html')
+
+
+
+
 def base(request):
     return render (request,'ceo/partials/base.html')
 
@@ -14,7 +40,7 @@ def login(request):
     return render (request,'ceo/login.html')  
 
 
-def admin(request):
+def ceodashboard(request):
     return render (request,'ceo/dashboard/admin.html')  
 
 

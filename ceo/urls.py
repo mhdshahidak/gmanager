@@ -7,7 +7,7 @@ urlpatterns = [
     path('base', views.base, name='base'),
     # dashboard
     path('', views.login, name='login'),
-    path('admin', views.admin, name='admin'),
+    path('ceodashboard', views.ceodashboard, name='ceodashboard'),
     path('crms', views.crm, name='crms'),
     path('employe', views.employe, name='employe'),
     # path('hr', views.hr, name='hr'),
