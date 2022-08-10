@@ -10,6 +10,14 @@ def employeeHome(request):
     return render(request,'employee/home.html',context)
 
 
+#------meeting ------
+def empMeetingLink(request):
+    context = {
+        "is_meeting":True,
+    }
+    return render(request,'employee/meeting_list.html',context)
+
+
 # ----- Projects ------
 def allProjects(request):
     context = {
