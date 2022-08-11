@@ -175,6 +175,7 @@ $(document).ready(function() {
     //     });
     // }
 	
+	
 	// Tooltip
 
 	if($('[data-bs-toggle="tooltip"]').length > 0) {
