@@ -50,10 +50,12 @@
 						<p class="account-subtitle">Access to our dashboard</p>
 
 						<!-- Account Form -->
-						<form action="admin-dashboard.html">
+						<form method="POST">
+						{% csrf_token %}
+
 							<div class="form-group">
-								<label>Email Address</label>
-								<input class="form-control" type="text" value="admin@dreamguys.in">
+								<label>User Name</label>
+								<input class="form-control" type="text" name="username">
 							</div>
 							<div class="form-group">
 								<div class="row">
@@ -67,16 +69,24 @@
 									</div>
 								</div>
 								<div class="position-relative">
-									<input class="form-control" type="password" value="123456" id="password">
+									<input class="form-control" name="password">
 									<span class="fa fa-eye-slash" id="toggle-password"></span>
 								</div>
 							</div>
 							<div class="form-group text-center">
-								<a href="{% url 'ceo:admin' %}" class="btn btn-primary account-btn" type="submit">Login</a>
+								<button class="btn btn-primary account-btn" type="submit">Login</button>
 							</div>
-							<div class="account-footer">
-								<p>Don't have an account yet? <a href="register.html">Register</a></p>
-							</div>
+							<!-- <div class="account-footer">
+								{{msg}}
+							</div> -->
+							{% if status == 1 %}
+								<div class="alert alert-danger alert-dismissible fade show" role="alert">
+									<strong>Error!</strong> <a href="#" class="alert-link">problem</a><br> Please check your username or password.
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+									</button>
+								</div>
+							{% endif %}
+
 						</form>
 						<!-- /Account Form -->
 

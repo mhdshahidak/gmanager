@@ -317,93 +317,82 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST">
+                    {% csrf_token %}
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text">
+                                  
+                                     {{form.name.label}}<span class="text-danger"> *</span>
+                                    {{form.name}}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Last Name</label>
-                                    <input class="form-control" type="text">
+                                    {{form.employee_id.label}}<span class="text-danger"> *</span>
+                                    {{form.employee_id}}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Username <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text">
+                                   
+                                    {{form.phone.label}}<span class="text-danger">*</span>
+                                    {{form.phone}}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="email">
+                                    {{form.email.label}}<span class="text-danger">*</span>
+                                    {{form.email}}
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{form.username.label}}<span class="text-danger">*</span>
+                                    {{form.username}}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Password</label>
-                                    <input class="form-control" type="password">
+                                      {{form.password.label}}<span class="text-danger">*</span>
+                                    {{form.password}}
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                          <div class="col-sm-6">  
                                 <div class="form-group">
-                                    <label class="col-form-label">Confirm Password</label>
-                                    <input class="form-control" type="password">
+                                      {{form.whatsapp_number.label}}<span class="text-danger">*</span>
+                                    {{form.whatsapp_number}}
                                 </div>
                             </div>
                             <div class="col-sm-6">  
                                 <div class="form-group">
-                                    <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">  
-                                <div class="form-group">
-                                    <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
-                                    <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div>
+                                  {{form.join_date.label}}<span class="text-danger">*</span>
+                                {{form.join_date}}
+                                   
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Phone </label>
-                                    <input class="form-control" type="text">
+                                   {{form.dob.label}}<span class="text-danger">*</span>
+                                {{form.dob}}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="col-form-label">Company</label>
-                                    <select class="select">
-                                        <option value="">Global Technologies</option>
-                                        <option value="1">Delta Infotech</option>
-                                    </select>
+                                    
+                                    {{form.catagory.label}}<span class="text-danger">*</span>
+                                    {{form.catagory}}
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>Department <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Select Department</option>
-                                        <option>Web Development</option>
-                                        <option>IT Management</option>
-                                        <option>Marketing</option>
-                                    </select>
+                                  
+                                    {{form.address.label}}<span class="text-danger">*</span>
+                                    {{form.address}}
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Designation <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Select Designation</option>
-                                        <option>Web Designer</option>
-                                        <option>Web Developer</option>
-                                        <option>Android Developer</option>
-                                    </select>
-                                </div>
-                            </div>
+                        
                         </div>
                       
                         <div class="submit-section">
