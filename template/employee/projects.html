@@ -134,7 +134,7 @@
                                         <th>Added Date</th>
                                         <th>Status</th>
                                         <th>Completion</th>
-                                        <th>Action</th>
+                                        <th class="text-end">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -158,9 +158,9 @@
                                                
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="{% url 'employee:dailyprogress' %}">                            
-                                                <span class="badge badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
+                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
                                             </a>                                        </td>
                                     </tr>
                                     <tr>
@@ -183,9 +183,9 @@
                                                
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="">                            
-                                                <span class="badge badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
+                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
                                             </a>                                        </td>
                                     </tr>
                                     <tr>
@@ -208,10 +208,11 @@
                                                
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="">                            
-                                                <span class="badge badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
-                                            </a>                                        </td>
+                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
+                                            </a>                                        
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -229,9 +230,9 @@
                                             75%
                                             <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" title="" style="width: 88%" data-bs-original-title="88%" aria-label="88%"></div>
                                         </td>
-                                        <td>
+                                        <td class="text-center">
                                             <a href="">                            
-                                                <span class="badge badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
+                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
                                             </a>
                                         </td>
                                     </tr>
@@ -282,7 +283,7 @@
                                         </td>
                                         <td>$295</td>
                                         <td>16 Nov 2020</td>
-                                        <td><span class="badge badge-pill bg-success-light">Active</span></td>
+                                        <td><span class="btn badge-pill bg-success-light">Active</span></td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -301,7 +302,8 @@
                                         </td>
                                         <td>-</td>
                                         <td>29 Sep 2020</td>
-                                        <td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
+                                        <td>
+                                            <span class="btn badge-pill bg-danger-light">Inactive</span></td>
                                         </td>
                                     </tr>
                                     

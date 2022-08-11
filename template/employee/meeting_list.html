@@ -1,0 +1,77 @@
+{% extends 'employee/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Meeting Links</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'employee:employeehome' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Meeting Link</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card mb-0">
+                    <!-- <div class="card-header">
+                        <h4 class="card-title mb-0">Default Datatable</h4>
+                        <p class="card-text">
+                            This is the most basic example of the datatables with zero configuration. Use the <code>.datatable</code> class to initialize datatables.
+                        </p>
+                    </div> -->
+                    <div class="card-body">
+
+                        <div class="table-responsive">
+                            <table class="datatable table table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>ProjectName</th>
+                                        <th>Client</th>
+                                        <th>Time</th>
+                                        <th>Platform</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>12/05/2022</td>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>10.30am</td>
+                                        <td>
+                                            <a href="" style="color: navy;">http://127.0.0.1:8000/employee/meetings</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>20/05/2022</td>
+                                        <td>System Architect</td>
+                                        <td>Edinburgh</td>
+                                        <td>10.30am</td>
+                                        <td>
+                                            <a href="" style="color: navy;">http://127.0.0.1:8000/employee/meetings</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>			
+</div>
+
+{% endblock %}

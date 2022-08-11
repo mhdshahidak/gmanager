@@ -1,7 +1,6 @@
 
 
-
-{% extends 'pm/partials/base.html' %}
+{% extends 'gm/partials/base.html' %}
 {% load static %}
 {% block content %}
 
@@ -39,7 +38,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-striped custom-table datatable">
+                    <table class="table table-striped custom-table datatable" id="example">
                         <thead>
                             <tr>
                                 <th>Project</th>
@@ -487,6 +486,12 @@
     
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $('#example').dataTable( {
+  "searching": true
+} );
+</script>
 
 
 {% endblock %}

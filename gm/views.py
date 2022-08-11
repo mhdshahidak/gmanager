@@ -17,3 +17,7 @@ def viewhistory(request):
 def salary(request):
     return render (request,'gm/salary.html')  
     
+
+def projectlist(request):
+    return render (request,'gm/projectlist.html')  
+        
