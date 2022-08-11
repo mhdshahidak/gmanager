@@ -26,15 +26,15 @@ class UserManager(BaseUserManager):
 
 
 
-class Catagoty(models.Model):
-    catagoty_title = models.CharField(max_length=40)
+class Catagory(models.Model):
+    catagory_title = models.CharField(max_length=40)
     
     def __str__(self):
-        return str(self.catagoty_title)
+        return str(self.catagory_title)
 
 
 class SubCatagory(models.Model):
-    catagoty = models.ForeignKey(Catagoty, on_delete=models.CASCADE)
+    catagory = models.ForeignKey(Catagory, on_delete=models.CASCADE)
     title = models.CharField(max_length=40)
 
     def __str__(self):
@@ -46,7 +46,7 @@ class SubCatagory(models.Model):
 class Employees(models.Model):
     name = models.CharField(max_length = 200)
     employee_id = models.CharField(max_length = 25)
-    catagoty = models.ForeignKey(SubCatagory, on_delete = models.PROTECT)
+    catagory = models.ForeignKey(SubCatagory, on_delete = models.PROTECT)
     phone = PhoneField(blank=True, help_text='Contact phone number')
     email = models.EmailField()
     dob = models.DateField(null = True)
@@ -79,10 +79,7 @@ class EmergenctContact(models.Model):
 
 
 
-class User(AbstractBaseUser, PermissionsMixin):
-    first_name = models.CharField(max_length=20,null=True)
-    last_name=models.CharField(max_length=20,null=True)
-    email=models.EmailField(unique=True)
+class User(AbstractBaseUser, PermissionsMixin):  
     username = models.CharField(max_length = 50, unique=True)
     phone_number=PhoneField()
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)

@@ -1,33 +1,11 @@
-from django.shortcuts import render
-
+from django.shortcuts import redirect, render
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
+from django.contrib.auth import get_user_model
+# from django.contrib.auth import login as auth_login
 # Create your views here.
-
-
-
-
-# def log_in(request):
-# if request.method == 'POST':
-#     email = request.POST['email']
-#     password = request.POST['password']
-
-#     user = authenticate(email=email, password=password)
-#     if user is not None:
-#         login(request, user)
-#         if user.is_superuser == True:
-#             return redirect('admins:admindash')
-#         elif user.branch != None:
-#             return redirect('branch:master')
-#         elif user.teacher != None:
-#             return redirect('teacher:profile')
-#         elif user.Student !=None:
-#             return redirect('student:home')
-#     else:
-#         msg = "* Incorrect email or password *"
-#         return render(request,'adminapps/login.html',{'msg':msg,})
-# return render(request,'adminapps/login.html')
-
-
-
+from . form import RegisterForm
+from . models import *
 
 def base(request):
     return render (request,'ceo/partials/base.html')
@@ -36,8 +14,45 @@ def base(request):
 
 
 
-def login(request):
+def log_in(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']    
+        user = authenticate(username=username, password=password)       
+        if user is not None:            
+            login(request, user)
+            if user.is_superuser == True:
+                return redirect('ceo:ceodashboard')
+            elif user.employee.catagory.catagory.catagory_title == "HRM" :
+                return redirect('hrm:hrhome')
+            elif user.employee.catagory.catagory.catagory_title == "CRM":
+                return redirect('crm:crmhome')
+            elif user.employee.catagory.catagory.catagory_title == "PM":
+                return redirect('pm:index')
+            elif user.employee.catagory.catagory.catagory_title == "GM":
+                return redirect('gm:home')
+            elif user.employee.catagory.catagory.catagory_title == "ACCOUNTS":
+                return redirect('accounts:home')
+            elif user.employee.catagory.catagory.catagory_title == "CLIENT":
+                return redirect('clients:home')
+            elif user.employee.catagory.catagory.catagory_title == "EMPLOYEE":
+                return redirect('employee:employeehome')
+            
+        else:
+        
+            context = {
+                "status":1,               
+            }
+            return render(request,'ceo/login.html',context)
+    
     return render (request,'ceo/login.html')  
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('ceo:login')
+
+
 
 
 def ceodashboard(request):
@@ -86,7 +101,28 @@ def employeelist(request):
 
 
 def allstaff(request):
-    return render (request,'ceo/allstaff.html')   
+    form=RegisterForm(request.POST or None)    
+    if request.method=='POST':        
+        if form.is_valid():           
+            data = form.save()            
+            form_data = Employees.objects.get(id=data.id)
+            
+            User = get_user_model()
+            User.objects.create_user(username=form_data.username, password=form_data.password,employee=form_data)
+
+            return redirect('ceo:ceodashboard')
+        else:
+            pass
+
+    else:
+        context={
+            "form":RegisterForm,
+        } 
+        return render (request,'ceo/allstaff.html',context)
+    return render (request,'ceo/allstaff.html',context)    
+        
+       
+       
 
 
 def dailychecked(request):
