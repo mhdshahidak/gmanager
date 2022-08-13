@@ -31,6 +31,7 @@ class Enquiry(models.Model):
     type = models.CharField(max_length = 50,null=True, choices=choices)
     files = models.FileField(upload_to="Enquiry/", max_length=100000)
     details = models.CharField(max_length = 1000000,null=True)
+    reason = models.CharField(max_length = 1000000,null=True,default= 'no reason')
 
 
     def __str__(self):
