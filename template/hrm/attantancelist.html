@@ -29,77 +29,32 @@
                         <thead>
                             <tr>
                                 <th>Employee</th>
-                                <th>Date</th>
                                 <th>Department</th>
                                 <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
+
+                            {% for emp in allemp %}
                             <tr>
                                 <td>
                                     <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
-                                        <a href="profile.html">John Doe <span>#0001</span></a>
+                                        <a href="" class="avatar"><img alt="" src="{{emp.emp_profile.url}}"></a>
+                                        <a href="profile.html">{{emp.name}} br
+                                        <small class="block text-ellipsis mt-1 ms-5"> 
+                                            <span class="text-muted">
+                                                {{emp.employee_id}}
+                                            </span>
+                                        </small></a>
                                     </h2>
                                 </td>
-                                <td>20 Dec 2020</td>
-                                <td>Design</td>
+                                <td>{{emp.catagory}}</td>
                                 <td class="text-center">
                                     <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
-                                        <a href="profile.html">Richard Miles <span>#0002</span></a>
-                                    </h2>
-                                </td>
-                                <td>20 Dec 2020</td>
-                                <td>Web Developer</td>
-                                <td class="text-center">
-                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
-                                        <a href="profile.html">John Smith <span>#003</span></a>
-                                    </h2>
-                                </td>
-                                <td>20 Dec 2020</td>
-                                <td>Android Developer</td>
-                                <td class="text-center">
-                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
-                                        <a href="profile.html">Mike Litorus <span>#004</span></a>
-                                    </h2>
-                                </td>
-                                <td>20 Dec 2020</td>
-                                <td>IOS Developer</td>
-                                <td class="text-center">
-                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-11.jpg' %}"></a>
-                                        <a href="profile.html">Wilmer Deluna <span>#005</span></a>
-                                    </h2>
-                                </td>
-                                <td>20 Dec 2020</td>
-                                <td>Team Leader</td>
-                                <td class="text-center">
-                                    <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
-                                </td>
-                            </tr>
+                            {% endfor %}
+
                         </tbody>
                     </table>
                 </div>
