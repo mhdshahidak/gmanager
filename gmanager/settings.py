@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'clients',
     'accounts',
     'pm',
+    'common',
 
 ]
 

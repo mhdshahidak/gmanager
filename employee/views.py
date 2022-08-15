@@ -1,7 +1,11 @@
 from multiprocessing import context
 from django.shortcuts import render
 
+from ceo.models import EmergenctContact
+
 # Create your views here.
+
+
 
 def employeeHome(request):
     context={
@@ -63,6 +67,13 @@ def empHomework(request):
     return render(request,'employee/homework.html',context)
 
 # ------ Leaves ------
+def leaveApplication(request):
+    context = {
+        "is_attendance":True,
+    }
+    return render(request,'employee/leave_application.html',context)
+
+
 def empAttendance(request):
     context = {
         "is_attendance":True,
@@ -100,7 +111,10 @@ def empTeam(request):
 
 #------ Profile ------
 def empProfile(request):
+    emp=EmergenctContact.objects.get(employee=request.user.employee)
     context = {
         "is_profile":True,
+        "emp":emp,
     }
     return render(request,'employee/profile.html',context)
+
