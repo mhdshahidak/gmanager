@@ -3,25 +3,25 @@
 {% block content %}
 
 <div class="page-wrapper">
-			
+
     <!-- Page Content -->
     <div class="content container-fluid">
-    
+
         <!-- Page Header -->
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">Proposal List</h3>
+                    <h3 class="page-title">Client Approvel List</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Proposal</li>
+                        <li class="breadcrumb-item active">Client Approvel List</li>
                     </ul>
                 </div>
-               
+
             </div>
         </div>
         <!-- /Page Header -->
-        
+
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -31,49 +31,39 @@
                                 <th style="width: 30px;">#</th>
                                 <th>Project Name </th>
                                 <th>Client Name </th>
-                                <th>Whatsapp  Number </th>
+                                <th>Whatsapp Number </th>
                                 <th>Email </th>
-                                <th>Proposal Pdf</th>
+
                                 <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for details in data %}
                             <tr>
-                                <td>1</td>
-                                <td>Leave Policy
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{details.projectname}}
                                     <small class="block text-ellipsis">
-                                        <span class="text-muted">Web App </span>
+                                        <span class="text-muted">{{details.type}}</span>
                                     </small>
                                 </td>
-                                <td>Shahil khan</td>
-                                <td>86876860739</td>
-                                <td>shahil@gmail.com</td>
-                                <td>
-                                    <input type="file" class="form-control" id="policy_upload"></td>
+                                <td>{{details.clientname}}</td>
+                                <td>{{details.whatsapp}}</td>
+                                <td>{{details.email}}</td>
+
                                 <td class="text-end">
-                                    
-                                    <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
-                                    
+
+                                    <button onclick="Change_Status('{{ details.id }}')"
+                                        class="btn  badge-pill bg-success-light m-t-10">Approved </button>
+                                    <button onclick="Rejecteddata({{details.id}})" class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
+                                        data-bs-target="#rejected_modal">Rejected </button>
                                 </td>
+
+
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Permission Policy
-                                    <small class="block text-ellipsis">
-                                        <span class="text-muted">Mobile App </span>
-                                    </small>
-                                </td>
-                                <td>shahid</td>
-                                <td>899827638769</td>
-                                <td>shahid@gmail.com</td>
-                                <td>
-                                    <input type="file" class="form-control" id="policy_upload"></td>
-                                    <td class="text-end">
-                                    
-                                        <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
-                                        
-                                    </td>
-                            </tr>
+                            {% endfor %}
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -82,7 +72,7 @@
 
 
 
-        
+
     </div>
     <!-- /Page Content -->
 
@@ -90,9 +80,9 @@
 
 
 
-    <div class="content container-fluid">
+    <!-- <div class="content container-fluid">
     
-        <!-- Page Header -->
+      
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
@@ -102,7 +92,7 @@
                
             </div>
         </div>
-        <!-- /Page Header -->
+     
         
         <div class="row">
             <div class="col-md-12">
@@ -166,7 +156,7 @@
 
 
         
-    </div>
+    </div> -->
 
 
     <!-- Add Policy Modal -->
@@ -181,15 +171,16 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                       
+
                         <div class="form-group">
                             <label>Reason <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="4"></textarea>
+                            <textarea class="form-control" id="reason" rows="4"></textarea>
+                            <input type="hidden"  id="id">
                         </div>
-                        
-                        
+
+
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">Submit</button>
+                            <button id="savebutton" class="btn btn-primary   submit-btn">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -197,7 +188,7 @@
         </div>
     </div>
     <!-- /Add Policy Modal -->
-    
+
     <!-- Edit Policy Modal -->
     <div id="resent_modal" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -218,8 +209,8 @@
                             <label>Client Email Address<span class="text-danger">*</span></label>
                             <input class="form-control" type="email" value="swhhj@gmail.com">
                         </div>
-                        
-                      
+
+
                         <div class="form-group">
                             <label>Upload Policy <span class="text-danger">*</span></label>
                             <input type="file" class="form-control" id="edit_policy_upload">
@@ -233,7 +224,7 @@
         </div>
     </div>
     <!-- /Edit Policy Modal -->
-    
+
     <!-- Delete Policy Modal -->
     <div class="modal custom-modal fade" id="delete_policy" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
@@ -249,7 +240,8 @@
                                 <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
                             </div>
                             <div class="col-6">
-                                <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                                <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                    class="btn btn-primary cancel-btn">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -261,4 +253,61 @@
 
 </div>
 
+
+<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<script>
+    function Change_Status(id) {
+        $.ajax({
+            url: "/pm/savaProposal",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+    }
+
+
+    function Rejecteddata(id) {
+        // alert('hi')
+        $.ajax({
+            url: "/pm/rejectedreason/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+
+                // console.log(responce)
+                $('#id').val(responce.value.id)
+                
+            }
+
+        })
+        $('#savebutton').click(() => {
+            $.ajax({
+                url: "/pm/typereason",
+                type: 'post',
+                data: {
+                    
+                    'id': $('#id').val(),
+                    'reason': $('#reason').val(),
+                    
+                },
+                success: function (responce) {
+
+                    window.location.reload()
+                }
+
+
+            })
+        })
+    }
+</script>
 {% endblock %}

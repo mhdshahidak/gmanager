@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'phone_field',
     'versatileimagefield',
+    'tinymce',
 
     # apps
 
