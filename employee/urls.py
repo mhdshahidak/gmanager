@@ -16,6 +16,7 @@ urlpatterns = [
     path('emptask',views.empTask,name='emptask'),
     path('emphomework',views.empHomework,name='emphomework'),
 
+    path('leaveapplication',views.leaveApplication,name='leaveapplication'),
     path('empattendance',views.empAttendance,name='empattendance'),
 
     path('allemployees',views.allEmployees,name='allemployees'),
@@ -26,5 +27,6 @@ urlpatterns = [
     path('empteam',views.empTeam,name='empteam'),
 
     path('empprofile',views.empProfile,name='empprofile'),
+    
 
 ]

@@ -18,7 +18,7 @@ def hrmHome(request):
 
 def employeeList(request):
 
-    allemp = EmergenctContact.objects.all()
+    allemp = EmergenctContact.objects.all().order_by('-employee_id')
     empform = EmployeeRegisterForm(request.POST or None, request.FILES or None) 
     empcontactform = EmergenctContactForm(request.POST or None)
     if request.method == 'POST':
@@ -35,7 +35,7 @@ def employeeList(request):
             "empform" : empform,
             "empcontactform" : empcontactform,
         } 
-        return render (request,'hrm/employees.html',context)
+            return render (request,'hrm/employees.html',context)
     context = {
         "is_employeeList":True,
         "empform" : empform,
