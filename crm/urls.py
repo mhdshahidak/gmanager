@@ -14,4 +14,6 @@ urlpatterns = [
     path('attantance', views.attantance, name="attantance"),
     path('settings', views.settings, name="settings"),
     path('profile', views.profile, name="profile"),
+    path('viewenquiry/<str:id>', views.viewenquiry, name="viewenquiry"),
+    
 ]
