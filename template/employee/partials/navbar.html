@@ -240,9 +240,9 @@
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
-                <span class="user-img"><img src="{% static 'ceo/img/profiles/avatar-21.jpg' %}" alt="">
+                <span class="user-img"><img src="{{emp.employee.emp_profile.url}}" alt="">
                 <span class="status online"></span></span>
-                <span>Employee_Name</span>
+                <span>{{emp.employee.name|capfirst}}</span>
             </a>
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="{% url 'employee:empprofile' %}">My Profile</a>

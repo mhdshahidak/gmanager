@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'phone_field',
     'versatileimagefield',
+    'tinymce',
 
     # apps
 
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'clients',
     'accounts',
     'pm',
+    'common',
 
 ]
 

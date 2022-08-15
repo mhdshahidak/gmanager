@@ -28,5 +28,9 @@ urlpatterns = [
     path('clients/',include('clients.urls')),
     path('gm/',include('gm.urls')),
     path('pm/',include('pm.urls')),
+    path('common/',include('common.urls')),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+admin.site.site_header = "G-mananger Administration"
+admin.site.site_title = "g-manager  Admin Portal"
+admin.site.index_title = "Welcome to Gedexo g-manager Admin Portal"

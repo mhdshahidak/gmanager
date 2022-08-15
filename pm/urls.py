@@ -7,7 +7,7 @@ urlpatterns = [
     path('base', views.base, name='base'),
     path('', views.index, name='index'),
     path('enquiry', views.enquiry, name='enquiry'),
-    path('viewenquries', views.viewenquries, name='viewenquries'),
+    path('viewenquries/<str:id>', views.viewenquries, name='viewenquries'),
     path('proposal', views.proposal, name='proposal'),
 
    
@@ -28,5 +28,10 @@ urlpatterns = [
     path('qcapprovel', views.qcapprovel, name='qcapprovel'),
     path('leaverequest', views.leaverequest, name='leaverequest'),
 
-    
+
+
+    path('changeStatus', views.changeStatus, name='changeStatus'),
+    path('savaProposal', views.savaProposal, name='savaProposal'),
+    path('rejectedreason/<str:id>', views.rejectedreason, name='rejectedreason'),
+    path('typereason', views.typereason, name='typereason'),
 ]

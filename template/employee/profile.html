@@ -28,37 +28,37 @@
                         <div class="profile-view">
                             <div class="profile-img-wrap">
                                 <div class="profile-img">
-                                    <a href="#"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
+                                    <a href="#"><img alt="" src="{{emp.employee.emp_profile.url}}"></a>
                                 </div>
                             </div>
                             <div class="profile-basic">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="profile-info-left">
-                                            <h3 class="user-name m-t-0 mb-0">Anusree</h3>
-                                            <h6 class="text-muted">UI/UX Design Team</h6>
-                                            <small class="text-muted">Web Designer</small>
-                                            <div class="staff-id">Employee ID : FT-0001</div>
-                                            <div class="small doj text-muted">Date of Join : 1st Jan 2013</div>
+                                            <h3 class="user-name m-t-0 mb-0">{{emp.employee.name}}</h3>
+                                            <h6 class="text-muted">{{emp.employee.catagory.catagory.catagory_title}}</h6>
+                                            <small class="text-muted">{{emp.employee.catagory.title}}</small>
+                                            <div class="staff-id">Employee ID : {{emp.employee.employee_id}}</div>
+                                            <div class="small doj text-muted">Date of Join : {{emp.employee.join_date}}</div>
                                         </div>
                                     </div>
                                     <div class="col-md-7">
                                         <ul class="personal-info">
                                             <li>
                                                 <div class="title">Phone:</div>
-                                                <div class="text"><a href="">9876543210</a></div>
+                                                <div class="text"><a href="">{{emp.employee.phone}} & {{emp.employee.whatsapp_number}}</a></div>
                                             </li>
                                             <li>
                                                 <div class="title">Email:</div>
-                                                <div class="text"><a href="">johndoe@example.com</a></div>
+                                                <div class="text"><a href="">{{emp.employee.email}}</a></div>
                                             </li>
                                             <li>
                                                 <div class="title">Birthday:</div>
-                                                <div class="text">24th July</div>
+                                                <div class="text">{{emp.employee.dob}}</div>
                                             </li>
                                             <li>
                                                 <div class="title">Address:</div>
-                                                <div class="text">1861 Bayonne Ave, Manchester Township, NJ, 08759</div>
+                                                <div class="text">{{emp.employee.address}}</div>
                                             </li>
                                         </ul>
                                     </div>
@@ -99,31 +99,27 @@
                                 <ul class="personal-info">
                                     <li>
                                         <div class="title">Address</div>
-                                        <div class="text">cfdfytftyfff</div>
+                                        <div class="text">{{emp.employee.address}}</div>
                                     </li>
                                     <li>
                                         <div class="title">Whatsapp Number</div>
-                                        <div class="text">9876543210</div>
+                                        <div class="text">{{emp.employee.whatsapp_number}}</div>
                                     </li>
                                     <li>
                                         <div class="title">Tel</div>
-                                        <div class="text">856932547</div>
+                                        <div class="text">{{emp.employee.phone}}</div>
                                     </li>
                                     <li>
                                         <div class="title">Emergency No:</div>
-                                        <div class="text"><a href="">9876543210</a></div>
+                                        <div class="text"><a href="">{{emp.emergency_number}}</a></div>
                                     </li>
                                     <li>
                                         <div class="title">Nationality</div>
-                                        <div class="text">Indian</div>
-                                    </li>
-                                    <li>
-                                        <div class="title">Religion</div>
-                                        <div class="text">Christian</div>
+                                        <div class="text">{{emp.employee.nationality}}</div>
                                     </li>
                                     <li>
                                         <div class="title">Marital status</div>
-                                        <div class="text">Married</div>
+                                        <div class="text">{{emp.employee.marital_status}}</div>
                                     </li>
                                 </ul>
                             </div>
@@ -139,19 +135,19 @@
                                 <ul class="personal-info">
                                     <li>
                                         <div class="title">Name</div>
-                                        <div class="text">John Doe</div>
+                                        <div class="text">{{emp.primarycontact_name}}</div>
                                     </li>
                                     <li>
                                         <div class="title">Relationship</div>
-                                        <div class="text">Father</div>
+                                        <div class="text">{{emp.relation}}</div>
                                     </li>
                                     <li>
                                         <div class="title">Phone </div>
-                                        <div class="text">9876543210, 9876543210</div>
+                                        <div class="text">{{emp.emergency_number}}</div>
                                     </li>
                                 </ul>
                                 <hr>
-                                <h5 class="section-title">Secondary</h5>
+                                <!-- <h5 class="section-title">Secondary</h5>
                                 <ul class="personal-info">
                                     <li>
                                         <div class="title">Name</div>
@@ -165,7 +161,7 @@
                                         <div class="title">Phone </div>
                                         <div class="text">9876543210, 9876543210</div>
                                     </li>
-                                </ul>
+                                </ul> -->
                             </div>
                         </div>
                     </div>
