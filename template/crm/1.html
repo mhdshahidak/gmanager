@@ -1,0 +1,91 @@
+<form method="POST"   enctype="multipart/form-data" >
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Project Name</label>
+                {{form.projectname}}
+                <!-- <input class="form-control" type="text"> -->
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Client Name</label>
+                {{form.clientname}}
+             
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Comapny Name</label>
+                {{form.companyname}}
+                <!-- <input class="form-control" type="text"> -->
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Email</label>
+                {{form.email}}
+                <!-- <input class="form-control" type="text"> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Phone Number</label>
+                {{form.phone}}
+                <!-- <input class="form-control" type="text"> -->
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Whatsapp Number</label>
+                {{form.whatsapp}}
+                <!-- <input cl/rm-control" type="text"> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Referred By</label>
+                {{form.referredby}}
+                <!-- <input class="form-control" type="text"> -->
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Type</label>
+                {{form.type}}
+                <!-- <select class="select form-control">
+                    <option>Web</option>
+                    <option>Graphics</option>
+                </select> -->
+            </div>
+        </div>
+    </div>
+    
+   
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>Description</label>
+                {{form.details}}
+                <!-- <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea> -->
+            </div>
+        </div>
+        
+    </div>
+  
+    <div class="form-group">
+        <label>Upload Files</label>
+        {{form.files}}
+        <!-- <input class="form-control" type="file"> -->
+    </div>
+    <div class="submit-section">
+        <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+    </div>
+</form>
