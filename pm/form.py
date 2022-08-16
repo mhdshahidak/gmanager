@@ -10,5 +10,5 @@ class PraposalpdfForm(forms.ModelForm):
         fields = ('praposalpdf',)
       
         widgets = {
-            'praposalpdf': FileInput(attrs={'class': 'form-control', 'placeholder':'Praposal Pdf','name':'praposalpdf'}),
+            'praposalpdf': FileInput(attrs={'class': 'form-control', 'placeholder':'Praposal Pdf','name':'praposalpdf','required':'required'}),
         }

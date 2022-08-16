@@ -18,7 +18,7 @@
                         <li class="breadcrumb-item active">Enquiries Details</li>
                     </ul>
                     <div class="col-auto float-end ms-auto">
-                        <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#create_project"><i
+                        <a href="{% url 'crm:createproject' id %}" class="btn add-btn"><i
                                 class="fa fa-plus"></i> Create Project</a>
                         <div class="view-icons">
     
@@ -56,7 +56,7 @@
         
     </div>
     <!-- /Page Content -->
-    <div id="create_project" class="modal custom-modal fade" role="dialog">
+    {% comment %} <div id="create_project" class="modal custom-modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -160,7 +160,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
 </div>
 
 

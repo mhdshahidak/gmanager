@@ -1,0 +1,155 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap Admin Template">
+    <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Leave_Application</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'g.png' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/bootstrap.min.css' %}">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/font-awesome.min.css' %}">
+
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/line-awesome.min.css' %}">
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+			<script src="{% static 'ceo/js/html5shiv.min.js' %}"></script>
+			<script src="{% static 'ceo/js/respond.min.js' %}"></script>
+		<![endif]-->
+</head>
+
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+
+        <!-- Page Wrapper -->
+        <div class="page-wrapper">
+
+            <!-- Page Content -->
+            <div class="content container-fluid">
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="page-title">Leaves</h3>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Leaves</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Header -->
+
+                <div class="row">
+                    <div class="col-md-8 offset-md-1">
+                    
+                        <!-- Annual Leave -->
+                        <div class="card offset-md-2">
+                            <div class="card-body">
+                                <div class="h3 card-title text-center mt-3 mb-3">										
+                                    Leave Application
+                                </div>
+                                
+                                <form class="mt-5">
+									<div class="form-group">
+										<label>Leave Type <span class="text-danger">*</span></label>
+										<select class="select">
+											<option>Select Leave Type</option>
+											<option>Casual Leave 12 Days</option>
+											<option>Medical Leave</option>
+											<option>Loss of Pay</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>From <span class="text-danger">*</span></label>
+										<div class="cal-icon">
+											<input class="form-control datetimepicker" type="text">
+										</div>
+									</div>
+									<div class="form-group">
+										<label>To <span class="text-danger">*</span></label>
+										<div class="cal-icon">
+											<input class="form-control datetimepicker" type="text">
+										</div>
+									</div>
+									<div class="form-group">
+										<label>Number of days <span class="text-danger">*</span></label>
+										<input class="form-control"  type="text">
+									</div>
+									<div class="form-group">
+										<label>Leave Reason <span class="text-danger">*</span></label>
+										<textarea rows="4" class="form-control"></textarea>
+									</div>
+									<div class="submit-section">
+										<button class="btn btn-primary submit-btn">Submit</button>
+									</div>
+								</form>
+                            </div>
+                        </div>
+                        <!-- /Annual Leave -->
+    
+                        
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Page Wrapper -->
+
+        </div>
+        <!-- /Main Wrapper -->
+
+        <!-- jQuery -->
+        <script src="{% static 'ceo/js/jquery-3.6.0.min.js' %}"></script>
+
+        <!-- Bootstrap Core JS -->
+        <script src="{% static 'ceo/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- Slimscroll JS -->
+        <script src="{% static 'ceo/js/jquery.slimscroll.min.js' %}"></script>
+
+        <!-- Select2 JS -->
+        <script src="{% static 'ceo/js/select2.min.js' %}"></script>
+
+        <!-- Datatable JS -->
+        <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script>
+
+        <!-- Datetimepicker JS -->
+        <script src="{% static 'ceo/js/moment.min.js' %}"></script>
+        <script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
+
+        <!-- Custom JS -->
+        <script src="{% static 'ceo/js/app.js' %}"></script>
+
+</body>
+
+</html>

@@ -57,8 +57,7 @@ class Employees(models.Model):
     state = models.CharField(max_length = 25, null = True)
     nationality = models.CharField(max_length = 30, null = True)
     marital_status = models.CharField(max_length = 10, null = True)
-    emp_profile = VersatileImageField(upload_to = 'empProfile',ppoi_field='image_ppoi',blank =True, null = True)
-    image_ppoi = PPOIField()
+    emp_profile = VersatileImageField(upload_to = 'empProfile', null = True)
     status = models.CharField(max_length = 25,default= 'Online')
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 100)
@@ -71,7 +70,7 @@ class EmergenctContact(models.Model):
     emergency_number = PhoneField(blank=True, help_text='Contact phone number')
     primarycontact_name = models.CharField(max_length = 25, null = True)
     relation = models.CharField(max_length = 25, null = True)
-    employee = models.ForeignKey(Employees, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return str(self.primarycontact_name)
