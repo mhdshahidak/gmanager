@@ -104,7 +104,27 @@ def profile(request):
 
 def viewenquiry(request,id):
     details = EnquiryNote.objects.get(id=id)
-    form=EnquiryForm(request.POST,request.FILES)  
+    # form=EnquiryForm(request.POST,request.FILES)  
+    # if request.method == 'POST': 
+    #     # print (form.errors) 
+    #     if form.is_valid():
+    #         print (form.errors) 
+    #         data = form.save()            
+    #         Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
+    #         EnquiryNote.objects.filter(id=id).update(status='DeActivate')   
+    #         return redirect('crm:crmhome')
+    #     else:
+    #         pass
+    context = {
+        "details":details,
+        "id":id
+    }
+    return render(request,'crm/viewenquiry.html',context)
+
+
+def createProject(request,id):
+    details = EnquiryNote.objects.get(id=id)
+    form=EnquiryForm(request.POST,request.FILES)
     if request.method == 'POST': 
         # print (form.errors) 
         if form.is_valid():
@@ -120,5 +140,6 @@ def viewenquiry(request,id):
         "form":form,
         "id":id
     }
-    return render(request,'crm/viewenquiry.html', context)
+    
+    return render(request,'crm/create_project.html',context)
     
