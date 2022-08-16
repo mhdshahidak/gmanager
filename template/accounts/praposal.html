@@ -33,51 +33,35 @@
                                 <th>Client Name </th>
                                 <th>Whatsapp  Number </th>
                                 <th>Email </th>
-                                <th>Date</th>
-                                <th>Proposal Pdf</th>
+                                <th>Date & Time </th>
+                               
                                 
                                 <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for i in praposallist %}
                             <tr>
-                                <td>1</td>
-                                <td>Leave Policy
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ i.projectname }}
                                     <small class="block text-ellipsis">
-                                        <span class="text-muted">Web App </span>
+                                        <span class="text-muted">{{ i.type }} </span>
                                     </small>
                                 </td>
-                                <td>Shahil khan</td>
-                                <td>86876860739</td>
-                                <td>shahil@gmail.com</td>
-                                <td>9/3/22</td>
-                                <td>
-                                    <input type="file" class="form-control" id="policy_upload"></td>
+                                <td>{{ i.clientname }}</td>
+                                <td>{{ i.whatsapp }}</td>
+                                <td>{{ i.email }}</td>
+                                <td>{{ i.enquirydate }}</td>
+                                
                                 <td class="text-end">
                                     
-                                    <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
+                                    <button onclick="ChangeBill({{ i.id }})" class="btn  badge-pill bg-success-light m-t-10">Sent </button>
                                     
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Permission Policy
-                                    <small class="block text-ellipsis">
-                                        <span class="text-muted">Mobile App </span>
-                                    </small>
-                                </td>
-                                <td>shahid</td>
-                                <td>899827638769</td>
-                                <td>shahid@gmail.com</td>
-                                <td>9/3/22</td>
-                                <td>
-                                    <input type="file" class="form-control" id="policy_upload"></td>
-                                    <td class="text-end">
-                                    
-                                        <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
-                                        
-                                    </td>
-                            </tr>
+
+                            {% endfor %}
+                          
                         </tbody>
                     </table>
                 </div>
@@ -94,5 +78,26 @@
 
 
 </div>
+
+
+<script>
+     function ChangeBill(id) {
+        $.ajax({
+            url: "/accounts/changebill",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+    }
+</script>
 
 {% endblock %}

@@ -2,9 +2,12 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
 from crm.models import Enquiry
+from ceo.models import Employees
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from . form import PraposalpdfForm
+from . form import PraposalpdfForm,ProjectForm
+
+
 # Create your views here.
 def base(request):
     return render (request,'pm/partials/base.html')
@@ -72,8 +75,43 @@ def viewproject(request):
 
 
 def unassigneproject(request):
-    return render (request,'pm/project/unassigneproject.html')         
+    enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
+    context={
+        "enquirylist":enquirylist,
+    }
+    return render (request,'pm/project/unassigneproject.html',context)         
 
+
+
+def addproject(request,id):
+    deatils= Enquiry.objects.get(id=id)
+    form=ProjectForm(request.POST)
+    if request.method == 'POST': 
+        # print (form.errors) 
+        if form.is_valid():
+            print (form.errors) 
+            data = form.save()
+            Project.objects.filter(id=data.id).update(enquiry=deatils)
+            return redirect('/pm/addteam/'+str(data.id))
+        else:
+            pass 
+    else:
+
+        context={
+       
+        "form":form
+        }
+        return render (request,'pm/project/addproject.html',context)
+    return render (request,'pm/project/addproject.html',context)  
+
+
+def addteam(request,id):
+    employee = Employees.objects.all()
+    context={
+        "employee":employee,
+        "id":id
+    }
+    return render (request,'pm/project/addteam.html',context)
 
 def addschedule(request):
     return render (request,'pm/project/addschedule.html')    
@@ -145,4 +183,58 @@ def typereason(request):
     typereason=request.POST['reason']
     Enquiry.objects.filter(id=id).update(status='Rejected',reason=typereason)
     return JsonResponse({'value': 'msg'})
+
+
+
+@csrf_exempt
+def leadersearch(request):
+    employeename=request.POST['employee']
+    projectid=request.POST['projectid']
+    enqid = Project.objects.get(id=projectid)
+    print(employeename)
+    details=Employees.objects.get(name=employeename)
+    member = ProjectMembers(project=enqid,lead=details)
+    member.save()
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        # "emp_profile":details.emp_profile,
+        "projectmemberid" :member.id
+        
+    }
+    
+    
+    print(data)
+    return JsonResponse({'value': data})
+
+
+
+
+
+@csrf_exempt
+def membersearch(request):
+    employeename=request.POST['employee']
+    projectmemberid=request.POST['projectmemberid']
+    
+    projectid=request.POST['projectid']
+    enqid = Project.objects.get(id=projectid)
+    print(employeename)
+
+    
+    details=Employees.objects.get(name=employeename)
+    member=ProjectMembers(project=enqid,team=details)
+    member.save()
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        # "emp_profile":details.emp_profile,
+
+        
+    }
+    
+    
+    print(data)
+    return JsonResponse({'value': data})    
 
