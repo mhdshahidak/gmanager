@@ -190,17 +190,15 @@ def typereason(request):
 def leadersearch(request):
     employeename=request.POST['employee']
     projectid=request.POST['projectid']
-    enqid = Project.objects.get(id=projectid)
+
     print(employeename)
     details=Employees.objects.get(name=employeename)
-    member = ProjectMembers(project=enqid,lead=details)
-    member.save()
+    
     
     data={
         "id":details.id,
         "name":details.name,
-        # "emp_profile":details.emp_profile,
-        "projectmemberid" :member.id
+       
         
     }
     
@@ -214,27 +212,33 @@ def leadersearch(request):
 
 @csrf_exempt
 def membersearch(request):
-    employeename=request.POST['employee']
-    projectmemberid=request.POST['projectmemberid']
+    employeename=request.POST['member']
+    leaderid=request.POST['leaderid']
+    print(employeename,leaderid)
+    # projectmemberid=request.POST['projectmemberid']
     
+    leader= Employees.objects.get(id=leaderid)
     projectid=request.POST['projectid']
     enqid = Project.objects.get(id=projectid)
-    print(employeename)
+    # print(employeename)
 
     
     details=Employees.objects.get(name=employeename)
-    member=ProjectMembers(project=enqid,team=details)
-    member.save()
+    # member=ProjectMembers(project=enqid,lead=leader)
+    # member.team.set(details)
+    # member.save()
+    
     
     data={
         "id":details.id,
         "name":details.name,
+        "catagory":details.catagory.title
         # "emp_profile":details.emp_profile,
 
         
     }
     
-    
+   
     print(data)
     return JsonResponse({'value': data})    
 

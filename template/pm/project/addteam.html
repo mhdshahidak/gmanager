@@ -39,9 +39,9 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Add Project Leader</label>
-                                <input list="employee" onchange="Addemployee()" class="form-control" name="employees" id="employees">
+                                <input list="employees" onchange="Addemployee()" class="form-control" name="employees" id="employees">
 
-                                <datalist id="employee">
+                                <datalist id="employees">
                                     {% for i in employee %}
 
                                     <option value="{{ i.name }}">{{ i.name }}</option>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label>Add Team Members</label>
                                 <input list="employee" onchange="Addmember()" class="form-control" name="employees" id="employees">
 
@@ -74,7 +74,7 @@
                                     {% endfor %}    
                                     
                                 </datalist>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -94,7 +94,7 @@
                                             <a href="" class="avatar-title rounded-circle border border-white" data-bs-toggle="modal" data-bs-target="#assign_leader"><i class="fa fa-plus"></i></a>
                                         </div>
 
-                                        <input type="text" name="" id="id">
+                                        <input type="text" name=""  id="id">
                                     </div>
                                 </div>
                             </div>
@@ -127,18 +127,36 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group m-b-30">
-                        <input placeholder="Search to add a leader" class="form-control search-input" type="text">
-                        <button class="btn btn-primary">Search</button>
+                        <input list="employee"  class="form-control" name="member" id="member">
+
+                        <datalist id="employee">
+                            {% for i in employee %}
+
+                            <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}    
+                            
+                        </datalist>
                     </div>
+
                     
                     <div class="submit-section">
-                        <button class="btn btn-primary submit-btn">Submit</button>
+                        <button onclick="Addmember()" class="btn btn-primary submit-btn">Submit</button>
                     </div>
                 </div>
             </div>
+          
         </div>
     </div>
-
+  <table id="tab" border="2"> 
+                <tr >
+                    <th>slno</th>
+                    <th>name</th>
+                    <th>age</th>
+                   
+                </tr>
+               
+               
+            </table>
     <script>
         function Addemployee() {
             $.ajax({
@@ -166,21 +184,23 @@
 
 
         function Addmember() {
+            alert($('#member').val())
             $.ajax({
                 url: "/pm/membersearch",
                 type: 'post',
                 data: {
+                    'leaderid': $('#id').val(),
+                    'member': $('#member').val(),
                     'projectid': $('#projectid').val(),
-                    'employee': $('#employees').val(),
-                    'projectmemberid': $('#projectmemberid').val()
+                    // 'employee': $('#employees').val(),
+                    // 'projectmemberid': $('#projectmemberid').val()
                     
     
                 },
                 success: function (responce) {
-                    $('#id').val(responce.value.id)
-                    $('#image').attr("src", responce.value.emp_profile)
-                    $('#title').attr("title", responce.value.name)
-                    // window.location.reload()
+                    $('#tab').append('<tr id="tr"><td>'+responce.value.id+'</td><td>'+responce.value.name+'</td><td>'+responce.value.catagory+'</td></tr>')
+                    $('#member').val('')
+                  
                 }
     
     
