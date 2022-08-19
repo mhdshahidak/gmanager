@@ -31,8 +31,9 @@
                             <li class="menu-title"> 
 								<span>More</span>
 							</li>
-                            <li {% if is_leaves %} class="active" {% endif %} > 
-								<a href="{% url 'crm:leaves' %}"><i class="la la-sign-out-alt"></i> <span>Leaves</span></a>
+                            <li {% if is_leaves %} class="active" {% endif %}> 
+								<li><a href="{% url 'common:leaveapplication' %}">Leave</a></li>
+								{% comment %} <a href="{% url 'crm:leaves' %}"><i class="la la-sign-out-alt"></i> <span>Leaves</span></a> {% endcomment %}
 							</li>
                             <li {% if is_attantance %} class="active" {% endif %}> 
 								<a href="{% url 'crm:attantance' %}"><i class="la la-calendar-check"></i> <span>Attendance</span></a>
