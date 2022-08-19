@@ -32,3 +32,9 @@ admin.site.register(EmergenctContact,EmergenctContactAdmin)
 admin.site.register(User)
 
 
+class LeaveRequestsAdmin(admin.ModelAdmin):
+    list_display = ('employee','leave_type', 'aply_date')
+    search_fields=('employee',)
+admin.site.register(LeaveRequests,LeaveRequestsAdmin)
+
+
