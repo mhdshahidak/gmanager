@@ -103,6 +103,7 @@ class LeaveRequests(models.Model):
     reason = models.CharField(max_length=1000,null=True)
     hr_accept = models.BooleanField(default=False)
     pm_accept = models.BooleanField(default=False)
-    
-    
+    status = models.CharField(max_length = 25,default= 'Waiting')
+    rejected_reason = models.CharField(max_length=1000,null=True)
+
 

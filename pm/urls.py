@@ -38,5 +38,10 @@ urlpatterns = [
     path('typereason', views.typereason, name='typereason'),
     path('leadersearch', views.leadersearch, name='leadersearch'),
     path('membersearch', views.membersearch, name='membersearch'),
+    path('viedetails/<str:id>', views.viedetails, name='viedetails'),
+    path('acceptdeatils/<str:id>', views.acceptdeatils, name='acceptdeatils'),
+    path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
+    path('reason', views.reason, name='reason'),
 
+    
 ]

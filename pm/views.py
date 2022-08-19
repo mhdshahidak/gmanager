@@ -2,7 +2,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
 from crm.models import Enquiry
-from ceo.models import Employees
+from ceo.models import Employees ,LeaveRequests
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from . form import PraposalpdfForm,ProjectForm
@@ -151,7 +151,12 @@ def qcapprovel(request):
     return render (request,'pm/qcapprovel.html')  
 
 def leaverequest(request):
-    return render (request,'pm/leaverequest.html')    
+    leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
+    print(leave)
+    context={
+        "leave":leave
+    }
+    return render (request,'pm/leaverequest.html',context)    
     
 
 @csrf_exempt
@@ -190,14 +195,18 @@ def typereason(request):
 def leadersearch(request):
     employeename=request.POST['employee']
     projectid=request.POST['projectid']
+    enqid = Project.objects.get(id=projectid)
 
-    print(employeename)
+    # print(employeename)
     details=Employees.objects.get(name=employeename)
+    member_obj = ProjectMembers(project=enqid,lead=details)
+    member_obj.save()
     
     
     data={
         "id":details.id,
         "name":details.name,
+        "member":member_obj.id,
        
         
     }
@@ -214,26 +223,25 @@ def leadersearch(request):
 def membersearch(request):
     employeename=request.POST['member']
     leaderid=request.POST['leaderid']
-    print(employeename,leaderid)
-    # projectmemberid=request.POST['projectmemberid']
-    
-    leader= Employees.objects.get(id=leaderid)
-    projectid=request.POST['projectid']
-    enqid = Project.objects.get(id=projectid)
-    # print(employeename)
+    employee_prjt = request.POST['memberObj']
+    projectid = request.POST['projectid']
 
-    
+
+     
     details=Employees.objects.get(name=employeename)
-    # member=ProjectMembers(project=enqid,lead=leader)
-    # member.team.set(details)
-    # member.save()
+    member_prjct_obj = ProjectMembers.objects.get(id=employee_prjt)
+    member_prjct_obj.team.add(details)
+    # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
+
+
+
+
     
     
     data={
         "id":details.id,
         "name":details.name,
-        "catagory":details.catagory.title
-        # "emp_profile":details.emp_profile,
+        "catagory":details.catagory.title,
 
         
     }
@@ -242,3 +250,39 @@ def membersearch(request):
     print(data)
     return JsonResponse({'value': data})    
 
+
+@csrf_exempt
+def viedetails(request,id):
+    getdata =  LeaveRequests.objects.get(id=id)
+    data ={
+        'leave_type':getdata.leave_type,
+        'aply_date':getdata.aply_date,
+        'from_date':getdata.from_date,
+        'to_date':getdata.to_date,
+        'no_days':getdata.no_days,
+        'reason':getdata.reason,
+        
+    }
+    print(data)
+    return JsonResponse({'value': data})
+
+@csrf_exempt
+def acceptdeatils(request,id):
+    LeaveRequests.objects.filter(id=id).update(pm_accept= True)
+    return JsonResponse({'value': 'msg'})
+
+@csrf_exempt
+def rejectdeatils(request,id):
+    getdata=LeaveRequests.objects.get(id=id)
+    data ={
+        'id':getdata.id,
+    }
+    return JsonResponse({'value':data})
+
+
+@csrf_exempt
+def reason(request):
+    id=request.POST['id']
+    rejectedreason=request.POST['rejectedreason']
+    LeaveRequests.objects.filter(id=id).update(rejected_reason=rejectedreason,status='Rejected')
+    return JsonResponse({'value': 'msg'})    
