@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
@@ -112,11 +113,26 @@ def employeeprofile(request):
 
 def departmentwise(request):
     department = SubCatagory.objects.all()
-    # employees = Employees.objects.filter(catagory__title = )
+    class cat:
+        def __init__(self,title,counts,id) :
+            self.title = title
+            self.counts = counts
+            self.id = id
+
+    estimatelist=[]
+    for i in department:
+        id=i.id
+        emp_count = Employees.objects.filter(catagory=i).count()
+        print(emp_count)
+        estimatelist.append(cat(i,emp_count,id))
+    print(estimatelist)    
     context = {
-        "departments":department,
-    }
+        "emp_count":estimatelist,
+        # "departments":department,
+            }
     return render (request,'ceo/departmentwise.html',context)    
+        
+   
 
 def departmentwiseEmployee(request,id):
     category = SubCatagory.objects.get(id=id)
@@ -155,7 +171,17 @@ def allstaff(request):
         return render (request,'ceo/allstaff.html',context)
     return render (request,'ceo/allstaff.html',context)    
         
-       
+
+def editEmployeeDetails(request,id):
+    n = Employees.objects.get(id=id)
+    if request.method == 'POST':
+        form = RegisterForm(request.POST or None, instance=n)
+        if form.is_valid():
+            form.save()
+        return redirect('View_Vaccine')
+    else:
+        form = RegisterForm(request.POST or None, instance=n)
+    return render (request,'ceo/allstaff.html',{'form':form,})  
        
 
 
