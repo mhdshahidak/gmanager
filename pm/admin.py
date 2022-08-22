@@ -26,3 +26,7 @@ class ProjectMembersAdmin(admin.ModelAdmin):
     list_display = ('project','lead',)
     search_fields=('project',)
 admin.site.register(ProjectMembers,ProjectMembersAdmin)
+
+
+
+admin.site.register(Meeting)
