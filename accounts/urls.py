@@ -12,4 +12,13 @@ urlpatterns = [
     path('completed', views.completed, name='completed'),
     path('updation', views.updation, name='updation'),
     
+
+
+
+    path('changebill', views.changebill, name='changebill'),
+    path('changefollow', views.changefollow, name='changefollow'),
+
+
+
+
     ]

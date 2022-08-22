@@ -1,5 +1,6 @@
 from django.db import models
 from phone_field import PhoneField
+import datetime
 from versatileimagefield.fields import VersatileImageField, PPOIField
 
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -87,5 +88,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD='username'
 
+
+
+
+
+class LeaveRequests(models.Model):
+    leave_choices = (('Casual Leave','Casual Leave'),('Sick Leave','Sick Leave'),('Maternity Leave','Maternity Leave'),('Compensatory Off','Compensatory Off'),('Marriage Leave','Marriage Leave'),('Other','Other'))
+    employee  = models.ForeignKey(Employees, on_delete=models.CASCADE, null=True)
+    leave_type = models.CharField(max_length=30, choices=leave_choices)
+    aply_date = models.DateField(auto_now_add=True)
+    from_date = models.DateField(null=True)
+    to_date = models.DateField(null=True)
+    no_days = models.IntegerField(default=0,null=True)
+    reason = models.CharField(max_length=1000,null=True)
+    hr_accept = models.BooleanField(default=False)
+    pm_accept = models.BooleanField(default=False)
+    status = models.CharField(max_length = 25,default= 'Waiting')
+    rejected_reason = models.CharField(max_length=1000,null=True)
 
 
