@@ -1,13 +1,20 @@
+from multiprocessing import context
 from django.shortcuts import render,redirect
 
 from ceo.models import *
 from django.contrib.auth import get_user_model
-from . forms import LeaveRequestsForm
-
+from . forms import LeaveRequestsForm, ExcuseRequestsForm
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 # Create your views here.
 
+def base(request):
+    return render(request,'common/partials/base.html')
+
+
+
+
 def leave_application(request):
-    print(request.user.employee.catagory.catagory.catagory_title)
     user_name = request.user.employee
     leave_form = LeaveRequestsForm(request.POST or None)
     # now_date = datetime.now()
@@ -48,3 +55,67 @@ def attendanceRreport(request):
 
 def settings(request):
     return render(request,'common/settings.html')
+
+
+
+def leaves(request):
+    user_name = request.user.employee
+  
+    leavelist = LeaveRequests.objects.filter(employee=request.user.employee)
+ 
+    context={
+        "user":user_name,
+        "leavelist":leavelist
+    }
+
+    return render(request,'common/leaves.html',context)
+
+
+def gohome(request):
+    user_name = request.user.employee
+    print(user_name)
+    if request.user.employee.catagory.catagory.catagory_title == "EMPLOYEE":
+        return redirect('employee:employeehome')
+    elif request.user.employee.catagory.catagory.catagory_title == "HRM" :
+        return redirect('hrm:hrhome')
+    elif request.user.employee.catagory.catagory.catagory_title == "CRM":
+        return redirect('crm:crmhome')
+    elif request.user.employee.catagory.catagory.catagory_title == "PM":
+      
+        return redirect('pm:index')
+    elif request.user.employee.catagory.catagory.catagory_title == "GM":
+        return redirect('gm:home')
+    elif request.user.employee.catagory.catagory.catagory_title == "ACCOUNTS":
+        return redirect('accounts:home')
+    elif request.user.employee.catagory.catagory.catagory_title == "CLIENT":
+        return redirect('clients:home')    
+
+
+
+def excuse(request):
+    user_name = request.user.employee
+    leaveform = ExcuseRequestsForm(request.POST or None)
+    if request.method == "POST":
+        if leaveform.is_valid():           
+                data = leaveform.save()            
+                ExcuseRequests.objects.filter(id=data.id).update(employee=user_name)
+                if request.user.employee.catagory.catagory.catagory_title == "EMPLOYEE":  
+                    return redirect('employee:employeehome')
+                elif request.user.employee.catagory.catagory.catagory_title == "HRM" :
+                    return redirect('hrm:hrhome')
+                elif request.user.employee.catagory.catagory.catagory_title == "CRM":
+                    return redirect('crm:crmhome')
+                elif request.user.employee.catagory.catagory.catagory_title == "PM":
+                    return redirect('pm:index')
+                elif request.user.employee.catagory.catagory.catagory_title == "GM":
+                    return redirect('gm:home')
+                elif request.user.employee.catagory.catagory.catagory_title == "ACCOUNTS":
+                    return redirect('accounts:home')
+                elif request.user.employee.catagory.catagory.catagory_title == "CLIENT":
+                    return redirect('clients:home')
+        else:
+            pass        
+    context={
+        "leaveform":leaveform,
+    }
+    return render(request,'common/excuse.html',context)

@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from phone_field import PhoneField
 import datetime
@@ -58,7 +59,7 @@ class Employees(models.Model):
     state = models.CharField(max_length = 25, null = True)
     nationality = models.CharField(max_length = 30, null = True)
     marital_status = models.CharField(max_length = 10, null = True)
-    emp_profile = VersatileImageField(upload_to = 'empProfile', null = True)
+    emp_profile = VersatileImageField(upload_to = 'empProfile', null = True,default='default_img.jpg')
     status = models.CharField(max_length = 25,default= 'Online')
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 100)
@@ -107,3 +108,11 @@ class LeaveRequests(models.Model):
     rejected_reason = models.CharField(max_length=1000,null=True)
 
 
+
+class ExcuseRequests(models.Model):
+    employee  = models.ForeignKey(Employees, on_delete=models.CASCADE, null=True)
+    aply_date = models.DateField(auto_now_add=True)
+    from_date = models.DateField(null=True)
+    time = models.TimeField(null=True)
+    reason = models.CharField(max_length=1000,null=True)
+    status = models.CharField(max_length = 25,default= 'Waiting')

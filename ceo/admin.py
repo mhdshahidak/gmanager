@@ -38,3 +38,9 @@ class LeaveRequestsAdmin(admin.ModelAdmin):
 admin.site.register(LeaveRequests,LeaveRequestsAdmin)
 
 
+
+class ExcuseRequestsAdmin(admin.ModelAdmin):
+    list_display = ('employee','from_date', 'time')
+    search_fields=('employee',)
+admin.site.register(ExcuseRequests,ExcuseRequestsAdmin)
+
