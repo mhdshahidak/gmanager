@@ -1,0 +1,100 @@
+{% extends "hrm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Excuse</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Excuse List</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th> Name </th>
+                                <th>Date </th>
+                                <th>Time </th>
+                                <th>Reason </th>
+
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for details in listvalue %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{details.employee.name}}
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">{{details.employee.catagory.title}}</span>
+                                    </small>
+                                </td>
+                                <td>{{details.from_date}}</td>
+                                <td>{{details.time}}</td>
+                                <td>{{details.reason}}</td>
+
+                                <td class="text-end">
+
+                                    <button onclick="Change_Status('{{ details.id }}')"
+                                        class="btn  badge-pill bg-success-light m-t-10">Approved </button>
+                               
+                                </td>
+
+
+                            </tr>
+                            {% endfor %}
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+   
+
+
+</div>
+
+<script>
+     function Change_Status(id) {
+        $.ajax({
+            url: "/hrm/changevalue",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+    }
+</script>
+{% endblock %}

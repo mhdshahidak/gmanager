@@ -41,22 +41,23 @@
                 <li class="menu-title"> 
                     <span>More</span>
                 </li>
-                <li {% if is_leaves %} class="active" {% endif %} > 
-                    <a href="{% url 'crm:leaves' %}"><i class="la la-sign-out-alt"></i> <span>Leaves</span></a>
-                </li>
+               
                 <li {% if is_attantance %} class="active" {% endif %}> 
-                    <a href="{% url 'crm:attantance' %}"><i class="la la-calendar-check"></i> <span>Attendance</span></a>
+                    <a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}> 
-                    <a href="{% url 'crm:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
+                    <a href=""><i class="la la-cog"></i> <span>Settings</span></a>
+                </li>
+                <li {% if is_settings %} class="active" {% endif %}> 
+                    <a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="la la-user"></i> <span> Leave</span> <span
                             class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="">Leaves</a></li>
+                        <li><a href="{% url 'common:leaves' %}">Leaves</a></li>
                         <li><a href="{% url 'common:leaveapplication' %}">Leave Form</a></li>
-                        <li><a href="">Excuse Form</a></li>
+                        <!-- <li><a href="">Excuse Form</a></li> -->
                     </ul>
                 </li>
             </ul>
