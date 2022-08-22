@@ -39,10 +39,10 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>Add Project Leader</label>
-                            <input list="employees" onchange="Addemployee()" class="form-control" name="employees"
+                            <input list="employeLead" onchange="Addemployee()" class="form-control" name="employees"
                                 id="employees">
 
-                            <datalist id="employees">
+                            <datalist id="employeLead">
                                 {% for i in employee %}
 
                                 <option value="{{ i.name }}">{{ i.name }}</option>
@@ -94,44 +94,9 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-sm-6">
-                        <div class="form-group">
-                            <div class="pro-team-members">
-                                <h4>Leader </h4>
-                                <div class="avatar-group">
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="{% static 'ceo/img/profiles/avatar-02.jpg' %}">
-                                    </div>
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="{% static 'ceo/img/profiles/avatar-09.jpg' %}">
-                                    </div>
-                                    <div class="avatar">
-                                        <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                            src="{% static 'ceo/img/profiles/avatar-12.jpg' %}">
-                                    </div>
-                                    <div class="avatar">
-                                        <a href="" class="avatar-title rounded-circle border border-white"
-                                            data-bs-toggle="modal" data-bs-target="#assign_leader"><i
-                                                class="fa fa-plus"></i></a>
-                                    </div>
-
-                                    <input type="hidden" name="" id="id">
-                                    <input type="hidden" name="" id="memberBox">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                    
                 </div>
-                <!-- <div class="form-group">
-                        <label>Description</label>
-                        <div id="editor"></div>
-                    </div>
-                    <div class="form-group">
-                        <label>Upload Files</label>
-                        <input class="form-control" type="file">
-                    </div> -->
+                
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
@@ -155,7 +120,7 @@
                             </table>
                         </div>
                         <div class="submit-section">
-                            <a href="{% url 'pm:addschedule' %}" class="btn btn-primary submit-btn">Submit</a>
+                            <a href="{% url 'pm:addschedule' id %}" class="btn btn-primary submit-btn">Submit</a>
                         </div>
                     </div>
                 </div>

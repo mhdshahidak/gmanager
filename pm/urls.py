@@ -18,7 +18,7 @@ urlpatterns = [
     path('unassigneproject', views.unassigneproject, name='unassigneproject'),
     path('addproject/<str:id>', views.addproject, name='addproject'),
     path('addteam/<str:id>', views.addteam, name='addteam'),
-    path('addschedule', views.addschedule, name='addschedule'),
+    path('addschedule/<str:id>', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
     path('viewtask', views.viewtask, name='viewtask'),
     path('srs', views.srs, name='srs'),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('qcapprovel', views.qcapprovel, name='qcapprovel'),
     path('leaverequest', views.leaverequest, name='leaverequest'),
 
+    path('meetings', views.meetings, name="meetings"),
 
     # ajax
     path('changeStatus', views.changeStatus, name='changeStatus'),

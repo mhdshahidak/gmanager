@@ -113,9 +113,43 @@ def addteam(request,id):
     }
     return render (request,'pm/project/addteam.html',context)
 
-def addschedule(request):
-    return render (request,'pm/project/addschedule.html')    
+def addschedule(request,id):
+    project_obj = Project.objects.get(id=id)
+    # print(project)    
+    team_mbr = ProjectMembers.objects.get(project=project_obj)
+    mbr = ProjectMembers.objects.filter(project=project_obj).values('team__name','team__emp_profile')
+    if request.method == 'POST':
+        # project = request.POST['projectID']
+        meetingDate = request.POST['meetingDate']
+        platform = request.POST['platform']
+        time = request.POST['time']
+        link = request.POST['link']
 
+        meeting = Meeting(project=project_obj,date=meetingDate,time=time,platform=platform,meeting_link=link)
+        meeting.save()
+        project_obj.status = "Meeting Scheduled"
+        project_obj.save()
+        return redirect('pm:index')
+        
+    context = {
+        "team":team_mbr,
+        "mbr":mbr,
+        "project":project_obj,
+        # "members":memberrs,
+    }
+
+    return render (request,'pm/project/addschedule.html',context)    
+
+
+
+def meetings(request):
+    # project = Project.objects.get(status="Meeting Scheduled")
+    meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    # print(project)
+    context = {
+        "meetings":meetings,
+    }
+    return render(request,'pm/meetings.html',context)
 
 
 def task(request):
