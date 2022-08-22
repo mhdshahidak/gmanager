@@ -32,11 +32,30 @@
                 <li {% if is_attantanceReport %} class="active" {% endif %} > 
                     <a href="{% url 'hrm:attantancereport' %}"><i class="la la-calendar"></i> <span>Attendance Report</span></a>
                 </li>
+                <li {% if is_attantanceReport %} class="active" {% endif %} > 
+                    <a href="{% url 'hrm:excuse' %}"><i class="las la-calendar-minus"></i><span>Excuse Report</span></a>
+                </li>
                 <li class="menu-title"> 
                     <span>More</span>
                 </li>
-                <li {% if is_hrsettings %} class="active" {% endif %}> 
-                    <a href="{% url 'hrm:hrsettings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
+               
+                <li {% if is_attantance %} class="active" {% endif %}> 
+                    <a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
+                </li>
+                <li {% if is_settings %} class="active" {% endif %}> 
+                    <a href=""><i class="la la-cog"></i> <span>Settings</span></a>
+                </li>
+                <li {% if is_settings %} class="active" {% endif %}> 
+                    <a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="la la-user"></i> <span> Leave</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="{% url 'common:leaves' %}">Leaves</a></li>
+                        <li><a href="{% url 'common:leaveapplication' %}">Leave Form</a></li>
+                        <!-- <li><a href="">Excuse Form</a></li> -->
+                    </ul>
                 </li>
             </ul>
         </div>
