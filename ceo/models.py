@@ -108,3 +108,11 @@ class LeaveRequests(models.Model):
     rejected_reason = models.CharField(max_length=1000,null=True)
 
 
+
+class ExcuseRequests(models.Model):
+    employee  = models.ForeignKey(Employees, on_delete=models.CASCADE, null=True)
+    aply_date = models.DateField(auto_now_add=True)
+    from_date = models.DateField(null=True)
+    time = models.TimeField(null=True)
+    reason = models.CharField(max_length=1000,null=True)
+    status = models.CharField(max_length = 25,default= 'Waiting')

@@ -126,10 +126,11 @@ def createProject(request,id):
     details = EnquiryNote.objects.get(id=id)
     form=EnquiryForm(request.POST,request.FILES)
     if request.method == 'POST': 
-        # print (form.errors) 
+        # print (form.errors)
+        print("Test"*5) 
         if form.is_valid():
-            print (form.errors) 
-            data = form.save()            
+            data = form.save()
+            print("*"*20)           
             Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
             EnquiryNote.objects.filter(id=id).update(status='DeActivate')   
             return redirect('crm:crmhome')

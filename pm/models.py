@@ -35,4 +35,13 @@ class ProjectMembers (models.Model):
     project = models.ForeignKey(Project, on_delete = models.CASCADE,null=True)  
     lead = models.ForeignKey(Employees, on_delete = models.CASCADE,null=True, related_name='lead')
     team = models.ManyToManyField(Employees,related_name='team')
+
+
+
+class Meeting(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    date = models.DateField(null=True)
+    time = models.TimeField()
+    platform = models.CharField(max_length=50,null=True)
+    meeting_link = models.CharField(max_length=2000,null=True)
             

@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from ceo.models import EmergenctContact, Employees
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests
 
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 
 from django.contrib.auth import get_user_model
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 # Create your views here.
 
 def hrmHome(request):
@@ -54,8 +55,10 @@ def clientList(request):
 
 
 def leaveRequest(request):
+    leave = LeaveRequests.objects.filter(pm_accept = True , status ='Waiting')
     context = {
         "is_leaveRequest":True,
+        "leave":leave
     }
     return render(request, 'hrm/leaverequest.html',context)
 
@@ -88,3 +91,31 @@ def attantanceList(request):
         "allemp" : allemp,
     }
     return render(request, 'hrm/attantancelist.html',context)
+
+
+
+@csrf_exempt
+def hrmaccept(request,id):
+    LeaveRequests.objects.filter(id=id).update(hr_accept= True,status='Approved')
+    return JsonResponse({'value': 'msg'})
+
+
+
+
+def excuse(request):
+    listvalue= ExcuseRequests.objects.filter(status = 'Waiting')
+    context = {
+        "listvalue":listvalue
+    }
+    return render(request, 'hrm/excuse.html',context)
+    
+
+
+
+@csrf_exempt
+def changevalue(request):
+    id=request.POST['EnquaryID']
+    ExcuseRequests.objects.filter(id=id).update(status='Approved')
+    return JsonResponse({'value': 'msg'})
+
+
