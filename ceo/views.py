@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
+
+from crm.models import EnquiryNote
 # from django.contrib.auth import login as auth_login
 # Create your views here.
 from . form import RegisterForm
@@ -60,6 +62,24 @@ def ceodashboard(request):
 
 
 def crm(request):
+    if request.method == 'POST':
+        print("success")
+        instructions = request.POST['instruction']
+        print(instructions)
+
+        new_project_note = EnquiryNote(description=instructions)
+        new_project_note.save()
+        context = {
+            "is_home":True,
+            
+        }
+    else: 
+        print('#'*10)         
+        context = {
+            "is_home":True,
+            
+        }
+        return render(request,'crm/home.html',context)
     return render (request,'ceo/dashboard/crm.html')  
 
 
@@ -91,9 +111,21 @@ def employeeprofile(request):
 
 
 def departmentwise(request):
-    return render (request,'ceo/departmentwise.html')    
+    department = SubCatagory.objects.all()
+    # employees = Employees.objects.filter(catagory__title = )
+    context = {
+        "departments":department,
+    }
+    return render (request,'ceo/departmentwise.html',context)    
 
-
+def departmentwiseEmployee(request,id):
+    category = SubCatagory.objects.get(id=id)
+    employees = Employees.objects.filter(catagory=category)
+    context = {
+        "category":category,
+        "employees":employees
+    }
+    return render(request,'ceo/departmentwise_employee.html',context)
  
 
 def employeelist(request):
@@ -101,6 +133,7 @@ def employeelist(request):
 
 
 def allstaff(request):
+    all_emp = Employees.objects.all().order_by('name')
     form=RegisterForm(request.POST or None)    
     if request.method=='POST':        
         if form.is_valid():           
@@ -117,6 +150,7 @@ def allstaff(request):
     else:
         context={
             "form":RegisterForm,
+            "employees":all_emp,
         } 
         return render (request,'ceo/allstaff.html',context)
     return render (request,'ceo/allstaff.html',context)    
