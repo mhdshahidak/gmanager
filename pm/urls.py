@@ -16,6 +16,8 @@ urlpatterns = [
     path('projectlist', views.projectlist, name='projectlist'),
     path('viewproject', views.viewproject, name='viewproject'),
     path('unassigneproject', views.unassigneproject, name='unassigneproject'),
+    path('addproject/<str:id>', views.addproject, name='addproject'),
+    path('addteam/<str:id>', views.addteam, name='addteam'),
     path('addschedule', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
     path('viewtask', views.viewtask, name='viewtask'),
@@ -29,9 +31,17 @@ urlpatterns = [
     path('leaverequest', views.leaverequest, name='leaverequest'),
 
 
-
+    # ajax
     path('changeStatus', views.changeStatus, name='changeStatus'),
     path('savaProposal', views.savaProposal, name='savaProposal'),
     path('rejectedreason/<str:id>', views.rejectedreason, name='rejectedreason'),
     path('typereason', views.typereason, name='typereason'),
+    path('leadersearch', views.leadersearch, name='leadersearch'),
+    path('membersearch', views.membersearch, name='membersearch'),
+    path('viedetails/<str:id>', views.viedetails, name='viedetails'),
+    path('acceptdeatils/<str:id>', views.acceptdeatils, name='acceptdeatils'),
+    path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
+    path('reason', views.reason, name='reason'),
+
+    
 ]

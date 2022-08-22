@@ -50,6 +50,15 @@
                 <li {% if is_settings %} class="active" {% endif %}> 
                     <a href="{% url 'crm:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
                 </li>
+                <li class="submenu">
+                    <a href="#"><i class="la la-user"></i> <span> Leave</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="">Leaves</a></li>
+                        <li><a href="{% url 'common:leaveapplication' %}">Leave Form</a></li>
+                        <li><a href="">Excuse Form</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
