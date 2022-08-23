@@ -68,6 +68,19 @@ class Employees(models.Model):
         return str(self.name)
 
 
+class Client(models.Model):
+    name = models.CharField(max_length = 200)
+    companyname = models.CharField(max_length = 200)
+    address = models.CharField(max_length = 200, null = True)
+    phone = PhoneField(blank=True, help_text='Contact phone number')
+    email = models.EmailField()
+    whatsapp_number = PhoneField(blank=True, help_text='Contact phone number')
+    username = models.CharField(max_length = 50)
+    password = models.CharField(max_length = 100)
+    def __str__(self):
+        return str(self.name)   
+
+
 class EmergenctContact(models.Model):
     emergency_number = PhoneField(blank=True, help_text='Contact phone number')
     primarycontact_name = models.CharField(max_length = 25, null = True)
@@ -84,6 +97,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length = 50, unique=True)
     phone_number=PhoneField()
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE,null=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     objects = UserManager()

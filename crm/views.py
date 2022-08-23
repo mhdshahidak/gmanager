@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
-from . form import EnquiryForm
+from . form import EnquiryForm,ClientForm
 from . models import *
+from ceo.models import Client
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -50,10 +52,26 @@ def enquiryList(request):
 
 @login_required(login_url='/')
 def clientList(request):
-    context = {
-        "is_clientList":True,
-    }
-    return render(request,'crm/clientlist.html', context)
+    form=ClientForm(request.POST) 
+    clientdata =Client.objects.all()
+    if request.method == 'POST': 
+          
+        if form.is_valid():           
+            data = form.save() 
+            form_data = Client.objects.get(id=data.id)
+            User = get_user_model()
+            User.objects.create_user(username=form_data.username, password=form_data.password,client=form_data)
+            return redirect('crm:clientlist')
+        else:
+            pass
+    else:
+
+        context = {
+            "is_clientList":True,
+            "form":form,
+            "clientdata":clientdata
+        }
+        return render(request,'crm/clientlist.html', context)
 
 @login_required(login_url='/')
 def projectList(request):
