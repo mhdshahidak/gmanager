@@ -331,5 +331,11 @@ def reason(request):
 def srsapprovel(request):
     id=request.POST['EnquaryID']
     Project.objects.filter(id=id).update(status = 'SRS Approved')
+    
+    proj = Project.objects.get(id=id)
+
+    new_projectstatus = ProjectStatus(project=proj)
+    new_projectstatus.save()
+
     return JsonResponse({'message': 'sucesses'}) 
 
