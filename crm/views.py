@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
 from . form import EnquiryForm
 from . models import *
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
+@login_required(login_url='/')
 def crmHome(request):
     # form=EnquirynoteForm(request.POST)  
     # print(form)  
@@ -37,7 +39,7 @@ def crmHome(request):
         return render(request,'crm/home.html',context)
     return render(request,'crm/home.html',context)
 
-
+@login_required(login_url='/')
 def enquiryList(request):
     enquirylistdata = EnquiryNote.objects.filter(status='Active')
     context = {
@@ -46,62 +48,63 @@ def enquiryList(request):
     }
     return render(request,'crm/enquirylist.html', context)
 
-
+@login_required(login_url='/')
 def clientList(request):
     context = {
         "is_clientList":True,
     }
     return render(request,'crm/clientlist.html', context)
 
-
+@login_required(login_url='/')
 def projectList(request):
     context = {
         "is_projectList":True,
     }
     return render(request,'crm/projectlist.html', context)
 
-
+@login_required(login_url='/')
 def followUpList(request):
     context = {
         "is_followUpList":True,
     }
     return render(request,'crm/followuplist.html', context)
 
-
+@login_required(login_url='/')
 def feedBack(request):
     context = {
         "is_feedBack":True,
     }
     return render(request,'crm/feedback.html', context)
 
-
+@login_required(login_url='/')
 def leaves(request):
     context = {
         "is_leaves":True,
     }
     return render(request,'crm/leaves.html', context)
 
-
+@login_required(login_url='/')
 def attantance(request):
     context = {
         "is_attantance":True,
     }
     return render(request,'crm/attantance.html', context)
 
-
+@login_required(login_url='/')
 def settings(request):
     context = {
         "is_settings":True,
     }
     return render(request,'crm/settings.html', context)
 
-
+@login_required(login_url='/')
 def profile(request):
     context = {
         "is_profile":True,
     }
     return render(request,'crm/profile.html', context)
 
+@login_required(login_url='/')
 def viewenquiry(request,id):
     details = EnquiryNote.objects.get(id=id)
     # form=EnquiryForm(request.POST,request.FILES)  
@@ -122,6 +125,7 @@ def viewenquiry(request,id):
     return render(request,'crm/viewenquiry.html',context)
 
 
+@login_required(login_url='/')
 def createProject(request,id):
     details = EnquiryNote.objects.get(id=id)
     form=EnquiryForm(request.POST,request.FILES)

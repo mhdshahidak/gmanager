@@ -30,3 +30,5 @@ admin.site.register(ProjectMembers,ProjectMembersAdmin)
 
 
 admin.site.register(Meeting)
+
+admin.site.register(SRS)

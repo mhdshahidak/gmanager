@@ -35,11 +35,9 @@
                     <span>Projects</span>
                 </li>
                 <li {% if is_meeting %} class="active" {% endif %}>
-                    <a href="{% url 'employee:meetings' %}"><i class="la la-dashboard"></i> <span> Meeting LIst</span></a>
+                    <a href="{% url 'employee:viewproject' %}"><i class="la la-dashboard"></i> <span> Meeting List & SRS</span></a>
                 </li>
-                <li {% if is_srs %} class="active" {% endif %}>
-                    <a href="{% url 'employee:projectsrs' %}"><i class="la la-tasks"></i> <span> SRS</span></a>
-                </li>
+               
 
 
 
