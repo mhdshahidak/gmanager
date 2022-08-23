@@ -1,6 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from crm.models import Enquiry
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 # Create your views here.
@@ -9,10 +10,12 @@ def base(request):
     return render (request,'accounts/partials/base.html')
 
 
+@login_required(login_url='/')
 def home(request):
     return render (request,'accounts/home.html')
 
 
+@login_required(login_url='/')
 def praposal(request):
     praposallist = Enquiry.objects.filter(status='Bill Creation')
     context = {
@@ -20,6 +23,7 @@ def praposal(request):
     }
     return render (request,'accounts/praposal.html',context)
 
+@login_required(login_url='/')
 def followuplist(request):
     followlist = Enquiry.objects.filter(status = 'Bill Advance')
 
@@ -29,10 +33,12 @@ def followuplist(request):
     return render (request,'accounts/followuplist.html',context)
 
 
+@login_required(login_url='/')
 def completed(request):
     return render (request,'accounts/completed.html')   
 
 
+@login_required(login_url='/')
 def updation(request):
     return render (request,'accounts/updation.html')   
     
