@@ -45,3 +45,8 @@ class Meeting(models.Model):
     platform = models.CharField(max_length=50,null=True)
     meeting_link = models.CharField(max_length=2000,null=True)
             
+
+class SRS(models.Model): 
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    srsfile = models.FileField(upload_to="Praposalpdf/", max_length=100000)
+    added_time = models.DateTimeField(auto_now_add=True)

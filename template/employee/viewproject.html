@@ -1,4 +1,7 @@
-{% extends 'pm/partials/base.html' %}
+
+
+
+{% extends "employee/base.html" %}
 {% load static %}
 {% block content %}
 
@@ -11,10 +14,10 @@
         <div class="page-header">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="page-title">View Quatations</h3>
+                    <h3 class="page-title">Assigned Projects</h3>
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active">View Quatations</li>
+                        <li class="breadcrumb-item active">Projects</li>
                     </ul>
                 </div>
 
@@ -28,11 +31,11 @@
 
         <div class="row">
 
-            {% for enquiry in enquirylistdata %}
+            {% for i in meetinglist %}
             <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
 
                 <div class="card">
-                    <a href="{% url 'pm:viewenquries' enquiry.id %}" style="text-decoration: none; color: black;">
+                    <a href="{% url 'employee:meetings' i.project.id %}" style="text-decoration: none; color: black;">
                         <div class="card-body">
                             <!-- <div class="dropdown dropdown-action profile-action">
                                 <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
@@ -45,7 +48,7 @@
                                 </div>
                             </div> -->
                             <h4 class="project-title">Project Name</h4>
-                            <h3 class="project-title m-b-15">{{ enquiry.projectname }}</h3>
+                            <h3 class="project-title m-b-15">{{ i.project.projectname }}</h3>
     
                             <!-- <p class="text-muted">Lorem Ipsum is simply dummy text of the printing and
                                 typesetting industry. When an unknown printer took a galley of type and
@@ -53,26 +56,26 @@
                             </p> -->
                             <div class="pro-deadline m-b-15">
                                 <div class="sub-title">
-                                   Client Name:
+                                   Type:
                                 </div>
                                 <div class="text-muted">
-                                    {{ enquiry.clientname }}
+                                    {{ i.project.projecttype }}
                                 </div>
                             </div>
                             <div class="pro-deadline m-b-15">
                                 <div class="sub-title">
-                                    Company Name:
+                                   Start Date:
                                 </div>
                                 <div class="text-muted">
-                                    {{ enquiry.companyname }}
+                                    {{ i.project.starteddate }}
                                 </div>
                             </div>
                             <div class="pro-deadline m-b-15">
                                 <div class="sub-title">
-                                    Type of Project :
+                                   End Date
                                 </div>
                                 <div class="text-muted">
-                                    {{ enquiry.type }}
+                                    {{ i.project.endingdate }}
                                 </div>
                             </div>
     

@@ -43,6 +43,6 @@ urlpatterns = [
     path('acceptdeatils/<str:id>', views.acceptdeatils, name='acceptdeatils'),
     path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
     path('reason', views.reason, name='reason'),
-
+    path('srsapprovel', views.srsapprovel, name='srsapprovel'),
     
 ]

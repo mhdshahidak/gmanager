@@ -2,12 +2,13 @@ from django.shortcuts import render
 from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests
 
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 # Create your views here.
 
+@login_required(login_url='/')
 def hrmHome(request):
     emp = Employees.objects.all().count()
     context = {
@@ -17,6 +18,7 @@ def hrmHome(request):
     return render(request, 'hrm/hrmhome.html',context)
 
 
+@login_required(login_url='/')
 def employeeList(request):
 
     allemp = EmergenctContact.objects.all().order_by('-employee_id')
@@ -47,6 +49,7 @@ def employeeList(request):
 
 
 
+@login_required(login_url='/')
 def clientList(request):
     context = {
         "is_clientList":True,
@@ -54,6 +57,7 @@ def clientList(request):
     return render(request, 'hrm/client.html',context)
 
 
+@login_required(login_url='/')
 def leaveRequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = True , status ='Waiting')
     context = {
@@ -63,6 +67,7 @@ def leaveRequest(request):
     return render(request, 'hrm/leaverequest.html',context)
 
 
+@login_required(login_url='/')
 def leaveReport(request):
     context = {
         "is_leaveReport":True,
@@ -70,6 +75,7 @@ def leaveReport(request):
     return render(request, 'hrm/leavereport.html',context)
 
 
+@login_required(login_url='/')
 def attantanceReport(request):
     context = {
         "is_attantanceReport":True,
@@ -77,6 +83,7 @@ def attantanceReport(request):
     return render(request, 'hrm/attantancereport.html',context)
 
 
+@login_required(login_url='/')
 def hrsettings(request):
     context = {
         "is_hrsettings":True,
@@ -84,6 +91,7 @@ def hrsettings(request):
     return render(request, 'hrm/hrsettings.html',context)
 
 
+@login_required(login_url='/')
 def attantanceList(request):
     allemp = Employees.objects.all()
     context = {
@@ -102,6 +110,7 @@ def hrmaccept(request,id):
 
 
 
+@login_required(login_url='/')
 def excuse(request):
     listvalue= ExcuseRequests.objects.filter(status = 'Waiting')
     context = {

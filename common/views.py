@@ -1,6 +1,6 @@
 from multiprocessing import context
 from django.shortcuts import render,redirect
-
+from django.contrib.auth.decorators import login_required
 from ceo.models import *
 from django.contrib.auth import get_user_model
 from . forms import LeaveRequestsForm, ExcuseRequestsForm
@@ -13,7 +13,7 @@ def base(request):
 
 
 
-
+@login_required(login_url='/')
 def leave_application(request):
     user_name = request.user.employee
     leave_form = LeaveRequestsForm(request.POST or None)
@@ -48,16 +48,16 @@ def leave_application(request):
     }
     return render(request,'common/leave_apply.html', context)
 
-
+@login_required(login_url='/')
 def attendanceRreport(request):
     return render(request,'common/attendance_report.html')
 
-
+@login_required(login_url='/')
 def settings(request):
     return render(request,'common/settings.html')
 
 
-
+@login_required(login_url='/')
 def leaves(request):
     user_name = request.user.employee
   
@@ -70,7 +70,7 @@ def leaves(request):
 
     return render(request,'common/leaves.html',context)
 
-
+@login_required(login_url='/')
 def gohome(request):
     user_name = request.user.employee
     print(user_name)
@@ -91,7 +91,7 @@ def gohome(request):
         return redirect('clients:home')    
 
 
-
+@login_required(login_url='/')
 def excuse(request):
     user_name = request.user.employee
     leaveform = ExcuseRequestsForm(request.POST or None)
