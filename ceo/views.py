@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
-
+from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
 # from django.contrib.auth import login as auth_login
 # Create your views here.
@@ -57,11 +57,11 @@ def logout_view(request):
 
 
 
-
+@login_required(login_url='/')
 def ceodashboard(request):
     return render (request,'ceo/dashboard/admin.html')  
 
-
+@login_required(login_url='/')
 def crm(request):
     if request.method == 'POST':
         print("success")
@@ -83,7 +83,7 @@ def crm(request):
         return render(request,'crm/home.html',context)
     return render (request,'ceo/dashboard/crm.html')  
 
-
+@login_required(login_url='/')
 def employe(request):
     return render (request,'ceo/dashboard/employee.html')  
 
@@ -92,7 +92,7 @@ def employe(request):
 #     return render (request,'ceo/dashboard/hr.html')  
 
 
-
+@login_required(login_url='/')
 def projectmanager(request):
     return render (request,'ceo/dashboard/projectmanager.html')          
 
@@ -110,7 +110,7 @@ def employeeprofile(request):
     return render (request,'ceo/employeeprofile.html')    
 
 
-
+@login_required(login_url='/')
 def departmentwise(request):
     department = SubCatagory.objects.all()
     class cat:
@@ -134,6 +134,7 @@ def departmentwise(request):
         
    
 
+@login_required(login_url='/')
 def departmentwiseEmployee(request,id):
     category = SubCatagory.objects.get(id=id)
     employees = Employees.objects.filter(catagory=category)
@@ -144,10 +145,12 @@ def departmentwiseEmployee(request,id):
     return render(request,'ceo/departmentwise_employee.html',context)
  
 
+@login_required(login_url='/')
 def employeelist(request):
     return render (request,'ceo/employeelist.html')        
 
 
+@login_required(login_url='/')
 def allstaff(request):
     all_emp = Employees.objects.all().order_by('name')
     form=RegisterForm(request.POST or None)    
@@ -172,6 +175,7 @@ def allstaff(request):
     return render (request,'ceo/allstaff.html',context)    
         
 
+@login_required(login_url='/')
 def editEmployeeDetails(request,id):
     n = Employees.objects.get(id=id)
     if request.method == 'POST':
@@ -185,18 +189,22 @@ def editEmployeeDetails(request,id):
        
 
 
+@login_required(login_url='/')
 def dailychecked(request):
     return render (request,'ceo/dailychecked.html') 
 
 
+@login_required(login_url='/')
 def project(request):
     return render (request,'ceo/project/project.html')    
 
 
+@login_required(login_url='/')
 def projectlist(request):
     return render (request,'ceo/project/projectlist.html')  
 
 
+@login_required(login_url='/')
 def viewproject(request):
     return render (request,'ceo/project/viewproject.html')        
     

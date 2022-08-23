@@ -6,10 +6,10 @@ app_name = 'employee'
 urlpatterns = [
     path('',views.employeeHome,name='employeehome'),
 
-    path('meetings',views.empMeetingLink,name='meetings'),
+    path('meetings/<int:id>',views.empMeetingLink,name='meetings'),
 
     path('allprojects',views.allProjects,name='allprojects'),
-    path('projectsrs',views.projectSrs,name='projectsrs'),
+    # path('projectsrs',views.projectSrs,name='projectsrs'),
     path('emprework',views.empRework,name='emprework'),
     path('dailyprogress',views.empDailyProgress,name='dailyprogress'),
     path('progressreport',views.empProgressReport,name='progressreport'),   
@@ -28,5 +28,6 @@ urlpatterns = [
 
     path('empprofile',views.empProfile,name='empprofile'),
     
-
+    path('viewproject',views.viewproject,name='viewproject'),
+    
 ]

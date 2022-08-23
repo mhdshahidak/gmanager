@@ -6,18 +6,19 @@ from ceo.models import Employees ,LeaveRequests
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from . form import PraposalpdfForm,ProjectForm
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
+@login_required(login_url='/')# Create your views here.
 def base(request):
     return render (request,'pm/partials/base.html')
 
-
+@login_required(login_url='/')
 def index(request):
     return render (request,'pm/index.html')    
 
 
-
+@login_required(login_url='/')
 def enquiry(request):
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
     context={
@@ -25,7 +26,7 @@ def enquiry(request):
     }
     return render (request,'pm/enquiry/enquiry.html',context)     
 
-
+@login_required(login_url='/')
 def viewenquries(request,id):
     details = Enquiry.objects.get(id=id)
     forms=PraposalpdfForm(request.POST,request.FILES)
@@ -50,7 +51,7 @@ def viewenquries(request,id):
     return render (request,'pm/enquiry/viewenquries.html',context) 
 
 
-
+@login_required(login_url='/')
 def proposal(request):
     data = Enquiry.objects.filter(status = 'Added To Proposal')
     
@@ -61,19 +62,19 @@ def proposal(request):
 
 
 
-
+@login_required(login_url='/')
 def project(request):
     return render (request,'pm/project/project.html')    
 
-
+@login_required(login_url='/')
 def projectlist(request):
     return render (request,'pm/project/projectlist.html')  
 
-
+@login_required(login_url='/')
 def viewproject(request):
     return render (request,'pm/project/viewproject.html')  
 
-
+@login_required(login_url='/')
 def unassigneproject(request):
     enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
     context={
@@ -82,7 +83,7 @@ def unassigneproject(request):
     return render (request,'pm/project/unassigneproject.html',context)         
 
 
-
+@login_required(login_url='/')
 def addproject(request,id):
     deatils= Enquiry.objects.get(id=id)
     form=ProjectForm(request.POST)
@@ -104,7 +105,7 @@ def addproject(request,id):
         return render (request,'pm/project/addproject.html',context)
     return render (request,'pm/project/addproject.html',context)  
 
-
+@login_required(login_url='/')
 def addteam(request,id):
     employee = Employees.objects.all()
     context={
@@ -112,7 +113,7 @@ def addteam(request,id):
         "id":id
     }
     return render (request,'pm/project/addteam.html',context)
-
+@login_required(login_url='/')
 def addschedule(request,id):
     project_obj = Project.objects.get(id=id)
     # print(project)    
@@ -141,7 +142,7 @@ def addschedule(request,id):
     return render (request,'pm/project/addschedule.html',context)    
 
 
-
+@login_required(login_url='/')
 def meetings(request):
     # project = Project.objects.get(status="Meeting Scheduled")
     meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
@@ -151,39 +152,43 @@ def meetings(request):
     }
     return render(request,'pm/meetings.html',context)
 
-
+@login_required(login_url='/')
 def task(request):
     return render (request,'pm/project/task.html')
     
 
-
+@login_required(login_url='/')
 def viewtask(request):
     return render (request,'pm/project/viewtask.html')  
 
 
-
+@login_required(login_url='/')
 def srs(request):
-    return render (request,'pm/project/srs.html')  
+    viewsrs = SRS.objects.filter(project__status='SRS uploaded')
+    context={
+        "viewsrs":viewsrs
+    }
+    return render (request,'pm/project/srs.html',context)  
 
 
-
+@login_required(login_url='/')
 def fullprojectlist(request):
     return render (request,'pm/project/fullprojectlist.html')  
 
 
-
+@login_required(login_url='/')
 def dailyprogress(request):
     return render (request,'pm/dailyprogress.html')    
 
-
+@login_required(login_url='/')
 def viewdailyreport(request):
     return render (request,'pm/viewdailyreport.html')  
     
 
-
+@login_required(login_url='/')
 def qcapprovel(request):
     return render (request,'pm/qcapprovel.html')  
-
+@login_required(login_url='/')
 def leaverequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
     print(leave)
@@ -320,3 +325,11 @@ def reason(request):
     rejectedreason=request.POST['rejectedreason']
     LeaveRequests.objects.filter(id=id).update(rejected_reason=rejectedreason,status='Rejected')
     return JsonResponse({'value': 'msg'})    
+
+
+@csrf_exempt
+def srsapprovel(request):
+    id=request.POST['EnquaryID']
+    Project.objects.filter(id=id).update(status = 'SRS Approved')
+    return JsonResponse({'message': 'sucesses'}) 
+
