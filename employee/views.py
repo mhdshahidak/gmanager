@@ -3,12 +3,23 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ceo.models import EmergenctContact, Employees
-from pm.models import ProjectMembers,Meeting ,Project,SRS
+from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus
 # Create your views here.
 
 
 @login_required(login_url='/')
 def employeeHome(request):
+    employeedata=Employees.objects.get(id=request.user.employee.id)
+    print(employeedata)
+    meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
+    print(meetinglist.project.id,"%"*20)
+
+    # projects = ProjectStatus.objects.filter()
+    # recent_invoices=Invoive.objects.select_related('customer').filter(product__branch=request.session['branch'],date__gte=today_start).values('invoice_no','customer__name','date','grand_total').distinct()
+    # project = ProjectStatus.objects.select_related('projectmembers').filter(team = employeedata ) | ProjectStatus.objects.select_related('projectmembers').filter(lead=employeedata)
+    # print(project,"&"*20)
+    # project = 
+
     context={
         "is_home":True,
     }
@@ -20,7 +31,7 @@ def viewproject(request):
     # meetinglist = ProjectMembers.objects.filter(team=request.user.id)
     employeedata=Employees.objects.get(id=request.user.employee.id)
     print(employeedata)
-    meetinglist=ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
+    meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
     
     print(meetinglist)
     context = {
