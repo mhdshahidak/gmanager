@@ -32,3 +32,9 @@ admin.site.register(ProjectMembers,ProjectMembersAdmin)
 admin.site.register(Meeting)
 
 admin.site.register(SRS)
+
+admin.site.register(ProjectStatus)
+
+admin.site.register(ProjectProgressFiles)
+
+admin.site.register(DailyProgress)
