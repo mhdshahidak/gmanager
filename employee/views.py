@@ -89,22 +89,27 @@ def empRework(request):
 
 @login_required(login_url='/')
 def empDailyProgress(request,id):
+    # print(request.user.employee.id,'$'*99)
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
-    
+    employee_id = Employees.objects.get(id=request.user.employee.id)
+    print(employee_id,'&'*50)
     if request.method =='POST':
         projectstatus = request.POST['projectstatus']
         percentage = request.POST['percentage']
         timetype = request.POST['timetype']
-        print(timetype)
+        # print(timetype)
         link = request.POST['link']
         # file = request.FILES['file']
         username = request.POST['username']
         password = request.POST['password']
         instruction = request.POST['instruction']
+       
         ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
-        valuess = DailyProgress.objects.filter(project=project_obj).update(status=timetype,note=instruction)
-        print(valuess)
+        valuesss=DailyProgress(project=project_obj,employee=employee_id)
+        valuesss.save()
+        DailyProgress.objects.filter(project=project_obj).update(status=timetype,note=instruction)
+        # print(valuess)
         # valdata=ProjectProgressFiles(project=project_obj, files=file)
         # valdata.save()
 
