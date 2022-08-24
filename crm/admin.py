@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import *
+from ceo.models import *
 
 # Register your models here.
 
@@ -19,3 +20,9 @@ class EnquiryAdmin(admin.ModelAdmin):
     search_fields=('projectname',)
 admin.site.register(Enquiry,EnquiryAdmin)
 
+
+
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ('name','companyname','phone')
+    search_fields=('name',)
+admin.site.register(Client,ClientAdmin)

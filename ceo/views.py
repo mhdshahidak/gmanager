@@ -26,6 +26,8 @@ def log_in(request):
             login(request, user)
             if user.is_superuser == True:
                 return redirect('ceo:ceodashboard')
+            elif user.client !=None:
+                return redirect('clients:home')
             elif user.employee.catagory.catagory.catagory_title == "HRM" :
                 return redirect('hrm:hrhome')
             elif user.employee.catagory.catagory.catagory_title == "CRM":
@@ -36,10 +38,9 @@ def log_in(request):
                 return redirect('gm:home')
             elif user.employee.catagory.catagory.catagory_title == "ACCOUNTS":
                 return redirect('accounts:home')
-            elif user.employee.catagory.catagory.catagory_title == "CLIENT":
-                return redirect('clients:home')
             elif user.employee.catagory.catagory.catagory_title == "EMPLOYEE":
                 return redirect('employee:employeehome')
+            
             
         else:
         

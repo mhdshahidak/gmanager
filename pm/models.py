@@ -2,7 +2,7 @@ from django.db import models
 
 from crm.models import Enquiry
 
-from ceo.models import Employees
+from ceo.models import Employees,Client
 
 # Create your models here.
 
@@ -21,6 +21,7 @@ class Praposalpdf(models.Model):
 class Project(models.Model):
     choices = (('Low','Low'),('Medium','Medium'),('High','High'))
     enquiry = models.ForeignKey(Enquiry, on_delete = models.CASCADE,null=True)
+    client = models.ForeignKey(Client, on_delete = models.CASCADE,null=True)
     status = models.CharField(max_length = 25,default= 'Schedule Meeting')
     projectname = models.CharField(max_length = 50,null=True)
     starteddate = models.DateTimeField()
