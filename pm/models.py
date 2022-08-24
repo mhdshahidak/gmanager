@@ -55,8 +55,9 @@ class SRS(models.Model):
 
 
 class ProjectStatus(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)   
-    status = models.CharField(max_length=30, null=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)  
+    member = models.ForeignKey(ProjectMembers, on_delete = models.CASCADE,null=True) 
+    status = models.CharField(max_length=30, null=True, default="Not Started")
     completion = models.IntegerField(default=0)
     url_project = models.URLField(max_length=1000, null=True)
     username = models.CharField(max_length=200, null=True)
@@ -71,7 +72,8 @@ class ProjectProgressFiles(models.Model):
 
 class DailyProgress(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employees, on_delete = models.CASCADE,null=True)
     date = models.DateTimeField(auto_now_add=True)
-    note = models.TextField(null=True)
+    note = models.TextField(null=True, default="Add Note")
     status = models.CharField(max_length=15, default="Not Checked")
 
