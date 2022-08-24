@@ -182,7 +182,11 @@ def editEmployeeDetails(request,id):
     if request.method == 'POST':
         form = RegisterForm(request.POST or None, instance=n)
         if form.is_valid():
-            form.save()
+            data = form.save()
+            password_upadte = get_user_model().objects.get(employee=n)
+            password_upadte.set_password(data.password)
+            password_upadte.save()
+            get_user_model().objects.filter(employee=n).update(username=data.username)
             return redirect('ceo:allstaff')
     else:
         form = RegisterForm(request.POST or None, instance=n)

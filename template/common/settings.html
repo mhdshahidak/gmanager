@@ -30,18 +30,21 @@
                     <div class="card-body">
                         <!-- <h6 class="card-title">Bottom line tabs</h6> -->
                         <ul class="nav nav-tabs nav-tabs-bottom">
-                            <li class="nav-item"><a class="nav-link active" href="#bottom-tab1" data-bs-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-bs-toggle="tab">Change Password</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="#bottom-tab1"
+                                    data-bs-toggle="tab">Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-bs-toggle="tab">Change
+                                    Password</a></li>
                         </ul>
 
-                        <div class="tab-content">
+                        <div class="tab-content col-md-8">
 
                             <div class="tab-pane show active" id="bottom-tab1">
-                                <form>
+                                <form method="POST">
+                                    {% csrf_token %}
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label>Company Name <span class="text-danger">*</span></label>
+                                                <label>Name <span class="text-danger">*</span></label>
                                                 <input class="form-control" type="text" value="Dreamguy's Technologies">
                                             </div>
                                         </div>
@@ -56,7 +59,8 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Address</label>
-                                                <input class="form-control " value="3864 Quiet Valley Lane, Sherman Oaks, CA, 91403" type="text">
+                                                <input class="form-control "
+                                                    value="3864 Quiet Valley Lane, Sherman Oaks, CA, 91403" type="text">
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-3">
@@ -95,7 +99,8 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input class="form-control" value="danielporter@example.com" type="email">
+                                                <input class="form-control" value="danielporter@example.com"
+                                                    type="email">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -153,7 +158,7 @@
                                     <div class="submit-section">
                                         <button class="btn btn-primary submit-btn">Update Password</button>
                                     </div>
-						        </form>
+                                </form>
                             </div>
                         </div>
                     </div>
