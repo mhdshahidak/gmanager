@@ -51,3 +51,27 @@ class SRS(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     srsfile = models.FileField(upload_to="Praposalpdf/", max_length=100000)
     added_time = models.DateTimeField(auto_now_add=True)
+
+
+
+class ProjectStatus(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)   
+    status = models.CharField(max_length=30, null=True)
+    completion = models.IntegerField(default=0)
+    url_project = models.URLField(max_length=1000, null=True)
+    username = models.CharField(max_length=200, null=True)
+    password = models.CharField(max_length=200, null=True)
+
+
+class ProjectProgressFiles(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    files = models.FileField(null=True)
+
+
+
+class DailyProgress(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    note = models.TextField(null=True)
+    status = models.CharField(max_length=15, default="Not Checked")
+
