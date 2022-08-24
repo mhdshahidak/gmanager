@@ -19,11 +19,12 @@ class PraposalpdfForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ('projectname','endingdate','starteddate','projecttype',)
+        fields = ('projectname','endingdate','starteddate','projecttype','client')
       
         widgets = {
             'projectname': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Projectname','name':'projectname'}),
             'endingdate': DateInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'endingdate','name':'endingdate','type':'date'}),
             'starteddate': DateInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'starteddate','name':'starteddate','type':'date'}),
             'projecttype' : Select(attrs={'class': 'form-control bx-inp', 'required': 'required','name':'projecttype','name':'projecttype'}),
+            'client' : Select(attrs={'class': 'form-control bx-inp', 'required': 'required','name':'Client','name':'client'}),
         }        
