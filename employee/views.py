@@ -3,7 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ceo.models import EmergenctContact, Employees
-from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus
+from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
 # Create your views here.
 
 
@@ -11,17 +11,11 @@ from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus
 def employeeHome(request):
     employeedata=Employees.objects.get(id=request.user.employee.id)
     print(employeedata)
-    meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
-    print(meetinglist.project.id,"%"*20)
-
-    # projects = ProjectStatus.objects.filter()
-    # recent_invoices=Invoive.objects.select_related('customer').filter(product__branch=request.session['branch'],date__gte=today_start).values('invoice_no','customer__name','date','grand_total').distinct()
-    # project = ProjectStatus.objects.select_related('projectmembers').filter(team = employeedata ) | ProjectStatus.objects.select_related('projectmembers').filter(lead=employeedata)
-    # print(project,"&"*20)
-    # project = 
-
+    listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
+    
     context={
         "is_home":True,
+        "listdata":listdata,
     }
     return render(request,'employee/home.html',context)
 
@@ -94,9 +88,31 @@ def empRework(request):
 
 
 @login_required(login_url='/')
-def empDailyProgress(request):
+def empDailyProgress(request,id):
+    project_obj = Project.objects.get(id=id)
+    proj_sts = ProjectStatus.objects.get(project=project_obj)
+    
+    if request.method =='POST':
+        projectstatus = request.POST['projectstatus']
+        percentage = request.POST['percentage']
+        timetype = request.POST['timetype']
+        print(timetype)
+        link = request.POST['link']
+        # file = request.FILES['file']
+        username = request.POST['username']
+        password = request.POST['password']
+        instruction = request.POST['instruction']
+        ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
+        valuess = DailyProgress.objects.filter(project=project_obj).update(status=timetype,note=instruction)
+        print(valuess)
+        # valdata=ProjectProgressFiles(project=project_obj, files=file)
+        # valdata.save()
+
+        return redirect('/employee')
     context = {
         "is_dailyprogress":True,
+        "proj_sts":proj_sts,
+       
     }
     return render(request,'employee/daily_progress.html',context)
 
