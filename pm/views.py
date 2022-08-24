@@ -333,9 +333,11 @@ def srsapprovel(request):
     Project.objects.filter(id=id).update(status = 'SRS Approved')
     
     proj = Project.objects.get(id=id)
+    member = ProjectMembers.objects.get(project=proj)
 
-    new_projectstatus = ProjectStatus(project=proj)
+    new_projectstatus = ProjectStatus(project=proj,member=member)
     new_projectstatus.save()
-
+    addedprogres = DailyProgress(project=proj)
+    addedprogres.save()
     return JsonResponse({'message': 'sucesses'}) 
 

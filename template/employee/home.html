@@ -279,129 +279,48 @@
 												<tr>
 													<th>End Date</th>
 													<th>Project</th>
-													<th>Added Date</th>
+													
 													<th>Status</th>
 													<th>Completion</th>
 													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
+
+												{% for i in listdata %}
 												<tr>
 													<td>
-														12/02/2022
+														{{i.project.endingdate}}
 													</td>
 													<td>
-														<a href="{% url 'employee:progressreport' %}">Onflap</a>
+														<a href="{% url 'employee:progressreport'  %}">{{i.project.projectname}}</a>
 													</td>
-													<td>25/05/2022</td>
+													
 													<td>
 														<i class="las la-circle"></i>
 														ongoing
 													</td>
 													<td>
-														75%
+														{{i.completion}}%
 														<div class="progress progress-xs">
-															<div class="progress-bar w-75" role="progressbar"
-																style="width: 10%" aria-valuenow="75" aria-valuemin="0"
+															<div class="progress-bar w-45" role="progressbar"
+																style="width: 10%" aria-valuenow="{{i.completion}}" aria-valuemin="0"
 																aria-valuemax="100">
 															</div>
 
 														</div>
 													</td>
 													<td>
-														<a href="{% url 'employee:dailyprogress' %}">
+														<a href="{% url 'employee:dailyprogress' i.project.id %}">
 															<span
 																class="badge badge-pill bg-success-light text-center"><i
 																	class="las la-pen"></i></span>
 														</a>
 													</td>
 												</tr>
-												<tr>
-													<td>
-														12/02/2022
-													</td>
-													<td>
-														<a href="">Onflap</a>
-													</td>
-													<td>25/05/2022</td>
-													<td>
-														<i class="las la-circle"></i>
-														ongoing
-													</td>
-													<td>
-														75%
-														<div class="progress progress-xs">
-															<div class="progress-bar w-75" role="progressbar"
-																style="width: 10%" aria-valuenow="75" aria-valuemin="0"
-																aria-valuemax="100">
-															</div>
-
-														</div>
-													</td>
-													<td>
-														<a href="">
-															<span
-																class="badge badge-pill bg-success-light text-center"><i
-																	class="las la-pen"></i></span>
-														</a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														12/02/2022
-													</td>
-													<td>
-														<a href="">Onflap</a>
-													</td>
-													<td>25/05/2022</td>
-													<td>
-														<i class="las la-circle"></i>
-														ongoing
-													</td>
-													<td>
-														75%
-														<div class="progress progress-xs">
-															<div class="progress-bar w-75" role="progressbar"
-																style="width: 10%" aria-valuenow="75" aria-valuemin="0"
-																aria-valuemax="100">
-															</div>
-
-														</div>
-													</td>
-													<td>
-														<a href="">
-															<span
-																class="badge badge-pill bg-success-light text-center"><i
-																	class="las la-pen"></i></span>
-														</a>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														12/02/2022
-													</td>
-													<td>
-														<a href="">Onflap</a>
-													</td>
-													<td>25/05/2022</td>
-													<td>
-														<i class="las la-circle"></i>
-														ongoing
-													</td>
-													<td>
-														75%
-														<div class="progress-bar" role="progressbar"
-															data-bs-toggle="tooltip" title="" style="width: 88%"
-															data-bs-original-title="88%" aria-label="88%"></div>
-													</td>
-													<td>
-														<a href="">
-															<span
-																class="badge badge-pill bg-success-light text-center"><i
-																	class="las la-pen"></i></span>
-														</a>
-													</td>
-												</tr>
+												{% endfor %}
+												
+												
 
 											</tbody>
 										</table>
