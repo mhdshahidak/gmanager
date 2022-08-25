@@ -43,7 +43,7 @@
                     <a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}> 
-                    <a href=""><i class="la la-cog"></i> <span>Settings</span></a>
+                    <a href="{% url 'common:settings'%}"><i class="la la-cog"></i> <span>Settings</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}> 
                     <a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>

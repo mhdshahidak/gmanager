@@ -1,3 +1,4 @@
+from multiprocessing import context
 from unicodedata import category
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login
@@ -7,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
 # from django.contrib.auth import login as auth_login
 # Create your views here.
-from . form import RegisterForm
+from . form import RegisterForm, editEmployeeForm
 from . models import *
 
 def base(request):
@@ -160,8 +161,11 @@ def allstaff(request):
             data = form.save()            
             form_data = Employees.objects.get(id=data.id)
             
+            
             User = get_user_model()
             User.objects.create_user(username=form_data.username, password=form_data.password,employee=form_data)
+            emergecy = EmergenctContact(employee=form_data)
+            emergecy.save()
 
             return redirect('ceo:ceodashboard')
         else:
@@ -182,11 +186,18 @@ def editEmployeeDetails(request,id):
     if request.method == 'POST':
         form = RegisterForm(request.POST or None, instance=n)
         if form.is_valid():
-            form.save()
-        return redirect('View_Vaccine')
+            data = form.save()
+            password_upadte = get_user_model().objects.get(employee=n)
+            password_upadte.set_password(data.password)
+            password_upadte.save()
+            get_user_model().objects.filter(employee=n).update(username=data.username)
+            return redirect('ceo:allstaff')
     else:
         form = RegisterForm(request.POST or None, instance=n)
-    return render (request,'ceo/allstaff.html',{'form':form,})  
+    context = {
+        "form":form,
+    }
+    return render (request,'ceo/edit_employee.html',context)  
        
 
 

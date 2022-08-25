@@ -48,7 +48,7 @@ def viewenquries(request,id):
         "forms":forms
         }
         return render (request,'pm/enquiry/viewenquries.html',context) 
-    return render (request,'pm/enquiry/viewenquries.html',context) 
+    return render (request,'pm/enquiry/viewenquries.html') 
 
 
 @login_required(login_url='/')
