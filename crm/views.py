@@ -4,6 +4,9 @@ from . models import *
 from ceo.models import Client, EmergenctContact, Employees
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from pm.models import Updation ,Project
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -85,8 +88,10 @@ def projectList(request):
 
 @login_required(login_url='/')
 def followUpList(request):
+    updationlist = Updation.objects.filter(status='Not Checked')
     context = {
         "is_followUpList":True,
+        "updationlist":updationlist
     }
     return render(request,'crm/followuplist.html', context)
 
@@ -168,4 +173,30 @@ def createProject(request,id):
     }
     
     return render(request,'crm/create_project.html',context)
+    
+
+
+
+
+
+
+@csrf_exempt
+def viewdata(request,id):
+    details=Updation.objects.get(id=id)
+    
+    data={
+        "note":details.note,
+        "date":details.date,
+       
+        
+
+    }
+    return JsonResponse({'value': data})    
+
+@csrf_exempt
+def changedata(request,id):
+    Updation.objects.filter(id=id).update(status='CRM Checked')
+    
+    return JsonResponse({'value': 'data'})  
+
     
