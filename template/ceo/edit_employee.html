@@ -1,0 +1,116 @@
+{% extends 'ceo/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Employee</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Edit Employee</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="edit_employee"  role="dialog">
+            <div class="" role="document">
+                <div class="">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Employee</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form.name.label}}
+                                        {{form.name}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form.employee_id.label}}
+                                        {{form.employee_id}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form.phone.label}}
+                                        {{form.phone}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form.email.label}}
+                                        {{form.email}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.whatsapp_number.label}}<span class="text-danger">*</span></label>
+                                        {{form.whatsapp_number}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.dob.label}}<span class="text-danger">*</span></label>
+                                        {{form.dob}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">  
+                                    <div class="form-group">
+                                        {{form.join_date.label}}<span class="text-danger">*</span></label>
+                                        {{form.join_date}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{form.catagory.label}}<span class="text-danger">*</span></label>
+                                        {{form.catagory}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{form.address.label}}<span class="text-danger">*</span></label>
+                                        {{form.address}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form.username.label}}<span class="text-danger">*</span></label>
+                                        {{form.username}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form.password.label}}<span class="text-danger">*</span></label>
+                                        {{form.password}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary submit-btn">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
