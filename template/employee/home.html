@@ -293,7 +293,7 @@
 														{{i.project.endingdate}}
 													</td>
 													<td>
-														<a href="{% url 'employee:progressreport'  %}">{{i.project.projectname}}</a>
+														<a href="{% url 'employee:progressreport' i.project.id   %}">{{i.project.projectname}}</a>
 													</td>
 													
 													<td>
