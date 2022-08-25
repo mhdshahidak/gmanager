@@ -76,4 +76,5 @@ class DailyProgress(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     note = models.TextField(null=True, default="Add Note")
     status = models.CharField(max_length=15, default="Not Checked")
+    checked = models.BooleanField(default=False)
 
