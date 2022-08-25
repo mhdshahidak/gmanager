@@ -59,7 +59,7 @@ class EmergenctResetForm(forms.ModelForm):
         model = EmergenctContact
         fields = ('primarycontact_name', 'emergency_number', 'relation')
         widget = {
-            'emergency_number': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'emergency_number'}),
-            'primarycontact_name':TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'primarycontact_name'}),
+            'emergency_number': TextInput(attrs={'class': 'form-control', 'autocomplete':'off', 'placeholder':'Name','name':'emergency_number'}),
+            'primarycontact_name':TextInput(attrs={'class': 'form-control', 'autocomplete':'off', 'placeholder':'Name','name':'primarycontact_name'}),
             'relation' : TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'relation'}),
         }
