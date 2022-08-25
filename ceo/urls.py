@@ -34,6 +34,6 @@ urlpatterns = [
     path('projectlist', views.projectlist, name='projectlist'),
     path('viewproject', views.viewproject, name='viewproject'),
 
-    path('editemployee',views.editEmployeeDetails,name='editemployee')
+    path('editemployee/<int:id>',views.editEmployeeDetails,name='editemployee')
 
 ]

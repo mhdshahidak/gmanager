@@ -1,16 +1,18 @@
 from django.shortcuts import render,redirect
 from . form import EnquiryForm,ClientForm
 from . models import *
-from ceo.models import Client
+from ceo.models import Client, EmergenctContact, Employees
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
-@login_required(login_url='/')
+
 def crmHome(request):
+    # emp = Employees.objects.get(id=request.user.employee.id)
+    # emp1 = emp.id
     # form=EnquirynoteForm(request.POST)  
-    # print(form)  
+    # print(emp1)  
     # print (form.errors)
     if request.method == 'POST': 
         # print (form.errors) 
@@ -30,6 +32,7 @@ def crmHome(request):
         new_project_note.save()
         context = {
             "is_home":True,
+            # "emp1":emp1
             
         }
     else: 

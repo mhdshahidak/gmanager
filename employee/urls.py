@@ -12,7 +12,7 @@ urlpatterns = [
     # path('projectsrs',views.projectSrs,name='projectsrs'),
     path('emprework',views.empRework,name='emprework'),
     path('dailyprogress/<int:id>',views.empDailyProgress,name='dailyprogress'),
-    path('progressreport',views.empProgressReport,name='progressreport'),   
+    path('progressreport/<int:id>',views.empProgressReport,name='progressreport'),   
     path('emptask',views.empTask,name='emptask'),
     path('emphomework',views.empHomework,name='emphomework'),
 
@@ -29,5 +29,9 @@ urlpatterns = [
     path('empprofile',views.empProfile,name='empprofile'),
     
     path('viewproject',views.viewproject,name='viewproject'),
+    
+
+
+   path('getprofiledata/<int:id>',views.getprofiledata,name='getprofiledata'),
     
 ]

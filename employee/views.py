@@ -3,6 +3,8 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ceo.models import EmergenctContact, Employees
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
 # Create your views here.
 
@@ -10,11 +12,11 @@ from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyPro
 @login_required(login_url='/')
 def employeeHome(request):
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    print(employeedata)
     listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
     
     context={
         "is_home":True,
+        "employeedata":employeedata,
         "listdata":listdata,
     }
     return render(request,'employee/home.html',context)
@@ -123,9 +125,20 @@ def empDailyProgress(request,id):
 
 
 @login_required(login_url='/')
-def empProgressReport(request):
+def empProgressReport(request,id):
+    projectdetails= Project.objects.get(id=id)
+    projectstatus = ProjectStatus.objects.get(project=projectdetails)
+    members =ProjectMembers.objects.filter(project=projectdetails).values('team__name','team__id')
+    print(members)
+    # for i in members:
+    #     print(i.lead.name)
+    #     print(i.team.name)
     context = {
         "is_progressreport":True,
+        "projectdetails":projectdetails,
+        "projectstatus":projectstatus,
+        "members":members
+
     }
     return render(request,'employee/progress_report.html',context)
 
@@ -202,3 +215,26 @@ def empProfile(request):
     }
     return render(request,'employee/profile.html',context)
 
+
+
+
+
+@csrf_exempt
+def getprofiledata(request,id):
+    details=Employees.objects.get(id=id)
+    
+    data={
+        "name":details.name,
+        "catagory":details.catagory.title,
+        "employee_id":details.employee_id,
+        "email":details.email,
+        "dob":details.dob,
+        "address":details.address,
+            
+
+
+
+
+
+    }
+    return JsonResponse({'value': data})

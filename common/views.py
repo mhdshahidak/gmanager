@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ceo.models import *
 from django.contrib.auth import get_user_model
-from . forms import LeaveRequestsForm, ExcuseRequestsForm
+from . forms import EmergenctResetForm, LeaveRequestsForm, ExcuseRequestsForm, ProfileResetForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 # Create your views here.
@@ -54,7 +54,50 @@ def attendanceRreport(request):
 
 @login_required(login_url='/')
 def settings(request):
-    return render(request,'common/settings.html')
+    user_name = request.user.employee.catagory.catagory.catagory_title
+    print(user_name,'%'*56)
+    n = Employees.objects.get(id=request.user.employee.id)
+    m= EmergenctContact.objects.get(employee=n)
+    if request.method == 'POST':
+        empform = ProfileResetForm(request.POST or None, request.FILES or None, instance=n) 
+        empcontactform = EmergenctResetForm(request.POST or None,instance=m)
+
+        if empform.is_valid() and empcontactform.is_valid():
+            empdata = empform.save()            
+            form_data = Employees.objects.get(id=empdata.id)
+            empcontact = empcontactform.save()
+            EmergenctContact.objects.filter(id=empcontact.id).update(employee=form_data)
+
+            password_upadte = get_user_model().objects.get(employee=n)
+            password_upadte.set_password(form_data.password)
+            password_upadte.save()
+            get_user_model().objects.filter(employee=n).update(username=form_data.username)
+            if request.user.employee.catagory.catagory.catagory_title == "EMPLOYEE":  
+                return redirect('employee:employeehome')
+            elif request.user.employee.catagory.catagory.catagory_title == "HRM" :
+                return redirect('hrm:hrhome')
+            elif request.user.employee.catagory.catagory.catagory_title == "CRM":
+                return redirect('crm:crmhome')
+            elif request.user.employee.catagory.catagory.catagory_title == "PM":
+                return redirect('pm:index')
+            elif request.user.employee.catagory.catagory.catagory_title == "GM":
+                return redirect('gm:home')
+            elif request.user.employee.catagory.catagory.catagory_title == "ACCOUNTS":
+                return redirect('accounts:home')
+            elif request.user.employee.catagory.catagory.catagory_title == "CLIENT":
+                return redirect('clients:home')
+            
+    #         User = get_user_model()
+    #         User.objects.create_user(username=form_data.username, password=form_data.password,employee=form_data)
+    else:
+        empform = ProfileResetForm(request.POST or None, request.FILES or None, instance=n) 
+        empcontactform = EmergenctResetForm(request.POST or None,instance=m)
+    context={
+        "empform" : empform,
+        "empcontactform" : empcontactform,
+    } 
+    return render (request,'common/settings.html',context)
+    
 
 
 @login_required(login_url='/')
@@ -70,7 +113,6 @@ def leaves(request):
 
     return render(request,'common/leaves.html',context)
 
-@login_required(login_url='/')
 def gohome(request):
     user_name = request.user.employee
     print(user_name)
