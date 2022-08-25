@@ -62,15 +62,11 @@
                 <div class="row">
                     <div class="card" style="border-radius: 20px ;">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Project Description</h4>
+                            <h4 class="card-title mb-0">{{ projectdetails.projectname }}</h4>
                         </div>
                         <div class="card-body">
                             <p style="color: grey;">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem laborum earum,
-                                sunt ullam ex eveniet magni eum modi! Sit quisquam enim assumenda perspiciatis maiores!
-                                Esse, iusto! Suscipit officia iste sint quisquam unde placeat ullam cupiditate
-                                voluptatem velit accusamus maxime dolor optio nostrum molestias enim rem, molestiae
-                                cumque corporis vitae error?
+                                {{ projectdetails.enquiry.details }}
                             </p>
                         </div>
                     </div>
@@ -99,8 +95,8 @@
                         <img class="rounded-circle z-depth-2 mt-3" alt="100x100"
                             src="{% static 'ceo/img/profiles/avatar-21.jpg' %}" height="100px" width="100px"
                             data-holder-rendered="true">
-                        <h4 class="text-uppercase mt-3" style="color: navy;">project name</h4>
-                        <p class="text-uppercase mt-2" style="color: rgb(126, 126, 128);"> Client name</p>
+                        <h4 class="text-uppercase mt-3" style="color: navy;">{{ projectdetails.projectname }}</h4>
+                        <p class="text-uppercase mt-2" style="color: rgb(126, 126, 128);"> {{ projectdetails.client.name }}</p>
                     </div>
                 </div>
 
@@ -108,9 +104,9 @@
                     <div class="card-body">
                         <h5 class="text-uppercase">Work Progress</h5>
                         <div>
-                            <p>75%</p>
+                            <p>{{ projectstatus.completion }}%</p>
                             <div class="progress progress-md">
-                                <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="75"
+                                <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="95"
                                     aria-valuemin="0" aria-valuemax="100">
                                 </div>
                             </div>
@@ -123,57 +119,83 @@
                         <div class="col">
                             <h4 class="card-title text-start">Project Details</h4>
                         </div>
-                        <div class="col-auto text-end">
-                            <a href="{% url 'employee:dailyprogress' %}" class="btn btn-primary">
+                        <!-- <div class="col-auto text-end">
+                            <a href="" class="btn btn-primary">
                                 <i class="las la-pen-nib"></i>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card-body">
                         <ul class="personal-info">
                             <li>
-                                <div class="title text-uppercase">Project name</div>
-                                <div class="text text-uppercase">onflap tech</div>
+                                <div class="title text-uppercase">Project Name</div>
+                                <div class="text text-uppercase">{{ projectdetails.projectname }}</div>
                             </li>
+                            <!-- <li>
+                                <div class="title text-uppercase">Project Status</div>
+                                <div class="text text-uppercase">{{ projectdetails.status }}</div>
+                            </li> -->
                             <li>
                                 <div class="title"> DEPARTMENT</div>
-                                <div class="text"> WEB & SERVER</div>
+                                <div class="text">{{ projectdetails.projecttype }}</div>
                             </li>
                             <li>
                                 <div class="title">CLIENT</div>
-                                <div class="text"> ONFLAP TECHNOLOGIES KUWAIT</div>
+                                <div class="text"> {{ projectdetails.client.name }}</div>
                             </li>
-                            <li>
-                                <div class="title"> REFERRAL</div>
-                                <div class="text"><a href="">NONE</a></div>
-                            </li>
-                            <li>
+                          
+                            <!-- <li>
                                 <div class="title">DEAL DATE</div>
                                 <div class="text">JUNE 16, 2022</div>
+                            </li> -->
+                            <li>
+                                <div class="title">STATUS</div>
+                                <div class="text">{{ projectstatus.status }}</div>
                             </li>
                             <li>
                                 <div class="title">START DATE</div>
-                                <div class="text">JUNE 16, 2022</div>
+                                <div class="text">{{ projectdetails.starteddate }}</div>
                             </li>
                             <li>
                                 <div class="title">END DATE</div>
-                                <div class="text">JUNE 16, 2022</div>
+                                <div class="text">{{ projectdetails.endingdate }}</div>
                             </li>
                             <li>
-                                <div class="title">CLOSURE DATE</div>
-                                <div class="text">JUNE 16, 2022</div>
+                                <div class="title">PROJECT LINK</div>
+                                <div class="text">{{ projectstatus.url_project }}</div>
                             </li>
                             <li>
-                                <div class="title">START DATE</div>
-                                <div class="text">JUNE 16, 2022</div>
+                                <div class="title">USERNAME</div>
+                                <div class="text">{{ projectstatus.username }}</div>
                             </li>
                             <li>
-                                <div class="title">ASSIGNED TO</div>
+                                <div class="title">PASSWORD</div>
+                                <div class="text">{{ projectstatus.password }}</div>
+                            </li>
+                            <li>
+                                <div class="title">LEAD</div>
                                 <div class="text">
                                     
-                                    <a href="" class="m-t-10" class="btn add-btn" data-bs-toggle="modal"
-                                    data-bs-target="#add_client">VISHNU PRASAD P</a>, MUHAMMED SHAHIL KHAN KK, SHILPA O,
+                                    <span  onclick="DataGet({{ projectstatus.member.lead.id }})" class="m-t-10" class="btn add-btn" data-bs-toggle="modal"
+                                    data-bs-target="#add_client">{{ projectstatus.member.lead.name }}</span>
                                 </div>
+                            </li>
+                            <li>
+                                <div class="title">MEMBERS</div>
+                                <div class="text">
+                                    <ul>
+                                        {% for i in members %}
+                                        <li onclick="DataGet({{ i.team__id }})" class="m-t-10" class="btn add-btn" data-bs-toggle="modal"
+                                        data-bs-target="#add_client">{{ i.team__name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                   
+                                  
+                                  
+                                </div>
+                                <!-- {% for i in members %}
+                                {{ i.team__name }}
+                                {% endfor %} -->
                             </li>
                         </ul>
                     </div>
@@ -204,28 +226,28 @@
 										<div class="row">
 											<div class="col-md-5">
 												<div class="profile-info-left">
-													<h3 class="user-name m-t-0">Syamjith Babu</h3>
-													<small class="text-muted">CEO</small>
-													<div class="staff-id">Employee ID : CLT-0001</div>
+													<h3 class="user-name m-t-0" id="name">Syamjith Babu</h3>
+													<small class="text-muted" id="catagory">CEO</small>
+													<div class="staff-id">Employee ID : <span id="employee_id"></span> </div>
 												</div>
 											</div>
 											<div class="col-md-7">
 												<ul class="personal-info">
-													<li>
+													<!-- <li>
 														<span class="title">Phone:</span>
 														<span class="text"><a href="">9876543210</a></span>
-													</li>
+													</li> -->
 													<li>
 														<span class="title">Email:</span>
-														<span class="text"><a href="">barrycuda@example.com</a></span>
+														<span class="text" id="email">barrycuda@example.com</span>
 													</li>
 													<li>
 														<span class="title">Birthday:</span>
-														<span class="text">2nd August</span>
+														<span class="text" id="dob">2nd August</span>
 													</li>
 													<li>
 														<span class="title">Address:</span>
-														<span class="text">5754 Airport Rd, Coosada, AL, 36020</span>
+														<span class="text" id="address"></span>
 													</li>
 												</ul>
 											</div>
@@ -236,93 +258,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card tab-box">
-					<div class="row user-tabs">
-						<div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
-							<ul class="nav nav-tabs nav-tabs-bottom">
-								<li class="nav-item col-sm-3"><a class="nav-link active" data-bs-toggle="tab"
-										href="#myprojects">Projects</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="tab-content profile-tab-content">
-
-							<!-- Projects Tab -->
-							<div id="myprojects" class="tab-pane fade show active">
-								<div class="row">
-									<div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
-										<div class="card">
-											<div class="card-body">
-												<div class="dropdown profile-action">
-													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="#" data-bs-toggle="modal"
-															data-bs-target="#edit_project"><i
-																class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="#" data-bs-toggle="modal"
-															data-bs-target="#delete_project"><i
-																class="fa fa-trash-o m-r-5"></i> Delete</a>
-													</div>
-												</div>
-												<h4 class="project-title"><a href="">Office
-														Management</a></h4>
-												<small class="block text-ellipsis m-b-15">
-													<span class="text-xs">1</span> <span class="text-muted">open tasks,
-													</span>
-													<span class="text-xs">9</span> <span class="text-muted">tasks
-														completed</span>
-												</small>
-												<p class="text-muted">Lorem Ipsum is simply dummy text of the printing
-													and
-													typesetting industry. When an unknown printer took a galley of type
-													and
-													scrambled it...
-												</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
-										<div class="card">
-											<div class="card-body">
-												<div class="dropdown profile-action">
-													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="#" data-bs-toggle="modal"
-															data-bs-target="#edit_project"><i
-																class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="#" data-bs-toggle="modal"
-															data-bs-target="#delete_project"><i
-																class="fa fa-trash-o m-r-5"></i> Delete</a>
-													</div>
-												</div>
-												<h4 class="project-title"><a href="">Project
-														Management</a></h4>
-												<small class="block text-ellipsis m-b-15">
-													<span class="text-xs">2</span> <span class="text-muted">open tasks,
-													</span>
-													<span class="text-xs">5</span> <span class="text-muted">tasks
-														completed</span>
-												</small>
-												<p class="text-muted">Lorem Ipsum is simply dummy text of the printing
-													and
-													typesetting industry. When an unknown printer took a galley of type
-													and
-													scrambled it...
-												</p>
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /Projects Tab -->
-
-						</div>
-					</div>
-				</div>
+				
 
 			</div>
 		</div>
@@ -330,6 +266,28 @@
 </div>
 
 
+<script>
+    function DataGet(id){
+        $.ajax({
+            url: "/employee/getprofiledata/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
 
+
+                // console.log(responce)
+                $('#name').html(responce.value.name)
+                $('#catagory').html(responce.value.catagory)
+                $('#employee_id').html(responce.value.employee_id)
+                $('#email').html(responce.value.email)
+                $('#dob').html(responce.value.dob)
+                ('#address').html(responce.value.address)
+
+                
+            }
+
+        })
+    }
+</script>
 
 {% endblock %}
