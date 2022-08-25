@@ -10,11 +10,11 @@ from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyPro
 @login_required(login_url='/')
 def employeeHome(request):
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    print(employeedata)
     listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
     
     context={
         "is_home":True,
+        "employeedata":employeedata,
         "listdata":listdata,
     }
     return render(request,'employee/home.html',context)

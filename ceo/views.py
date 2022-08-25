@@ -161,8 +161,11 @@ def allstaff(request):
             data = form.save()            
             form_data = Employees.objects.get(id=data.id)
             
+            
             User = get_user_model()
             User.objects.create_user(username=form_data.username, password=form_data.password,employee=form_data)
+            emergecy = EmergenctContact(employee=form_data)
+            emergecy.save()
 
             return redirect('ceo:ceodashboard')
         else:

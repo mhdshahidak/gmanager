@@ -7,7 +7,8 @@ urlpatterns = [
     path('base',views.base,name='base'),
     path('leaveapplication',views.leave_application,name='leaveapplication'),
     path('attendancereports',views.attendanceRreport,name='attendancereports'),
-    path('settings',views.settings,name='settings'),
+    # path('settings/<int:id>',views.settings,name='settings'),
+    path('settings/',views.settings,name='settings'),
     path('leaves',views.leaves,name='leaves'),
 
     path('gohome',views.gohome,name='gohome'),
