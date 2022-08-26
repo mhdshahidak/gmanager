@@ -77,13 +77,23 @@
                             <h4 class="card-title">Notes</h4>
                         </div>
                         <div class="card-body card-body-height" style="color: grey;">
-                            <p>14/02/2021</p>
-                            <p>Morning --- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores,
-                                blanditiis. Ullam fugit dolores reiciendis adipisci, quaerat quas quae. Omnis aperiam
-                                minima, ab quisquam laboriosam laudantium accusamus vel est qui molestias?</p>
-                            <p>Evening --- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores,
-                                blanditiis. Ullam fugit dolores reiciendis adipisci, quaerat quas quae. Omnis aperiam
-                                minima, ab quisquam laboriosam laudantium accusamus vel est qui molestias?</p>
+                            {% comment %} {% for daily in daily_report %}
+                            <p>{{daily.date}}</p>
+                            <p>{{daily.status}}</p>
+                            <p>{{daily.note}}</p>
+                            {% endfor %} {% endcomment %}
+                            
+                            {% regroup daily_report by date as date_filter %}
+                            {% for daily in date_filter %}
+                            
+                            <p style="color:black;"><b><u>{{daily.grouper}}</u></b></p>
+                                {% for st in daily.list %}
+                                    <p><b>
+                                        {{st.status}} ({{st.employee__name}}): </b>
+                                        {{st.note}}</p>
+                                {% endfor %}
+
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
