@@ -228,6 +228,8 @@ def getprofiledata(request,id):
         "email":details.email,
         "dob":details.dob,
         "address":details.address,
+       "emp_profile":details.emp_profile.url,
 
     }
+    print(data)
     return JsonResponse({'value': data})

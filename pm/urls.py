@@ -26,7 +26,7 @@ urlpatterns = [
 
 
     path('dailyprogress', views.dailyprogress, name='dailyprogress'),
-    path('viewdailyreport', views.viewdailyreport, name='viewdailyreport'),
+    path('viewdailyreport/<str:id>', views.viewdailyreport, name='viewdailyreport'),
     path('qcapprovel', views.qcapprovel, name='qcapprovel'),
     path('leaverequest', views.leaverequest, name='leaverequest'),
 
@@ -44,5 +44,6 @@ urlpatterns = [
     path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
     path('reason', views.reason, name='reason'),
     path('srsapprovel', views.srsapprovel, name='srsapprovel'),
+    path('Changedailyreport/<str:id>', views.Changedailyreport, name='Changedailyreport'),
     
 ]

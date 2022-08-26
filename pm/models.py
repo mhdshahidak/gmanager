@@ -74,6 +74,7 @@ class DailyProgress(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employees, on_delete = models.CASCADE,null=True)
     date = models.DateField(auto_now=True)
+    time = models.TimeField(auto_now=True)
     note = models.TextField(null=True, default="Add Note")
     status = models.CharField(max_length=15, default="Not Checked")
     checked = models.BooleanField(default=False)
