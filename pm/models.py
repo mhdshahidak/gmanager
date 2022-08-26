@@ -73,7 +73,7 @@ class ProjectProgressFiles(models.Model):
 class DailyProgress(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employees, on_delete = models.CASCADE,null=True)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(auto_now=True)
     note = models.TextField(null=True, default="Add Note")
     status = models.CharField(max_length=15, default="Not Checked")
     checked = models.BooleanField(default=False)
@@ -88,5 +88,6 @@ class Updation(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     files = models.FileField(null=True,default='default_img.jpg')
     status = models.CharField(max_length=15, default="Not Checked")
+
 
 
