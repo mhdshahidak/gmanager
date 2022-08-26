@@ -95,25 +95,19 @@ def empDailyProgress(request,id):
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
     employee_id = Employees.objects.get(id=request.user.employee.id)
-    print(employee_id,'&'*50)
     if request.method =='POST':
         projectstatus = request.POST['projectstatus']
         percentage = request.POST['percentage']
         timetype = request.POST['timetype']
-        # print(timetype)
         link = request.POST['link']
-        # file = request.FILES['file']
         username = request.POST['username']
         password = request.POST['password']
         instruction = request.POST['instruction']
        
         ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
-        valuesss=DailyProgress(project=project_obj,employee=employee_id)
+        valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
         valuesss.save()
-        DailyProgress.objects.filter(project=project_obj).update(status=timetype,note=instruction)
-        # print(valuess)
-        # valdata=ProjectProgressFiles(project=project_obj, files=file)
-        # valdata.save()
+       
 
         return redirect('/employee')
     context = {
@@ -129,15 +123,19 @@ def empProgressReport(request,id):
     projectdetails= Project.objects.get(id=id)
     projectstatus = ProjectStatus.objects.get(project=projectdetails)
     members =ProjectMembers.objects.filter(project=projectdetails).values('team__name','team__id')
-    print(members)
-    # for i in members:
-    #     print(i.lead.name)
-    #     print(i.team.name)
+    # totalReport = DailyProgressTotal.objects.get(project=projectdetails)
+    daily_report = DailyProgress.objects.filter(project=projectdetails).values('date','status','note','employee__name')
+    # daily_report = DailyProgress.objects.filter(project=projectdetails).values('date','status','note')
+    print(daily_report)
+   
+   
     context = {
         "is_progressreport":True,
         "projectdetails":projectdetails,
         "projectstatus":projectstatus,
-        "members":members
+        "members":members,
+        # "totalReport":totalReport,
+        "daily_report":daily_report,
 
     }
     return render(request,'employee/progress_report.html',context)
