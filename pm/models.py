@@ -81,3 +81,13 @@ class DailyProgress(models.Model):
 
 
 
+
+class Updation(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    note = models.TextField(null=True, default="Add Note")
+    date = models.DateTimeField(auto_now_add=True)
+    files = models.FileField(null=True,default='default_img.jpg')
+    status = models.CharField(max_length=15, default="Not Checked")
+
+
+
