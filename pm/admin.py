@@ -39,3 +39,6 @@ admin.site.register(ProjectProgressFiles)
 
 admin.site.register(DailyProgress)
 
+
+admin.site.register(Updation)
+

@@ -39,16 +39,17 @@
                             <div class="card-body">
                                 <div class="tab-content pt-0">
                                     <div>
-                                        <h5 class="card-title">project 1</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
-                                        <h5 class="card-title">project 2</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
+
+                                        {% for i in morning %}
+                                        <h5 class="card-title">{{i.employee.name}}</h5>
+                                        <p class="card-text">{{i.note}}.</p>
+
                                         <div class="text-end">
-                                            <button class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        {% endfor %}
+                                       
                                     </div>
 
                                 </div>
@@ -58,13 +59,16 @@
                             <div class="card-body">
                                 <div class="tab-content pt-0">
                                     <div>
-                                        <h5 class="card-title">project 1</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
+                                        {% for i in afternoon %}
+                                        <h5 class="card-title">{{i.employee.name}}</h5>
+                                        <p class="card-text">{{i.note}}.</p>
+
                                         <div class="text-end">
-                                            <button class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        {% endfor %}
+                                        
                                     </div>
 
                                 </div>
@@ -74,13 +78,16 @@
                             <div class="card-body">
                                 <div class="tab-content pt-0">
                                     <div>
-                                        <h5 class="card-title">project 1</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's content.</p>
+                                        {% for i in evening %}
+                                        <h5 class="card-title">{{i.employee.name}}</h5>
+                                        <p class="card-text">{{i.note}}.</p>
+
                                         <div class="text-end">
-                                            <button class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval{{i.id}}" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        {% endfor %}
+                                      
                                     </div>
 
                                 </div>
@@ -102,5 +109,22 @@
 </div>
 
 
+
+<script>
+     function ChangeStatus(id){
+        $.ajax({
+            url: "/pm/Changedailyreport/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+                // $("#buttonval",id).addClass('btn  badge-pill bg-danger-light m-t-10').removeClass('btn  badge-pill bg-success-light m-t-10');
+            window.location.reload()
+                
+            }
+
+        })
+    }
+</script>
 
 {% endblock %}
