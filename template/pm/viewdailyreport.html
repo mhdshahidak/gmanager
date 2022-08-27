@@ -45,11 +45,12 @@
                                         <p class="card-text">{{i.note}}.</p>
 
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
                                         {% endfor %}
-                                       
+
                                     </div>
 
                                 </div>
@@ -64,11 +65,12 @@
                                         <p class="card-text">{{i.note}}.</p>
 
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})"
+                                               id="noonbutton" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
                                         {% endfor %}
-                                        
+
                                     </div>
 
                                 </div>
@@ -83,11 +85,12 @@
                                         <p class="card-text">{{i.note}}.</p>
 
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval{{i.id}}" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})"
+                                              id="evengbutton"  class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
                                         {% endfor %}
-                                      
+
                                     </div>
 
                                 </div>
@@ -111,20 +114,71 @@
 
 
 <script>
-     function ChangeStatus(id){
+    function ChangeStatus(id) {
         $.ajax({
             url: "/pm/Changedailyreport/" + id,
             type: 'GET',
-            
+
             success: function (responce) {
 
                 // $("#buttonval",id).addClass('btn  badge-pill bg-danger-light m-t-10').removeClass('btn  badge-pill bg-success-light m-t-10');
-            window.location.reload()
-                
+                window.location.reload()
+
             }
 
         })
     }
+
+
+
+
+    window.addEventListener("load", function () {
+
+        // Check time and update the button's state every second.
+        setInterval(updateSubmitButtonState, 1000);
+    }, false);
+
+    function updateSubmitButtonState() {
+        var currentTime = new Date();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+
+        var newButton = document.getElementById("buttonval");
+        var noonbutton = document.getElementById("noonbutton");
+        var evengbutton = document.getElementById("evengbutton");
+
+        // Between 10:25 and 10:59
+        // or Between 11:00 and 11:25
+        if ((hours == 8 && minutes >= 59)
+            || (hours == 10 && minutes <= 59)) {
+            // alert('if worked')
+            newButton.style.display = "fixed";
+        } else {
+            // alert('else worked')
+            newButton.style.display = "none";
+        }
+
+        if ((hours == 12 && minutes >= 59)
+            || (hours == 2 && minutes <= 31)) {
+            // alert('if worked')
+            noonbutton.style.display = "fixed";
+        } else {
+            // alert('else worked')
+            noonbutton.style.display = "none";
+        }
+
+        if ((hours == 4 && minutes >= 59)
+            || (hours == 5 && minutes <= 59)) {
+            // alert('if worked')
+            evengbutton.style.display = "fixed";
+        } else {
+            // alert('else worked')
+            evengbutton.style.display = "none";
+        }
+    }
+
 </script>
 
 {% endblock %}
