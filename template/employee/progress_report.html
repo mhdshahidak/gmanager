@@ -227,8 +227,8 @@
 								<div class="profile-view">
 									<div class="profile-img-wrap">
 										<div class="profile-img">
-											<a href="">
-												<img src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" alt="">
+											<a id="div" href="">
+												<img id="profileimg" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" alt="">
 											</a>
 										</div>
 									</div>
@@ -284,14 +284,14 @@
             
             success: function (responce) {
 
-
-                // console.log(responce)
                 $('#name').html(responce.value.name)
                 $('#catagory').html(responce.value.catagory)
                 $('#employee_id').html(responce.value.employee_id)
                 $('#email').html(responce.value.email)
                 $('#dob').html(responce.value.dob)
-                ('#address').html(responce.value.address)
+                $('#address').html(responce.value.address)
+                $('#profileimg').attr("src",responce.value.emp_profile)
+               
 
                 
             }

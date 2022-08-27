@@ -1,3 +1,4 @@
+from django.db.models import Count
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
@@ -7,7 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from . form import PraposalpdfForm,ProjectForm
 from django.contrib.auth.decorators import login_required
-
+from datetime import datetime, timedelta, time
+from pytz import timezone
 
 @login_required(login_url='/')# Create your views here.
 def base(request):
@@ -178,11 +180,33 @@ def fullprojectlist(request):
 
 @login_required(login_url='/')
 def dailyprogress(request):
-    return render (request,'pm/dailyprogress.html')    
+    today = datetime.now().date()
+    projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
+    context={
+        "projectlists":projectlists
+    }
+
+    return render (request,'pm/dailyprogress.html',context)    
 
 @login_required(login_url='/')
-def viewdailyreport(request):
-    return render (request,'pm/viewdailyreport.html')  
+def viewdailyreport(request,id):
+    today = datetime.now().date()
+    time = datetime.now().time()
+    # now = datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d')
+    # print(now.time)
+    print(today,time)
+    projectdata = Project.objects.get(id=id)
+    morning= DailyProgress.objects.filter(date=today,project=projectdata,status='Morning')
+    afternoon= DailyProgress.objects.filter(date=today,project=projectdata,status='Afternoon')
+    evening= DailyProgress.objects.filter(date=today,project=projectdata,status='Evening')
+    for i in evening:
+        print(i.time)
+    context={
+        "morning":morning,
+        "afternoon":afternoon,
+        "evening":evening
+    }
+    return render (request,'pm/viewdailyreport.html',context)  
     
 
 @login_required(login_url='/')
@@ -339,5 +363,14 @@ def srsapprovel(request):
     new_projectstatus.save()
     addedprogres = DailyProgress(project=proj)
     addedprogres.save()
+    return JsonResponse({'message': 'sucesses'}) 
+
+
+
+
+@csrf_exempt
+def Changedailyreport(request,id):
+    print(id)
+    DailyProgress.objects.filter(id=id).update(checked=True)
     return JsonResponse({'message': 'sucesses'}) 
 

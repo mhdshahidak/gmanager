@@ -3,10 +3,10 @@
 {% block content %}
 
 <div class="page-wrapper">
-			
+
     <!-- Page Content -->
     <div class="content container-fluid">
-    
+
         <!-- Page Header -->
         <div class="page-header">
             <div class="row align-items-center">
@@ -17,177 +17,50 @@
                         <li class="breadcrumb-item active">Employee</li>
                     </ul>
                 </div>
-            
+
             </div>
         </div>
         <!-- /Page Header -->
-        
+
         <!-- Search Filter -->
-        <div class="row filter-row">
-            <div class="col-sm-6 col-md-3">  
-                <div class="form-group form-focus">
-                    <input type="text" class="form-control floating">
-                    <label class="focus-label">Employee ID</label>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">  
-                <div class="form-group form-focus">
-                    <input type="text" class="form-control floating">
-                    <label class="focus-label">Employee Name</label>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3"> 
-                <div class="form-group  select-focus">
-                    <select class="select form-control floating"> 
-                        <option>Select Designation</option>
-                        <option>Web Developer</option>
-                        <option>Web Designer</option>
-                        <option>Android Developer</option>
-                        <option>Ios Developer</option>
-                    </select>
-                   
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-3">  
-                <a href="#" class="btn btn-success w-100"> Search </a>  
-            </div>     
-        </div>
+
         <!-- /Search Filter -->
-        
+
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table table-striped custom-table datatable">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Employee ID</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th class="text-nowrap text-end no-sort">View</th>
+                                <th>Sl.No</th>
+                                <th>Project Name</th>
                                 
+                                <th>Started Date</th>
+                                <th>Ending Date</th>
+                                <th class="text-nowrap text-end no-sort">View</th>
+
                             </tr>
                         </thead>
                         <tbody>
+                            {% for i in projectlists %}
                             <tr>
+                                <td>{{forloop.counter}}</td>
                                 <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}"></a>
-                                        <a href="profile.html">John Doe <span>Web Designer</span></a>
-                                    </h2>
+                                   {{ i.project__projectname }}
                                 </td>
-                                <td>FT-0001</td>
-                                <td>johndoe@example.com</td>
-                                <td>9876543210</td>
+                                <td>  {{ i.project__starteddate.date }}</td>
+                                <td>  {{ i.project__endingdate.date }} </td>
                                 <td>
-                                     <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
+                                    <a href="{% url 'pm:viewdailyreport' i.project__id %}"
+                                        class="btn  badge-pill bg-info-light m-t-10">View </a>
                                 </td>
-                        
-                                
-                             
+
+
+
                             </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"></a>
-                                        <a href="profile.html">Richard Miles <span>Web Developer</span></a>
-                                    </h2>
-                                </td>
-                                <td>FT-0002</td>
-                                <td>richardmiles@example.com</td>
-                                <td>9876543210</td>
-                                <td>
-                               <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
-                                </td>
-                               
-                                
-                             
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"></a>
-                                        <a href="profile.html">John Smith <span>Android Developer</span></a>
-                                    </h2>
-                                </td>
-                                <td>FT-0003</td>
-                                <td>johnsmith@example.com</td>
-                                <td>9876543210</td>
-                                <td>
-                               <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
-                                </td>
-                                
-                                
-                             
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"></a>
-                                        <a href="profile.html">Mike Litorus <span>IOS Developer</span></a>
-                                    </h2>
-                                </td>
-                                <td>FT-0004</td>
-                                <td>mikelitorus@example.com</td>
-                                <td>9876543210</td>
-                                <td>
-                               <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
-                                </td>
-                                
-                                
-                             
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-11.jpg' %}"></a>
-                                        <a href="profile.html">Wilmer Deluna <span>Team Leader</span></a>
-                                    </h2>
-                                </td>
-                                <td>FT-0005</td>
-                                <td>wilmerdeluna@example.com</td>
-                                <td>9876543210</td>
-                                <td>
-                               <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
-                                </td>
-                                
-                                
-                             
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-12.jpg' %}"></a>
-                                        <a href="profile.html">Jeffrey Warden <span>Web Developer</span></a>
-                                    </h2>
-                                </td>
-                                <td>FT-0006</td>
-                                <td>jeffreywarden@example.com</td>
-                                <td>9876543210</td>
-                                <td>
-                               <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
-                                </td>
-                               
-                                
-                             
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar"><img alt="" src="{% static 'ceo/img/profiles/avatar-13.jpg' %}"></a>
-                                        <a href="profile.html">Bernardo Galaviz <span>Web Developer</span></a>
-                                    </h2>
-                                </td>
-                                <td>FT-0007</td>
-                                <td>bernardogalaviz@example.com</td>
-                                <td>9876543210</td>
-                                <td>
-                               <a href="{% url 'pm:viewdailyreport' %}" class="btn  badge-pill bg-info-light m-t-10">View </a>
-                                </td>
-                        
-                                
-                             
-                            </tr>
+                            {% endfor %}
+
+                          
                         </tbody>
                     </table>
                 </div>
@@ -195,7 +68,7 @@
         </div>
     </div>
     <!-- /Page Content -->
-    
+
 </div>
 
 
