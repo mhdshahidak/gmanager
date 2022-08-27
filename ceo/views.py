@@ -6,6 +6,11 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
+from pm.models import DailyProgress
+
+
+import datetime
+
 # from django.contrib.auth import login as auth_login
 # Create your views here.
 from . form import RegisterForm, editEmployeeForm
@@ -203,7 +208,16 @@ def editEmployeeDetails(request,id):
 
 @login_required(login_url='/')
 def dailychecked(request):
-    return render (request,'ceo/dailychecked.html') 
+    # print(type(datetime))
+    # d1 = datetime.datetime.now()
+    # print(d1)
+    today = datetime.datetime.now()
+    print(today.date,'*'*44)
+    projectlists =DailyProgress.objects.filter(date=today)
+    context ={
+        "projectlists":projectlists,
+    }
+    return render (request,'ceo/dailychecked.html',context) 
 
 
 @login_required(login_url='/')
