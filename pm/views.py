@@ -181,7 +181,10 @@ def fullprojectlist(request):
 @login_required(login_url='/')
 def dailyprogress(request):
     today = datetime.now().date()
-    projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
+    # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
+    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct()
+    print(projectlists,'*'*28)
+
     context={
         "projectlists":projectlists
     }
@@ -199,8 +202,9 @@ def viewdailyreport(request,id):
     morning= DailyProgress.objects.filter(date=today,project=projectdata,status='Morning')
     afternoon= DailyProgress.objects.filter(date=today,project=projectdata,status='Afternoon')
     evening= DailyProgress.objects.filter(date=today,project=projectdata,status='Evening')
-    for i in evening:
-        print(i.time)
+   
+
+        
     context={
         "morning":morning,
         "afternoon":afternoon,
