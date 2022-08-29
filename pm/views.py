@@ -156,7 +156,11 @@ def meetings(request):
 
 @login_required(login_url='/')
 def task(request):
-    return render (request,'pm/project/task.html')
+    projects = Project.objects.all()
+    context = {
+        "projects" : projects,
+    }
+    return render (request,'pm/project/task.html', context)
     
 
 @login_required(login_url='/')
@@ -215,7 +219,13 @@ def viewdailyreport(request,id):
 
 @login_required(login_url='/')
 def qcapprovel(request):
-    return render (request,'pm/qcapprovel.html')  
+    # qcProject = Project.objects.filter(status="")
+    context = {
+        "is_qcapprovel" : True,
+    }
+    return render (request,'pm/qcapprovel.html')
+
+
 @login_required(login_url='/')
 def leaverequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
