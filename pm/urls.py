@@ -45,5 +45,9 @@ urlpatterns = [
     path('reason', views.reason, name='reason'),
     path('srsapprovel', views.srsapprovel, name='srsapprovel'),
     path('Changedailyreport/<str:id>', views.Changedailyreport, name='Changedailyreport'),
-    
+    path('changeqc', views.changeqc, name='changeqc'),
+    path('rejectedqc/<str:id>', views.rejectedqc, name='rejectedqc'), 
+    path('qcrework', views.qcrework, name='qcrework'),
+
+
 ]

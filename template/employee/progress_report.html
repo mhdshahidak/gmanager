@@ -75,7 +75,18 @@
                     <div class="card" style="border-radius: 20px ;">
                         <div class="card-header">
                             <h4 class="card-title">Notes</h4>
+                            <div class="text-end">
+                                <a href="{% url 'employee:dailyprogress' projectdetails.id %}">
+                                    <span
+                                        class="badge badge-pill bg-success-light text-center"><i
+                                            class="las la-pen"></i></span>
+                                </a>
+                            </div>
+                           
                         </div>
+                       
+
+                       
                         <div class="card-body card-body-height" style="color: grey;">
                             {% comment %} {% for daily in daily_report %}
                             <p>{{daily.date}}</p>

@@ -2,7 +2,7 @@ from django.db.models import Count
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
-from crm.models import Enquiry
+from crm.models import Enquiry,EnquiryNote
 from ceo.models import Employees ,LeaveRequests
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -10,6 +10,7 @@ from . form import PraposalpdfForm,ProjectForm
 from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta, time
 from pytz import timezone
+from django.db.models import Q
 
 @login_required(login_url='/')# Create your views here.
 def base(request):
@@ -17,7 +18,25 @@ def base(request):
 
 @login_required(login_url='/')
 def index(request):
-    return render (request,'pm/index.html')    
+    enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
+    billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
+    billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    rejected = Enquiry.objects.filter(status = 'Rejected').count()
+
+    context={
+   "addedtoprop":addedtoprop,
+   "billcreation":billcreation,
+   "billadvance":billadvance,
+   "advancepaid":advancepaid,
+   "rejected":rejected,
+   "enquirylist":enquirylist,
+   
+
+
+    }
+    return render (request,'pm/index.html',context)    
 
 
 @login_required(login_url='/')
@@ -95,6 +114,11 @@ def addproject(request,id):
             print (form.errors) 
             data = form.save()
             Project.objects.filter(id=data.id).update(enquiry=deatils)
+            project = Project.objects.get(id=data.id)
+            project.enquiry.status = "Project Added"
+            project.save()
+            print(project.enquiry.status)
+            # Project.objects.filter()
             return redirect('/pm/addteam/'+str(data.id))
         else:
             pass 
@@ -130,7 +154,7 @@ def addschedule(request,id):
 
         meeting = Meeting(project=project_obj,date=meetingDate,time=time,platform=platform,meeting_link=link)
         meeting.save()
-        project_obj.status = "Meeting Scheduled"
+        project_obj.status = "Waiting for SRS"
         project_obj.save()
         return redirect('pm:index')
         
@@ -157,6 +181,10 @@ def meetings(request):
 @login_required(login_url='/')
 def task(request):
     return render (request,'pm/project/task.html')
+    
+
+
+
     
 
 @login_required(login_url='/')
@@ -215,7 +243,15 @@ def viewdailyreport(request,id):
 
 @login_required(login_url='/')
 def qcapprovel(request):
-    return render (request,'pm/qcapprovel.html')  
+    qclist= ProjectStatus.objects.filter(Q(status='Qc') & Q(completion__gte = 95))
+    # (status='Qc', completion_gte = 95)
+    print(qclist)
+    context ={
+        "qclist":qclist 
+    }
+    return render (request,'pm/qcapprovel.html',context)   
+
+
 @login_required(login_url='/')
 def leaverequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
@@ -378,3 +414,34 @@ def Changedailyreport(request,id):
     DailyProgress.objects.filter(id=id).update(checked=True)
     return JsonResponse({'message': 'sucesses'}) 
 
+
+
+@csrf_exempt
+def changeqc(request):
+    id=request.POST['id']
+    ProjectStatus.objects.filter(id=id).update(status='W4C')
+    return JsonResponse({'message': 'sucesses'}) 
+
+
+@csrf_exempt
+def rejectedqc(request,id):
+    getdata=Project.objects.get(id=id)
+    data ={
+        'id':getdata.id,
+    }
+    return JsonResponse({'value':data})
+
+
+@csrf_exempt
+def qcrework(request):
+    id=request.POST['id']
+    typereason=request.POST['reason']
+    projectidd=Project.objects.get(id=id)
+    reworkdata= Reworks(project=projectidd,note=typereason)
+    reworkdata.save()
+    projectcount = ProjectStatus.objects.get(project=projectidd)
+    projectcount.rework_count = projectcount.rework_count + 1
+    print(projectcount)
+    projectcount.save()
+    status=ProjectStatus.objects.filter(project=projectidd).update(status='Rework',completion=94)
+    return JsonResponse({'value': 'msg'})
