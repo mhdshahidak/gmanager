@@ -8,12 +8,17 @@ from pm.models import Updation ,Project
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from datetime import date
+from gmanager.decorators import auth_crm
 
 # Create your views here.
 
 
-
+@login_required(login_url='/')
+@auth_crm
 def crmHome(request):
+
+    crm_rrr = request.user.employee.catagory.title
+    print(crm_rrr,"%"*20)
 
     # today = datetime.now().date()
     todate = today = datetime.datetime.now()
@@ -56,6 +61,7 @@ def crmHome(request):
     return render(request,'crm/home.html',context)
 
 @login_required(login_url='/')
+@auth_crm
 def enquiryList(request):
     enquirylistdata = EnquiryNote.objects.filter(status='Active')
     context = {
@@ -65,6 +71,7 @@ def enquiryList(request):
     return render(request,'crm/enquirylist.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def clientList(request):
     form=ClientForm(request.POST) 
     clientdata =Client.objects.all()
@@ -88,6 +95,7 @@ def clientList(request):
         return render(request,'crm/clientlist.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def projectList(request):
     enquiry  = Enquiry.objects.all()
     context =  {
@@ -97,6 +105,7 @@ def projectList(request):
     return render(request,'crm/projectlist.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def followUpList(request):
     updationlist = Updation.objects.filter(status='Not Checked')
     context = {
@@ -106,6 +115,7 @@ def followUpList(request):
     return render(request,'crm/followuplist.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def feedBack(request):
     context = {
         "is_feedBack":True,
@@ -113,6 +123,7 @@ def feedBack(request):
     return render(request,'crm/feedback.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def leaves(request):
     context = {
         "is_leaves":True,
@@ -120,6 +131,7 @@ def leaves(request):
     return render(request,'crm/leaves.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def attantance(request):
     context = {
         "is_attantance":True,
@@ -127,6 +139,7 @@ def attantance(request):
     return render(request,'crm/attantance.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def settings(request):
     context = {
         "is_settings":True,
@@ -134,6 +147,7 @@ def settings(request):
     return render(request,'crm/settings.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def profile(request):
     context = {
         "is_profile":True,
@@ -141,6 +155,7 @@ def profile(request):
     return render(request,'crm/profile.html', context)
 
 @login_required(login_url='/')
+@auth_crm
 def viewenquiry(request,id):
     details = EnquiryNote.objects.get(id=id)
     # form=EnquiryForm(request.POST,request.FILES)  
@@ -162,6 +177,7 @@ def viewenquiry(request,id):
 
 
 @login_required(login_url='/')
+@auth_crm
 def createProject(request,id):
     details = EnquiryNote.objects.get(id=id)
     form=EnquiryForm(request.POST,request.FILES)
