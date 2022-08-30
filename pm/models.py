@@ -62,6 +62,7 @@ class ProjectStatus(models.Model):
     url_project = models.URLField(max_length=1000, null=True)
     username = models.CharField(max_length=200, null=True)
     password = models.CharField(max_length=200, null=True)
+    rework_count = models.IntegerField(default=0)
 
 
 class ProjectProgressFiles(models.Model):
@@ -89,6 +90,14 @@ class Updation(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     files = models.FileField(null=True,default='default_img.jpg')
     status = models.CharField(max_length=15, default="Not Checked")
+
+
+class Reworks(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    note = models.TextField(null=True, default="Add Note")
+    
+
+
 
 
 

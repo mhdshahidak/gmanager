@@ -49,6 +49,21 @@
                                                 class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+
+                                        <!-- {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %} -->
+
                                         {% endfor %}
 
                                     </div>
@@ -64,11 +79,28 @@
                                         <h5 class="card-title">{{i.employee.name}}</h5>
                                         <p class="card-text">{{i.note}}.</p>
 
+
+
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})"
-                                               id="noonbutton" class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})" id="noonbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        <!-- {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="noonbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %} -->
+
+
                                         {% endfor %}
 
                                     </div>
@@ -83,12 +115,29 @@
                                         {% for i in evening %}
                                         <h5 class="card-title">{{i.employee.name}}</h5>
                                         <p class="card-text">{{i.note}}.</p>
-
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})"
-                                              id="evengbutton"  class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+                                            <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        <!-- {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %} -->
+                                        <!-- <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div> -->
                                         {% endfor %}
 
                                     </div>
@@ -124,15 +173,19 @@
                 // $("#buttonval",id).addClass('btn  badge-pill bg-danger-light m-t-10').removeClass('btn  badge-pill bg-success-light m-t-10');
                 window.location.reload()
 
+
             }
 
         })
+
+
     }
 
 
 
 
     window.addEventListener("load", function () {
+
         // Check time and update the button's state every second.
         setInterval(updateSubmitButtonState, 1000);
     }, false);
@@ -143,7 +196,7 @@
         var minutes = currentTime.getMinutes();
         var hours = currentTime.getHours();
         var minutes = currentTime.getMinutes();
-        
+
         var newButton = document.getElementById("buttonval");
         var noonbutton = document.getElementById("noonbutton");
         var evengbutton = document.getElementById("evengbutton");
@@ -151,13 +204,13 @@
         // Between 9:00 and 11.00
         // or Between 11:00 and 11:25
         if ((hours == 8 && minutes >= 59)
-            || (hours == 10 && minutes <= 59)) {
-           
+            || (hours == 9 && minutes <= 57)) {
+
             newButton.style.display = "fixed";
             noonbutton.style.display = "none";
             evengbutton.style.display = "none";
             // alert('if worked 1st')
-        } 
+        }
         // Between 1:00 and 3.00
         else if ((hours == 12 && minutes >= 59)
             || (hours == 14 && minutes <= 59)) {
@@ -183,14 +236,14 @@
             evengbutton.style.display = "none";
         }
 
-       
+
     }
 
 
 
 
     // ----------------------------------
-    
+
 
 </script>
 
