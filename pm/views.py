@@ -180,7 +180,11 @@ def meetings(request):
 
 @login_required(login_url='/')
 def task(request):
-    return render (request,'pm/project/task.html')
+    projects = Project.objects.all()
+    context = {
+        "projects" : projects,
+    }
+    return render (request,'pm/project/task.html', context)
     
 
 
@@ -243,6 +247,7 @@ def viewdailyreport(request,id):
 
 @login_required(login_url='/')
 def qcapprovel(request):
+
     qclist= ProjectStatus.objects.filter(Q(status='Qc') & Q(completion__gte = 95))
     # (status='Qc', completion_gte = 95)
     print(qclist)

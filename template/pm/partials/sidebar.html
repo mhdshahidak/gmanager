@@ -22,7 +22,6 @@
                         <li><a href="{% url 'pm:project' %}">Projects</a></li>
                         <li><a href="{% url 'pm:unassigneproject' %}">Un-Assigned Projects</a></li>
                         <li><a href="{% url 'pm:srs' %}">View SRS</a></li>
-                        <li><a href="{% url 'pm:task' %}">Tasks</a></li>
                         
                     </ul>
                 </li>
@@ -42,6 +41,14 @@
                 <li> 
                     <a href="{% url 'pm:meetings' %}"><i class="las la-bell"></i><span>Meetings</span></a>
                 </li>
+                <li class="submenu">
+                    <a href="#"><i class="la la-th-list"></i> <span> Task</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="{% url 'pm:task' %}">Add Task</a></li>
+                        <li><a href="">New Tasks</a></li>                        
+                    </ul>
+                </li>
+               
                 <li class="menu-title"> 
                     <span>More</span>
                 </li>
