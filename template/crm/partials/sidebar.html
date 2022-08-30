@@ -18,10 +18,10 @@
                             <li {% if is_clientList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:clientlist' %}"><i class="la la-users"></i> <span>Clients</span></a>
 							</li>
-                            <li {% if is_projectList %} class="active" {% endif %} >
+                            {% comment %} <li {% if is_projectList %} class="active" {% endif %} >
 								<a href="{% url 'crm:projectlist' %}"><i class="la la-rocket"></i> <span> Projects</span></a>
 								
-							</li>
+							</li> {% endcomment %}
                             <li {% if is_followUpList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:followuplist' %}"><i class="la la-sync"></i><span>Follow up List</span></a>
 							</li>

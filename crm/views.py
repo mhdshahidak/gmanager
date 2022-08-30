@@ -7,44 +7,52 @@ from django.contrib.auth.decorators import login_required
 from pm.models import Updation ,Project
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from datetime import date
+
 # Create your views here.
 
 
 
 def crmHome(request):
-    # emp = Employees.objects.get(id=request.user.employee.id)
-    # emp1 = emp.id
-    # form=EnquirynoteForm(request.POST)  
-    # print(emp1)  
-    # print (form.errors)
-    if request.method == 'POST': 
-        # print (form.errors) 
-        # print('*'*10)      
-        # if form.is_valid():           
-        #     form.save()
 
-        #     return redirect('crm:enquirylist')
-        # else:
-        #     pass
-        print("success")
+    # today = datetime.now().date()
+    todate = today = datetime.datetime.now()
+    # today_start = datetime.datetime.compain(today, time())
+
+    enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    enquirylistToday = EnquiryNote.objects.filter(status = 'Active',added_time__gte=todate).count()
+    addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
+    billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
+    billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    clientsCount = Client.objects.all().count()
+    clients = Client.objects.all()
+    projectcount = Project.objects.all().count()
+    completed_project = Project.objects.filter(status="Completed").count()
+
+    if request.method == 'POST':        
         instructions = request.POST['instruction']
-        # exam = Exam.objects.get(id=id)
-        print(instructions)
 
         new_project_note = EnquiryNote(description=instructions)
-        new_project_note.save()
-        context = {
-            "is_home":True,
-            # "emp1":emp1
-            
-        }
-    else: 
-        print('#'*10)         
-        context = {
-            "is_home":True,
-            
-        }
-        return render(request,'crm/home.html',context)
+        new_project_note.save()       
+        return redirect('crm:crmhome')
+                
+    context = {
+        "is_home":True,
+        "projectcount":projectcount,
+        "completed":completed_project,
+        "addedtoprop":addedtoprop,
+        "billcreation":billcreation,
+        "billadvance":billadvance,
+        "advancepaid":advancepaid,
+        "rejected":rejected,
+        "enquirylist":enquirylist,
+        "enquirylistToday":enquirylistToday,
+        "clientsCount":clientsCount,
+        "clients":clients,
+        
+    }
     return render(request,'crm/home.html',context)
 
 @login_required(login_url='/')
@@ -81,8 +89,10 @@ def clientList(request):
 
 @login_required(login_url='/')
 def projectList(request):
-    context = {
+    enquiry  = Enquiry.objects.all()
+    context =  {
         "is_projectList":True,
+        "enquiry":enquiry,
     }
     return render(request,'crm/projectlist.html', context)
 
@@ -157,15 +167,12 @@ def createProject(request,id):
     form=EnquiryForm(request.POST,request.FILES)
     if request.method == 'POST': 
         # print (form.errors)
-        print("Test"*5) 
+        # print("Test"*5) 
         if form.is_valid():
-            data = form.save()
-            print("*"*20)           
+            data = form.save()           
             Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
             EnquiryNote.objects.filter(id=id).update(status='DeActivate')   
             return redirect('crm:crmhome')
-        else:
-            pass
     context = {
         "details":details,
         "form":form,

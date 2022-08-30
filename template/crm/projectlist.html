@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="page-wrapper">
+{% comment %} <div class="page-wrapper">
 			
 				<!-- Page Content -->
                 <div class="content container-fluid">
@@ -25,37 +25,7 @@
 					</div>
 					<!-- /Page Header -->
 					
-					<!-- Search Filter -->
-					<!-- <div class="row filter-row">
-						<div class="col-sm-6 col-md-3">  
-							<div class="form-group form-focus">
-								<input type="text" class="form-control floating">
-								<label class="focus-label">Project Name</label>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3">  
-							<div class="form-group form-focus">
-								<input type="text" class="form-control floating">
-								<label class="focus-label">Employee Name</label>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3"> 
-							<div class="form-group form-focus select-focus">
-								<select class="select floating"> 
-									<option>Select Roll</option>
-									<option>Web Developer</option>
-									<option>Web Designer</option>
-									<option>Android Developer</option>
-									<option>Ios Developer</option>
-								</select>
-								<label class="focus-label">Role</label>
-							</div>
-						</div>
-						<div class="col-sm-6 col-md-3">  
-							<a href="#" class="btn btn-success w-100"> Search </a>  
-						</div>     
-                    </div> -->
-					<!-- /Search Filter -->
+					
 					
 					<div class="row">
 						<div class="col-md-12">
@@ -63,8 +33,8 @@
 								<table class="table table-striped custom-table datatable">
 									<thead>
 										<tr>
-											<th>Project</th>
-											<th>Project Id</th>
+											<th>Enqueiry</th>
+											<th>Enqueiry Id</th>
 											<th>Leader</th>
 											<th>Team</th>
 											<th>Deadline</th>
@@ -1103,6 +1073,6 @@
 				</div>
 				<!-- /Delete Project Modal -->
 				
-            </div>
+</div> {% endcomment %}
 
 {% endblock %}
