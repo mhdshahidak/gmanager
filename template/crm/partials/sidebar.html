@@ -18,28 +18,38 @@
                             <li {% if is_clientList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:clientlist' %}"><i class="la la-users"></i> <span>Clients</span></a>
 							</li>
-                            <li {% if is_projectList %} class="active" {% endif %} >
+                            {% comment %} <li {% if is_projectList %} class="active" {% endif %} >
 								<a href="{% url 'crm:projectlist' %}"><i class="la la-rocket"></i> <span> Projects</span></a>
 								
-							</li>
+							</li> {% endcomment %}
                             <li {% if is_followUpList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:followuplist' %}"><i class="la la-sync"></i><span>Follow up List</span></a>
 							</li>
                             <li {% if is_feedBack %} class="active" {% endif %}> 
 								<a href="{% url 'crm:feedback' %}"><i class="la la-comment-dots"></i> <span>Feed back</span></a>
 							</li>
-                            <li class="menu-title"> 
+							<li class="menu-title"> 
 								<span>More</span>
 							</li>
-                            <li {% if is_leaves %} class="active" {% endif %} > 
-								<a href="{% url 'crm:leaves' %}"><i class="la la-sign-out-alt"></i> <span>Leaves</span></a>
+						   
+							<li {% if is_attantance %} class="active" {% endif %}> 
+								<a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
 							</li>
-                            <li {% if is_attantance %} class="active" {% endif %}> 
-								<a href="{% url 'crm:attantance' %}"><i class="la la-calendar-check"></i> <span>Attendance</span></a>
+							<li {% if is_settings %} class="active" {% endif %}> 
+								<a href=""><i class="la la-cog"></i> <span>Settings</span></a>
 							</li>
-                            <li {% if is_settings %} class="active" {% endif %}> 
-								<a href="{% url 'crm:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
-							</li>																															
+							<li {% if is_settings %} class="active" {% endif %}> 
+								<a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>
+							</li>
+							<li class="submenu">
+								<a href="#"><i class="la la-user"></i> <span> Leave</span> <span
+										class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<li><a href="{% url 'common:leaves' %}">Leaves</a></li>
+									<li><a href="{% url 'common:leaveapplication' %}">Leave Form</a></li>
+									<!-- <li><a href="">Excuse Form</a></li> -->
+								</ul>
+							</li>																														
 						</ul>
 					</div>
                 </div>

@@ -6,49 +6,70 @@
                 <li class="menu-title"> 
                     <span>Main</span>
                 </li>
-                <li> 
+                <li {% if is_pmindex %} class="active" {% endif %} > 
                     <a href="{% url 'pm:index' %}"><i class="la la-dashboard"></i> <span>Dashboard</span></a>
                 </li>
-                <li> 
-                    <a href="{% url 'pm:enquiry' %}"><i class="la la-edit"></i> <span>Enquiry List</span></a>
+                <li  {% if is_enquiry %} class="active" {% endif %}> 
+                    <a href="{% url 'pm:enquiry' %}"><i class="la la-edit"></i> <span>Create Quatation</span></a>
                 </li>
-                <li> 
-                    <a href="{% url 'pm:proposal' %}"><i class="la la-tasks"></i> <span>Proposal List</span></a>
+                <li  {% if is_proposal %} class="active" {% endif %}> 
+                    <a href="{% url 'pm:proposal' %}"><i class="la la-tasks"></i> <span>Client Approvel List</span></a>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a href="{% url 'pm:fullprojectlist' %}">Projects List</a></li>
-                        <li><a href="{% url 'pm:project' %}">Projects</a></li>
-                        <li><a href="{% url 'pm:unassigneproject' %}">Un-Assigned Projects</a></li>
-                        <li><a href="{% url 'pm:srs' %}">View SRS</a></li>
-                        <li><a href="{% url 'pm:task' %}">Tasks</a></li>
+                        <li {% if is_fullprojectlist %} class="active" {% endif %}><a href="{% url 'pm:fullprojectlist' %}">Projects List</a></li>
+                        <li {% if is_project %} class="active" {% endif %}><a href="{% url 'pm:project' %}">Projects</a></li>
+                        <li {% if is_unassigneproject %} class="active" {% endif %}><a href="{% url 'pm:unassigneproject' %}">Un-Assigned Projects</a></li>
+                        <li {% if is_srs %} class="active" {% endif %}><a href="{% url 'pm:srs' %}">View SRS</a></li>
+                        
                     </ul>
                 </li>
                
                 <!-- <li> 
                     <a href=""><i class="la la-check-circle"></i> <span>Work Assignee</span></a>
                 </li> -->
-                <li> 
+                <li {% if is_dailyprogress %} class="active" {% endif %}> 
                     <a href="{% url 'pm:dailyprogress' %}"><i class="la la-pie-chart"></i> <span>Daily Progress Report</span></a>
                 </li>
-                <li> 
+                <li {% if is_qcapprovel %} class="active" {% endif %} > 
                     <a href="{% url 'pm:qcapprovel' %}"><i class="lab la-quora"></i> <span>QC Approval</span></a>
                 </li>
-                <li> 
+                <li {% if is_leaverequest %} class="active" {% endif %}> 
                     <a href="{% url 'pm:leaverequest' %}"><i class="las la-bell"></i><span>Leave Request</span></a>
                 </li>
+                <li {% if is_meetings %} class="active" {% endif %}> 
+                    <a href="{% url 'pm:meetings' %}"><i class="las la-bell"></i><span>Meetings</span></a>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="la la-th-list"></i> <span> Task</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li {% if is_task %} class="active" {% endif %}><a href="{% url 'pm:task' %}">Add Task</a></li>
+                        <li><a href="">New Tasks</a></li>                        
+                    </ul>
+                </li>
+               
                 <li class="menu-title"> 
                     <span>More</span>
                 </li>
-                <li {% if is_leaves %} class="active" {% endif %} > 
-                    <a href="{% url 'crm:leaves' %}"><i class="la la-sign-out-alt"></i> <span>Leaves</span></a>
-                </li>
+               
                 <li {% if is_attantance %} class="active" {% endif %}> 
-                    <a href="{% url 'crm:attantance' %}"><i class="la la-calendar-check"></i> <span>Attendance</span></a>
+                    <a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}> 
-                    <a href="{% url 'crm:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
+                    <a href=""><i class="la la-cog"></i> <span>Settings</span></a>
+                </li>
+                <li {% if is_settings %} class="active" {% endif %}> 
+                    <a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="la la-user"></i> <span> Leave</span> <span
+                            class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <li><a href="{% url 'common:leaves' %}">Leaves</a></li>
+                        <li><a href="{% url 'common:leaveapplication' %}">Leave Form</a></li>
+                        <!-- <li><a href="">Excuse Form</a></li> -->
+                    </ul>
                 </li>
             </ul>
         </div>

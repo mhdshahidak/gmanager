@@ -7,7 +7,7 @@ urlpatterns = [
     path('base', views.base, name='base'),
     path('', views.index, name='index'),
     path('enquiry', views.enquiry, name='enquiry'),
-    path('viewenquries', views.viewenquries, name='viewenquries'),
+    path('viewenquries/<str:id>', views.viewenquries, name='viewenquries'),
     path('proposal', views.proposal, name='proposal'),
 
    
@@ -16,7 +16,9 @@ urlpatterns = [
     path('projectlist', views.projectlist, name='projectlist'),
     path('viewproject', views.viewproject, name='viewproject'),
     path('unassigneproject', views.unassigneproject, name='unassigneproject'),
-    path('addschedule', views.addschedule, name='addschedule'),
+    path('addproject/<str:id>', views.addproject, name='addproject'),
+    path('addteam/<str:id>', views.addteam, name='addteam'),
+    path('addschedule/<str:id>', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
     path('viewtask', views.viewtask, name='viewtask'),
     path('srs', views.srs, name='srs'),
@@ -24,9 +26,28 @@ urlpatterns = [
 
 
     path('dailyprogress', views.dailyprogress, name='dailyprogress'),
-    path('viewdailyreport', views.viewdailyreport, name='viewdailyreport'),
+    path('viewdailyreport/<str:id>', views.viewdailyreport, name='viewdailyreport'),
     path('qcapprovel', views.qcapprovel, name='qcapprovel'),
     path('leaverequest', views.leaverequest, name='leaverequest'),
 
-    
+    path('meetings', views.meetings, name="meetings"),
+
+    # ajax
+    path('changeStatus', views.changeStatus, name='changeStatus'),
+    path('savaProposal', views.savaProposal, name='savaProposal'),
+    path('rejectedreason/<str:id>', views.rejectedreason, name='rejectedreason'),
+    path('typereason', views.typereason, name='typereason'),
+    path('leadersearch', views.leadersearch, name='leadersearch'),
+    path('membersearch', views.membersearch, name='membersearch'),
+    path('viedetails/<str:id>', views.viedetails, name='viedetails'),
+    path('acceptdeatils/<str:id>', views.acceptdeatils, name='acceptdeatils'),
+    path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
+    path('reason', views.reason, name='reason'),
+    path('srsapprovel', views.srsapprovel, name='srsapprovel'),
+    path('Changedailyreport/<str:id>', views.Changedailyreport, name='Changedailyreport'),
+    path('changeqc', views.changeqc, name='changeqc'),
+    path('rejectedqc/<str:id>', views.rejectedqc, name='rejectedqc'), 
+    path('qcrework', views.qcrework, name='qcrework'),
+
+
 ]

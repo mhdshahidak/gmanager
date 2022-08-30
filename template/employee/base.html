@@ -1,15 +1,14 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+        <!-- <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="description" content="Smarthr - Bootstrap Admin Template">
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
-        <meta name="robots" content="noindex, nofollow">
-        <title>Employee Dashboard -- Gedexo</title>
+        <meta name="robots" content="noindex, nofollow"> -->
+        <title>g-manager </title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'g.png' %}">
@@ -25,20 +24,30 @@
 		
 		<!-- Chart CSS -->
 		<link rel="stylesheet" href="{% static 'ceo/plugins/morris/morris.css' %}">
-
-        <!-- Datatable CSS -->
-		<link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}">
-		
-		<!-- Select2 CSS -->
-		<link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
-		
-		<!-- Datetimepicker CSS -->
-		<link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
 		
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
 
+		<!-- Datatable CSS -->
+        <link rel="stylesheet" href="{% static 'employee/datatables/datatables.min.css' %}">
+		<!-- <link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}"> -->
+		
+		<!-- Select2 CSS -->
+		<link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
+
+
+
+		<link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
         <link rel="stylesheet" href="{% static 'employee/css/style.css' %}">
+
+        <style>
+            .card{
+                border-radius: 1.25rem;
+            }
+            .card-table .card-header {
+                border-radius: 1.25rem 1.25rem 0rem 1.25rem;
+            }
+        </style>
 		
 		<!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -46,21 +55,22 @@
 			<script src="{% static 'ceo/js/respond.min.js' %}"></script>
 		<![endif]-->
     </head>
-
-<body>	
-    <div id="main-wrapper">
-
-        <!-- Header -->
-        {% include 'employee/partials/navbar.html' %}
-        <!-- /Header -->
-
-        <!-- Sidebar -->
-        {% include 'employee/partials/sidebar.html' %}
-        <!-- /Sidebar -->
-
-        {% block content %}
-
-        {% endblock %}
+	
+    <body>
+		<!-- Main Wrapper -->
+        <div class="main-wrapper">
+		
+            {% include 'employee/partials/navbar.html' %}
+            <!-- /Header -->
+    
+            <!-- Sidebar -->
+            {% include 'employee/partials/sidebar.html' %}
+            <!-- /Sidebar -->
+    
+            {% block content %}
+    
+            {% endblock %}
+			
         </div>
 		<!-- /Main Wrapper -->
 		
@@ -77,22 +87,27 @@
 		<script src="{% static 'ceo/plugins/morris/morris.min.js' %}"></script>
 		<script src="{% static 'ceo/plugins/raphael/raphael.min.js' %}"></script>
 		<script src="{% static 'ceo/js/chart.js' %}"></script>
-
-        <!-- Select2 JS -->
-		<script src="{% static 'ceo/js/select2.min.js' %}"></script>
-		
-		<!-- Datetimepicker JS -->
-		<script src="{% static 'ceo/js/moment.min.js' %}"></script>
-		<script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
-		
-		<!-- Datatable JS -->
-		<script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
-		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script>
 		
 		<!-- Custom JS -->
 		<script src="{% static 'ceo/js/app.js' %}"></script>
 
-        <script>
+
+		<!-- Select2 JS -->
+		<script src="{% static 'ceo/js/select2.min.js' %}"></script>
+		
+		<!-- Datatable JS -->
+        <script src="{% static 'employee/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'employee/datatables/datatables.min.js' %}"></script>
+		<!-- <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script> -->
+
+
+		<!-- Datetimepicker JS -->
+		<script src="{% static 'ceo/js/moment.min.js' %}"></script>
+		<script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
+		
+		
+        <!-- <script>
             if ($('.datatable').length > 0) {
                 $('.datatable').DataTable({
                     language: {
@@ -101,7 +116,6 @@
                     }
                 });
             }
-        </script>
-		
+        </script> -->
     </body>
 </html>

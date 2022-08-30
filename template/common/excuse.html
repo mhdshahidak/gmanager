@@ -1,0 +1,79 @@
+{% extends "common/partials/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Welcome <span>{{user.name|capfirst}}</span> </h3>
+                    <ul class="page-title">
+                        <!-- <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Leaves</li> -->
+                       
+                    </ul>
+                </div>
+                <div class="col">
+                    <button class="btn"></button>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-8 offset-md-1">
+            
+                <!-- Annual Leave -->
+                <div class="card offset-md-2">
+                    <div class="card-body">
+                        <div class="h3 card-title text-center mt-3 mb-3">										
+                            Leave Application
+                        </div>
+                        
+                        <form class="mt-5" method="POST">
+                            {% csrf_token %}
+                          
+                            <div class="form-group">
+                                {{leaveform.from_date.label}} <span class="text-danger">*</span>
+                                {{leaveform.from_date}}
+                                <!-- <label>From <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input class="form-control datetimepicker" name="from" type="text">
+                                </div> -->
+                            </div>
+                            
+                            <div class="form-group">
+                                {{leaveform.time.label}} <span class="text-danger">*</span>
+                                {{leaveform.time}}
+                                <!-- <label>Number of days <span class="text-danger">*</span></label>
+                                <input class="form-control"  type="number"> -->
+                            </div>
+                            <div class="form-group">
+                                {{leaveform.reason.label}} <span class="text-danger">*</span>
+                                {{leaveform.reason}}
+                                <!-- <label>Leave Reason <span class="text-danger">*</span></label>
+                                <textarea rows="4" class="form-control"></textarea> -->
+                            </div>
+                            <div class="submit-section">
+                                <button class="btn btn-primary submit-btn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- /Annual Leave -->
+
+                
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Wrapper -->
+
+</div>
+
+{% endblock %}

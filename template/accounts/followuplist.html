@@ -33,46 +33,37 @@
                                 <th>Client Name </th>
                                 <th>Whatsapp  Number </th>
                                 <th>Email </th>
+                                <th>Date</th>
                                 <th>status</th>
                               
                                 <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+
+                            {% for i in followlist %}
                             <tr>
-                                <td>1</td>
-                                <td>Leave Policy
+                                <td>{{ forloop.counter }}</td>
+                                <td> {{ i.projectname }}
                                     <small class="block text-ellipsis">
-                                        <span class="text-muted">Web App </span>
+                                        <span class="text-muted">{{ i.type }} </span>
                                     </small>
                                 </td>
-                                <td>Shahil khan</td>
-                                <td>86876860739</td>
-                                <td>shahil@gmail.com</td>
-                               <td>Quatation Pending</td>
+                                <td>{{ i.clientname }}</td>
+                                <td>{{ i.whatsapp }}</td>
+                                <td>{{ i.email }}</td>
+                                <td>{{ i.enquirydate }}</td>
+                                <td>{{ i.status }}</td>
                                 <td class="text-end">
-                                    <button class="btn  badge-pill bg-info-light m-t-10" >Accepted </button>
-                                    <button class="btn  badge-pill bg-warning-light m-t-10" data-bs-toggle="modal" data-bs-target="#resent_modal" > Resent </button>
-                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal" data-bs-target="#rejected_modal">Rejected </button>
+                                    
+                                    <button onclick="ChangeFollow({{ i.id }})" class="btn  badge-pill bg-success-light m-t-10">Advance Recived </button>
+                                    
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Permission Policy
-                                    <small class="block text-ellipsis">
-                                        <span class="text-muted">Mobile App </span>
-                                    </small>
-                                </td>
-                                <td>shahid</td>
-                                <td>899827638769</td>
-                                <td>shahid@gmail.com</td>
-                                <td>Balance Amount</td>
-                                <td class="text-end">
-                                    <button class="btn  badge-pill bg-info-light m-t-10" >Accepted </button>
-                                    <button class="btn  badge-pill bg-warning-light m-t-10" data-bs-toggle="modal" data-bs-target="#resent_modal" > Resent </button>
-                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal" data-bs-target="#rejected_modal">Rejected </button>
-                                </td>
-                            </tr>
+
+                            {% endfor %}
+
+                        
                         </tbody>
                     </table>
                 </div>
@@ -178,7 +169,25 @@
 
 </div>
 
+<script>
+    function ChangeFollow(id) {
+       $.ajax({
+           url: "/accounts/changefollow",
+           type: 'POST',
+           data: {
+               'EnquaryID': id,
 
+           },
+
+           success: function (responce) {
+
+              
+               window.location.reload()
+           }
+
+       })
+   }
+</script>
 
 {% endblock %}
 

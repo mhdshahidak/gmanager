@@ -21,58 +21,66 @@
         </div>
         <!-- /Page Header -->
 
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>112</h3>
-                            <span>New Enquiries</span>
+            <!-- <div class="row">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{enquirylist}}</h3>
+
+                                <span>Enquiries list </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>44</h3>
+                                <span>Approved</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>44</h3>
-                            <span>Approved</span>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>37</h3>
+                                <span>Rejected</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>37</h3>
-                            <span>Rejected</span>
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>218</h3>
+                                <span>Follow Up List</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Follow Up List</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </div> -->
 
 
         <div class="row">
-            <div class="col-md-12 col-lg-12 col-xl-12 ">
-                <textarea id="mytextarea" name="instruction" style="min-height: 480px;" ></textarea>
-            </div>                       
+            <form method = "POST" >
+                {% csrf_token %}
+                <div class="col-md-12 col-lg-12 col-xl-12 ">
+                    <textarea id="mytextarea" name="instruction" style="min-height: 480px;" ></textarea>
+                </div>  
+                <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
+                    <button class="btn btn-success" type="submit" style="margin-top: 10px;margin-bottom: 10px;">SAVE</button>
+                </div>   
+            </form>                  
         </div>
 
     </div>

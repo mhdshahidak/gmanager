@@ -32,49 +32,38 @@
                         <h4 class="card-title mb-0">Meeting Schedule</h4>
                     </div>
                     <div class="card-body">
-                        <form action="#">
+                        <form action="#" method="POST">
+                            {% csrf_token %}
                             <h4 class="card-title">Project Information</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Project Category</label>
-                                        <select class="select">
-                                            <option>Select</option>
-                                            <option value="">Web App</option>
-                                        </select>
+                                        <input type="text" readonly value="{{project.enquiry.type}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Client Name</label>
-                                        <input type="text" class="form-control">
+                                        
+                                        <input type="text" readonly value="{{project.enquiry.clientname}}" class="form-control">
                                     </div>
-                                    
+                                   
                                     <div class="form-group">
                                         <label class="d-block">Priority:</label>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="Priority" id="high" value="option1">
-                                            <label class="form-check-label" for="high">High</label>
+            
+                                            <label class="form-check-label" for="high">{{project.projecttype}}</label>
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="Priority" id="medium" value="option2">
-                                            <label class="form-check-label" for="medium">Medium</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="Priority" id="low" value="option2">
-                                            <label class="form-check-label" for="low">Low</label>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Project Name</label>
-                                        <select class="select">
-                                            <option>Select</option>
-                                            <option value="">ABC</option>
-                                        </select>
+                                        <input type="text" readonly value="{{project.enquiry.projectname}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Phone</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" readonly value="{{project.enquiry.phone}}" class="form-control">
                                     </div>
                                     
 
@@ -92,32 +81,22 @@
                                             <h4>Leader </h4>
                                             <div class="avatar-group">
                                                 <div class="avatar">
-                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}">
-                                                </div>
-                                                <div class="avatar">
-                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}">
-                                                </div>
-                                                <div class="avatar">
-                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{% static 'ceo/img/profiles/avatar-12.jpg' %}">
-                                                </div>
-                                                <div class="avatar">
-                                                    <a href="" class="avatar-title rounded-circle border border-white" data-bs-toggle="modal" data-bs-target="#assign_leader"><i class="fa fa-plus"></i></a>
+                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{{team.lead.emp_profile.url}}">
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                   
+                                    </div>                                  
                                    
                                     <div class="form-group">
                                         <label class="col-form-label">Date</label>
-                                        <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div>
+                                       <input type="date" class="form-control" required name="meetingDate">
+                                       <!-- <input type="number" value="{{project.id}}" class="form-control"  name="projectID"> -->
+
+                                        <!-- <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div> -->
                                     </div>
                                     <div class="form-group">
                                         <label>Platform</label>
-                                        <select class="select">
-                                            <option>Select</option>
-                                            <option value="">Google meet</option>
-                                        </select>
+                                       <input type="text" class="form-control" required name="platform">
                                     </div>
                                    
                                 </div>
@@ -126,18 +105,16 @@
                                         <div class="pro-team-members">
                                             <h4>Team</h4>
                                             <div class="avatar-group">
+                                                {% for m in mbr %}
                                                 <div class="avatar">
-                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{% static 'ceo/img/profiles/avatar-02.jpg' %}">
+                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{{m.team__emp_profile}}">
                                                 </div>
-                                                <div class="avatar">
-                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{% static 'ceo/img/profiles/avatar-09.jpg' %}">
+                                                <div >
+                                                    <p>{{m.team__name}}</p>
+                                                    <!-- <input value="{{mbr.name}}"> -->
                                                 </div>
-                                                <div class="avatar">
-                                                    <img class="avatar-img rounded-circle border border-white" alt="User Image" src="{% static 'ceo/img/profiles/avatar-12.jpg' %}">
-                                                </div>
-                                                <div class="avatar">
-                                                    <a href="" class="avatar-title rounded-circle border border-white" data-bs-toggle="modal" data-bs-target="#assign_user"><i class="fa fa-plus"></i></a>
-                                                </div>
+                                                {% endfor %}
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -145,12 +122,12 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Meeting Time  <span class="text-danger">*</span></label>
                                         <div class="input-group time timepicker">
-                                            <input  class="form-control"><span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                                            <input  class="form-control" type="time" name="time">
                                         </div>
-                                    </div>
+                                    </div>                                   
                                     <div class="form-group">
                                         <label>Meeting Link</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" class="form-control" name="link">
                                     </div>
                                    
                                 </div>

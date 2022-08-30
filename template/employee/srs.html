@@ -30,46 +30,38 @@
                     <div class="card-body">
 
                         <div class="table-responsive">
-                            <table class="datatable table table-stripped mb-0">
+                            <table class="datatable table table-striped mb-0">
                                 <thead>
                                     <tr>
                                         <th>Project Name</th>
                                         <th>Client Name</th>
                                         <th>note</th>
                                         <th>SRS</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    {% for i in meetinglist %}
                                     <tr>
-                                        <td style="color: NAVY;">ONFLAP TECHNOLOGY</td>
-                                        <td>ONFLAP TECHNOLOGY QWAIT</td>
-                                        <td>it solution service center</td>
-                                        <td>
-                                            <form action="">
+                                        <td style="color: NAVY;">{{ i.project.projectname }}</td>
+                                        <td >{{ i.project.id }}</td>
+                                        <form action="">
+                                            <td>
                                                 <input type="file">
-                                            </form>
-                                        </td>
+                                            </td>
+                                            <td>
+                                                <input type="text" value="{{ i.project.id }}" name="" id="">
+                                            </td>
+                                            <td>
+                                                <button class="btn  badge-pill bg-success-light m-t-10">Sent </button>
+
+                                            </td>
+                                        </form>
                                     </tr>
-                                    <tr>
-                                        <td style="color: NAVY;">ONFLAP TECHNOLOGY</td>
-                                        <td class="text-lowercase">ONFLAP TECHNOLOGY QWAIT</td>
-                                        <td>it solution service center</td>
-                                        <td>
-                                            <form action="">
-                                                <input type="file">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="color: NAVY;">ONFLAP TECHNOLOGY</td>
-                                        <td>ONFLAP TECHNOLOGY QWAIT</td>
-                                        <td>it solution service center</td>
-                                        <td>
-                                            <form action="">
-                                                <input type="file">
-                                            </form>
-                                        </td>
-                                    </tr>
+                                    {% endfor %}
+                                    
+                                    
                                 </tbody>
                             </table>
                         </div>

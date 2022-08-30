@@ -22,17 +22,34 @@
         <!-- /Page Header -->
 
         <div class="row">
-            
+            {% for i in viewsrs %}
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-download"></i></span>
+                        <span class="dash-widget-icon"><a href="{{ i.srsfile.url}}"><i class="fa fa-download"></i></a> </span>
                         <div class="dash-widget-info">
                             <h3>Download SRS</h3>
-                            <span>Onflap</span>
+                            <span>{{ i.project.projectname }}</span>
                         </div>
                     </div>
                 </div>
+            </div>
+            {% endfor %}
+           
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <a href="{% url 'clients:payment' %}">
+
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-download"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>View Payment</h3>
+                                <span>Onflap</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
             </div>
         </div>
 
@@ -56,24 +73,27 @@
                                 </thead>
                                 <tbody>
                                 
-                                
-                                    <tr>
+                                {% for i in projectdetails %}
+
+                                <tr>
                                      
-                                        <td>Leave Policy
-                                            <small class="block text-ellipsis">
-                                                <span class="text-muted">WebApp.geany.website </span>
-                                            </small>
-                                        </td>
-                                        <td>Shahil khan</td>
-                                        <td>86876860739</td>
-                                       
-                                       
-                                        <td>
-                                            <div class="progress progress-xs progress-striped">
-                                                <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" title="70%" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <td>{{ i.project.projectname }}
+                                        <small class="block text-ellipsis">
+                                            <span class="text-muted">{{ i.url_project }} </span>
+                                        </small>
+                                    </td>
+                                    <td>{{ i.username }}</td>
+                                    <td>{{ i.password }}</td>
+                                   
+                                   
+                                    <td>
+                                        <div class="progress progress-xs progress-striped">
+                                            <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" title=" {{ i.completion }}%" style="width:  {{ i.completion }}%"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                  
                                    
                                 </tbody>
                             </table>
@@ -111,16 +131,20 @@
                                                     <div class="staff-id">Employee ID : FT-0001</div>
                                                     <div class="small doj text-muted">Date of Join : 1st Jan 2013</div>
                                                     <div class="staff-msg"><a class="btn btn-custom" href="chat.html">Send Message</a></div> -->
-                                                    <form>
-                       
+                                                    <form method="post" action="{% url 'clients:updation' %}" enctype="multipart/form-data">
+                                                            {% csrf_token %}
                                                         <div class="form-group">
                                                             <label>Note <span class="text-danger">*</span></label>
-                                                            <textarea class="form-control" rows="6"></textarea>
+                                                            <textarea name="updation" class="form-control" rows="6"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Upload File<span class="text-danger">*</span></label>
+                                                           <input type="file" name="upload" class="form-control" id="">
                                                         </div>
                                                         
-                                                        
+                                                        <input type="hidden" value="{{project}}" name="projectid" id="">
                                                         <div class="submit-section">
-                                                            <button class="btn btn-primary submit-btn">Submit</button>
+                                                            <button type="submit" class="btn btn-primary submit-btn">Submit</button>
                                                         </div>
                                                     </form>
                                                 <!-- </div> -->

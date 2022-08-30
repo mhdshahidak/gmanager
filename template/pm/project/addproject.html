@@ -1,0 +1,170 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-end ms-auto">
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                {{form.projectname}}
+                                <!-- <input list="enquirylist" class="form-control" name="enquiry" id="enquiry"> -->
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label> Project Type</label>
+                                <!-- <input class="form-control" name="pro" type="text"> -->
+                                {{ form.projecttype }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                {{ form.starteddate }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>End Date</label>
+                                {{ form.endingdate }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Client</label>
+                                
+                                {{ form.client }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Add Project Leader</label>
+                                <input list="employee" onchange="Addemployee()" class="form-control" name="employees" id="employees">
+
+                                <datalist id="employee">
+                                    {% for i in employee %}
+
+                                    <option value="{{ i.name }}">{{ i.name }}</option>
+                                    {% endfor %}    
+                                    
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Team Leader</label>
+                                <div class="project-members">
+                                    <a href="#" data-bs-toggle="tooltip" id="title" title="" class="avatar">
+                                        <img src="{% static 'ceo/img/profiles/avatar-16.jpg' %}" id="image" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Add Team</label>
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Team Members</label>
+                                <div class="project-members">
+                                    <a href="#" data-bs-toggle="tooltip" title="John Doe" class="avatar">
+                                        <img src="{% static 'ceo/img/profiles/avatar-16.jpg' %}" alt="">
+                                    </a>
+                                    <a href="#" data-bs-toggle="tooltip" title="Richard Miles" class="avatar">
+                                        <img src="{% static 'ceo/img/profiles/avatar-09.jpg' %}" alt="">
+                                    </a>
+                                    <a href="#" data-bs-toggle="tooltip" title="John Smith" class="avatar">
+                                        <img src="{% static 'ceo/img/profiles/avatar-10.jpg' %}" alt="">
+                                    </a>
+                                    <a href="#" data-bs-toggle="tooltip" title="Mike Litorus" class="avatar">
+                                        <img src="{% static 'ceo/img/profiles/avatar-05.jpg' %}" alt="">
+                                    </a>
+                                    <span class="all-team">+2</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label>Description</label>
+                        <div id="editor"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Upload Files</label>
+                        <input class="form-control" type="file">
+                    </div> -->
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+
+
+</div>
+
+
+
+{% endblock %}

@@ -9,13 +9,11 @@
                 <li class="submenu">
                     <a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
-                        <li><a  href="{% url 'ceo:admin' %}">Admin Dashboard</a></li>
-                        <li><a href="{% url 'ceo:employe' %}">Employee Dashboard</a></li>
-                        <li><a href="{% url 'ceo:crm' %}">CRM Dashboard</a></li>
-                        <li><a href="{% url 'ceo:projectmanager' %}">PM Dashboard</a></li>
-                        <!-- <li><a href="{% url 'ceo:hr' %}">HR Dashboard</a></li>
-                        <li><a href="{% url 'ceo:accounts' %}">Accounts Dashboard</a></li>
-                        <li><a href="{% url 'ceo:gm' %}">GM Dashboard</a></li> -->
+                        <li {% if is_ceodashboard %} class="active" {% endif %}><a  href="{% url 'ceo:ceodashboard' %}">Admin Dashboard</a></li>
+                        <li {% if is_employe %} class="active" {% endif %}><a href="{% url 'ceo:employe' %}">Employee Dashboard</a></li>
+                        <li {% if is_crms %} class="active" {% endif %}><a href="{% url 'ceo:crms' %}">CRM Dashboard</a></li>
+                        <!-- <li {% if is_projectmanager %} class="active" {% endif %}><a href="{% url 'ceo:projectmanager' %}">PM Dashboard</a></li> -->
+                      
                     </ul>
                 </li>
                
@@ -29,25 +27,16 @@
                         <li><a href="">Leaves </a></li>
                         <li><a href="">Leave Settings</a></li>
                         <li><a href="">Attendance</a></li> -->
-                        <li><a href="{% url 'ceo:departmentwise' %}">Departments</a></li>
-                    </ul>
-                </li>
-               
-                <li class="submenu">
-                    <a href="#" class="noti-dot"><i class="la la-users"></i> <span> Managements</span> <span class="menu-arrow"></span></a>
-                    <ul style="display: none;">
-                        <li><a href="{% url 'ceo:allstaff' %}">All Staffs</a></li>
-                        <!-- <li><a href="">Leaves </a></li>
-                        <li><a href="">Leave Settings</a></li>
-                        <li><a href="">Attendance </a></li> -->
+                        <li {% if is_allstaff %} class="active" {% endif %}><a href="{% url 'ceo:allstaff' %}">All Staffs</a></li>
+                        <li {% if is_departmentwise %} class="active" {% endif %}><a href="{% url 'ceo:departmentwise' %}">Departments</a></li>
                     </ul>
                 </li>
                 <!-- <li> 
                     <a href=""><i class="la la-bullhorn"></i> <span>Enquiries</span></a>
                 </li> -->
-                <li> 
+                <!-- <li {% if is_project %} class="active" {% endif %}> 
                     <a href="{% url 'ceo:project' %}"><i class="la la-rocket"></i> <span>Projects</span></a>
-                </li>
+                </li> -->
                 <!-- <li class="submenu">
                     <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
@@ -59,7 +48,7 @@
                 <!-- <li> 
                     <a href=""><i class="la la-user-secret"></i> <span>Leads</span></a>
                 </li> -->
-                <li> 
+                <li {% if is_dailychecked %} class="active" {% endif %}> 
                     <a href="{% url 'ceo:dailychecked' %}"><i class="la la-ticket"></i> <span>Unchecked Daily Progress</span></a>
                 </li>
               
