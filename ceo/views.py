@@ -6,9 +6,10 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
-from pm.models import DailyProgress,Project
+from pm.models import DailyProgress,Project,Enquiry,ProjectStatus
 from django.db.models import Q
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 import datetime
 
@@ -68,7 +69,21 @@ def ceodashboard(request):
     clients  = Client.objects.all().count()
     employees = Employees.objects.all().count()
 
-
+    enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
+    billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
+    billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    notstated =Project.objects.filter(status = 'Not Started').count()
+    ongoing =Project.objects.filter(status = 'On Going').count()
+    onscheduling =Project.objects.filter(status = 'On Scheduling').count()
+    delayed =Project.objects.filter(status = 'Delayed').count()
+    qc =Project.objects.filter(status = 'Qc').count()
+    w4c =Project.objects.filter(status = 'W4C').count()
+    rework =Project.objects.filter(status = 'Rework').count()
+    completed =Project.objects.filter(status = 'Completed').count()
+   
    
     print(projects)
     context = {
@@ -76,11 +91,29 @@ def ceodashboard(request):
         "projects" : projects,
         "clients":clients,
         "employees":employees,
+        "addedtoprop":addedtoprop,
+        "billcreation":billcreation,
+        "billadvance":billadvance,
+        "advancepaid":advancepaid,
+        "rejected":rejected,
+        "enquirylist":enquirylist,
+        "notstated":notstated,
+        "ongoing":ongoing,
+        "delayed":delayed,
+        "onscheduling":onscheduling,
+        "qc":qc,
+        "w4c":w4c,
+        "rework":rework,
+        "completed":completed,
+
+   
+
     }
     return render (request,'ceo/dashboard/admin.html',context)  
 
 @login_required(login_url='/')
 def crm(request):
+    
     if request.method == 'POST':
         print("success")
         instructions = request.POST['instruction']
@@ -97,14 +130,18 @@ def crm(request):
         context = {
             "is_crms":True,
             
+            
         }
         return render (request,'ceo/dashboard/crm.html',context) 
     return render (request,'ceo/dashboard/crm.html',context)  
 
 @login_required(login_url='/')
 def employe(request):
+    empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
+    print(empllist)
     context = {
         "is_employe" : True,
+        "empllist":empllist
     }
     return render (request,'ceo/dashboard/employee.html',context)  
 
@@ -130,8 +167,21 @@ def projectmanager(request):
 
 
 
-def employeeprofile(request):
-    return render (request,'ceo/employeeprofile.html')    
+def employeeprofile(request,id):
+    employedetails = Employees.objects.get(id=id)
+    primarycontact = EmergenctContact.objects.get(employee=employedetails)
+
+    
+    # employeedata=Employees.objects.get(id=request.user.employee.id)
+    proemployee = ProjectStatus.objects.filter(member__team=employedetails) |ProjectStatus.objects.filter(member__lead=employedetails)
+    # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
+    # print(procount)
+    context={
+        "employedetails":employedetails,
+        "primarycontact":primarycontact,
+        "proemployee":proemployee
+    }
+    return render (request,'ceo/employeeprofile.html',context)    
 
 
 @login_required(login_url='/')
@@ -251,6 +301,15 @@ def project(request):
     }
     return render (request,'ceo/project/project.html',context)    
 
+@login_required(login_url='/')
+def rejectedlist(request):
+    rejected = Enquiry.objects.filter(status = 'Rejected')
+    context = {
+        "is_project" : True,
+        "rejected":rejected
+    }
+    return render (request,'ceo/rejectedlist.html',context) 
+
 
 @login_required(login_url='/')
 def projectlist(request):
@@ -267,3 +326,16 @@ def viewproject(request):
     }
     return render (request,'ceo/project/viewproject.html',context)        
     
+
+
+
+@csrf_exempt
+def viedetails(request,id):
+    getdata =  Enquiry.objects.get(id=id)
+    data ={
+
+        'reason':getdata.reason,
+        
+    }
+    print(data)
+    return JsonResponse({'value': data})    
