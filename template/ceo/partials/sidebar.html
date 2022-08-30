@@ -12,7 +12,7 @@
                         <li {% if is_ceodashboard %} class="active" {% endif %}><a  href="{% url 'ceo:ceodashboard' %}">Admin Dashboard</a></li>
                         <li {% if is_employe %} class="active" {% endif %}><a href="{% url 'ceo:employe' %}">Employee Dashboard</a></li>
                         <li {% if is_crms %} class="active" {% endif %}><a href="{% url 'ceo:crms' %}">CRM Dashboard</a></li>
-                        <li {% if is_projectmanager %} class="active" {% endif %}><a href="{% url 'ceo:projectmanager' %}">PM Dashboard</a></li>
+                        <!-- <li {% if is_projectmanager %} class="active" {% endif %}><a href="{% url 'ceo:projectmanager' %}">PM Dashboard</a></li> -->
                       
                     </ul>
                 </li>
@@ -34,9 +34,9 @@
                 <!-- <li> 
                     <a href=""><i class="la la-bullhorn"></i> <span>Enquiries</span></a>
                 </li> -->
-                <li {% if is_project %} class="active" {% endif %}> 
+                <!-- <li {% if is_project %} class="active" {% endif %}> 
                     <a href="{% url 'ceo:project' %}"><i class="la la-rocket"></i> <span>Projects</span></a>
-                </li>
+                </li> -->
                 <!-- <li class="submenu">
                     <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">

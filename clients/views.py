@@ -13,7 +13,8 @@ def base(request):
 
 @login_required(login_url='/')
 def home(request):
-    
+    name= request.user.client.name
+    print(name)
     clientid =Client.objects.get(id=request.user.client.id)
    
     project =Project.objects.get(client=clientid)
