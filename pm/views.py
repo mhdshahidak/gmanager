@@ -24,16 +24,18 @@ def index(request):
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+
 
     context={
-   "addedtoprop":addedtoprop,
-   "billcreation":billcreation,
-   "billadvance":billadvance,
-   "advancepaid":advancepaid,
-   "rejected":rejected,
-   "enquirylist":enquirylist,
-   
-
+        "is_pmindex":True,
+        "addedtoprop":addedtoprop,
+        "billcreation":billcreation,
+        "billadvance":billadvance,
+        "advancepaid":advancepaid,
+        "rejected":rejected,
+        "enquirylist":enquirylist,
+        "enquirylistdata":enquirylistdata,
 
     }
     return render (request,'pm/index.html',context)    
@@ -43,6 +45,7 @@ def index(request):
 def enquiry(request):
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
     context={
+        "is_enquiry":True,
         "enquirylistdata":enquirylistdata
     }
     return render (request,'pm/enquiry/enquiry.html',context)     
@@ -77,6 +80,7 @@ def proposal(request):
     data = Enquiry.objects.filter(status = 'Added To Proposal')
     
     context ={
+        "is_proposal":True,
         "data":data,
     }
     return render (request,'pm/proposal.html',context)     
@@ -85,11 +89,17 @@ def proposal(request):
 
 @login_required(login_url='/')
 def project(request):
-    return render (request,'pm/project/project.html')    
+    context = {
+        "is_project":True,
+    }
+    return render (request,'pm/project/project.html',context)    
 
 @login_required(login_url='/')
 def projectlist(request):
-    return render (request,'pm/project/projectlist.html')  
+    context = {
+        "is_projectlist":True,
+    }
+    return render (request,'pm/project/projectlist.html',context)  
 
 @login_required(login_url='/')
 def viewproject(request):
@@ -99,6 +109,7 @@ def viewproject(request):
 def unassigneproject(request):
     enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
     context={
+        "is_unassigneproject":True,
         "enquirylist":enquirylist,
     }
     return render (request,'pm/project/unassigneproject.html',context)         
@@ -114,11 +125,10 @@ def addproject(request,id):
             print (form.errors) 
             data = form.save()
             Project.objects.filter(id=data.id).update(enquiry=deatils)
-            project = Project.objects.get(id=data.id)
-            project.enquiry.status = "Project Added"
-            project.save()
+            project = Project.objects.get(id=data.id)           
+            Enquiry.objects.filter(id=id).update(status="Project Added")
             print(project.enquiry.status)
-            # Project.objects.filter()
+
             return redirect('/pm/addteam/'+str(data.id))
         else:
             pass 
@@ -174,6 +184,7 @@ def meetings(request):
     meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
     # print(project)
     context = {
+        "is_meetings":True,
         "meetings":meetings,
     }
     return render(request,'pm/meetings.html',context)
@@ -182,6 +193,7 @@ def meetings(request):
 def task(request):
     projects = Project.objects.all()
     context = {
+        "is_task":True,
         "projects" : projects,
     }
     return render (request,'pm/project/task.html', context)
@@ -200,6 +212,7 @@ def viewtask(request):
 def srs(request):
     viewsrs = SRS.objects.filter(project__status='SRS uploaded')
     context={
+        "is_srs":True,
         "viewsrs":viewsrs
     }
     return render (request,'pm/project/srs.html',context)  
@@ -207,7 +220,10 @@ def srs(request):
 
 @login_required(login_url='/')
 def fullprojectlist(request):
-    return render (request,'pm/project/fullprojectlist.html')  
+    context = {
+        "is_fullprojectlist":True,
+    }
+    return render (request,'pm/project/fullprojectlist.html',context)  
 
 
 @login_required(login_url='/')
@@ -215,9 +231,10 @@ def dailyprogress(request):
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
     projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct()
-    print(projectlists,'*'*28)
+    
 
     context={
+        "is_dailyprogress":True,
         "projectlists":projectlists
     }
 
@@ -252,6 +269,7 @@ def qcapprovel(request):
     # (status='Qc', completion_gte = 95)
     print(qclist)
     context ={
+        "is_qcapprovel":True,
         "qclist":qclist 
     }
     return render (request,'pm/qcapprovel.html',context)   
@@ -262,6 +280,7 @@ def leaverequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
     print(leave)
     context={
+        "is_leaverequest":True,
         "leave":leave
     }
     return render (request,'pm/leaverequest.html',context)    
