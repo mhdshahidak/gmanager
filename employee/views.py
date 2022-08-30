@@ -6,10 +6,12 @@ from ceo.models import EmergenctContact, Employees
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
+from gmanager.decorators import auth_employee
 # Create your views here.
 
 
 @login_required(login_url='/')
+@auth_employee
 def employeeHome(request):
     employeedata=Employees.objects.get(id=request.user.employee.id)
     listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
@@ -22,6 +24,7 @@ def employeeHome(request):
     return render(request,'employee/home.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def viewproject(request):
     print(request.user.id)
     # meetinglist = ProjectMembers.objects.filter(team=request.user.id)
@@ -40,6 +43,7 @@ def viewproject(request):
 
 #------meeting ------
 @login_required(login_url='/')
+@auth_employee
 def empMeetingLink(request,id):
     print(id)
     projectid= Project.objects.get(id=id)
@@ -62,6 +66,7 @@ def empMeetingLink(request,id):
 
 # ----- Projects ------
 @login_required(login_url='/')
+@auth_employee
 def allProjects(request):
     context = {
         "is_allprojects":True,
@@ -82,6 +87,7 @@ def allProjects(request):
 
 
 @login_required(login_url='/')
+@auth_employee
 def empRework(request):
     context = {
         "is_rework":True,
@@ -90,6 +96,7 @@ def empRework(request):
 
 
 @login_required(login_url='/')
+@auth_employee
 def empDailyProgress(request,id):
     # print(request.user.employee.id,'$'*99)
     project_obj = Project.objects.get(id=id)
@@ -119,6 +126,7 @@ def empDailyProgress(request,id):
 
 
 @login_required(login_url='/')
+@auth_employee
 def empProgressReport(request,id):
     projectdetails= Project.objects.get(id=id)
     projectstatus = ProjectStatus.objects.get(project=projectdetails)
@@ -141,6 +149,7 @@ def empProgressReport(request,id):
     return render(request,'employee/progress_report.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empTask(request):
     context = {
         "is_task":True,
@@ -148,6 +157,7 @@ def empTask(request):
     return render(request,'employee/task.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empHomework(request):
     context = {
         "is_homework":True,
@@ -157,6 +167,7 @@ def empHomework(request):
 
 # ------ Leaves ------
 @login_required(login_url='/')
+@auth_employee
 def leaveApplication(request):
     context = {
         "is_attendance":True,
@@ -164,6 +175,7 @@ def leaveApplication(request):
     return render(request,'employee/leave_application.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empAttendance(request):
     context = {
         "is_attendance":True,
@@ -181,6 +193,7 @@ def allEmployees(request):
     return render(request,'employee/all_employees.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empDepartment(request):
     context = {
         "is_department":True,
@@ -188,6 +201,7 @@ def empDepartment(request):
     return render(request,'employee/department.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empTimeline(request):
     context = {
         "is_timeline":True,
@@ -196,6 +210,7 @@ def empTimeline(request):
 
 # ------ team -------
 @login_required(login_url='/')
+@auth_employee
 def empTeam(request):
     context = {
         "is_team":True,
@@ -205,6 +220,7 @@ def empTeam(request):
 
 #------ Profile ------
 @login_required(login_url='/')
+@auth_employee
 def empProfile(request):
     emp=EmergenctContact.objects.get(employee=request.user.employee)
     context = {

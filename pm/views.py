@@ -11,12 +11,15 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime, timedelta, time
 from pytz import timezone
 from django.db.models import Q
-
-@login_required(login_url='/')# Create your views here.
+from gmanager.decorators import auth_pm
+# Create your views here.
+@login_required(login_url='/')
+@auth_pm
 def base(request):
     return render (request,'pm/partials/base.html')
 
 @login_required(login_url='/')
+@auth_pm
 def index(request):
     enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
@@ -42,6 +45,7 @@ def index(request):
 
 
 @login_required(login_url='/')
+@auth_pm
 def enquiry(request):
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
     context={
@@ -51,6 +55,7 @@ def enquiry(request):
     return render (request,'pm/enquiry/enquiry.html',context)     
 
 @login_required(login_url='/')
+@auth_pm
 def viewenquries(request,id):
     details = Enquiry.objects.get(id=id)
     forms=PraposalpdfForm(request.POST,request.FILES)
@@ -76,6 +81,7 @@ def viewenquries(request,id):
 
 
 @login_required(login_url='/')
+@auth_pm
 def proposal(request):
     data = Enquiry.objects.filter(status = 'Added To Proposal')
     
@@ -88,6 +94,7 @@ def proposal(request):
 
 
 @login_required(login_url='/')
+@auth_pm
 def project(request):
     context = {
         "is_project":True,
@@ -95,6 +102,7 @@ def project(request):
     return render (request,'pm/project/project.html',context)    
 
 @login_required(login_url='/')
+@auth_pm
 def projectlist(request):
     context = {
         "is_projectlist":True,
@@ -102,10 +110,12 @@ def projectlist(request):
     return render (request,'pm/project/projectlist.html',context)  
 
 @login_required(login_url='/')
+@auth_pm
 def viewproject(request):
     return render (request,'pm/project/viewproject.html')  
 
 @login_required(login_url='/')
+@auth_pm
 def unassigneproject(request):
     enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
     context={
@@ -116,6 +126,7 @@ def unassigneproject(request):
 
 
 @login_required(login_url='/')
+@auth_pm
 def addproject(request,id):
     deatils= Enquiry.objects.get(id=id)
     form=ProjectForm(request.POST)
@@ -142,6 +153,7 @@ def addproject(request,id):
     return render (request,'pm/project/addproject.html',context)  
 
 @login_required(login_url='/')
+@auth_pm
 def addteam(request,id):
     employee = Employees.objects.all()
     context={
@@ -150,6 +162,7 @@ def addteam(request,id):
     }
     return render (request,'pm/project/addteam.html',context)
 @login_required(login_url='/')
+@auth_pm
 def addschedule(request,id):
     project_obj = Project.objects.get(id=id)
     # print(project)    
@@ -179,6 +192,7 @@ def addschedule(request,id):
 
 
 @login_required(login_url='/')
+@auth_pm
 def meetings(request):
     # project = Project.objects.get(status="Meeting Scheduled")
     meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
@@ -190,6 +204,7 @@ def meetings(request):
     return render(request,'pm/meetings.html',context)
 
 @login_required(login_url='/')
+@auth_pm
 def task(request):
     projects = Project.objects.all()
     context = {
@@ -204,11 +219,13 @@ def task(request):
     
 
 @login_required(login_url='/')
+@auth_pm
 def viewtask(request):
     return render (request,'pm/project/viewtask.html')  
 
 
 @login_required(login_url='/')
+@auth_pm
 def srs(request):
     viewsrs = SRS.objects.filter(project__status='SRS uploaded')
     context={
@@ -219,6 +236,7 @@ def srs(request):
 
 
 @login_required(login_url='/')
+@auth_pm
 def fullprojectlist(request):
     context = {
         "is_fullprojectlist":True,
@@ -227,6 +245,7 @@ def fullprojectlist(request):
 
 
 @login_required(login_url='/')
+@auth_pm
 def dailyprogress(request):
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
@@ -241,6 +260,7 @@ def dailyprogress(request):
     return render (request,'pm/dailyprogress.html',context)    
 
 @login_required(login_url='/')
+@auth_pm
 def viewdailyreport(request,id):
     today = datetime.now().date()
     time = datetime.now().time()
@@ -263,6 +283,7 @@ def viewdailyreport(request,id):
     
 
 @login_required(login_url='/')
+@auth_pm
 def qcapprovel(request):
 
     qclist= ProjectStatus.objects.filter(Q(status='Qc') & Q(completion__gte = 95))
@@ -276,6 +297,7 @@ def qcapprovel(request):
 
 
 @login_required(login_url='/')
+@auth_pm
 def leaverequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
     print(leave)
