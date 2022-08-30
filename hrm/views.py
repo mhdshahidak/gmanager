@@ -6,9 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from gmanager.decorators import auth_hrm
 # Create your views here.
 
 @login_required(login_url='/')
+@auth_hrm
 def hrmHome(request):
     emp = Employees.objects.all().count()
     context = {
@@ -19,6 +21,7 @@ def hrmHome(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def employeeList(request):
 
     allemp = EmergenctContact.objects.all().order_by('-employee_id')
@@ -50,6 +53,7 @@ def employeeList(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def clientList(request):
     context = {
         "is_clientList":True,
@@ -58,6 +62,7 @@ def clientList(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def leaveRequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = True , status ='Waiting')
     context = {
@@ -68,6 +73,7 @@ def leaveRequest(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def leaveReport(request):
     context = {
         "is_leaveReport":True,
@@ -76,6 +82,7 @@ def leaveReport(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def attantanceReport(request):
     context = {
         "is_attantanceReport":True,
@@ -84,6 +91,7 @@ def attantanceReport(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def hrsettings(request):
     context = {
         "is_hrsettings":True,
@@ -92,6 +100,7 @@ def hrsettings(request):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def attantanceList(request):
     allemp = Employees.objects.all()
     context = {
@@ -111,6 +120,7 @@ def hrmaccept(request,id):
 
 
 @login_required(login_url='/')
+@auth_hrm
 def excuse(request):
     listvalue= ExcuseRequests.objects.filter(status = 'Waiting')
     context = {
