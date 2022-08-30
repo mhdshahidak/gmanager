@@ -44,11 +44,19 @@
                                         <h5 class="card-title">{{i.employee.name}}</h5>
                                         <p class="card-text">{{i.note}}.</p>
 
+                                        {% if i.checked == False %}
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval"
+                                            <button onclick="ChangeStatus({{i.id}})" 
                                                 class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %}
 
                                         <!-- {% if i.checked == False %}
                                         <div class="text-end">
@@ -81,11 +89,19 @@
 
 
 
+                                        {% if i.checked == False %}
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" id="noonbutton"
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval{{i.id}}"
                                                 class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %}
                                         <!-- {% if i.checked == False %}
                                         <div class="text-end">
                                             <button onclick="ChangeStatus({{i.id}})" id="noonbutton"
@@ -115,14 +131,12 @@
                                         {% for i in evening %}
                                         <h5 class="card-title">{{i.employee.name}}</h5>
                                         <p class="card-text">{{i.note}}.</p>
+                                          
+                                        
+                                       
+                                        {% if i.checked == False %}
                                         <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
-                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
-
-                                        </div>
-                                        <!-- {% if i.checked == False %}
-                                        <div class="text-end">
-                                            <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval{{i.id}}"
                                                 class="btn  badge-pill bg-success-light m-t-10">Checked </button>
 
                                         </div>
@@ -132,7 +146,7 @@
                                             </button>
 
                                         </div>
-                                        {% endif %} -->
+                                        {% endif %}
                                         <!-- <div class="text-end">
                                             <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
                                                 class="btn  badge-pill bg-success-light m-t-10">Checked </button>
@@ -172,6 +186,8 @@
 
                 // $("#buttonval",id).addClass('btn  badge-pill bg-danger-light m-t-10').removeClass('btn  badge-pill bg-success-light m-t-10');
                 window.location.reload()
+                // $("#buttonval" + id).removeClass('bg-success-light')
+                // $("#buttonval" + id).addClass('bg-danger-light')
 
 
             }
@@ -184,60 +200,60 @@
 
 
 
-    window.addEventListener("load", function () {
+    // window.addEventListener("load", function () {
 
-        // Check time and update the button's state every second.
-        setInterval(updateSubmitButtonState, 1000);
-    }, false);
+    //     // Check time and update the button's state every second.
+    //     setInterval(updateSubmitButtonState, 1000);
+    // }, false);
 
-    function updateSubmitButtonState() {
-        var currentTime = new Date();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
-        var hours = currentTime.getHours();
-        var minutes = currentTime.getMinutes();
+    // function updateSubmitButtonState() {
+    //     var currentTime = new Date();
+    //     var hours = currentTime.getHours();
+    //     var minutes = currentTime.getMinutes();
+    //     var hours = currentTime.getHours();
+    //     var minutes = currentTime.getMinutes();
 
-        var newButton = document.getElementById("buttonval");
-        var noonbutton = document.getElementById("noonbutton");
-        var evengbutton = document.getElementById("evengbutton");
+    //     var newButton = document.getElementById("buttonval");
+    //     var noonbutton = document.getElementById("noonbutton");
+    //     var evengbutton = document.getElementById("evengbutton");
 
-        // Between 9:00 and 11.00
-        // or Between 11:00 and 11:25
-        if ((hours == 8 && minutes >= 59)
-            || (hours == 9 && minutes <= 57)) {
+    //     // Between 9:00 and 11.00
+    //     // or Between 11:00 and 11:25
+    //     if ((hours == 8 && minutes >= 59)
+    //         || (hours == 9 && minutes <= 57)) {
 
-            newButton.style.display = "fixed";
-            noonbutton.style.display = "none";
-            evengbutton.style.display = "none";
-            // alert('if worked 1st')
-        }
-        // Between 1:00 and 3.00
-        else if ((hours == 12 && minutes >= 59)
-            || (hours == 14 && minutes <= 59)) {
-            // alert('if worked 2nd')
-            noonbutton.style.display = "fixed";
-            newButton.style.display = "none";
-            evengbutton.style.display = "none";
-        }
-        // Between 4:00 and 6.00
-        else if ((hours == 15 && minutes >= 59)
-            || (hours == 17 && minutes <= 59)) {
-            // alert('if worked 3rd')
-            evengbutton.style.display = "fixed";
-            noonbutton.style.display = "none";
-            newButton.style.display = "none";
-        }
-        else {
-            // alert('else worked')
-            // aler(currentTime)
-            newButton.style.display = "none";
-            // alert('else worked')    
-            noonbutton.style.display = "none";
-            evengbutton.style.display = "none";
-        }
+    //         newButton.style.display = "fixed";
+    //         noonbutton.style.display = "none";
+    //         evengbutton.style.display = "none";
+    //         // alert('if worked 1st')
+    //     }
+    //     // Between 1:00 and 3.00
+    //     else if ((hours == 12 && minutes >= 59)
+    //         || (hours == 14 && minutes <= 59)) {
+    //         // alert('if worked 2nd')
+    //         noonbutton.style.display = "fixed";
+    //         newButton.style.display = "none";
+    //         evengbutton.style.display = "none";
+    //     }
+    //     // Between 4:00 and 6.00
+    //     else if ((hours == 15 && minutes >= 59)
+    //         || (hours == 17 && minutes <= 59)) {
+    //         // alert('if worked 3rd')
+    //         evengbutton.style.display = "fixed";
+    //         noonbutton.style.display = "none";
+    //         newButton.style.display = "none";
+    //     }
+    //     else {
+    //         // alert('else worked')
+    //         // aler(currentTime)
+    //         newButton.style.display = "none";
+    //         // alert('else worked')    
+    //         noonbutton.style.display = "none";
+    //         evengbutton.style.display = "none";
+    //     }
 
 
-    }
+    // }
 
 
 
