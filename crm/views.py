@@ -18,11 +18,8 @@ from gmanager.decorators import auth_crm
 def crmHome(request):
 
     crm_rrr = request.user.employee.catagory.title
-    print(crm_rrr,"%"*20)
 
-    # today = datetime.now().date()
     todate = today = datetime.datetime.now()
-    # today_start = datetime.datetime.compain(today, time())
 
     enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
     enquirylistToday = EnquiryNote.objects.filter(status = 'Active',added_time__gte=todate).count()
@@ -158,17 +155,7 @@ def profile(request):
 @auth_crm
 def viewenquiry(request,id):
     details = EnquiryNote.objects.get(id=id)
-    # form=EnquiryForm(request.POST,request.FILES)  
-    # if request.method == 'POST': 
-    #     # print (form.errors) 
-    #     if form.is_valid():
-    #         print (form.errors) 
-    #         data = form.save()            
-    #         Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
-    #         EnquiryNote.objects.filter(id=id).update(status='DeActivate')   
-    #         return redirect('crm:crmhome')
-    #     else:
-    #         pass
+   
     context = {
         "details":details,
         "id":id
@@ -182,8 +169,7 @@ def createProject(request,id):
     details = EnquiryNote.objects.get(id=id)
     form=EnquiryForm(request.POST,request.FILES)
     if request.method == 'POST': 
-        # print (form.errors)
-        # print("Test"*5) 
+      
         if form.is_valid():
             data = form.save()           
             Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
