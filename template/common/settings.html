@@ -36,184 +36,185 @@
                                     Password</a></li>
                         </ul>
 
-                        <div class="tab-content col-md-12">
+                        <div class="tab-content">
 
                             <div class="tab-pane show active" id="bottom-tab1">
-                                <form method="POST">
+                                
+                                <form action="" method="POST">
                                     {% csrf_token %}
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.name.label}}
-                                                {{empform.name}} 
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="profile-img-wrap edit-img">
+                                                    <img class="inline-block" src="{{empform.emp_profile.url}}"
+                                                        alt="user">
+                                                    <div class="fileupload btn">
+                                                        <span class="btn-text">edit</span>
+                                                        {{empform.emp_profile}}
+                                                        <!-- <input class="upload" type="file"> -->
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.name.label}}
+                                                            {{empform.name}}
+                                                            <!-- <label>First Name</label>
+                                                            <input type="text" class="form-control" value="John"> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.employee_id.label}}
+                                                            {{empform.employee_id}}
+                                                            <!-- <label>Last Name</label>
+                                                            <input type="text" class="form-control" value="Doe"> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.catagory.label}}
+                                                            {{empform.catagory}}
+                                                            <!-- <label>Birth Date</label>
+                                                            <div class="cal-icon">
+                                                                <input class="form-control datetimepicker" type="text"
+                                                                    value="05/06/1985">
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.phone.label}}
+                                                            {{empform.phone}}
+                                                            <!-- <label>Gender</label>
+                                                            <select class="select form-control">
+                                                                <option value="male selected">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.email.label}}
+                                                            {{empform.email}}
+                                                            <!-- <label>Gender</label>
+                                                            <select class="select form-control">
+                                                                <option value="male selected">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.dob.label}}
+                                                            {{empform.dob}}
+                                                            <!-- <label>Gender</label>
+                                                            <select class="select form-control">
+                                                                <option value="male selected">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.whatsapp_number.label}}
+                                                            {{empform.whatsapp_number}}
+                                                            <!-- <label>Gender</label>
+                                                            <select class="select form-control">
+                                                                <option value="male selected">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            {{empform.join_date.label}}
+                                                            {{empform.join_date}}
+                                                            <!-- <label>Gender</label>
+                                                            <select class="select form-control">
+                                                                <option value="male selected">Male</option>
+                                                                <option value="female">Female</option>
+                                                            </select> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.employee_id.label}} 
-                                                {{empform.employee_id}}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    {{empform.address.label}}
+                                                    {{empform.address}}
+                                                    <!-- <label>Address</label>
+                                                    <input type="text" class="form-control" value="4487 Snowbird Lane"> -->
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.catagory.label}} 
-                                                {{empform.catagory}}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.district.label}}
+                                                    {{empform.district}}
+                                                    <!-- <label>State</label>
+                                                    <input type="text" class="form-control" value="New York"> -->
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3">
-                                            <div class="form-group">
-                                                {{empform.phone.label}}
-                                                {{empform.phone}}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.state.label}}
+                                                    {{empform.state}}
+                                                    <!-- <label>Country</label>
+                                                    <input type="text" class="form-control" value="United States"> -->
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3">
-                                            <div class="form-group">
-                                                {{empform.email.label}}
-                                                {{empform.email}}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.nationality.label}}
+                                                    {{empform.nationality}}
+                                                    <!-- <label>Pin Code</label>
+                                                    <input type="text" class="form-control" value="10523"> -->
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3">
-                                            <div class="form-group">
-                                                {{empform.dob.label}}
-                                                {{empform.dob}}
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.marital_status.label}}
+                                                    {{empform.marital_status}}
+                                                    <!-- <label>Phone Number</label>
+                                                    <input type="text" class="form-control" value="631-889-3206"> -->
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3">
-                                            <div class="form-group">
-                                                {{empform.whatsapp_number.label}}
-                                                {{empform.whatsapp_number}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.join_date.label}}
-                                                {{empform.join_date}}
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.address.label}}
-                                                {{empform.address}}
-                                            
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.district.label}}
-                                                {{empform.district}}
-                                                <!-- <label>Mobile Number</label>
-                                                <input class="form-control" value="818-635-5579" type="text"> -->
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                {{empform.state.label}}
-                                                {{empform.state}}
-                                                <!-- <label>Fax</label>
-                                                <input class="form-control" value="818-978-7102" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empform.nationality.label}}
-                                                {{empform.nationality}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empform.marital_status.label}}
-                                                {{empform.marital_status}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empform.emp_profile.label}}
-                                                {{empform.emp_profile.url}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empform.username.label}}
-                                                {{empform.username}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empform.password.label}}
-                                                {{empform.password}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empcontactform.emergency_number.label}}
-                                                {{empcontactform.emergency_number}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empcontactform.primarycontact_name.label}}
-                                                {{empcontactform.primarycontact_name}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empcontactform.nationality.label}}
-                                                {{empcontactform.nationality}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                {{empcontactform.relation.label}}
-                                                {{empcontactform.relation}}
-                                                <!-- <label>Website Url</label>
-                                                <input class="form-control" value="https://www.example.com" type="text"> -->
-                                            </div>
-                                        </div>
-                                    </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.username.label}}
+                                                    {{empform.username}}
 
-                                    <div class="submit-section">
-                                        <button class="btn btn-primary submit-btn">Save</button>
-                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.password.label}}
+                                                    {{empform.password}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.emergency_number.label}}
+                                                    {{empform.emergency_number}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.primarycontact_name.label}}
+                                                    {{empform.primarycontact_name}}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    {{empform.relation.label}}
+                                                    {{empform.relation}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="submit-section">
+                                            <button class="btn btn-primary submit-btn">Submit</button>
+                                        </div>
                                 </form>
                             </div>
 
@@ -223,8 +224,10 @@
                             <div class="tab-pane" id="bottom-tab2">
                                 <form>
                                     <div class="form-group">
-                                        <label>Old password</label>
-                                        <input type="password" class="form-control">
+                                        {{change_form.password.label}}
+                                        {{change_form.password}}
+                                        <!-- <label>Old password</label>
+                                        <input type="password" class="form-control"> -->
                                     </div>
                                     <div class="form-group">
                                         <label>New password</label>
