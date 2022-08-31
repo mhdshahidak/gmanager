@@ -49,10 +49,10 @@ class Employees(models.Model):
     name = models.CharField(max_length = 200)
     employee_id = models.CharField(max_length = 25)
     catagory = models.ForeignKey(SubCatagory, on_delete = models.PROTECT)
-    phone = models.IntegerField(default=0,null=True)
+    phone = models.CharField(default=0,null=True,max_length=15)
     email = models.EmailField()
     dob = models.DateField(null = True)
-    whatsapp_number = models.IntegerField(default=0,null=True)
+    whatsapp_number = models.CharField(default=0,null=True,max_length=15)
     join_date = models.DateField()
     address = models.CharField(max_length = 200, null = True)
     district = models.CharField(max_length = 25, null = True)
@@ -72,9 +72,9 @@ class Client(models.Model):
     name = models.CharField(max_length = 200)
     companyname = models.CharField(max_length = 200)
     address = models.CharField(max_length = 200, null = True)
-    phone =  models.IntegerField(default=0,null=True)
+    phone =  models.CharField(default=0,null=True,max_length=15)
     email = models.EmailField()
-    whatsapp_number =  models.IntegerField(default=0,null=True)
+    whatsapp_number =  models.CharField(default=0,null=True,max_length=15)
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 100)
     def __str__(self):
@@ -82,7 +82,7 @@ class Client(models.Model):
 
 
 class EmergenctContact(models.Model):
-    emergency_number =  models.IntegerField(default=0,null=True)
+    emergency_number =  models.CharField(default=0,null=True,max_length=15)
     primarycontact_name = models.CharField(max_length = 25, null = True)
     relation = models.CharField(max_length = 25, null = True)
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)
@@ -95,7 +95,7 @@ class EmergenctContact(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):  
     username = models.CharField(max_length = 50, unique=True)
-    phone_number= models.IntegerField(default=0,null=True)
+    phone_number= models.CharField(default=0,null=True,max_length=15)
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE,null=True)
     is_staff = models.BooleanField(default=False)
@@ -114,7 +114,7 @@ class LeaveRequests(models.Model):
     aply_date = models.DateField(auto_now_add=True)
     from_date = models.DateField(null=True)
     to_date = models.DateField(null=True)
-    no_days = models.IntegerField(default=0,null=True)
+    no_days = models.CharField(default=0,null=True,max_length=15)
     reason = models.CharField(max_length=1000,null=True)
     hr_accept = models.BooleanField(default=False)
     pm_accept = models.BooleanField(default=False)
