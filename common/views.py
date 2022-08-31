@@ -60,9 +60,10 @@ def settings(request):
     # if request.method == "POST":
     #     if change_form.is_valid():           
     #         data = change_form.save() 
-    user_name = request.user.employee.catagory.catagory.catagory_title
-    print(user_name,'%'*56)
+    # user_name = request.user.employee.catagory.catagory.catagory_title
+    # print(user_name,'%'*56)
     n = Employees.objects.get(id=request.user.employee.id)
+    print(n)
     m= EmergenctContact.objects.get(employee=n)
     if request.method == 'POST':
         empform = ProfileResetForm(request.POST or None, request.FILES or None, instance=n) 
