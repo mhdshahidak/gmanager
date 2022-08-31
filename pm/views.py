@@ -60,9 +60,7 @@ def viewenquries(request,id):
     details = Enquiry.objects.get(id=id)
     forms=PraposalpdfForm(request.POST,request.FILES)
     if request.method == 'POST': 
-        # print (form.errors) 
         if forms.is_valid():
-            print (forms.errors) 
             data = forms.save()
             data.enquiry=details
             data.save()
@@ -131,14 +129,11 @@ def addproject(request,id):
     deatils= Enquiry.objects.get(id=id)
     form=ProjectForm(request.POST)
     if request.method == 'POST': 
-        # print (form.errors) 
         if form.is_valid():
-            print (form.errors) 
             data = form.save()
             Project.objects.filter(id=data.id).update(enquiry=deatils)
             project = Project.objects.get(id=data.id)           
             Enquiry.objects.filter(id=id).update(status="Project Added")
-            print(project.enquiry.status)
 
             return redirect('/pm/addteam/'+str(data.id))
         else:
@@ -165,11 +160,9 @@ def addteam(request,id):
 @auth_pm
 def addschedule(request,id):
     project_obj = Project.objects.get(id=id)
-    # print(project)    
     team_mbr = ProjectMembers.objects.get(project=project_obj)
     mbr = ProjectMembers.objects.filter(project=project_obj).values('team__name','team__emp_profile')
     if request.method == 'POST':
-        # project = request.POST['projectID']
         meetingDate = request.POST['meetingDate']
         platform = request.POST['platform']
         time = request.POST['time']
@@ -194,9 +187,7 @@ def addschedule(request,id):
 @login_required(login_url='/')
 @auth_pm
 def meetings(request):
-    # project = Project.objects.get(status="Meeting Scheduled")
     meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
-    # print(project)
     context = {
         "is_meetings":True,
         "meetings":meetings,
@@ -264,9 +255,6 @@ def dailyprogress(request):
 def viewdailyreport(request,id):
     today = datetime.now().date()
     time = datetime.now().time()
-    # now = datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d')
-    # print(now.time)
-    print(today,time)
     projectdata = Project.objects.get(id=id)
     morning= DailyProgress.objects.filter(date=today,project=projectdata,status='Morning')
     afternoon= DailyProgress.objects.filter(date=today,project=projectdata,status='Afternoon')
@@ -287,8 +275,6 @@ def viewdailyreport(request,id):
 def qcapprovel(request):
 
     qclist= ProjectStatus.objects.filter(Q(status='Qc') & Q(completion__gte = 95))
-    # (status='Qc', completion_gte = 95)
-    print(qclist)
     context ={
         "is_qcapprovel":True,
         "qclist":qclist 
@@ -300,7 +286,6 @@ def qcapprovel(request):
 @auth_pm
 def leaverequest(request):
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
-    print(leave)
     context={
         "is_leaverequest":True,
         "leave":leave
@@ -346,7 +331,6 @@ def leadersearch(request):
     projectid=request.POST['projectid']
     enqid = Project.objects.get(id=projectid)
 
-    # print(employeename)
     details=Employees.objects.get(name=employeename)
     member_obj = ProjectMembers(project=enqid,lead=details)
     member_obj.save()
@@ -361,7 +345,6 @@ def leadersearch(request):
     }
     
     
-    print(data)
     return JsonResponse({'value': data})
 
 
@@ -396,7 +379,6 @@ def membersearch(request):
     }
     
    
-    print(data)
     return JsonResponse({'value': data})    
 
 
@@ -412,7 +394,6 @@ def viedetails(request,id):
         'reason':getdata.reason,
         
     }
-    print(data)
     return JsonResponse({'value': data})
 
 @csrf_exempt
@@ -456,7 +437,6 @@ def srsapprovel(request):
 
 @csrf_exempt
 def Changedailyreport(request,id):
-    print(id)
     DailyProgress.objects.filter(id=id).update(checked=True)
     return JsonResponse({'message': 'sucesses'}) 
 
@@ -487,7 +467,6 @@ def qcrework(request):
     reworkdata.save()
     projectcount = ProjectStatus.objects.get(project=projectidd)
     projectcount.rework_count = projectcount.rework_count + 1
-    print(projectcount)
     projectcount.save()
     status=ProjectStatus.objects.filter(project=projectidd).update(status='Rework',completion=94)
     return JsonResponse({'value': 'msg'})
