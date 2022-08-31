@@ -1,7 +1,7 @@
 from django.db import models
 from tinymce.models import HTMLField
 import datetime
-from phone_field import PhoneField
+
 from versatileimagefield.fields import VersatileImageField, PPOIField
 # Create your models here.
 
@@ -25,8 +25,8 @@ class Enquiry(models.Model):
     companyname = models.CharField(max_length = 50,null=True)
     clientname = models.CharField(max_length = 50,null=True)
     email = models.EmailField()
-    phone = PhoneField(blank=True, help_text='Contact phone number')
-    whatsapp = PhoneField(blank=True, help_text='Whatsapp number')
+    phone =  models.IntegerField(default=0,null=True)
+    whatsapp =  models.IntegerField(default=0,null=True)
     referredby = models.CharField(max_length = 50,null=True)
     type = models.CharField(max_length = 50,null=True, choices=choices)
     files = models.FileField(upload_to="Enquiry/", max_length=100000)

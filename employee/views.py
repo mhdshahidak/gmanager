@@ -6,10 +6,12 @@ from ceo.models import EmergenctContact, Employees
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
+from gmanager.decorators import auth_employee
 # Create your views here.
 
 
 @login_required(login_url='/')
+@auth_employee
 def employeeHome(request):
     employeedata=Employees.objects.get(id=request.user.employee.id)
     listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
@@ -22,14 +24,12 @@ def employeeHome(request):
     return render(request,'employee/home.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def viewproject(request):
-    print(request.user.id)
-    # meetinglist = ProjectMembers.objects.filter(team=request.user.id)
+  
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    print(employeedata)
     meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
     
-    print(meetinglist)
     context = {
         "is_meeting":True,
         "meetinglist":meetinglist
@@ -40,14 +40,12 @@ def viewproject(request):
 
 #------meeting ------
 @login_required(login_url='/')
+@auth_employee
 def empMeetingLink(request,id):
-    print(id)
     projectid= Project.objects.get(id=id)
     meetinglist = Meeting.objects.filter(project=projectid)
-    print(meetinglist)
     if request.method == 'POST':
         fileuploads = request.FILES['fileupload']
-        print(fileuploads)
         upoload=SRS(project=projectid,srsfile=fileuploads)
         upoload.save()
         Project.objects.filter(id=id).update(status='SRS uploaded')
@@ -62,6 +60,7 @@ def empMeetingLink(request,id):
 
 # ----- Projects ------
 @login_required(login_url='/')
+@auth_employee
 def allProjects(request):
     context = {
         "is_allprojects":True,
@@ -69,19 +68,10 @@ def allProjects(request):
     return render(request,'employee/projects.html',context)
 
 
-# @login_required(login_url='/')
-# def projectSrs(request):
-#     employeedata=Employees.objects.get(id=request.user.employee.id)
-#     print(employeedata)
-#     meetinglist=ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
-#     context = {
-#         "is_srs":True,
-#         "meetinglist":meetinglist
-#     }
-#     return render(request,'employee/srs.html',context)
 
 
 @login_required(login_url='/')
+@auth_employee
 def empRework(request):
     context = {
         "is_rework":True,
@@ -90,30 +80,24 @@ def empRework(request):
 
 
 @login_required(login_url='/')
+@auth_employee
 def empDailyProgress(request,id):
-    # print(request.user.employee.id,'$'*99)
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
     employee_id = Employees.objects.get(id=request.user.employee.id)
-    print(employee_id,'&'*50)
     if request.method =='POST':
         projectstatus = request.POST['projectstatus']
         percentage = request.POST['percentage']
         timetype = request.POST['timetype']
-        # print(timetype)
         link = request.POST['link']
-        # file = request.FILES['file']
         username = request.POST['username']
         password = request.POST['password']
         instruction = request.POST['instruction']
        
         ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
-        valuesss=DailyProgress(project=project_obj,employee=employee_id)
+        valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
         valuesss.save()
-        DailyProgress.objects.filter(project=project_obj).update(status=timetype,note=instruction)
-        # print(valuess)
-        # valdata=ProjectProgressFiles(project=project_obj, files=file)
-        # valdata.save()
+       
 
         return redirect('/employee')
     context = {
@@ -125,24 +109,27 @@ def empDailyProgress(request,id):
 
 
 @login_required(login_url='/')
+@auth_employee
 def empProgressReport(request,id):
     projectdetails= Project.objects.get(id=id)
     projectstatus = ProjectStatus.objects.get(project=projectdetails)
     members =ProjectMembers.objects.filter(project=projectdetails).values('team__name','team__id')
-    print(members)
-    # for i in members:
-    #     print(i.lead.name)
-    #     print(i.team.name)
+    daily_report = DailyProgress.objects.filter(project=projectdetails).values('date','status','note','employee__name')
+   
+   
     context = {
         "is_progressreport":True,
         "projectdetails":projectdetails,
         "projectstatus":projectstatus,
-        "members":members
+        "members":members,
+        # "totalReport":totalReport,
+        "daily_report":daily_report,
 
     }
     return render(request,'employee/progress_report.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empTask(request):
     context = {
         "is_task":True,
@@ -150,6 +137,7 @@ def empTask(request):
     return render(request,'employee/task.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empHomework(request):
     context = {
         "is_homework":True,
@@ -159,6 +147,7 @@ def empHomework(request):
 
 # ------ Leaves ------
 @login_required(login_url='/')
+@auth_employee
 def leaveApplication(request):
     context = {
         "is_attendance":True,
@@ -166,6 +155,7 @@ def leaveApplication(request):
     return render(request,'employee/leave_application.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empAttendance(request):
     context = {
         "is_attendance":True,
@@ -183,6 +173,7 @@ def allEmployees(request):
     return render(request,'employee/all_employees.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empDepartment(request):
     context = {
         "is_department":True,
@@ -190,6 +181,7 @@ def empDepartment(request):
     return render(request,'employee/department.html',context)
 
 @login_required(login_url='/')
+@auth_employee
 def empTimeline(request):
     context = {
         "is_timeline":True,
@@ -198,6 +190,7 @@ def empTimeline(request):
 
 # ------ team -------
 @login_required(login_url='/')
+@auth_employee
 def empTeam(request):
     context = {
         "is_team":True,
@@ -207,6 +200,7 @@ def empTeam(request):
 
 #------ Profile ------
 @login_required(login_url='/')
+@auth_employee
 def empProfile(request):
     emp=EmergenctContact.objects.get(employee=request.user.employee)
     context = {
@@ -230,11 +224,7 @@ def getprofiledata(request,id):
         "email":details.email,
         "dob":details.dob,
         "address":details.address,
-            
-
-
-
-
+       "emp_profile":details.emp_profile.url,
 
     }
     return JsonResponse({'value': data})

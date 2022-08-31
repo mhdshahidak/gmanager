@@ -6,6 +6,13 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
+from pm.models import DailyProgress,Project,Enquiry,ProjectStatus
+from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+import datetime
+
 # from django.contrib.auth import login as auth_login
 # Create your views here.
 from . form import RegisterForm, editEmployeeForm
@@ -13,9 +20,6 @@ from . models import *
 
 def base(request):
     return render (request,'ceo/partials/base.html')
-
-
-
 
 
 def log_in(request):
@@ -61,33 +65,85 @@ def logout_view(request):
 
 @login_required(login_url='/')
 def ceodashboard(request):
-    return render (request,'ceo/dashboard/admin.html')  
+    projects = Project.objects.filter(~Q(enquiry__status = "Rejected")).count()
+    clients  = Client.objects.all().count()
+    employees = Employees.objects.all().count()
+
+    enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
+    billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
+    billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    notstated =Project.objects.filter(status = 'Not Started').count()
+    ongoing =Project.objects.filter(status = 'On Going').count()
+    onscheduling =Project.objects.filter(status = 'On Scheduling').count()
+    delayed =Project.objects.filter(status = 'Delayed').count()
+    qc =Project.objects.filter(status = 'Qc').count()
+    w4c =Project.objects.filter(status = 'W4C').count()
+    rework =Project.objects.filter(status = 'Rework').count()
+    completed =Project.objects.filter(status = 'Completed').count()
+   
+   
+ 
+    context = {
+        "is_ceodashboard" : True,
+        "projects" : projects,
+        "clients":clients,
+        "employees":employees,
+        "addedtoprop":addedtoprop,
+        "billcreation":billcreation,
+        "billadvance":billadvance,
+        "advancepaid":advancepaid,
+        "rejected":rejected,
+        "enquirylist":enquirylist,
+        "notstated":notstated,
+        "ongoing":ongoing,
+        "delayed":delayed,
+        "onscheduling":onscheduling,
+        "qc":qc,
+        "w4c":w4c,
+        "rework":rework,
+        "completed":completed,
+
+   
+
+    }
+    return render (request,'ceo/dashboard/admin.html',context)  
 
 @login_required(login_url='/')
 def crm(request):
+    
     if request.method == 'POST':
-        print("success")
+       
         instructions = request.POST['instruction']
-        print(instructions)
+       
 
         new_project_note = EnquiryNote(description=instructions)
         new_project_note.save()
         context = {
-            "is_home":True,
+            "is_crm":True,
             
         }
     else: 
-        print('#'*10)         
+         
         context = {
-            "is_home":True,
+            "is_crms":True,
+            
             
         }
-        return render(request,'crm/home.html',context)
-    return render (request,'ceo/dashboard/crm.html')  
+        return render (request,'ceo/dashboard/crm.html',context) 
+    return render (request,'ceo/dashboard/crm.html',context)  
 
 @login_required(login_url='/')
 def employe(request):
-    return render (request,'ceo/dashboard/employee.html')  
+    empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
+
+    context = {
+        "is_employe" : True,
+        "empllist":empllist
+    }
+    return render (request,'ceo/dashboard/employee.html',context)  
 
 
 # def hr(request):
@@ -96,7 +152,10 @@ def employe(request):
 
 @login_required(login_url='/')
 def projectmanager(request):
-    return render (request,'ceo/dashboard/projectmanager.html')          
+    context = {
+        "is_projectmanager": True,
+    }
+    return render (request,'ceo/dashboard/projectmanager.html',context)          
 
 
 # def accounts(request):
@@ -108,8 +167,21 @@ def projectmanager(request):
 
 
 
-def employeeprofile(request):
-    return render (request,'ceo/employeeprofile.html')    
+def employeeprofile(request,id):
+    employedetails = Employees.objects.get(id=id)
+    primarycontact = EmergenctContact.objects.get(employee=employedetails)
+
+    
+    # employeedata=Employees.objects.get(id=request.user.employee.id)
+    proemployee = ProjectStatus.objects.filter(member__team=employedetails) |ProjectStatus.objects.filter(member__lead=employedetails)
+    # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
+   
+    context={
+        "employedetails":employedetails,
+        "primarycontact":primarycontact,
+        "proemployee":proemployee
+    }
+    return render (request,'ceo/employeeprofile.html',context)    
 
 
 @login_required(login_url='/')
@@ -125,10 +197,11 @@ def departmentwise(request):
     for i in department:
         id=i.id
         emp_count = Employees.objects.filter(catagory=i).count()
-        print(emp_count)
+       
         estimatelist.append(cat(i,emp_count,id))
-    print(estimatelist)    
+      
     context = {
+        "is_departmentwise" : True,
         "emp_count":estimatelist,
         # "departments":department,
             }
@@ -173,10 +246,15 @@ def allstaff(request):
 
     else:
         context={
+            "is_allstaff" : True,
             "form":RegisterForm,
             "employees":all_emp,
         } 
         return render (request,'ceo/allstaff.html',context)
+    context={
+            "is_allstaff" : True,
+            # "employees":all_emp,
+        }
     return render (request,'ceo/allstaff.html',context)    
         
 
@@ -203,20 +281,61 @@ def editEmployeeDetails(request,id):
 
 @login_required(login_url='/')
 def dailychecked(request):
-    return render (request,'ceo/dailychecked.html') 
+ 
+
+   
+    today = datetime.datetime.now()
+   
+    projectlists =DailyProgress.objects.filter(date=today)
+    context ={
+        "is_dailychecked" : True,
+        "projectlists":projectlists,
+    }
+    return render (request,'ceo/dailychecked.html',context) 
 
 
 @login_required(login_url='/')
 def project(request):
-    return render (request,'ceo/project/project.html')    
+    context = {
+        "is_project" : True,
+    }
+    return render (request,'ceo/project/project.html',context)    
+
+@login_required(login_url='/')
+def rejectedlist(request):
+    rejected = Enquiry.objects.filter(status = 'Rejected')
+    context = {
+        "is_project" : True,
+        "rejected":rejected
+    }
+    return render (request,'ceo/rejectedlist.html',context) 
 
 
 @login_required(login_url='/')
 def projectlist(request):
-    return render (request,'ceo/project/projectlist.html')  
+    context = {
+        "is_project" : True,
+    }
+    return render (request,'ceo/project/projectlist.html',context)  
 
 
 @login_required(login_url='/')
 def viewproject(request):
-    return render (request,'ceo/project/viewproject.html')        
+    context = {
+        "is_project" : True,
+    }
+    return render (request,'ceo/project/viewproject.html',context)        
     
+
+
+
+@csrf_exempt
+def viedetails(request,id):
+    getdata =  Enquiry.objects.get(id=id)
+    data ={
+
+        'reason':getdata.reason,
+        
+    }
+ 
+    return JsonResponse({'value': data})    

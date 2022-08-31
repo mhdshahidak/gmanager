@@ -33,55 +33,42 @@
                                 <th>Project Name </th>
                                 <th>Username </th>
                                 <th>Password </th>
-                                <th>Download </th>
+                                
                                 <th>ReWork Count</th>
                                 <th class="text-end">Action</th>
                             </tr>
                         </thead>
                         <tbody>
+
+
+                            {% for i in qclist %}
                             <tr>
-                                <td>1</td>
-                                <td>Leave Policy
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{i.project.projectname}}
                                     <small class="block text-ellipsis">
-                                        <span class="text-muted">WebApp.geany.website </span>
+                                        <span class="text-muted">{{ i.url_project }} </span>
                                     </small>
                                 </td>
-                                <td>Shahil khan</td>
-                                <td>86876860739</td>
-                                <td> <button class="btn  badge-pill bg-success-light m-t-10">Download </button></td>
-<td></td>
-                                <td class="text-end">
-                                    <button class="btn  badge-pill bg-info-light m-t-10">Accepted </button>
-                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
-                                        data-bs-target="#rejected_modal">Rework </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Permission Policy
-                                    <small class="block text-ellipsis">
-                                        <span class="text-muted">abc.herokuapp.com </span>
-                                    </small>
-                                </td>
-                                <td>shahid</td>
-                                <td>899827638769</td>
-                                <td> <button class="btn  badge-pill bg-success-light m-t-10">Download </button>
-                                </td>
+                                <td>{{ i.username }}</td>
+                                <td>{{ i.password }}</td>
                                 <td class="text-center">
                                     <ul class="team-members text-nowrap ">
-                                     
+
                                         <li class="dropdown avatar-dropdown ">
-                                            <a href="#" class="all-users dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">+15</a>
+                                            <a href="#" class="all-users dropdown-toggle " data-bs-toggle="dropdown"
+                                                aria-expanded="false">+{{ i.rework_count }}</a>
 
                                         </li>
                                     </ul>
                                 </td>
                                 <td class="text-end">
-                                    <button class="btn  badge-pill bg-info-light m-t-10">Accepted </button>
-                                    <button class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
-                                        data-bs-target="#rejected_modal">ReWork </button>
+                                    <button onclick="ChangeQc({{ i.id }})" class="btn  badge-pill bg-info-light m-t-10">Accepted </button>
+                                    <button onclick="RejecteQc({{ i.project.id }})" class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
+                                        data-bs-target="#rejected_modal">Rework </button>
                                 </td>
                             </tr>
+                            {% endfor %}
+                        
                         </tbody>
                     </table>
                 </div>
@@ -109,12 +96,15 @@
 
                         <div class="form-group">
                             <label>Reason <span class="text-danger">*</span></label>
-                            <textarea class="form-control" rows="6"></textarea>
+                            <textarea id="reason" class="form-control" rows="6"></textarea>
+
+
+                            <input type="text" hidden name="" id="projectid">
                         </div>
 
 
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">Submit</button>
+                            <button id="Qcrework" class="btn btn-primary submit-btn">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -124,67 +114,73 @@
     <!-- /Add Policy Modal -->
 
     <!-- Edit Policy Modal -->
-    <div id="resent_modal" class="modal custom-modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Resent Praposal</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Client Whatsapp Number <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" value="545645645">
-                        </div>
-                        <div class="form-group">
-                            <label>Client Email Address<span class="text-danger">*</span></label>
-                            <input class="form-control" type="email" value="swhhj@gmail.com">
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Upload Policy <span class="text-danger">*</span></label>
-                            <input type="file" class="form-control" id="edit_policy_upload">
-                        </div>
-                        <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <!-- /Edit Policy Modal -->
 
     <!-- Delete Policy Modal -->
-    <div class="modal custom-modal fade" id="delete_policy" role="dialog">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="form-header">
-                        <h3>Delete Policy</h3>
-                        <p>Are you sure want to delete?</p>
-                    </div>
-                    <div class="modal-btn delete-action">
-                        <div class="row">
-                            <div class="col-6">
-                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
-                            </div>
-                            <div class="col-6">
-                                <a href="javascript:void(0);" data-bs-dismiss="modal"
-                                    class="btn btn-primary cancel-btn">Cancel</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  
     <!-- /Delete Policy Modal -->
 
 </div>
 
+
+
+
+<script>
+    function ChangeQc(id) {
+       $.ajax({
+           url: "/pm/changeqc",
+           type: 'POST',
+           data: {
+               'id': id,
+
+           },
+
+           success: function (responce) {
+
+              
+               window.location.reload()
+           }
+
+       })
+   }
+
+
+
+   function RejecteQc(id) {
+  
+        // alert('hi')
+        $.ajax({
+            url: "/pm/rejectedqc/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+
+                // console.log(responce)
+                $('#projectid').val(responce.value.id)
+                
+            }
+
+        })
+        $('#Qcrework').click(() => {
+            $.ajax({
+                url: "/pm/qcrework",
+                type: 'post',
+                data: {
+                    
+                    'id': $('#projectid').val(),
+                    'reason': $('#reason').val(),
+                    
+                },
+                success: function (responce) {
+
+                    window.location.reload()
+                }
+
+
+            })
+        })
+    }
+</script>
 {% endblock %}
