@@ -85,7 +85,7 @@ def ceodashboard(request):
     completed =Project.objects.filter(status = 'Completed').count()
    
    
-    print(projects)
+ 
     context = {
         "is_ceodashboard" : True,
         "projects" : projects,
@@ -115,9 +115,9 @@ def ceodashboard(request):
 def crm(request):
     
     if request.method == 'POST':
-        print("success")
+       
         instructions = request.POST['instruction']
-        print(instructions)
+       
 
         new_project_note = EnquiryNote(description=instructions)
         new_project_note.save()
@@ -126,7 +126,7 @@ def crm(request):
             
         }
     else: 
-        # print('#'*10)         
+         
         context = {
             "is_crms":True,
             
@@ -138,7 +138,7 @@ def crm(request):
 @login_required(login_url='/')
 def employe(request):
     empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
-    print(empllist)
+
     context = {
         "is_employe" : True,
         "empllist":empllist
@@ -175,7 +175,7 @@ def employeeprofile(request,id):
     # employeedata=Employees.objects.get(id=request.user.employee.id)
     proemployee = ProjectStatus.objects.filter(member__team=employedetails) |ProjectStatus.objects.filter(member__lead=employedetails)
     # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
-    # print(procount)
+   
     context={
         "employedetails":employedetails,
         "primarycontact":primarycontact,
@@ -197,9 +197,9 @@ def departmentwise(request):
     for i in department:
         id=i.id
         emp_count = Employees.objects.filter(catagory=i).count()
-        print(emp_count)
+       
         estimatelist.append(cat(i,emp_count,id))
-    print(estimatelist)    
+      
     context = {
         "is_departmentwise" : True,
         "emp_count":estimatelist,
@@ -281,11 +281,11 @@ def editEmployeeDetails(request,id):
 
 @login_required(login_url='/')
 def dailychecked(request):
-    # print(type(datetime))
-    # d1 = datetime.datetime.now()
-    # print(d1)
+ 
+
+   
     today = datetime.datetime.now()
-    # print(today.date,'*'*44)
+   
     projectlists =DailyProgress.objects.filter(date=today)
     context ={
         "is_dailychecked" : True,
@@ -337,5 +337,5 @@ def viedetails(request,id):
         'reason':getdata.reason,
         
     }
-    print(data)
+ 
     return JsonResponse({'value': data})    
