@@ -1,6 +1,6 @@
 from email.policy import default
 from django.db import models
-from phone_field import PhoneField
+
 import datetime
 from versatileimagefield.fields import VersatileImageField, PPOIField
 
@@ -49,10 +49,10 @@ class Employees(models.Model):
     name = models.CharField(max_length = 200)
     employee_id = models.CharField(max_length = 25)
     catagory = models.ForeignKey(SubCatagory, on_delete = models.PROTECT)
-    phone = PhoneField(blank=True, help_text='Contact phone number')
+    phone = models.IntegerField(default=0,null=True)
     email = models.EmailField()
     dob = models.DateField(null = True)
-    whatsapp_number = PhoneField(blank=True, help_text='Contact phone number')
+    whatsapp_number = models.IntegerField(default=0,null=True)
     join_date = models.DateField()
     address = models.CharField(max_length = 200, null = True)
     district = models.CharField(max_length = 25, null = True)
@@ -72,9 +72,9 @@ class Client(models.Model):
     name = models.CharField(max_length = 200)
     companyname = models.CharField(max_length = 200)
     address = models.CharField(max_length = 200, null = True)
-    phone = PhoneField(blank=True, help_text='Contact phone number')
+    phone =  models.IntegerField(default=0,null=True)
     email = models.EmailField()
-    whatsapp_number = PhoneField(blank=True, help_text='Contact phone number')
+    whatsapp_number =  models.IntegerField(default=0,null=True)
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 100)
     def __str__(self):
@@ -82,7 +82,7 @@ class Client(models.Model):
 
 
 class EmergenctContact(models.Model):
-    emergency_number = PhoneField(blank=True, help_text='Contact phone number')
+    emergency_number =  models.IntegerField(default=0,null=True)
     primarycontact_name = models.CharField(max_length = 25, null = True)
     relation = models.CharField(max_length = 25, null = True)
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)
@@ -95,7 +95,7 @@ class EmergenctContact(models.Model):
 
 class User(AbstractBaseUser, PermissionsMixin):  
     username = models.CharField(max_length = 50, unique=True)
-    phone_number=PhoneField()
+    phone_number= models.IntegerField(default=0,null=True)
     employee = models.ForeignKey(Employees, on_delete=models.CASCADE,null=True)
     client = models.ForeignKey(Client, on_delete=models.CASCADE,null=True)
     is_staff = models.BooleanField(default=False)

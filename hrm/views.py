@@ -29,7 +29,6 @@ def employeeList(request):
     empcontactform = EmergenctContactForm(request.POST or None)
     if request.method == 'POST':
         if empform.is_valid() and empcontactform.is_valid():
-            print(empcontactform.errors)
             empdata = empform.save()            
             form_data = Employees.objects.get(id=empdata.id)
             empcontact = empcontactform.save()

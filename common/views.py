@@ -41,7 +41,7 @@ def leave_application(request):
 
         else:
             pass
-    # print(user_name)
+  
     context = {
         'user':user_name,
         'leaveform':leave_form,
@@ -55,7 +55,7 @@ def attendanceRreport(request):
 @login_required(login_url='/')
 def settings(request):
     user_name = request.user.employee.catagory.catagory.catagory_title
-    print(user_name,'%'*56)
+
     n = Employees.objects.get(id=request.user.employee.id)
     m= EmergenctContact.objects.get(employee=n)
     if request.method == 'POST':
@@ -115,7 +115,7 @@ def leaves(request):
 
 def gohome(request):
     user_name = request.user.employee
-    print(user_name)
+ 
     if request.user.employee.catagory.catagory.catagory_title == "EMPLOYEE":
         return redirect('employee:employeehome')
     elif request.user.employee.catagory.catagory.catagory_title == "HRM" :

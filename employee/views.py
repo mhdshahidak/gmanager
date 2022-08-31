@@ -26,13 +26,10 @@ def employeeHome(request):
 @login_required(login_url='/')
 @auth_employee
 def viewproject(request):
-    print(request.user.id)
-    # meetinglist = ProjectMembers.objects.filter(team=request.user.id)
+  
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    print(employeedata)
     meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
     
-    print(meetinglist)
     context = {
         "is_meeting":True,
         "meetinglist":meetinglist
@@ -45,13 +42,10 @@ def viewproject(request):
 @login_required(login_url='/')
 @auth_employee
 def empMeetingLink(request,id):
-    print(id)
     projectid= Project.objects.get(id=id)
     meetinglist = Meeting.objects.filter(project=projectid)
-    print(meetinglist)
     if request.method == 'POST':
         fileuploads = request.FILES['fileupload']
-        print(fileuploads)
         upoload=SRS(project=projectid,srsfile=fileuploads)
         upoload.save()
         Project.objects.filter(id=id).update(status='SRS uploaded')
@@ -74,16 +68,6 @@ def allProjects(request):
     return render(request,'employee/projects.html',context)
 
 
-# @login_required(login_url='/')
-# def projectSrs(request):
-#     employeedata=Employees.objects.get(id=request.user.employee.id)
-#     print(employeedata)
-#     meetinglist=ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
-#     context = {
-#         "is_srs":True,
-#         "meetinglist":meetinglist
-#     }
-#     return render(request,'employee/srs.html',context)
 
 
 @login_required(login_url='/')
@@ -98,7 +82,6 @@ def empRework(request):
 @login_required(login_url='/')
 @auth_employee
 def empDailyProgress(request,id):
-    # print(request.user.employee.id,'$'*99)
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
     employee_id = Employees.objects.get(id=request.user.employee.id)
@@ -131,10 +114,7 @@ def empProgressReport(request,id):
     projectdetails= Project.objects.get(id=id)
     projectstatus = ProjectStatus.objects.get(project=projectdetails)
     members =ProjectMembers.objects.filter(project=projectdetails).values('team__name','team__id')
-    # totalReport = DailyProgressTotal.objects.get(project=projectdetails)
     daily_report = DailyProgress.objects.filter(project=projectdetails).values('date','status','note','employee__name')
-    # daily_report = DailyProgress.objects.filter(project=projectdetails).values('date','status','note')
-    print(daily_report)
    
    
     context = {
@@ -247,5 +227,4 @@ def getprofiledata(request,id):
        "emp_profile":details.emp_profile.url,
 
     }
-    print(data)
     return JsonResponse({'value': data})
