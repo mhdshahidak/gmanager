@@ -75,15 +75,36 @@
                     <div class="card" style="border-radius: 20px ;">
                         <div class="card-header">
                             <h4 class="card-title">Notes</h4>
+                            <div class="text-end">
+                                <a href="{% url 'employee:dailyprogress' projectdetails.id %}">
+                                    <span
+                                        class="badge badge-pill bg-success-light text-center"><i
+                                            class="las la-pen"></i></span>
+                                </a>
+                            </div>
+                           
                         </div>
+                       
+
+                       
                         <div class="card-body card-body-height" style="color: grey;">
-                            <p>14/02/2021</p>
-                            <p>Morning --- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores,
-                                blanditiis. Ullam fugit dolores reiciendis adipisci, quaerat quas quae. Omnis aperiam
-                                minima, ab quisquam laboriosam laudantium accusamus vel est qui molestias?</p>
-                            <p>Evening --- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores,
-                                blanditiis. Ullam fugit dolores reiciendis adipisci, quaerat quas quae. Omnis aperiam
-                                minima, ab quisquam laboriosam laudantium accusamus vel est qui molestias?</p>
+                            {% comment %} {% for daily in daily_report %}
+                            <p>{{daily.date}}</p>
+                            <p>{{daily.status}}</p>
+                            <p>{{daily.note}}</p>
+                            {% endfor %} {% endcomment %}
+                            
+                            {% regroup daily_report by date as date_filter %}
+                            {% for daily in date_filter %}
+                            
+                            <p style="color:black;"><b><u>{{daily.grouper}}</u></b></p>
+                                {% for st in daily.list %}
+                                    <p><b>
+                                        {{st.status}} ({{st.employee__name}}): </b>
+                                        {{st.note}}</p>
+                                {% endfor %}
+
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -217,8 +238,8 @@
 								<div class="profile-view">
 									<div class="profile-img-wrap">
 										<div class="profile-img">
-											<a href="">
-												<img src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" alt="">
+											<a id="div" href="">
+												<img id="profileimg" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" alt="">
 											</a>
 										</div>
 									</div>
@@ -274,14 +295,14 @@
             
             success: function (responce) {
 
-
-                // console.log(responce)
                 $('#name').html(responce.value.name)
                 $('#catagory').html(responce.value.catagory)
                 $('#employee_id').html(responce.value.employee_id)
                 $('#email').html(responce.value.email)
                 $('#dob').html(responce.value.dob)
-                ('#address').html(responce.value.address)
+                $('#address').html(responce.value.address)
+                $('#profileimg').attr("src",responce.value.emp_profile)
+               
 
                 
             }

@@ -17,5 +17,8 @@ urlpatterns = [
     path('viewenquiry/<str:id>', views.viewenquiry, name="viewenquiry"),
 
     path('createproject/<str:id>',views.createProject,name='createproject'),
+    path('viewdata/<str:id>',views.viewdata,name='viewdata'),
+    path('changedata/<str:id>',views.changedata,name='changedata'),
+    
     
 ]

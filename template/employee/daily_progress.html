@@ -34,19 +34,19 @@
                                             <label for="validationCustom01">Status</label>
                                             <select name="projectstatus" id="" class="form-control">
                                                 <option value="{{proj_sts.status}}">{{proj_sts.status}}</option>
-                                                <option value="ongoing">On Going</option>
-                                                <option value="onscheduling">On Scheduling</option>
-                                                <option value="delayed">Delayed</option>
+                                                <option value="On Going">On Going</option>
+                                                <option value="On Scheduling">On Scheduling</option>
+                                                <option value="Delayed">Delayed</option>
                                                 <option value="Qc">Qc</option>
-                                                <option value="W4c">W4C</option>
+                                              
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label for="validationCustom02">Percentage</label>
-                                            <input type="text" name="percentage" class="form-control" id=""
-                                                placeholder="" value="{{proj_sts.completion}}" required>
-                                            <div class="valid-feedback">
-                                                Looks good!
+                                            <label >Percentage</label>
+                                            <input type="text" name="percentage"  onchange="NumberCheck(this.value)"  class="form-control" id="percentagenumber"
+                                                placeholder=""  value="{{proj_sts.completion}}" required>
+                                            <div id="msg" style="display: none;" class="valid-feedback">
+                                                Maximum Up to 95%
                                             </div>
                                         </div>
                                     </div>
@@ -130,8 +130,24 @@
         </div>
     </div>
 </div>
+<script>
+  function NumberCheck(val){
+   if(val<95){
+    $('#msg').hide()
+   }
+   else if(val==95){
+   
+    $('#percentagenumber').prop('readonly', true);
+    $('#msg').hide()
+   }
+   else{
+    $('#percentagenumber').val('')
+    $('#msg').show()
+    
+   }
+  }  
 
-
+</script>
 
 
 

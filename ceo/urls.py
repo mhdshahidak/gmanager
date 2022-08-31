@@ -18,7 +18,7 @@ urlpatterns = [
 
 
 
-    path('employeeprofile', views.employeeprofile, name='employeeprofile'),
+    path('employeeprofile/<int:id>', views.employeeprofile, name='employeeprofile'),
 
 
     path('departmentwise', views.departmentwise, name='departmentwise'),
@@ -34,6 +34,11 @@ urlpatterns = [
     path('projectlist', views.projectlist, name='projectlist'),
     path('viewproject', views.viewproject, name='viewproject'),
 
-    path('editemployee/<int:id>',views.editEmployeeDetails,name='editemployee')
+    path('editemployee/<int:id>',views.editEmployeeDetails,name='editemployee'),
+    path('rejectedlist', views.rejectedlist, name='rejectedlist'),
+
+    path('viedetail/<int:id>', views.viedetails, name='viedetails'),
+
+
 
 ]

@@ -42,7 +42,7 @@ def leave_application(request):
 
         else:
             pass
-    # print(user_name)
+  
     context = {
         'user':user_name,
         'leaveform':leave_form,
@@ -55,13 +55,18 @@ def attendanceRreport(request):
 
 @login_required(login_url='/')
 def settings(request):
-    change_form = ChangePasswordForm(request.POST or None)
-    # now_date = datetime.now()
-    # if request.method == "POST":
-    #     if change_form.is_valid():           
-    #         data = change_form.save() 
-    # user_name = request.user.employee.catagory.catagory.catagory_title
-    # print(user_name,'%'*56)
+# <<<<<<< HEAD
+#     change_form = ChangePasswordForm(request.POST or None)
+#     # now_date = datetime.now()
+#     # if request.method == "POST":
+#     #     if change_form.is_valid():           
+#     #         data = change_form.save() 
+#     # user_name = request.user.employee.catagory.catagory.catagory_title
+#     # print(user_name,'%'*56)
+# =======
+#     user_name = request.user.employee.catagory.catagory.catagory_title
+
+# >>>>>>> 09d27a103151de39ac14138296195c96bf396735
     n = Employees.objects.get(id=request.user.employee.id)
     print(n)
     m= EmergenctContact.objects.get(employee=n)
@@ -102,7 +107,7 @@ def settings(request):
     context={
         "empform" : empform,
         "empcontactform" : empcontactform,
-        "change_form":change_form
+        # "change_form":change_form
     } 
     return render (request,'common/settings.html',context)
     
@@ -123,7 +128,7 @@ def leaves(request):
 
 def gohome(request):
     user_name = request.user.employee
-    print(user_name)
+ 
     if request.user.employee.catagory.catagory.catagory_title == "EMPLOYEE":
         return redirect('employee:employeehome')
     elif request.user.employee.catagory.catagory.catagory_title == "HRM" :

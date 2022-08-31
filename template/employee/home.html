@@ -230,38 +230,38 @@
 				<div class="row">
 
 					<!-- Traffic light -->
-					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-						<div class="card dash-widget" style="background: rgb(20, 85, 25);">
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4"  >
+						<div class="card dash-widget" style="background-color: rgb(201, 247, 201);">
 							<div class="card-body">
 								<div class="dash-widget-info">
 									<h3>112</h3>
 									<!-- <span>Projects</span> -->
 								</div>
-								<span class="dash-widget-icon"><i class="la la-rocket"></i></span>
+								<span ><img src="{% static 'green.png' %}" alt=""></span>
 
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-						<div class="card dash-widget" style="background: rgb(228, 119, 18);">
+						<div class="card dash-widget" style="background-color: rgb(247, 224, 183);" >
 							<div class="card-body">
 								<div class="dash-widget-info">
 									<h3>44</h3>
 									<!-- <span>Clients</span> -->
 								</div>
-								<span class="dash-widget-icon"><i class="la la-rocket"></i></span>
+								<span ><img src="{% static 'orange.png' %}" alt=""></span>
 
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-						<div class="card dash-widget" style="background: rgb(187, 30, 30);">
+						<div class="card dash-widget" style="background-color: rgb(247, 202, 202);">
 							<div class="card-body">
 								<div class="dash-widget-info">
 									<h3>37</h3>
 									<!-- <span>Tasks</span> -->
 								</div>
-								<span class="dash-widget-icon"><i class="la la-rocket"></i></span>
+								<span class=""><img src="{% static 'red.png' %}" alt=""></span>
 
 							</div>
 						</div>
@@ -290,16 +290,17 @@
 												{% for i in listdata %}
 												<tr>
 													<td>
-														{{i.project.endingdate}}
+														{{i.project.endingdate.date}}
 													</td>
 													<td>
 														<a href="{% url 'employee:progressreport' i.project.id   %}">{{i.project.projectname}}</a>
 													</td>
 													
-													<td>
-														<i class="las la-circle"></i>
-														ongoing
-													</td>
+													
+														
+													    <td>{% if i.status == 'On Going'  %} <span class="badge badge-pill bg-success-light">{{ i.status }}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Not Started' %} <span class="badge bg-white">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span> {% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{ i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{ i.status }}</span>  {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span>  {% endif %}  </td>
+														
+													
 													<td>
 														{{i.completion}}%
 														<div class="progress progress-xs">
@@ -348,7 +349,7 @@
 						<p class="text-muted m-t-15">Employee ID: {{employeedata.employee_id}}</p>
 						<hr>
 						<div class="row justify-content-center user-social-link">
-							<div class="col-auto"><a href="https://api.whatsapp.com/" target="_blank"><i class="fa fa-whatsapp" style="color: green;"></i></a>
+							<div class="col-auto"><a href="https://api.whatsapp.com/{{employeedata.whatsapp_number}}" target="_blank"><i class="fa fa-whatsapp" style="color: green;"></i></a>
 							</div>
 							<div class="col-auto"><a href=""><i class="fa fa-envelope"
 										style="color: rgb(248, 195, 47);"></i></a></div>

@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     # packages
 
-    'phone_field',
     'versatileimagefield',
     'tinymce',
 

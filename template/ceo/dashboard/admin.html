@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                         <div class="dash-widget-info">
-                            <h3>112</h3>
+                            <h3>{{projects}}</h3>
                             <span>Projects</span>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
                         <div class="dash-widget-info">
-                            <h3>44</h3>
+                            <h3>{{clients}}</h3>
                             <span>Clients</span>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
                         <div class="dash-widget-info">
-                            <h3>218</h3>
+                            <h3>{{employees}}</h3>
                             <span>Employees</span>
                         </div>
                     </div>
@@ -73,90 +73,10 @@
 
 
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card-group m-b-30">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <div>
-                                    <span class="d-block">New Employees</span>
-                                </div>
-                                <div>
-                                    <span class="text-success">+10%</span>
-                                </div>
-                            </div>
-                            <h3 class="mb-3">10</h3>
-                            <div class="progress mb-2" style="height: 5px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <p class="mb-0">Overall Employees 218</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <div>
-                                    <span class="d-block">Earnings</span>
-                                </div>
-                                <div>
-                                    <span class="text-success">+12.5%</span>
-                                </div>
-                            </div>
-                            <h3 class="mb-3">$1,42,300</h3>
-                            <div class="progress mb-2" style="height: 5px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <p class="mb-0">Previous Month <span class="text-muted">$1,15,852</span></p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <div>
-                                    <span class="d-block">Expenses</span>
-                                </div>
-                                <div>
-                                    <span class="text-danger">-2.8%</span>
-                                </div>
-                            </div>
-                            <h3 class="mb-3">$8,500</h3>
-                            <div class="progress mb-2" style="height: 5px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <p class="mb-0">Previous Month <span class="text-muted">$7,500</span></p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <div>
-                                    <span class="d-block">Profit</span>
-                                </div>
-                                <div>
-                                    <span class="text-danger">-75%</span>
-                                </div>
-                            </div>
-                            <h3 class="mb-3">$1,12,000</h3>
-                            <div class="progress mb-2" style="height: 5px;">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <p class="mb-0">Previous Month <span class="text-muted">$1,42,000</span></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Statistics Widget -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-12 col-lg-12 col-xl-4 d-flex">
                 <div class="card flex-fill dash-statistics">
                     <div class="card-body">
@@ -296,7 +216,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- /Statistics Widget -->
         <div class="row">
             <div class="col-lg-12">
@@ -304,7 +224,180 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{enquirylist}}</h3>
+
+                            <span>Enquiries list </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{addedtoprop}}</h3>
+                            <span>Added to Praposal </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{billcreation}}</h3>
+                            <span>Praposal Acepted </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{billadvance}}</h3>
+                            <span>Advance Sented </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{ advancepaid}}</h3>
+                            <span>Unassigned Project</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'ceo:rejectedlist' %}">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{rejected}}</h3>
+                            <span>Rejected Project </span>
+                        </div>
+                    </div>
+                </div>
+                    </a>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{notstated}}</h3>
+                            <span>Not Started  </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{ongoing}}</h3>
+                            <span>On Going  </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{onscheduling}}</h3>
+                            <span>On Scheduling  </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{delayed}}</h3>
+                            <span>Delayed Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{qc}}</h3>
+                            <span>QC Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{w4c}}</h3>
+                            <span>W4C Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{rework}}</h3>
+                            <span>Reworks Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{completed}}</h3>
+                            <span>Completed Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           
+
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'ceo:projectlist' %}">
                     <div class="card dash-widget">
                         <div class="card-body">
@@ -317,143 +410,12 @@
                     </div>
                 </a>
 
-            </div>
+            </div> -->
 
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Quatation Pending </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Aproved Projects </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Waiting For Assigne </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>On Seheduled </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>112</h3>
-                            <span>Just Started</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>44</h3>
-                            <span>Ongoing</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>37</h3>
-                            <span>Delayed</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>W4QC </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>W4C </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Completed </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Re Work </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>218</h3>
-                            <span>Rejected Projects </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
         </div>
 
-        <div class="row">
+        <!-- <div class="row">
 
             <div class="col-lg-12 d-flex">
                 <div class="card card-table flex-fill">
@@ -620,7 +582,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
     <!-- /Page Content -->
