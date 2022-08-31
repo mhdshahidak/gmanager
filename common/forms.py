@@ -33,33 +33,45 @@ class ExcuseRequestsForm(forms.ModelForm):
 class ProfileResetForm(forms.ModelForm):
     class Meta:
         model = Employees
-        exclude = ('status', '')
-        Widget = {
-            'name': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'name'}),
-            'employee_id': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'employee_id','name':'employee_id'}),
-            'email': EmailInput(attrs={'class': 'form-control bx-inp', 'required': 'required', 'autocomplete':'off', 'placeholder':'E-mail','name':'email'}),
-            'phone': NumberInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Phone','name':'phone'}),
-            'whatsapp_number': NumberInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'whatsapp_number','name':'whatsapp_number'}),
-            'emp_profile' : FileInput(attrs={'class': 'form-control bx-inp', 'required': 'required', 'autocomplete':'off','name':'file','id':'files'}),
-            'catagory' : Select(attrs={'class': 'form-control bx-inp', 'required': 'required','name':'catagory','name':'catagory'}),
-            'username': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'username','name':'username'}),
-            'password': PasswordInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'password','name':'password'}),
-            # 'c_password': PasswordInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'c_password','name':'c_password'}),
-            'address': Textarea(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'address','name':'address'}),
-            'dob': DateInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'dob','name':'dob','type':'date'}),
-            'join_date': DateInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'join_date','name':'join_date','type':'date'}),
-            'district': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'district'}),
-            'state': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'state'}),
-            'nationality':TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'nationality'}),
-            'marital_status':TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'marital_status'}),
+        fields = ('name', 'employee_id','email','phone','whatsapp_number','emp_profile','catagory','username','password','address','dob','join_date','district','state','nationality','marital_status')
+        Widgets = {
+            'name':forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'name'}),
+            'employee_id':forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'employee_id'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'email'}),
+            'phone': NumberInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'phone'}),
+            'whatsapp_number': forms.NumberInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'whatsapp_number'}),
+            'emp_profile' :  forms.FileInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'emp_profile'}),
+            'catagory' :  forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'catagory'}),
+            'username': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'username'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'password'}),
+            # 'c_password': PasswordInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'o_password'}),
+            'address': forms.Textarea(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'address'}),
+            'dob': forms.DateInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'dob'}),
+            'join_date': forms.DateInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'join_date'}),
+            'district': forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'district'}),
+            'state': forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'state'}),
+            'nationality':forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'nationality'}),
+            'marital_status':forms.TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'marital_status'}),
         }
 
+
 class EmergenctResetForm(forms.ModelForm):
-    class Meta:
+      class Meta:
         model = EmergenctContact
         fields = ('primarycontact_name', 'emergency_number', 'relation')
-        widget = {
-            'emergency_number': TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'emergency_number'}),
-            'primarycontact_name':TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'primarycontact_name'}),
-            'relation' : TextInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'Name','name':'relation'}),
+        widgets = {
+            'emergency_number': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'emergency_number'}),
+            'primarycontact_name':TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'primarycontact_name'}),
+            'relation' : TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'relation'}),
+        }
+
+class ChangePasswordForm(forms.ModelForm):
+      class Meta:
+        model = Employees
+        fields = ('password','password','password')
+        widgets = {
+            'password': PasswordInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'o_password'}),
+            'password': PasswordInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'password'}),
+            'password': PasswordInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'c_password','name':'c_password'}),
+
         }
