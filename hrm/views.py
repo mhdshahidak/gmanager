@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests
-
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client
+from pm.models import Project
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -13,9 +13,13 @@ from gmanager.decorators import auth_hrm
 @auth_hrm
 def hrmHome(request):
     emp = Employees.objects.all().count()
+    project = Project.objects.all().count()
+    client = Client.objects.all().count()
     context = {
         "is_hrmHome":True,
         'emp' : emp,
+        "project":project,
+        "client":client
     }
     return render(request, 'hrm/hrmhome.html',context)
 
@@ -54,8 +58,10 @@ def employeeList(request):
 @login_required(login_url='/')
 @auth_hrm
 def clientList(request):
+    clienilist=Client.objects.all()
     context = {
         "is_clientList":True,
+        "clienilist":clienilist
     }
     return render(request, 'hrm/client.html',context)
 
