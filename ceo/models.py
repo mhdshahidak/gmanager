@@ -130,3 +130,24 @@ class ExcuseRequests(models.Model):
     time = models.TimeField(null=True)
     reason = models.CharField(max_length=1000,null=True)
     status = models.CharField(max_length = 25,default= 'Waiting')
+
+
+
+class Attendence(models.Model):
+    employee  = models.ForeignKey(Employees, on_delete=models.CASCADE, null=True)
+    date = models.DateField(null=True)
+    punch_intime = models.TimeField(null=True)
+    punch_outtime = models.TimeField(null=True)
+    morning = models.BooleanField(default=False)
+    evening = models.BooleanField(default=False)
+
+
+    
+class TeamCategory(models.Model):
+    teamname = models.CharField(max_length=55)
+
+
+
+class TeamMembers(models.Model):
+    teamname = models.ForeignKey(TeamCategory, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employees, on_delete=models.CASCADE)
