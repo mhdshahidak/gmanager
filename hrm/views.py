@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers,Attendence
 from pm.models import Project
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 from django.contrib.auth.decorators import login_required
@@ -152,6 +152,61 @@ def hrsettings(request):
 @auth_hrm
 def attantanceList(request):
     allemp = Employees.objects.all()
+    if request.method =='POST':
+        attendence = request.POST.getlist('attendence[]')
+        date = request.POST['date']
+        punchin = request.POST['punchin']
+        punchout = request.POST['punchout']
+        Employeeid = request.POST['Employeeid']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date ,punch_intime=punchin, punch_outtime=punchout)
+        saveattendence.save()
+        for i in enumerate(attendence):
+            if i[0]=='Morning':
+                print('morning')
+            elif i[0]=='Afternoon':
+                print('Evening')   
+            else:
+                print('dfvsfvbgf')    
+
+
+            
+
+        else:
+            print("not exist")        
+
+        # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
+        #     print('both working')
+        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+        #     return redirect ('/hrm/attantancelist')
+        # elif attendence[0] == 'Morning'and attendence[1] != 'Afternoon':
+        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+        #     return redirect ('/hrm/attantancelist')
+        # elif attendence[0] == 'Afternoon'and attendence[1] != 'Morning':
+        #     Attendence.objects.filter(id=saveattendence.id).update(evening=True)
+        #     return redirect ('/hrm/attantancelist')    
+
+
+
+        # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
+        #     print('both working')
+        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+        #     return redirect ('/hrm/attantancelist')
+        # elif attendence[0] == 'Morning' or attendence[0] == 'Afternoon':
+        #     print(attendence[0],'*'*10)
+        #     if attendence[0] == 'Morning':
+        #         print('else if working')
+        #         Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+        #         return redirect ('/hrm/attantancelist')
+        #     else:
+        #         print('else else working')
+        #         Attendence.objects.filter(id=saveattendence.id).update(evening=True)  
+        #         return redirect ('/hrm/attantancelist')
+        # else:
+        #     return redirect ('/hrm/attantancelist')
+
+                     
+
     context = {
         "is_attantanceList":True,
         "allemp" : allemp,

@@ -75,7 +75,8 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<!-- <form method="post" id="checkbox_form"> -->
+					<form method="post" >
+						{% csrf_token %}
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -100,22 +101,22 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="col-form-label">Date</label>
-									<input class="form-control" type="date">
+									<input class="form-control" name="date" type="date">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="col-form-label">Puch In Time </label>
-									<input class="form-control floating" type="time">
+									<input class="form-control floating" name="punchin" type="time">
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="col-form-label">Punch Out Time</label>
-									<input class="form-control" type="time">
+									<input class="form-control" name="punchout" type="time">
 								</div>
 							</div>
-
+							<input type="hidden" name="Employeeid" id="idval">
 
 
 						</div>
@@ -133,10 +134,10 @@
 									<tr>
 										<td> Attantance</td>
 										<td class="text-center">
-											<input type="checkbox" name="attendence" value="Morning">
+											<input type="checkbox" name="attendence[]" value="Morning">
 										</td>
 										<td class="text-center">
-											<input type="checkbox" name="attendence" value="Afternoon">
+											<input type="checkbox" name="attendence[]" value="Afternoon">
 										</td>
 
 									</tr>
@@ -155,9 +156,9 @@
 							</table>
 						</div>
 						<div class="submit-section">
-							<button id="attendencesave" class="btn btn-primary submit-btn">Submit</button>
+							<button type="submit"  class="btn btn-primary submit-btn">Submit</button>
 						</div>
-					<!-- </form> -->
+					</form>
 				</div>
 			</div>
 		</div>
@@ -179,7 +180,7 @@
 
 
 				// console.log(responce)
-				$('#id').val(responce.value.id)
+				$('#idval').val(responce.value.id)
 				$('#Name').val(responce.value.name)
 				$('#employeeid').val(responce.value.employeeid)
 
