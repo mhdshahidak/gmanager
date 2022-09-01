@@ -25,25 +25,27 @@
 
 
         <div class="row staff-grid-row">
-             {% for i in leave %}
-             <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+            {% for i in leave %}
+            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
                 <div class="profile-widget">
                     <div class="profile-img">
                         <a href="client-profile.html" class="avatar"><img alt=""
                                 src="{{i.employee.emp_profile.url}}"></a>
                     </div>
 
-                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html">{{i.employee.name}}</a></h4>
-                    <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a href="client-profile.html">{{i.employee.catagory.title}}</a></h5>
-                    <div class="small text-muted"><a href="#" class="btn btn-white btn-sm m-t-10"
-                            data-bs-toggle="modal" onclick="ViewDetails({{i.id}})" data-bs-target="#edit_client">View Reason</a></div>
+                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a
+                            href="client-profile.html">{{i.employee.name}}</a></h4>
+                    <h5 class="user-name m-t-10 mb-0 text-ellipsis"><a
+                            href="client-profile.html">{{i.employee.catagory.title}}</a></h5>
+                    <div class="small text-muted"><a href="#" class="btn btn-white btn-sm m-t-10" data-bs-toggle="modal"
+                            onclick="ViewDetails({{i.id}})" data-bs-target="#edit_client">View Reason</a></div>
                     <a href="#" class="btn btn-white btn-sm m-t-10" onclick="HrmAccept({{i.id}})">Accept</a>
                     <a href="#" class="btn btn-white btn-sm m-t-10" data-bs-toggle="modal"
-                        data-bs-target="#delete_client"   onclick="RejectDetails({{i.id}})">Delect</a>
+                        data-bs-target="#delete_client" onclick="RejectDetails({{i.id}})">Delect</a>
                 </div>
             </div>
-             {% endfor %}
-            
+            {% endfor %}
+
 
         </div>
     </div>
@@ -72,13 +74,13 @@
                                 <li><span>From Date:</span> <span id="from"></span> </li>
                                 <li><span>To Date :</span> <span id="todate"></span> </li>
                                 <li><span>No of Days:</span> <span id="noof"></span></li>
-                             
+
                             </ul>
                             <!-- <h4 class="card-title">Blockquotes</h4> -->
                             <blockquote class="blockquote">
                                 <p class="mb-0">Reason</p>
                             </blockquote>
-                            <blockquote >
+                            <blockquote>
                                 <p class="mb-0" id="reason"></p>
                             </blockquote>
                         </div>
@@ -90,7 +92,7 @@
     <!-- /Edit Client Modal -->
 
     <!-- Delete Client Modal -->
-   
+
     <!-- /Delete Client Modal -->
 
 
@@ -107,29 +109,29 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                       
+
                         <div class="form-group">
                             <label>Reason <span class="text-danger">*</span></label>
                             <textarea class="form-control" id="rejectedreason" rows="4"></textarea>
                         </div>
                         <input type="hidden" name="" id="id">
-                        
+
                         <div class="submit-section">
                             <button id="submitbtn" class="btn btn-primary  submit-btn">Submit</button>
                         </div>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    function ViewDetails(id){
+    function ViewDetails(id) {
         $.ajax({
             url: "/pm/viedetails/" + id,
             type: 'GET',
-            
+
             success: function (responce) {
 
 
@@ -140,23 +142,23 @@
                 $('#todate').html(responce.value.to_date)
                 $('#noof').html(responce.value.no_days)
                 $('#reason').html(responce.value.reason)
-                
+
             }
 
         })
     }
 
 
-    function HrmAccept(id){
+    function HrmAccept(id) {
         $.ajax({
             url: "/hrm/hrmaccept/" + id,
             type: 'GET',
-            
+
             success: function (responce) {
 
                 window.location.reload()
-               
-                
+
+
             }
 
         })
@@ -164,16 +166,16 @@
 
 
 
-    function RejectDetails(id){
+    function RejectDetails(id) {
         $.ajax({
             url: "/pm/rejectdeatils/" + id,
             type: 'GET',
-            
+
             success: function (responce) {
 
                 $('#id').val(responce.value.id)
-               
-                
+
+
             }
 
         })
@@ -182,10 +184,10 @@
                 url: "/pm/reason",
                 type: 'post',
                 data: {
-                    
+
                     'id': $('#id').val(),
                     'rejectedreason': $('#rejectedreason').val(),
-                    
+
                 },
                 success: function (responce) {
 

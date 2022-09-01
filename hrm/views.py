@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests
-
+from django.shortcuts import render,redirect
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers
+from pm.models import Project
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
@@ -13,9 +13,13 @@ from gmanager.decorators import auth_hrm
 @auth_hrm
 def hrmHome(request):
     emp = Employees.objects.all().count()
+    project = Project.objects.all().count()
+    client = Client.objects.all().count()
     context = {
         "is_hrmHome":True,
         'emp' : emp,
+        "project":project,
+        "client":client
     }
     return render(request, 'hrm/hrmhome.html',context)
 
@@ -54,8 +58,10 @@ def employeeList(request):
 @login_required(login_url='/')
 @auth_hrm
 def clientList(request):
+    clienilist=Client.objects.all()
     context = {
         "is_clientList":True,
+        "clienilist":clienilist
     }
     return render(request, 'hrm/client.html',context)
 
@@ -78,6 +84,50 @@ def leaveReport(request):
         "is_leaveReport":True,
     }
     return render(request, 'hrm/leavereport.html',context)
+
+
+
+
+@login_required(login_url='/')
+@auth_hrm
+def team(request):
+    lisatteam=TeamCategory.objects.all()
+
+    if request.method =='POST':
+        teamname = request.POST['teamname']
+        namesave = TeamCategory(teamname=teamname)
+        namesave.save()
+        return redirect('/hrm/team')
+
+    context = {
+        "is_team":True,
+        "lisatteam":lisatteam
+    }
+    return render(request, 'hrm/team.html',context)
+
+
+
+@login_required(login_url='/')
+@auth_hrm
+def addteam(request,id):
+    catid=TeamCategory.objects.get(id=id)
+
+    members = TeamMembers.objects.filter(teamname=catid)
+    employee = Employees.objects.all()
+    if request.method =='POST':
+        employees = request.POST['employees']
+        employeeid = Employees.objects.get(name=employees)
+        savemember = TeamMembers(teamname=catid, employee=employeeid)
+        savemember.save()
+        return redirect('/hrm/addteam/'+id)
+    context = {
+        "is_attantanceReport":True,
+        "employee":employee,
+        "members":members
+    }
+    return render(request, 'hrm/addteam.html',context)
+
+
 
 
 @login_required(login_url='/')
@@ -137,3 +187,25 @@ def changevalue(request):
     return JsonResponse({'value': 'msg'})
 
 
+
+
+@csrf_exempt
+def getemployeedata(request,id):
+    details =Employees.objects.get(id=id)
+
+    data={
+        "id":details.id,
+        "name":details.name,
+        "employeeid":details.employee_id,
+         "catagory":details.catagory.title,
+        
+    }
+    return JsonResponse({'value': data})
+
+
+@csrf_exempt
+def addingattendence(request):
+    # choice=request.POST['selected_checkboxes']
+    # print(choice)
+    
+    pass
