@@ -34,5 +34,6 @@ urlpatterns = [
 
 
    path('getprofiledata/<int:id>',views.getprofiledata,name='getprofiledata'),
+   path('getdata/<int:id>',views.getdata,name='getdata'),
     
 ]
