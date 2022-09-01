@@ -15,7 +15,16 @@ urlpatterns = [
     path('hrmaccept/<str:id>', views.hrmaccept, name="hrmaccept"),
     path('excuse', views.excuse, name="excuse"),
     path('changevalue', views.changevalue, name="changevalue"),
+    path('team', views.team, name="team"),
+    path('addteam/<str:id>', views.addteam, name="addteam"),
 
+
+
+    path('getemployeedata/<str:id>', views.getemployeedata, name="getemployeedata"),
+    path('addingattendence', views.addingattendence, name="addingattendence"),
+
+
+    
 
 
     

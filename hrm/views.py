@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client
+from django.shortcuts import render,redirect
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers
 from pm.models import Project
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 from django.contrib.auth.decorators import login_required
@@ -86,6 +86,50 @@ def leaveReport(request):
     return render(request, 'hrm/leavereport.html',context)
 
 
+
+
+@login_required(login_url='/')
+@auth_hrm
+def team(request):
+    lisatteam=TeamCategory.objects.all()
+
+    if request.method =='POST':
+        teamname = request.POST['teamname']
+        namesave = TeamCategory(teamname=teamname)
+        namesave.save()
+        return redirect('/hrm/team')
+
+    context = {
+        "is_team":True,
+        "lisatteam":lisatteam
+    }
+    return render(request, 'hrm/team.html',context)
+
+
+
+@login_required(login_url='/')
+@auth_hrm
+def addteam(request,id):
+    catid=TeamCategory.objects.get(id=id)
+
+    members = TeamMembers.objects.filter(teamname=catid)
+    employee = Employees.objects.all()
+    if request.method =='POST':
+        employees = request.POST['employees']
+        employeeid = Employees.objects.get(name=employees)
+        savemember = TeamMembers(teamname=catid, employee=employeeid)
+        savemember.save()
+        return redirect('/hrm/addteam/'+id)
+    context = {
+        "is_attantanceReport":True,
+        "employee":employee,
+        "members":members
+    }
+    return render(request, 'hrm/addteam.html',context)
+
+
+
+
 @login_required(login_url='/')
 @auth_hrm
 def attantanceReport(request):
@@ -143,3 +187,25 @@ def changevalue(request):
     return JsonResponse({'value': 'msg'})
 
 
+
+
+@csrf_exempt
+def getemployeedata(request,id):
+    details =Employees.objects.get(id=id)
+
+    data={
+        "id":details.id,
+        "name":details.name,
+        "employeeid":details.employee_id,
+         "catagory":details.catagory.title,
+        
+    }
+    return JsonResponse({'value': data})
+
+
+@csrf_exempt
+def addingattendence(request):
+    # choice=request.POST['selected_checkboxes']
+    # print(choice)
+    
+    pass
