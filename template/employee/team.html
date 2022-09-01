@@ -26,69 +26,29 @@
 
 
 		<div class="row staff-grid-row">
+			{% for team in team_name %}
 			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
 				<div class="profile-widget">
 					<div class="profile-img">
 						<a href="" class="avatar">
-							<img alt="" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}">
+							<img alt="" src="{{team.employee.emp_profile.url}}">
 						</a>
 					</div>
 					<h4 class="user-name m-t-10 mb-0 text-ellipsis">
 						<a href="">
-							Anusree
+							{{team.employee.name|title}}
 						</a>
 					</h4>
 					<h5 class="user-name m-t-10 mb-0 text-ellipsis">
 						<a href="">
-							Web Developer
+							{{team.catagory.title|title}}
 						</a>
 					</h5>
 					<a href="" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
 					data-bs-target="#add_client">View Profile</a>
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-				<div class="profile-widget">
-					<div class="profile-img">
-						<a href="" class="avatar">
-							<img alt="" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}">
-						</a>
-					</div>
-					<h4 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Shahil khan kk
-						</a>
-					</h4>
-					<h5 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Web Developer
-						</a>
-					</h5>
-					<a href="" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
-					data-bs-target="#add_client">View Profile</a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-				<div class="profile-widget">
-					<div class="profile-img">
-						<a href="" class="avatar">
-							<img alt="" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}">
-						</a>
-					</div>
-					<h4 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Syamjith Babu
-						</a>
-					</h4>
-					<h5 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Web Developer
-						</a>
-					</h5>
-					<a href="" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
-						data-bs-target="#add_client">View Profile</a>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 	<!-- /Page Content -->

@@ -2,7 +2,7 @@ from ast import And, Or
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from ceo.models import EmergenctContact, Employees, SubCatagory
+from ceo.models import EmergenctContact, Employees, SubCatagory,TeamMembers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
@@ -237,8 +237,13 @@ def empTimeline(request):
 @login_required(login_url='/')
 @auth_employee
 def empTeam(request):
+    emp= Employees.objects.get(id=request.user.employee.id)
+    team_name = TeamMembers.objects.get(employee=emp)
+    ream_all = TeamMembers.objects.filter(teamname=team_name.teamname)
+    print(ream_all)
     context = {
         "is_team":True,
+        "team_name":ream_all,
     }
     return render(request,'employee/team.html',context)
 
