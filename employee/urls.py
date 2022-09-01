@@ -21,6 +21,7 @@ urlpatterns = [
 
     path('allemployees',views.allEmployees,name='allemployees'),
     path('empdepartment',views.empDepartment,name='department'),
+    path('departmentemployee/<int:id>',views.departmentwiseEmployee,name='departmentemployee'),
     path('emptimeline',views.empTimeline,name='emptimeline'),
 
 

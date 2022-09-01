@@ -2,11 +2,13 @@ from ast import And, Or
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from ceo.models import EmergenctContact, Employees
+from ceo.models import EmergenctContact, Employees, SubCatagory
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
 from gmanager.decorators import auth_employee
+
+from django.db.models import Q
 # Create your views here.
 
 
@@ -62,8 +64,16 @@ def empMeetingLink(request,id):
 @login_required(login_url='/')
 @auth_employee
 def allProjects(request):
+    project_count = ProjectStatus.objects.filter(Q(member__lead = request.user.employee) | Q(member__team = request.user.employee)).count()
+    print(project_count)
+    ongoing = ProjectStatus.objects.filter(status = 'On Going').exclude(status='Qc')
+    qc_projects = ProjectStatus.objects.filter(status='Qc')
     context = {
         "is_allprojects":True,
+        "ongoing":ongoing,
+        "qc_projects":qc_projects,
+        "project_count":project_count
+        
     }
     return render(request,'employee/projects.html',context)
 
@@ -167,26 +177,61 @@ def empAttendance(request):
 # ----- employee ------
 @login_required(login_url='/')
 def allEmployees(request):
+    all_emp = Employees.objects.all().order_by('name')
     context = {
         "is_employee":True,
+        "all_emp" :all_emp,
     }
     return render(request,'employee/all_employees.html',context)
+
 
 @login_required(login_url='/')
 @auth_employee
 def empDepartment(request):
+    department = SubCatagory.objects.all()
+    class cat:
+        def __init__(self,title,counts,id) :
+            self.title = title
+            self.counts = counts
+            self.id = id
+
+    estimatelist=[]
+    for i in department:
+        id=i.id
+        emp_count = Employees.objects.filter(catagory=i).count()
+       
+        estimatelist.append(cat(i,emp_count,id))
+      
     context = {
         "is_department":True,
-    }
+        "emp_count":estimatelist,
+        # "departments":department,
+            }
     return render(request,'employee/department.html',context)
+
+
+def departmentwiseEmployee(request,id):
+    category = SubCatagory.objects.get(id=id)
+    employees = Employees.objects.filter(catagory=category)
+    context = {
+        "category":category,
+        "employees":employees
+    }
+    return render(request,'employee/departmentwise_employee.html',context)
+
+
 
 @login_required(login_url='/')
 @auth_employee
 def empTimeline(request):
+    employee_timeline = Employees.objects.all().order_by('-join_date')
     context = {
         "is_timeline":True,
+        "employee_timeline":employee_timeline
     }
     return render(request,'employee/timeline.html',context)
+
+
 
 # ------ team -------
 @login_required(login_url='/')
