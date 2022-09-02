@@ -44,3 +44,12 @@ class ExcuseRequestsAdmin(admin.ModelAdmin):
     search_fields=('employee',)
 admin.site.register(ExcuseRequests,ExcuseRequestsAdmin)
 
+
+admin.site.register(Attendence)
+
+admin.site.register(TeamCategory)  
+
+
+admin.site.register(TeamMembers)
+
+

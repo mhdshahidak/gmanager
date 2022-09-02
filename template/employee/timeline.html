@@ -220,87 +220,30 @@
 
         <div class="container">
             <div class="timeline">
+                    {% for employee in employee_timeline %}
                     <div class="timeline-row">
                         <div class="timeline-time">
-                            14/02/2022
+                            {{employee.join_date}}
                         </div>
                         <div class="timeline-content">
                             <div class="thumbs">
-                                <img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
+                                <img class="img-fluid rounded" src="{{employee.emp_profile.url}}" alt="Maxwell Admin">
                             </div>
-                            <h4>Anusree Chandra</h4>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, laudantium?</p>
+                            <h4>{{employee.name|title}}</h4>
+                            <p class="text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, laudantium?</p>
                             <div class="">
-                                <span class="badge badge-pill">Web develpoer</span>
+                                <span class="badge badge-pill">{{employee.catagory.title|title}}</span>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
             
-                    <div class="timeline-row">
-                        <div class="timeline-time">
-                            14/02/2022
-                        </div>
-                        <div class="timeline-content">
-                            <div class="thumbs">
-                                <img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
-                            </div>
-                            <h4>Anusree Chandra</h4>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, laudantium?</p>
-                            <div class="">
-                                <span class="badge badge-pill">Web develpoer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-row">
-                        <div class="timeline-time">
-                            14/02/2022
-                        </div>
-                        <div class="timeline-content">
-                            <div class="thumbs">
-                                <img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
-                            </div>
-                            <h4>Anusree Chandra</h4>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, laudantium?</p>
-                            <div class="">
-                                <span class="badge badge-pill">Web develpoer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-row">
-                        <div class="timeline-time">
-                            14/02/2022
-                        </div>
-                        <div class="timeline-content">
-                            <div class="thumbs">
-                                <img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
-                            </div>
-                            <h4>Anusree Chandra</h4>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, laudantium?</p>
-                            <div class="">
-                                <span class="badge badge-pill">Web develpoer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-row">
-                        <div class="timeline-time">
-                            14/02/2022
-                        </div>
-                        <div class="timeline-content">
-                            <div class="thumbs">
-                                <img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
-                            </div>
-                            <h4>Anusree Chandra</h4>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero, laudantium?</p>
-                            <div class="">
-                                <span class="badge badge-pill">Web develpoer</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeline-row">
+                    
+                    <!-- <div class="timeline-row">
                         <div class="timeline-content">
                             <p class="m-0">Loading...</p>
                         </div>
-                    </div>
+                    </div> -->
             
                 </div>
             </div>

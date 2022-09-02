@@ -2,17 +2,22 @@ from ast import And, Or
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from ceo.models import EmergenctContact, Employees
+from ceo.models import EmergenctContact, Employees, SubCatagory,TeamMembers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
 from gmanager.decorators import auth_employee
+
+from django.db.models import Q
 # Create your views here.
 
 
+# ----- home -----
 @login_required(login_url='/')
 @auth_employee
 def employeeHome(request):
+    emp = request.user.employee
+    print(emp)
     employeedata=Employees.objects.get(id=request.user.employee.id)
     listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
     
@@ -20,19 +25,24 @@ def employeeHome(request):
         "is_home":True,
         "employeedata":employeedata,
         "listdata":listdata,
+        "emp":emp,
     }
     return render(request,'employee/home.html',context)
 
+
+
+# -----projects -------
 @login_required(login_url='/')
 @auth_employee
 def viewproject(request):
-  
+    emp = request.user.employee
     employeedata=Employees.objects.get(id=request.user.employee.id)
     meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
     
     context = {
         "is_meeting":True,
-        "meetinglist":meetinglist
+        "meetinglist":meetinglist,
+        "emp":emp
     }
     return render(request,'employee/viewproject.html',context)
 
@@ -42,6 +52,7 @@ def viewproject(request):
 @login_required(login_url='/')
 @auth_employee
 def empMeetingLink(request,id):
+    emp = request.user.employee
     projectid= Project.objects.get(id=id)
     meetinglist = Meeting.objects.filter(project=projectid)
     if request.method == 'POST':
@@ -51,6 +62,7 @@ def empMeetingLink(request,id):
         Project.objects.filter(id=id).update(status='SRS uploaded')
         return redirect('/employee/viewproject')
     context = {
+        "emp":emp,
         "is_meeting":True,
         "meetinglist":meetinglist
       
@@ -58,30 +70,46 @@ def empMeetingLink(request,id):
     return render(request,'employee/meeting_list.html',context)
 
 
-# ----- Projects ------
+
+# ----- Projects list------
 @login_required(login_url='/')
 @auth_employee
 def allProjects(request):
+    emp = request.user.employee
+    project_count = ProjectStatus.objects.filter(Q(member__lead = request.user.employee) | Q(member__team = request.user.employee)).count()
+    print(project_count)
+    ongoing = ProjectStatus.objects.filter(status = 'On Going').exclude(status='Qc')
+    qc_projects = ProjectStatus.objects.filter(status='Qc')
     context = {
+        "emp":emp,
         "is_allprojects":True,
+        "ongoing":ongoing,
+        "qc_projects":qc_projects,
+        "project_count":project_count
+        
     }
     return render(request,'employee/projects.html',context)
 
 
 
-
+# ---- rework----
 @login_required(login_url='/')
 @auth_employee
 def empRework(request):
+    emp = request.user.employee
     context = {
         "is_rework":True,
+        "emp":emp
     }
     return render(request,'employee/rework.html',context)
 
 
+
+# ------ daily progress -------
 @login_required(login_url='/')
 @auth_employee
 def empDailyProgress(request,id):
+    emp = request.user.employee
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
     employee_id = Employees.objects.get(id=request.user.employee.id)
@@ -103,21 +131,24 @@ def empDailyProgress(request,id):
     context = {
         "is_dailyprogress":True,
         "proj_sts":proj_sts,
+        "emp":emp,
        
     }
     return render(request,'employee/daily_progress.html',context)
 
 
+#  ----- daily progress report ------
 @login_required(login_url='/')
 @auth_employee
 def empProgressReport(request,id):
+    emp = request.user.employee
     projectdetails= Project.objects.get(id=id)
     projectstatus = ProjectStatus.objects.get(project=projectdetails)
     members =ProjectMembers.objects.filter(project=projectdetails).values('team__name','team__id')
     daily_report = DailyProgress.objects.filter(project=projectdetails).values('date','status','note','employee__name')
-   
-   
+    
     context = {
+        "emp":emp,
         "is_progressreport":True,
         "projectdetails":projectdetails,
         "projectstatus":projectstatus,
@@ -128,19 +159,28 @@ def empProgressReport(request,id):
     }
     return render(request,'employee/progress_report.html',context)
 
+
+
+# ----- task -----
 @login_required(login_url='/')
 @auth_employee
 def empTask(request):
+    emp = request.user.employee
     context = {
         "is_task":True,
+        "emp":emp
     }
     return render(request,'employee/task.html',context)
 
+
+# -----homework-------
 @login_required(login_url='/')
 @auth_employee
 def empHomework(request):
+    emp = request.user.employee
     context = {
         "is_homework":True,
+        "emp":emp
     }
     return render(request,'employee/homework.html',context)
 
@@ -149,51 +189,111 @@ def empHomework(request):
 @login_required(login_url='/')
 @auth_employee
 def leaveApplication(request):
+    emp = request.user.employee
     context = {
         "is_attendance":True,
+        "emp":emp
     }
     return render(request,'employee/leave_application.html',context)
 
+
+# -----attendance------
 @login_required(login_url='/')
 @auth_employee
 def empAttendance(request):
+    emp = request.user.employee
     context = {
         "is_attendance":True,
+        "emp":emp
     }
     return render(request,'employee/attendance.html',context)
 
 
 
-# ----- employee ------
+# ----- allemployee ------
 @login_required(login_url='/')
 def allEmployees(request):
+    emp = request.user.employee
+    all_emp = Employees.objects.all().order_by('name')
     context = {
         "is_employee":True,
+        "all_emp" :all_emp,
+        "emp":emp
     }
     return render(request,'employee/all_employees.html',context)
 
+
+# -----department-------
 @login_required(login_url='/')
 @auth_employee
 def empDepartment(request):
+    emp = request.user.employee
+    department = SubCatagory.objects.all()
+    class cat:
+        def __init__(self,title,counts,id) :
+            self.title = title
+            self.counts = counts
+            self.id = id
+
+    estimatelist=[]
+    for i in department:
+        id=i.id
+        emp_count = Employees.objects.filter(catagory=i).count()
+       
+        estimatelist.append(cat(i,emp_count,id))
+      
     context = {
         "is_department":True,
+        "emp_count":estimatelist,
+        "emp":emp
+        # "departments":department,
     }
     return render(request,'employee/department.html',context)
 
+
+# ------- departmentwise employee------
+def departmentwiseEmployee(request,id):
+    emp = request.user.employee
+    category = SubCatagory.objects.get(id=id)
+    employees = Employees.objects.filter(catagory=category)
+    context = {
+        "emp":emp,
+        "category":category,
+        "employees":employees
+    }
+    return render(request,'employee/departmentwise_employee.html',context)
+
+
+# ----timeline------
 @login_required(login_url='/')
 @auth_employee
 def empTimeline(request):
+    emp = request.user.employee
+    employee_timeline = Employees.objects.all().order_by('-join_date')
     context = {
+        "emp":emp,
         "is_timeline":True,
+        "employee_timeline":employee_timeline
     }
     return render(request,'employee/timeline.html',context)
+
+
 
 # ------ team -------
 @login_required(login_url='/')
 @auth_employee
 def empTeam(request):
+    emp = request.user.employee
+    emp= Employees.objects.get(id=request.user.employee.id)
+    team_name = TeamMembers.objects.get(employee=emp)
+    ream_all = TeamMembers.objects.filter(teamname=team_name.teamname)
+    # employee_details = ProjectStatus.objects.all()
+    # print(employee_details)
     context = {
         "is_team":True,
+        "emp":emp,
+        "team_name":ream_all,
+        # "employee_details":employee_details
     }
     return render(request,'employee/team.html',context)
 
@@ -202,21 +302,20 @@ def empTeam(request):
 @login_required(login_url='/')
 @auth_employee
 def empProfile(request):
-    emp=EmergenctContact.objects.get(employee=request.user.employee)
+    emp = request.user.employee
+    employee=EmergenctContact.objects.get(employee=request.user.employee)
     context = {
         "is_profile":True,
         "emp":emp,
+        "emp":employee,
     }
     return render(request,'employee/profile.html',context)
 
 
-
-
-
+# -----profiledata-----
 @csrf_exempt
 def getprofiledata(request,id):
     details=Employees.objects.get(id=id)
-    
     data={
         "name":details.name,
         "catagory":details.catagory.title,
@@ -226,5 +325,24 @@ def getprofiledata(request,id):
         "address":details.address,
        "emp_profile":details.emp_profile.url,
 
+    }
+    return JsonResponse({'value': data})
+
+
+def getdata(request,id):
+    details = Employees.objects.get(id=id)
+    # project = ProjectMembers.objects.get(team=details)
+    data={
+        "name":details.name,
+        "catagory":details.catagory.title,
+        "employee_id":details.employee_id,
+        "email":details.email,
+        "dob":details.dob,
+        "address":details.address,
+       "emp_profile":details.emp_profile.url,
+    #    "project_name":project.project.projectname,
+    #    "client":project.project.client,
+    #    "startdate":project.project.client.starteddate,
+    #    "enddate":project.project.client.endingdate,
     }
     return JsonResponse({'value': data})
