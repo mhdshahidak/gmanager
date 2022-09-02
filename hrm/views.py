@@ -161,19 +161,32 @@ def attantanceList(request):
         employdata =Employees.objects.get(id=Employeeid)
         saveattendence= Attendence(employee=employdata, date=date ,punch_intime=punchin, punch_outtime=punchout)
         saveattendence.save()
-        for i in enumerate(attendence):
-            if i[0]=='Morning':
-                print('morning')
-            elif i[0]=='Afternoon':
-                print('Evening')   
-            else:
-                print('dfvsfvbgf')    
+        print(len(attendence))
+        if len(attendence) == 1 :
+            for i in enumerate(attendence):
+                print(i)
+                if i[1]=='Morning':
+                    print('morning')
+                    Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+                    return redirect ('/hrm/attantancelist')
+
+                elif i[1] == 'Afternoon':
+                    print('Afternoon')
+                    Attendence.objects.filter(id=saveattendence.id).update(evening=True)
+                    return redirect ('/hrm/attantancelist')   
+
+                else:
+                    print('dfvsfvbgf','@'*10)
+        elif len(attendence) == 2 :
+            print("BOTH WORKING","$"*10)
+            Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+            return redirect ('/hrm/attantancelist')
+        else :
+            return redirect ('/hrm/attantancelist')
 
 
-            
-
-        else:
-            print("not exist")        
+        # else:
+        #     print("not exist",'%'*4)        
 
         # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
         #     print('both working')
@@ -212,6 +225,18 @@ def attantanceList(request):
         "allemp" : allemp,
     }
     return render(request, 'hrm/attantancelist.html',context)
+
+
+
+
+def leave(request):
+    if request.method =='POST':
+        date = request.POST['date']
+        Employeeid = request.POST['idleave']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date, status='Leave')
+        saveattendence.save()
+        return redirect ('/hrm/attantancelist')
 
 
 
@@ -256,6 +281,25 @@ def getemployeedata(request,id):
         
     }
     return JsonResponse({'value': data})
+
+
+@csrf_exempt
+def getemployeeleave(request,id):
+    details =Employees.objects.get(id=id)
+    print(details)
+
+    data={
+        "id":details.id,
+        "name":details.name,
+        "employeeid":details.employee_id,
+         "catagory":details.catagory.title,
+        
+    }
+    return JsonResponse({'value': data})
+
+
+
+
 
 
 @csrf_exempt

@@ -52,7 +52,10 @@
 								<td class="text-center">
 									<button onclick="Getemployeedata({{emp.id}})" class="btn btn-outline-success btn-sm"
 										data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+									<button onclick="Getemployeeleave({{emp.id}})" class="btn btn-outline-danger btn-sm"
+										data-bs-toggle="modal" data-bs-target="#add_leave">Add Leave</button>
 								</td>
+
 							</tr>
 							{% endfor %}
 
@@ -75,7 +78,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form method="post" >
+					<form method="post">
 						{% csrf_token %}
 						<div class="row">
 							<div class="col-md-6">
@@ -156,7 +159,7 @@
 							</table>
 						</div>
 						<div class="submit-section">
-							<button type="submit"  class="btn btn-primary submit-btn">Submit</button>
+							<button type="submit" class="btn btn-primary submit-btn">Submit</button>
 						</div>
 					</form>
 				</div>
@@ -164,6 +167,61 @@
 		</div>
 	</div>
 	<!-- /Add Client Modal -->
+
+	<div id="add_leave" class="modal custom-modal fade" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Client</h5>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="/hrm/leave">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Name </label>
+									<input class="form-control" id="Nameleave" readonly type="text">
+									<input class="form-control" id="idleave" name="idleave" readonly type="hidden">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Employee ID </label>
+									<input class="form-control" id="employeeidleave" readonly type="text">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Category</label>
+									<input class="form-control" id="catagoryleave" readonly type="text">
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Date</label>
+									<input class="form-control" name="date" type="date">
+								</div>
+							</div>
+
+
+
+						</div>
+
+						<div class="submit-section">
+							<button type="submit" class="btn btn-primary submit-btn">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 
 </div>
 
@@ -193,66 +251,33 @@
 
 		})
 
+	}
 
 
 
+	function Getemployeeleave(id) {
+
+		$.ajax({
+			url: "/hrm/getemployeeleave/" + id,
+			type: 'GET',
+
+			success: function (responce) {
+
+
+				// console.log(responce)
+
+
+				$('#idleave').val(responce.value.id)
+				$('#Nameleave').val(responce.value.name)
+				$('#employeeidleave').val(responce.value.employeeid)
+
+				$('#catagoryleave').val(responce.value.catagory)
 
 
 
-
-		$('#attendencesave').click(() => {
-
-
-			var selected_checkboxes = new Array();
-			$("input[type=checkbox]:checked").each(function () {
-
-				selected_checkboxes.push(this.value);
-
-			});
-			if (selected_checkboxes.length > 0) {
-
-				alert(selected_checkboxes);
-
-
-				$.ajax({
-			    url: "/hrm/addingattendence",
-			    type: 'post',
-			    data: {
-
-			        // selected_checkboxes,
-			        'reason': $('#reason').val(),
-
-			    },
-			    success: function (responce) {
-
-			        window.location.reload()
-			    }
-
-
-			})
-
-
-			} else {
-
-				alert("no value is selected")
 
 			}
-			// $.ajax({
-			//     url: "/pm/typereason",
-			//     type: 'post',
-			//     data: {
 
-			//         'id': $('#id').val(),
-			//         'reason': $('#reason').val(),
-
-			//     },
-			//     success: function (responce) {
-
-			//         window.location.reload()
-			//     }
-
-
-			// })
 		})
 
 	}
