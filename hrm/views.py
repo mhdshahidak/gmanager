@@ -133,6 +133,33 @@ def addteam(request,id):
 @login_required(login_url='/')
 @auth_hrm
 def attantanceReport(request):
+    if request.method =='POST':
+        serachdate = request.POST['serachdate']
+        print(serachdate,'*'*7)
+        serachdate = request.POST['serachdate']
+        if Attendence.objects.filter(date=serachdate).exists():
+            print('exist')
+            presentdate = Attendence.objects.filter(status='Present').count()
+            absentdate = Attendence.objects.filter(status='Leave').count()
+            print(presentdate,absentdate)
+            employeedetails = Attendence.objects.filter(date=serachdate).all()
+
+            context={
+                "is_attantanceReport":True,
+                "presentdate":presentdate,
+                "absentdate":absentdate,
+                "employeedetails":employeedetails,
+                 "status":0
+
+            }
+            return render(request, 'hrm/attantancereport.html',context)
+
+
+        else:
+            context={
+                "status":1
+            }
+            return render(request, 'hrm/attantancereport.html',context)
     context = {
         "is_attantanceReport":True,
     }
