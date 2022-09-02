@@ -26,69 +26,29 @@
 
 
 		<div class="row staff-grid-row">
+			{% for team in team_name %}
 			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
 				<div class="profile-widget">
 					<div class="profile-img">
 						<a href="" class="avatar">
-							<img alt="" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}">
+							<img alt="" src="{{team.employee.emp_profile.url}}">
 						</a>
 					</div>
 					<h4 class="user-name m-t-10 mb-0 text-ellipsis">
 						<a href="">
-							Anusree
+							{{team.employee.name|title}}
 						</a>
 					</h4>
 					<h5 class="user-name m-t-10 mb-0 text-ellipsis">
 						<a href="">
-							Web Developer
+							{{team.catagory.title|title}}
 						</a>
 					</h5>
-					<a href="" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
-					data-bs-target="#add_client">View Profile</a>
+					<a href="" onclick="DataGet({{ team.employee.id }})" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
+					data-bs-target="#add_team">View Profile</a>
 				</div>
 			</div>
-			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-				<div class="profile-widget">
-					<div class="profile-img">
-						<a href="" class="avatar">
-							<img alt="" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}">
-						</a>
-					</div>
-					<h4 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Shahil khan kk
-						</a>
-					</h4>
-					<h5 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Web Developer
-						</a>
-					</h5>
-					<a href="" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
-					data-bs-target="#add_client">View Profile</a>
-				</div>
-			</div>
-			<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
-				<div class="profile-widget">
-					<div class="profile-img">
-						<a href="" class="avatar">
-							<img alt="" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}">
-						</a>
-					</div>
-					<h4 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Syamjith Babu
-						</a>
-					</h4>
-					<h5 class="user-name m-t-10 mb-0 text-ellipsis">
-						<a href="">
-							Web Developer
-						</a>
-					</h5>
-					<a href="" class="btn btn-white btn-sm m-t-10" class="btn add-btn" data-bs-toggle="modal"
-						data-bs-target="#add_client">View Profile</a>
-				</div>
-			</div>
+			{% endfor %}
 		</div>
 	</div>
 	<!-- /Page Content -->
@@ -98,7 +58,7 @@
 
 <!-- View Profile Modal -->
 
-<div id="add_client" class="modal custom-modal fade" role="dialog">
+<div id="add_team" class="modal custom-modal fade" role="dialog">
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-body">
@@ -110,7 +70,7 @@
 									<div class="profile-img-wrap">
 										<div class="profile-img">
 											<a href="">
-												<img src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" alt="">
+												<img src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" id="profileimg" alt="">
 											</a>
 										</div>
 									</div>
@@ -118,28 +78,28 @@
 										<div class="row">
 											<div class="col-md-5">
 												<div class="profile-info-left">
-													<h3 class="user-name m-t-0">Syamjith Babu</h3>
-													<small class="text-muted">CEO</small>
-													<div class="staff-id">Employee ID : CLT-0001</div>
+													<h3 class="user-name m-t-0" id="name">Syamjith Babu</h3>
+													<small class="text-muted" id="catagory">CEO</small>
+													<div class="staff-id" id="employee_id">Employee ID : CLT-0001</div>
 												</div>
 											</div>
 											<div class="col-md-7">
 												<ul class="personal-info">
 													<li>
 														<span class="title">Phone:</span>
-														<span class="text"><a href="">9876543210</a></span>
+														<span class="text" id="phone"><a href="">9876543210</a></span>
 													</li>
 													<li>
 														<span class="title">Email:</span>
-														<span class="text"><a href="">barrycuda@example.com</a></span>
+														<span class="text" id="email"><a href="">barrycuda@example.com</a></span>
 													</li>
 													<li>
 														<span class="title">Birthday:</span>
-														<span class="text">2nd August</span>
+														<span class="text" id="dob">2nd August</span>
 													</li>
 													<li>
 														<span class="title">Address:</span>
-														<span class="text">5754 Airport Rd, Coosada, AL, 36020</span>
+														<span class="text" id="address">5754 Airport Rd, Coosada, AL, 36020</span>
 													</li>
 												</ul>
 											</div>
@@ -150,7 +110,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="card tab-box">
+				<!-- <div class="card tab-box">
 					<div class="row user-tabs">
 						<div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
 							<ul class="nav nav-tabs nav-tabs-bottom">
@@ -165,7 +125,7 @@
 					<div class="col-lg-12">
 						<div class="tab-content profile-tab-content">
 
-							<!-- Projects Tab -->
+							
 							<div id="myprojects" class="tab-pane fade show active">
 								<div class="row">
 									<div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
@@ -181,12 +141,16 @@
 																class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>
-												<h4 class="project-title"><a href="">Office
+												<h4 class="project-title" id="project_name"><a href="">Office
 														Management</a></h4>
 												<small class="block text-ellipsis m-b-15">
-													<span class="text-xs">1</span> <span class="text-muted">open tasks,
+													<span class="text-xs">Client:</span> <span class="text-muted" id="client">open tasks,
 													</span>
-													<span class="text-xs">9</span> <span class="text-muted">tasks
+													<span class="text-xs">Start date</span> 
+													<span class="text-muted" id="startdate">tasks
+														completed</span>
+													<span class="text-xs">End date</span> 
+														<span class="text-muted" id="enddate">tasks
 														completed</span>
 												</small>
 												<p class="text-muted">Lorem Ipsum is simply dummy text of the printing
@@ -195,48 +159,16 @@
 													and
 													scrambled it...
 												</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
-										<div class="card">
-											<div class="card-body">
-												<div class="dropdown profile-action">
-													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="#" data-bs-toggle="modal"
-															data-bs-target="#edit_project"><i
-																class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="#" data-bs-toggle="modal"
-															data-bs-target="#delete_project"><i
-																class="fa fa-trash-o m-r-5"></i> Delete</a>
-													</div>
-												</div>
-												<h4 class="project-title"><a href="">Project
-														Management</a></h4>
-												<small class="block text-ellipsis m-b-15">
-													<span class="text-xs">2</span> <span class="text-muted">open tasks,
-													</span>
-													<span class="text-xs">5</span> <span class="text-muted">tasks
-														completed</span>
-												</small>
-												<p class="text-muted">Lorem Ipsum is simply dummy text of the printing
-													and
-													typesetting industry. When an unknown printer took a galley of type
-													and
-													scrambled it...
-												</p>
-												
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<!-- /Projects Tab -->
+							
 
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 			</div>
 		</div>
@@ -244,5 +176,30 @@
 </div>
 
 <!-- /View Profile Modal -->
+
+<script>
+    function DataGet(id){
+        $.ajax({
+            url: "/employee/getdata/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+                $('#name').html(responce.value.name)
+                $('#catagory').html(responce.value.catagory)
+                $('#employee_id').html(responce.value.employee_id)
+                $('#email').html(responce.value.email)
+                $('#dob').html(responce.value.dob)
+                $('#address').html(responce.value.address)
+                $('#profileimg').attr("src",responce.value.emp_profile)
+				// $('#project_name').attr("src",responce.value.project_name)
+				// $('#client').attr("src",responce.value.client)
+                // $('#startdate').attr("src",responce.value.startdate)
+				// $('#enddate').attr("src",responce.value.enddate)
+            }
+			
+        })
+    }
+</script>
 
 {% endblock %}

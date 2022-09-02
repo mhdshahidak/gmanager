@@ -19,32 +19,6 @@
             </div>
         </div>
 
-
-        <!-- <div id="filter_inputs" class="card filter-card">
-            <div class="card-body pb-0">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <div class="row">
             <div class="col-sm-12">
                 <div class="card card-table">
@@ -54,6 +28,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Employee</th>
+                                        <th>Phone Number</th>
                                         <th>Email</th>
                                         <th>Joining Date</th>
                                         <th>Department</th>
@@ -61,99 +36,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for employee in all_emp %}
                                     <tr>
                                         <td>
                                             <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
+                                                <a href="" class="avatar avatar-sm me-2"><img
                                                         class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"
+                                                        src="{{employee.emp_profile.url}}"
                                                         alt="User Image"></a>
-                                                <a href="profile.html">Brian Johnson <span>9876543210</span></a>
+                                                <a href="" style="color: #4d13aa;">{{employee.name|title}}</a>
                                             </h2>
                                         </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="6705150e06090d080f0914080927021f060a170b024904080a">[email&#160;protected]</a>
-                                        </td>
-                                        <td>$295</td>
-                                        <td>16 Nov 2020</td>
-                                        <td><span class="badge badge-pill bg-success-light">Active</span></td>
+                                        <td>{{employee.phone}}</td>
+                                        <td><a href="">{{employee.email}}</a></td>
+                                        <td>{{employee.join_date|date:"d-m-y"}}</td>
+                                        <td>{{employee.catagory.title}}</td>
+                                        <td><span class="badge badge-pill bg-success-light">{{employee.status}}</span></td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-10.jpg' %}"
-                                                        alt="User Image"></a>
-                                                <a href="profile.html">Marie Canales <span>9876543210</span></a>
-                                            </h2>
-                                        </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="ee838f9c878b8d8f808f828b9dae8b968f839e828bc08d8183">[email&#160;protected]</a>
-                                        </td>
-                                        <td>$1750</td>
-                                        <td>8 Nov 2020</td>
-                                        <td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-05.jpg' %}"
-                                                        alt="User Image"></a>
-                                                <a href="profile.html">Barbara Moore <span>9876543210</span></a>
-                                            </h2>
-                                        </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="0a686b78686b786b676565786f4a6f726b677a666f24696567">[email&#160;protected]</a>
-                                        </td>
-                                        <td>$8295</td>
-                                        <td>24 Oct 2020</td>
-                                        <td><span class="badge badge-pill bg-success-light">Active</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-11.jpg' %}"
-                                                        alt="User Image"></a>
-                                                <a href="profile.html">Greg Lynch <span>9876543210</span></a>
-                                            </h2>
-                                        </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="3e594c5b595247505d567e5b465f534e525b105d5153">[email&#160;protected]</a>
-                                        </td>
-                                        <td>$3000</td>
-                                        <td>11 Oct 2020</td>
-                                        <td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-12.jpg' %}"
-                                                        alt="User Image"></a>
-                                                <a href="profile.html">Karlene Chaidez
-                                                    <span>9876543210</span></a>
-                                            </h2>
-                                        </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="bfd4decdd3dad1dadcd7ded6dbdac5ffdac7ded2cfd3da91dcd0d2">[email&#160;protected]</a>
-                                        </td>
-                                        <td>-</td>
-                                        <td>29 Sep 2020</td>
-                                        <td><span class="badge badge-pill bg-danger-light">Inactive</span></td>
-                                        </td>
-                                    </tr>
-                                    
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
