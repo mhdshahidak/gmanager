@@ -140,6 +140,7 @@ class Attendence(models.Model):
     punch_outtime = models.TimeField(null=True)
     morning = models.BooleanField(default=False)
     evening = models.BooleanField(default=False)
+    status = models.CharField(max_length = 25,default= 'Present')
 
 
     

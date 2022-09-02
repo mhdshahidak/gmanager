@@ -21,6 +21,9 @@ urlpatterns = [
 
 
     path('getemployeedata/<str:id>', views.getemployeedata, name="getemployeedata"),
+    path('getemployeeleave/<str:id>', views.getemployeeleave, name="getemployeeleave"),
+    path('leave', views.leave, name="leave"),
+    
     path('addingattendence', views.addingattendence, name="addingattendence"),
 
 

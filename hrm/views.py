@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers,Attendence
 from pm.models import Project
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 from django.contrib.auth.decorators import login_required
@@ -133,6 +133,33 @@ def addteam(request,id):
 @login_required(login_url='/')
 @auth_hrm
 def attantanceReport(request):
+    if request.method =='POST':
+        serachdate = request.POST['serachdate']
+        print(serachdate,'*'*7)
+        serachdate = request.POST['serachdate']
+        if Attendence.objects.filter(date=serachdate).exists():
+            print('exist')
+            presentdate = Attendence.objects.filter(status='Present').count()
+            absentdate = Attendence.objects.filter(status='Leave').count()
+            print(presentdate,absentdate)
+            employeedetails = Attendence.objects.filter(date=serachdate).all()
+
+            context={
+                "is_attantanceReport":True,
+                "presentdate":presentdate,
+                "absentdate":absentdate,
+                "employeedetails":employeedetails,
+                 "status":0
+
+            }
+            return render(request, 'hrm/attantancereport.html',context)
+
+
+        else:
+            context={
+                "status":1
+            }
+            return render(request, 'hrm/attantancereport.html',context)
     context = {
         "is_attantanceReport":True,
     }
@@ -152,11 +179,91 @@ def hrsettings(request):
 @auth_hrm
 def attantanceList(request):
     allemp = Employees.objects.all()
+    if request.method =='POST':
+        attendence = request.POST.getlist('attendence[]')
+        date = request.POST['date']
+        punchin = request.POST['punchin']
+        punchout = request.POST['punchout']
+        Employeeid = request.POST['Employeeid']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date ,punch_intime=punchin, punch_outtime=punchout)
+        saveattendence.save()
+        print(len(attendence))
+        if len(attendence) == 1 :
+            for i in enumerate(attendence):
+                print(i)
+                if i[1]=='Morning':
+                    print('morning')
+                    Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+                    return redirect ('/hrm/attantancelist')
+
+                elif i[1] == 'Afternoon':
+                    print('Afternoon')
+                    Attendence.objects.filter(id=saveattendence.id).update(evening=True)
+                    return redirect ('/hrm/attantancelist')   
+
+                else:
+                    print('dfvsfvbgf','@'*10)
+        elif len(attendence) == 2 :
+            print("BOTH WORKING","$"*10)
+            Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+            return redirect ('/hrm/attantancelist')
+        else :
+            return redirect ('/hrm/attantancelist')
+
+
+        # else:
+        #     print("not exist",'%'*4)        
+
+        # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
+        #     print('both working')
+        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+        #     return redirect ('/hrm/attantancelist')
+        # elif attendence[0] == 'Morning'and attendence[1] != 'Afternoon':
+        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+        #     return redirect ('/hrm/attantancelist')
+        # elif attendence[0] == 'Afternoon'and attendence[1] != 'Morning':
+        #     Attendence.objects.filter(id=saveattendence.id).update(evening=True)
+        #     return redirect ('/hrm/attantancelist')    
+
+
+
+        # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
+        #     print('both working')
+        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+        #     return redirect ('/hrm/attantancelist')
+        # elif attendence[0] == 'Morning' or attendence[0] == 'Afternoon':
+        #     print(attendence[0],'*'*10)
+        #     if attendence[0] == 'Morning':
+        #         print('else if working')
+        #         Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+        #         return redirect ('/hrm/attantancelist')
+        #     else:
+        #         print('else else working')
+        #         Attendence.objects.filter(id=saveattendence.id).update(evening=True)  
+        #         return redirect ('/hrm/attantancelist')
+        # else:
+        #     return redirect ('/hrm/attantancelist')
+
+                     
+
     context = {
         "is_attantanceList":True,
         "allemp" : allemp,
     }
     return render(request, 'hrm/attantancelist.html',context)
+
+
+
+
+def leave(request):
+    if request.method =='POST':
+        date = request.POST['date']
+        Employeeid = request.POST['idleave']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date, status='Leave')
+        saveattendence.save()
+        return redirect ('/hrm/attantancelist')
 
 
 
@@ -201,6 +308,25 @@ def getemployeedata(request,id):
         
     }
     return JsonResponse({'value': data})
+
+
+@csrf_exempt
+def getemployeeleave(request,id):
+    details =Employees.objects.get(id=id)
+    print(details)
+
+    data={
+        "id":details.id,
+        "name":details.name,
+        "employeeid":details.employee_id,
+         "catagory":details.catagory.title,
+        
+    }
+    return JsonResponse({'value': data})
+
+
+
+
 
 
 @csrf_exempt
