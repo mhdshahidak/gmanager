@@ -31,36 +31,41 @@
                             style="padding: 20px;border-radius: 20px;">
                             <thead class="thead-light">
                                 <tr>
-                                    <th> Date</th>
+                                    
+                                    <th>Sl.No</th>
                                     <th>Project</th>
-                                    <th>client</th>
                                     <th>Note</th>
-                                    <th>Documents</th>
+                                    
                                     <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
+
+
+                                {% for i in reworklist %}
                                 <tr>
                                     <td>
-                                        12/02/2022
+                                       {{forloop.counter}}
                                     </td>
                                     <td>
-                                        <a href="">Onflap</a>
-                                    </td>
-                                    <td>onflap it solutions </td>
-                                    <td>
-                                        <p>Lorem ipsum doloritaque incidunt quis. <br> Molestias  similique soluta!</p>
+                                        {{i.project.project.projectname}}
                                     </td>
                                     <td>
-                                        <a href="">uploaded video</a>
+                                        <p>{{i.note}}</p>
                                     </td>
+                                   
                                     <td>
-                                        <a href="">
+                                        <a onclick="Change_Status('{{ i.id }}')">
                                             <span class=" badge-pill btn bg-success-light text-center">
-                                                Complted</span>
+                                                Seen</span>
                                         </a>
                                     </td>
                                 </tr>
+
+                                {% endfor %}
+
+
+                               
                             </tbody>
                         </table>
                     </div>
@@ -73,4 +78,28 @@
 </div>
 
 
+
+
+<script>
+    function Change_Status(id){
+        $.ajax({
+            url: "/employee/Reworkstatus",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+
+
+
+    }
+</script>
 {% endblock %}

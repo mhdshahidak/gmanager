@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from ceo.models import EmergenctContact, Employees, SubCatagory,TeamMembers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles
+from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
 from gmanager.decorators import auth_employee
 
 from django.db.models import Q
@@ -97,9 +97,15 @@ def allProjects(request):
 @auth_employee
 def empRework(request):
     emp = request.user.employee
+    employeedata=Employees.objects.get(id=request.user.employee.id)
+    listdata = ProjectStatus.objects.get(member__team=employeedata,status='Rework') 
+    # |ProjectStatus.objects.filter(member__lead=employeedata)
+    reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
+    print(reworklist)
     context = {
         "is_rework":True,
-        "emp":emp
+        "emp":emp,
+        "reworklist":reworklist
     }
     return render(request,'employee/rework.html',context)
 
@@ -346,3 +352,16 @@ def getdata(request,id):
     #    "enddate":project.project.client.endingdate,
     }
     return JsonResponse({'value': data})
+
+
+
+
+@csrf_exempt
+def Reworkstatus(request):
+    id=request.POST['EnquaryID']
+    Reworks.objects.filter(id=id).update(status = 'Seen')
+    return JsonResponse({'message': 'sucesses'}) 
+
+
+
+    
