@@ -515,7 +515,8 @@ def qcrework(request):
     id=request.POST['id']
     typereason=request.POST['reason']
     projectidd=Project.objects.get(id=id)
-    reworkdata= Reworks(project=projectidd,note=typereason)
+    prostatus = ProjectStatus.objects.get(project=projectidd)
+    reworkdata= Reworks(project=prostatus,note=typereason)
     reworkdata.save()
     projectcount = ProjectStatus.objects.get(project=projectidd)
     projectcount.rework_count = projectcount.rework_count + 1
