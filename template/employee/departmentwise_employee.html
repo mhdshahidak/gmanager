@@ -1,0 +1,71 @@
+{% extends "employee/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">{{category.title}} LIST</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active">{{category.title}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Employee ID</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th class="text-nowrap">Join Date</th>
+                                <!-- <th>Role</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for employee in employees %}
+                            <tr>
+                                <td>
+                                    <h2 class="table-avatar">
+                                        <a href="" class="avatar">
+                                            <img alt="" src="{{employee.emp_profile.url}}">
+                                        </a>
+                                        <a href="" style="color: #6610f2;">{{employee.name|title}}<span></span></a>
+                                    </h2>
+                                </td>
+                                <td>{{employee.employee_id|upper}}</td>
+                                <td>{{employee.email}}</td>
+                                <td>{{employee.phone}}</td>
+                                <td>{{employee.join_date|date:"d-m-y"}}</td>
+                                <!-- <td>
+                                    <div class="text-center">
+                                        <a href="" class="btn btn-white btn-sm btn-rounded" aria-expanded="false">title}} </a>
+                            
+                                    </div>
+                                </td> -->
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

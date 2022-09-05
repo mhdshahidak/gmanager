@@ -1,9 +1,10 @@
+from collections import ChainMap
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ceo.models import *
 from django.contrib.auth import get_user_model
-from . forms import EmergenctResetForm, LeaveRequestsForm, ExcuseRequestsForm, ProfileResetForm
+from . forms import ChangePasswordForm, EmergenctResetForm, LeaveRequestsForm, ExcuseRequestsForm, ProfileResetForm
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 # Create your views here.
@@ -54,9 +55,20 @@ def attendanceRreport(request):
 
 @login_required(login_url='/')
 def settings(request):
-    user_name = request.user.employee.catagory.catagory.catagory_title
+# <<<<<<< HEAD
+#     change_form = ChangePasswordForm(request.POST or None)
+#     # now_date = datetime.now()
+#     # if request.method == "POST":
+#     #     if change_form.is_valid():           
+#     #         data = change_form.save() 
+#     # user_name = request.user.employee.catagory.catagory.catagory_title
+#     # print(user_name,'%'*56)
+# =======
+#     user_name = request.user.employee.catagory.catagory.catagory_title
 
+# >>>>>>> 09d27a103151de39ac14138296195c96bf396735
     n = Employees.objects.get(id=request.user.employee.id)
+    print(n)
     m= EmergenctContact.objects.get(employee=n)
     if request.method == 'POST':
         empform = ProfileResetForm(request.POST or None, request.FILES or None, instance=n) 
@@ -95,6 +107,7 @@ def settings(request):
     context={
         "empform" : empform,
         "empcontactform" : empcontactform,
+        # "change_form":change_form
     } 
     return render (request,'common/settings.html',context)
     

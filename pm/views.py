@@ -21,6 +21,7 @@ def base(request):
 @login_required(login_url='/')
 @auth_pm
 def index(request):
+    pm = request.user.employee
     enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
@@ -28,10 +29,9 @@ def index(request):
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
-
-
     context={
         "is_pmindex":True,
+        "pm":pm,
         "addedtoprop":addedtoprop,
         "billcreation":billcreation,
         "billadvance":billadvance,
@@ -44,19 +44,25 @@ def index(request):
     return render (request,'pm/index.html',context)    
 
 
+
 @login_required(login_url='/')
 @auth_pm
 def enquiry(request):
+    pm = request.user.employee
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
     context={
         "is_enquiry":True,
+        "pm":pm,
         "enquirylistdata":enquirylistdata
     }
     return render (request,'pm/enquiry/enquiry.html',context)     
 
+
+
 @login_required(login_url='/')
 @auth_pm
 def viewenquries(request,id):
+    pm = request.user.employee
     details = Enquiry.objects.get(id=id)
     forms=PraposalpdfForm(request.POST,request.FILES)
     if request.method == 'POST': 
@@ -72,20 +78,24 @@ def viewenquries(request,id):
 
         context={
         "details":details ,
-        "forms":forms
+        "forms":forms,
+        "pm":pm,
         }
         return render (request,'pm/enquiry/viewenquries.html',context) 
     return render (request,'pm/enquiry/viewenquries.html') 
+
+
 
 
 @login_required(login_url='/')
 @auth_pm
 def proposal(request):
     data = Enquiry.objects.filter(status = 'Added To Proposal')
-    
+    pm = request.user.employee
     context ={
         "is_proposal":True,
         "data":data,
+        "pm":pm,
     }
     return render (request,'pm/proposal.html',context)     
 
@@ -94,38 +104,52 @@ def proposal(request):
 @login_required(login_url='/')
 @auth_pm
 def project(request):
+    pm = request.user.employee
     context = {
         "is_project":True,
+        "pm":pm,
     }
     return render (request,'pm/project/project.html',context)    
+
+
 
 @login_required(login_url='/')
 @auth_pm
 def projectlist(request):
+    pm = request.user.employee
     context = {
         "is_projectlist":True,
+        "pm":pm,
     }
     return render (request,'pm/project/projectlist.html',context)  
+
+
 
 @login_required(login_url='/')
 @auth_pm
 def viewproject(request):
     return render (request,'pm/project/viewproject.html')  
 
+
+
 @login_required(login_url='/')
 @auth_pm
 def unassigneproject(request):
+    pm = request.user.employee
     enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
     context={
         "is_unassigneproject":True,
         "enquirylist":enquirylist,
+        "pm":pm,
     }
     return render (request,'pm/project/unassigneproject.html',context)         
+
 
 
 @login_required(login_url='/')
 @auth_pm
 def addproject(request,id):
+    pm = request.user.employee
     deatils= Enquiry.objects.get(id=id)
     form=ProjectForm(request.POST)
     if request.method == 'POST': 
@@ -142,23 +166,32 @@ def addproject(request,id):
 
         context={
        
-        "form":form
+        "form":form,
+        "pm":pm,
         }
         return render (request,'pm/project/addproject.html',context)
     return render (request,'pm/project/addproject.html',context)  
 
+
+
 @login_required(login_url='/')
 @auth_pm
 def addteam(request,id):
+    pm = request.user.employee
     employee = Employees.objects.all()
     context={
         "employee":employee,
-        "id":id
+        "id":id,
+        "pm":pm,
     }
     return render (request,'pm/project/addteam.html',context)
+
+
+
 @login_required(login_url='/')
 @auth_pm
 def addschedule(request,id):
+    pm = request.user.employee
     project_obj = Project.objects.get(id=id)
     team_mbr = ProjectMembers.objects.get(project=project_obj)
     mbr = ProjectMembers.objects.filter(project=project_obj).values('team__name','team__emp_profile')
@@ -178,29 +211,37 @@ def addschedule(request,id):
         "team":team_mbr,
         "mbr":mbr,
         "project":project_obj,
+        "pm":pm,
         # "members":memberrs,
     }
-
     return render (request,'pm/project/addschedule.html',context)    
+
 
 
 @login_required(login_url='/')
 @auth_pm
 def meetings(request):
+    pm = request.user.employee
     meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
     context = {
         "is_meetings":True,
         "meetings":meetings,
+        "pm":pm,
     }
     return render(request,'pm/meetings.html',context)
+
+
+
 
 @login_required(login_url='/')
 @auth_pm
 def task(request):
+    pm = request.user.employee
     projects = Project.objects.all()
     context = {
         "is_task":True,
         "projects" : projects,
+        "pm":pm,
     }
     return render (request,'pm/project/task.html', context)
     
@@ -218,77 +259,88 @@ def viewtask(request):
 @login_required(login_url='/')
 @auth_pm
 def srs(request):
+    pm = request.user.employee
     viewsrs = SRS.objects.filter(project__status='SRS uploaded')
     context={
         "is_srs":True,
-        "viewsrs":viewsrs
+        "viewsrs":viewsrs,
+        "pm":pm,
     }
     return render (request,'pm/project/srs.html',context)  
+
 
 
 @login_required(login_url='/')
 @auth_pm
 def fullprojectlist(request):
+    pm = request.user.employee
     context = {
         "is_fullprojectlist":True,
+        "pm":pm,
     }
     return render (request,'pm/project/fullprojectlist.html',context)  
+
 
 
 @login_required(login_url='/')
 @auth_pm
 def dailyprogress(request):
+    pm = request.user.employee
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
     projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct()
-    
-
     context={
         "is_dailyprogress":True,
-        "projectlists":projectlists
+        "projectlists":projectlists,
+        "pm":pm,
     }
-
     return render (request,'pm/dailyprogress.html',context)    
+
+
 
 @login_required(login_url='/')
 @auth_pm
 def viewdailyreport(request,id):
+    pm = request.user.employee
     today = datetime.now().date()
     time = datetime.now().time()
     projectdata = Project.objects.get(id=id)
     morning= DailyProgress.objects.filter(date=today,project=projectdata,status='Morning')
     afternoon= DailyProgress.objects.filter(date=today,project=projectdata,status='Afternoon')
     evening= DailyProgress.objects.filter(date=today,project=projectdata,status='Evening')
-   
-
-        
     context={
         "morning":morning,
         "afternoon":afternoon,
-        "evening":evening
+        "evening":evening,
+        "pm":pm,
     }
     return render (request,'pm/viewdailyreport.html',context)  
     
 
+
 @login_required(login_url='/')
 @auth_pm
 def qcapprovel(request):
-
+    pm = request.user.employee
     qclist= ProjectStatus.objects.filter(Q(status='Qc') & Q(completion__gte = 95))
     context ={
         "is_qcapprovel":True,
-        "qclist":qclist 
+        "qclist":qclist ,
+        "pm":pm,
     }
     return render (request,'pm/qcapprovel.html',context)   
+
 
 
 @login_required(login_url='/')
 @auth_pm
 def leaverequest(request):
+    pm = request.user.employee
     leave = LeaveRequests.objects.filter(pm_accept = False , status ='Waiting')
     context={
         "is_leaverequest":True,
-        "leave":leave
+        "leave":leave,
+        "pm":pm,
     }
     return render (request,'pm/leaverequest.html',context)    
     
