@@ -48,6 +48,17 @@
                         <li><a href="">New Tasks</a></li>                        
                     </ul>
                 </li>
+                <li class="submenu">
+                    <a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
+                    <ul style="display: none;">
+                        <!-- <li><a href="">All Employees</a></li>
+                        <li><a href="">Leaves </a></li>
+                        <li><a href="">Leave Settings</a></li>
+                        <li><a href="">Attendance</a></li> -->
+                        <li {% if is_allstaff %} class="active" {% endif %}><a href="{% url 'pm:allstaff' %}">All Staffs</a></li>
+                        <li {% if is_departmentwise %} class="active" {% endif %}><a href="{% url 'pm:departmentwise' %}">Departments</a></li>
+                    </ul>
+                </li>
                
                 <li class="menu-title"> 
                     <span>More</span>

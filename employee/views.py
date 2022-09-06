@@ -98,16 +98,28 @@ def allProjects(request):
 def empRework(request):
     emp = request.user.employee
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    listdata = ProjectStatus.objects.get(member__team=employeedata,status='Rework') 
-    # |ProjectStatus.objects.filter(member__lead=employeedata)
-    reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
-    print(reworklist)
-    context = {
+    
+    if ProjectStatus.objects.filter(member__team=employeedata,status='Rework').exists():
+        listdata = ProjectStatus.objects.get(member__team=employeedata,status='Rework')
+        reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
+        context = {
         "is_rework":True,
         "emp":emp,
         "reworklist":reworklist
-    }
-    return render(request,'employee/rework.html',context)
+        }
+        return render(request,'employee/rework.html',context)
+    else:
+        return render(request,'employee/rework.html')
+
+    # |ProjectStatus.objects.filter(member__lead=employeedata)
+    # reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
+    # print(reworklist)
+    # context = {
+    #     "is_rework":True,
+    #     "emp":emp,
+    #     "reworklist":reworklist
+    # }
+    # return render(request,'employee/rework.html',context)
 
 
 

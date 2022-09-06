@@ -3,7 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
 from crm.models import Enquiry,EnquiryNote
-from ceo.models import Employees ,LeaveRequests
+from ceo.models import Employees ,LeaveRequests,SubCatagory
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from . form import PraposalpdfForm,ProjectForm
@@ -523,3 +523,59 @@ def qcrework(request):
     projectcount.save()
     status=ProjectStatus.objects.filter(project=projectidd).update(status='Rework',completion=94)
     return JsonResponse({'value': 'msg'})
+
+
+
+
+
+@login_required(login_url='/')
+def allstaff(request):
+    all_emp = Employees.objects.all().order_by('name')
+
+   
+      
+    context={
+            "is_allstaff" : True,
+            "employees":all_emp,
+        }
+    return render (request,'pm/allstaff.html',context)    
+
+
+
+
+@login_required(login_url='/')
+def departmentwise(request):
+    department = SubCatagory.objects.all()
+    class cat:
+        def __init__(self,title,counts,id) :
+            self.title = title
+            self.counts = counts
+            self.id = id
+
+    estimatelist=[]
+    for i in department:
+        id=i.id
+        emp_count = Employees.objects.filter(catagory=i).count()
+       
+        estimatelist.append(cat(i,emp_count,id))
+      
+    context = {
+        "is_departmentwise" : True,
+        "emp_count":estimatelist,
+        # "departments":department,
+            }
+    return render (request,'pm/departmentwise.html',context)    
+
+
+
+
+@login_required(login_url='/')
+def employeelist(request,id):
+    category = SubCatagory.objects.get(id=id)
+    employees = Employees.objects.filter(catagory=category)
+    context = {
+        "category":category,
+        "employees":employees
+    }
+    return render(request,'pm/employeelist.html',context)
+ 

@@ -240,7 +240,7 @@ def allstaff(request):
             emergecy = EmergenctContact(employee=form_data)
             emergecy.save()
 
-            return redirect('ceo:ceodashboard')
+            return redirect('ceo:allstaff')
         else:
             pass
 

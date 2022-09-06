@@ -57,32 +57,36 @@
                 <div class="w-sidebar">
                     <div class="widget widget-category">
                         <h4 class="widget-title"><i class="fa fa-folder-o"></i> Categories</h4>
+                        {% if details.files.url != None %}
                         <a href="{{ details.files.url }}"> <i class="fa fa-download"></i>Download</a>
-                       
-                    </div>
+
+
+                        {% endif %}
+
+                    </div>  
 
 
                 </div>
                 <div class="w-sidebar">
                     <div class="widget widget-category">
                         <h4 class="widget-title"><i class="fa fa-upload"></i> Praposal</h4>
-                        <form method="post"  enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{forms.praposalpdf}}
                             <div class="request-btn mt-4">
                                 <button type="submit" class="btn btn-primary">Send proposal</button>
                             </div>
                         </form>
-                       
+
                     </div>
 
 
                 </div>
-                
-                
+
+
             </div>
-            
-            
+
+
         </div>
         <!-- /Content End -->
 
