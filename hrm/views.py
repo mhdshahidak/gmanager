@@ -39,6 +39,7 @@ def employeeList(request):
             EmergenctContact.objects.filter(id=empcontact.id).update(employee=form_data)
             User = get_user_model()
             User.objects.create_user(username=form_data.username, password=form_data.password,employee=form_data)
+            return redirect('/hrm/employees')
         else:
             context={
             "empform" : empform,
@@ -211,42 +212,6 @@ def attantanceList(request):
         else :
             return redirect ('/hrm/attantancelist')
 
-
-        # else:
-        #     print("not exist",'%'*4)        
-
-        # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
-        #     print('both working')
-        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
-        #     return redirect ('/hrm/attantancelist')
-        # elif attendence[0] == 'Morning'and attendence[1] != 'Afternoon':
-        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True)
-        #     return redirect ('/hrm/attantancelist')
-        # elif attendence[0] == 'Afternoon'and attendence[1] != 'Morning':
-        #     Attendence.objects.filter(id=saveattendence.id).update(evening=True)
-        #     return redirect ('/hrm/attantancelist')    
-
-
-
-        # if attendence[0] == 'Morning' and attendence[1] == 'Afternoon':
-        #     print('both working')
-        #     Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
-        #     return redirect ('/hrm/attantancelist')
-        # elif attendence[0] == 'Morning' or attendence[0] == 'Afternoon':
-        #     print(attendence[0],'*'*10)
-        #     if attendence[0] == 'Morning':
-        #         print('else if working')
-        #         Attendence.objects.filter(id=saveattendence.id).update(morning=True)
-        #         return redirect ('/hrm/attantancelist')
-        #     else:
-        #         print('else else working')
-        #         Attendence.objects.filter(id=saveattendence.id).update(evening=True)  
-        #         return redirect ('/hrm/attantancelist')
-        # else:
-        #     return redirect ('/hrm/attantancelist')
-
-                     
-
     context = {
         "is_attantanceList":True,
         "allemp" : allemp,
@@ -335,3 +300,36 @@ def addingattendence(request):
     # print(choice)
     
     pass
+
+
+
+def employeedetails(request,id):
+    details = Employees.objects.get(id=id)
+    # project = ProjectMembers.objects.get(team=details)
+    data={
+        "name":details.name,
+        "catagory":details.catagory.title,
+        "employee_id":details.employee_id,
+        "email":details.email,
+        "dob":details.dob,
+        "address":details.address,
+       "emp_profile":details.emp_profile.url,
+       "phone":details.phone,
+       "whatsapp_number":details.whatsapp_number,
+       "join_date":details.join_date,
+       "district":details.district,
+       "state":details.state,
+       "nationality":details.nationality,
+       "marital_status":details.marital_status,
+       
+   
+    }
+    return JsonResponse({'value': data})
+
+
+
+
+
+def deleteemployee(request,id):
+    Employees.objects.get(id=id).delete()
+    return redirect('/hrm/employees')

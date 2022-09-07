@@ -1,0 +1,286 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+	<!-- Page Content -->
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h3 class="page-title">Employee</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+						<li class="breadcrumb-item active">Employee</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /Page Header -->
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-striped custom-table mb-0 datatable">
+						<thead>
+							<tr>
+								<th>Employee</th>
+								<th>Department</th>
+								<th class="text-center">Status</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							{% for emp in allemp %}
+							<tr>
+								<td>
+									<h2 class="table-avatar">
+										<a href="" class="avatar"><img alt="" src="{{emp.emp_profile.url}}"></a>
+										<a href="profile.html">{{emp.name}} br
+											<small class="block text-ellipsis mt-1 ms-5">
+												<span class="text-muted">
+													{{emp.employee_id}}
+												</span>
+											</small></a>
+									</h2>
+								</td>
+								<td>{{emp.catagory}}</td>
+								<td class="text-center">
+									<button onclick="Getemployeedata({{emp.id}})" class="btn btn-outline-success btn-sm"
+										data-bs-toggle="modal" data-bs-target="#add_client">Add Attantance</button>
+									<button onclick="Getemployeeleave({{emp.id}})" class="btn btn-outline-danger btn-sm"
+										data-bs-toggle="modal" data-bs-target="#add_leave">Add Leave</button>
+								</td>
+
+							</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Page Content -->
+
+	<!-- Add Attantance modal -->
+	<div id="add_client" class="modal custom-modal fade" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Client</h5>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Name </label>
+									<input class="form-control" id="Name" readonly type="text">
+									<input class="form-control" id="id" readonly type="hidden">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Employee ID </label>
+									<input class="form-control" id="employeeid" readonly type="text">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Category</label>
+									<input class="form-control" id="catagory" readonly type="text">
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Date</label>
+									<input class="form-control" name="date" type="date">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Puch In Time </label>
+									<input class="form-control floating" name="punchin" type="time">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Punch Out Time</label>
+									<input class="form-control" name="punchout" type="time">
+								</div>
+							</div>
+							<input type="hidden" name="Employeeid" id="idval">
+
+
+						</div>
+						<div class="table-responsive m-t-15">
+							<table class="table table-striped custom-table">
+								<thead>
+									<tr>
+										<th>Mark Attantance</th>
+										<th class="text-center">Morning</th>
+										<th class="text-center">After Noon</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td> Attantance</td>
+										<td class="text-center">
+											<input type="checkbox" name="attendence[]" value="Morning">
+										</td>
+										<td class="text-center">
+											<input type="checkbox" name="attendence[]" value="Afternoon">
+										</td>
+
+									</tr>
+									<!-- <tr>
+													<td>Yesterday Attantance</td>
+													<td class="text-center">
+														<input checked="" type="checkbox">
+													</td>
+													<td class="text-center">
+														<input checked="" type="checkbox">
+													</td>
+													
+												</tr> -->
+
+								</tbody>
+							</table>
+						</div>
+						<div class="submit-section">
+							<button type="submit" class="btn btn-primary submit-btn">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /Add Client Modal -->
+
+	<div id="add_leave" class="modal custom-modal fade" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Client</h5>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="/hrm/leave">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Name </label>
+									<input class="form-control" id="Nameleave" readonly type="text">
+									<input class="form-control" id="idleave" name="idleave" readonly type="hidden">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Employee ID </label>
+									<input class="form-control" id="employeeidleave" readonly type="text">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Category</label>
+									<input class="form-control" id="catagoryleave" readonly type="text">
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="col-form-label">Date</label>
+									<input class="form-control" name="date" type="date">
+								</div>
+							</div>
+
+
+
+						</div>
+
+						<div class="submit-section">
+							<button type="submit" class="btn btn-primary submit-btn">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+</div>
+
+
+
+<script>
+	function Getemployeedata(id) {
+
+		$.ajax({
+			url: "/crm/getemployeedata/" + id,
+			type: 'GET',
+
+			success: function (responce) {
+
+
+				// console.log(responce)
+				$('#idval').val(responce.value.id)
+				$('#Name').val(responce.value.name)
+				$('#employeeid').val(responce.value.employeeid)
+
+				$('#catagory').val(responce.value.catagory)
+
+
+
+
+			}
+
+		})
+
+	}
+
+
+
+	function Getemployeeleave(id) {
+
+		$.ajax({
+			url: "/crm/getemployeeleave/" + id,
+			type: 'GET',
+
+			success: function (responce) {
+
+
+				// console.log(responce)
+
+
+				$('#idleave').val(responce.value.id)
+				$('#Nameleave').val(responce.value.name)
+				$('#employeeidleave').val(responce.value.employeeid)
+
+				$('#catagoryleave').val(responce.value.catagory)
+
+
+
+
+			}
+
+		})
+
+	}
+</script>
+
+{% endblock %}
