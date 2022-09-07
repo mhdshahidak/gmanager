@@ -26,12 +26,13 @@
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                        <a href="{% url 'pm:enquiry' %}">
+                            <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+                        </a>
                         </span>
                         <div class="dash-widget-info">
-                            <h3>{{enquirylist}}</h3>
-
-                            <span>Enquiries list </span>
+                            <h3>{{enquirylistcount}}</h3>
+                            <span>Proposal List </span>
                         </div>
                     </div>
                 </div>
@@ -41,11 +42,13 @@
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
+                        <a href="{% url 'pm:proposal' %}">
                             <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+                        </a>
                         </span>
                         <div class="dash-widget-info">
                             <h3>{{addedtoprop}}</h3>
-                            <span>Added to Praposal </span>
+                            <span>Proposal Sented</span>
                         </div>
                     </div>
                 </div>
@@ -79,12 +82,12 @@
                 </div>
 
             </div>
-
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            <a href="{% url 'pm:unassigneproject' %}">
+                            <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt=""></a>
                         </span>
                         <div class="dash-widget-info">
                             <h3>{{ advancepaid}}</h3>
@@ -106,6 +109,48 @@
                     </div>
                 </div>
 
+            </div>         
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <a href="{% url 'pm:qcapprovel' %}"><img src="{% static 'ceo/img/not_started.jpg' %}" alt=""></a>
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{waitforqc}}</h3>
+                            <span>Waiting For QC </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{enquirylist}}</h3>
+
+                            <span>Enquiries list </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{leavecount}}</h3>
+
+                            <span>Leave Request </span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -135,7 +180,7 @@
                                 {% for enquiry in enquirylistdata %}
                                     <tr>
                                         <td>
-                                            <h2><a href="">{{enquiry.projectname}}</a></h2>
+                                            <h2><a href="{% url 'pm:viewenquries' enquiry.id %}">{{enquiry.projectname}}</a></h2>
                                         </td>
                                         <td>{{enquiry.clientname}}</td>
                                         <td>{{enquiry.phone}}</td>
