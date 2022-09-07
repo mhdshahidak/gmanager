@@ -80,12 +80,14 @@ def allProjects(request):
     print(project_count)
     ongoing = ProjectStatus.objects.filter(status = 'On Going').exclude(status='Qc')
     qc_projects = ProjectStatus.objects.filter(status='Qc')
+    allproject =ProjectStatus.objects.filter(Q(member__lead = request.user.employee) | Q(member__team = request.user.employee))
     context = {
         "emp":emp,
         "is_allprojects":True,
         "ongoing":ongoing,
         "qc_projects":qc_projects,
-        "project_count":project_count
+        "project_count":project_count,
+        "allproject":allproject
         
     }
     return render(request,'employee/projects.html',context)
@@ -375,5 +377,22 @@ def Reworkstatus(request):
     return JsonResponse({'message': 'sucesses'}) 
 
 
-
+def projeclist(request):
     
+    return render(request,'employee/projeclist.html')
+
+
+
+def detailview(request,id):
+    projectdetail = Project.objects.get(id=id)
+    daily_report = DailyProgress.objects.filter(project=projectdetail).values('date','status','note','employee__name')
+    progressreport = ProjectStatus.objects.get(project=projectdetail)
+    members =ProjectMembers.objects.filter(project=projectdetail).values('team__name','team__id','team__emp_profile','team__catagory__title')
+
+    context={
+        "projectdetail":projectdetail,
+        "daily_report":daily_report,
+        "progressreport":progressreport,
+        "members":members
+    }
+    return render(request,'employee/detailviewproject.html',context)

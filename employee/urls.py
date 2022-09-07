@@ -36,6 +36,12 @@ urlpatterns = [
    path('getprofiledata/<int:id>',views.getprofiledata,name='getprofiledata'),
    path('getdata/<int:id>',views.getdata,name='getdata'),
    path('Reworkstatus',views.Reworkstatus,name='Reworkstatus'),
+
+
+
+
+   path('projeclist',views.projeclist,name='projeclist'),
+   path('detailview/<int:id>',views.detailview,name='detailview'),
     
 ]
 
