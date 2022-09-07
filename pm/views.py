@@ -3,7 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
 from crm.models import Enquiry,EnquiryNote
-from ceo.models import Employees ,LeaveRequests
+from ceo.models import Employees ,LeaveRequests,SubCatagory
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from . form import PraposalpdfForm,ProjectForm
@@ -28,10 +28,14 @@ def index(request):
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    enquirylistcount = Enquiry.objects.filter(status = 'Enquiry').count()
+    waitforqc = Project.objects.filter(status="Qc").count()
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+    leavecount = LeaveRequests.objects.filter(pm_accept=False,status="Waiting").count()
     context={
         "is_pmindex":True,
         "pm":pm,
+        "enquirylistcount":enquirylistcount,
         "addedtoprop":addedtoprop,
         "billcreation":billcreation,
         "billadvance":billadvance,
@@ -39,6 +43,8 @@ def index(request):
         "rejected":rejected,
         "enquirylist":enquirylist,
         "enquirylistdata":enquirylistdata,
+        "waitforqc":waitforqc,
+        "leavecount":leavecount,
 
     }
     return render (request,'pm/index.html',context)    
@@ -178,7 +184,7 @@ def addproject(request,id):
 @auth_pm
 def addteam(request,id):
     pm = request.user.employee
-    employee = Employees.objects.all()
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
     context={
         "employee":employee,
         "id":id,
@@ -274,9 +280,11 @@ def srs(request):
 @auth_pm
 def fullprojectlist(request):
     pm = request.user.employee
+    project = Project.objects.exclude(status="Completed")
     context = {
         "is_fullprojectlist":True,
         "pm":pm,
+        "projects":project,
     }
     return render (request,'pm/project/fullprojectlist.html',context)  
 
@@ -392,6 +400,7 @@ def leadersearch(request):
         "id":details.id,
         "name":details.name,
         "member":member_obj.id,
+        "profile":details.emp_profile.url,
        
         
     }
@@ -523,3 +532,59 @@ def qcrework(request):
     projectcount.save()
     status=ProjectStatus.objects.filter(project=projectidd).update(status='Rework',completion=94)
     return JsonResponse({'value': 'msg'})
+
+
+
+
+
+@login_required(login_url='/')
+def allstaff(request):
+    all_emp = Employees.objects.all().order_by('name')
+
+   
+      
+    context={
+            "is_allstaff" : True,
+            "employees":all_emp,
+        }
+    return render (request,'pm/allstaff.html',context)    
+
+
+
+
+@login_required(login_url='/')
+def departmentwise(request):
+    department = SubCatagory.objects.all()
+    class cat:
+        def __init__(self,title,counts,id) :
+            self.title = title
+            self.counts = counts
+            self.id = id
+
+    estimatelist=[]
+    for i in department:
+        id=i.id
+        emp_count = Employees.objects.filter(catagory=i).count()
+       
+        estimatelist.append(cat(i,emp_count,id))
+      
+    context = {
+        "is_departmentwise" : True,
+        "emp_count":estimatelist,
+        # "departments":department,
+            }
+    return render (request,'pm/departmentwise.html',context)    
+
+
+
+
+@login_required(login_url='/')
+def employeelist(request,id):
+    category = SubCatagory.objects.get(id=id)
+    employees = Employees.objects.filter(catagory=category)
+    context = {
+        "category":category,
+        "employees":employees
+    }
+    return render(request,'pm/employeelist.html',context)
+ 

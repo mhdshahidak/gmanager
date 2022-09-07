@@ -1,4 +1,4 @@
-{% extends 'ceo/partials/base.html' %}
+{% extends 'pm/partials/base.html' %}
 {% load static %}
 {% block content %}
 
@@ -60,7 +60,7 @@
 
                 <div class="profile-widget">
                     <div class="profile-img">
-                        <a href="{% url 'ceo:employeelist' %}" class="avatar"><img alt=""
+                        <a href="" class="avatar"><img alt=""
                                 src="{% static 'ceo/img/profiles/avatar-29.jpg' %}"></a>
                     </div>
                     <div class="dropdown profile-action">
@@ -82,7 +82,7 @@
                             {{department.title}}
                         </a>
                     </h5>
-                    <a href="{% url 'ceo:departmentwiseemployee' department.id  %}" class="btn btn-white btn-sm m-t-10"
+                    <a href="{% url 'pm:employeelist' department.id  %}" class="btn btn-white btn-sm m-t-10"
                         class="btn add-btn">View Profile</a>
                 </div>
             </div>

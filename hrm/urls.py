@@ -25,7 +25,8 @@ urlpatterns = [
     path('leave', views.leave, name="leave"),
     
     path('addingattendence', views.addingattendence, name="addingattendence"),
-
+    path('employeedetails/<str:id>', views.employeedetails, name="employeedetails"),
+    path('deleteemployee/<str:id>', views.deleteemployee, name="deleteemployee"),
 
     
 

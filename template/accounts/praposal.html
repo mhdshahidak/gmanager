@@ -34,6 +34,7 @@
                                 <th>Whatsapp  Number </th>
                                 <th>Email </th>
                                 <th>Date & Time </th>
+                                <th>View Praposal</th>
                                
                                 
                                 <th class="text-end">Action</th>
@@ -43,19 +44,20 @@
                             {% for i in praposallist %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td> {{ i.projectname }}
+                                <td> {{ i.enquiry.projectname }}
                                     <small class="block text-ellipsis">
-                                        <span class="text-muted">{{ i.type }} </span>
+                                        <span class="text-muted">{{ i.enquiry.type }} </span>
                                     </small>
                                 </td>
-                                <td>{{ i.clientname }}</td>
-                                <td>{{ i.whatsapp }}</td>
-                                <td>{{ i.email }}</td>
-                                <td>{{ i.enquirydate }}</td>
+                                <td>{{ i.enquiry.clientname }}</td>
+                                <td>{{ i.enquiry.whatsapp }}</td>
+                                <td>{{ i.enquiry.email }}</td>
+                                <td>{{ i.enquiry.enquirydate }}</td>
+                                <th><a href="{{ i.praposalpdf.url }}"><i class="fa fa-download"></i> download</a></th>
                                 
                                 <td class="text-end">
                                     
-                                    <button onclick="ChangeBill({{ i.id }})" class="btn  badge-pill bg-success-light m-t-10">Bill Sented </button>
+                                    <button onclick="ChangeBill({{ i.enquiry.id }})" class="btn  badge-pill bg-success-light m-t-10">Bill Sented </button>
                                     
                                 </td>
                             </tr>

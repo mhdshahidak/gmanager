@@ -26,28 +26,35 @@
 
         <div class="row">
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>112</h3>
-                            <span>Quatation Pending(50%)</span>
+                <a href="{% url 'accounts:praposal' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{createqotation}}</h3>
+                                <span>Create Quotation</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                </a>
+               
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>44</h3>
-                            <span>Full Payment(100%)</span>
+                <a href="{% url 'accounts:followuplist' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{pendingadvance}}</h3>
+                                <span>Pending Advance</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                </a>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
@@ -68,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
 

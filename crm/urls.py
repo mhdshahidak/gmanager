@@ -21,4 +21,22 @@ urlpatterns = [
     path('changedata/<str:id>',views.changedata,name='changedata'),
     
     
-]
+
+
+    path('attantancelist', views.attantanceList, name="attantancelist"),
+    path('attantancereport', views.attantanceReport, name="attantancereport"),
+    path('getemployeedata/<str:id>', views.getemployeedata, name="getemployeedata"),
+    path('getemployeeleave/<str:id>', views.getemployeeleave, name="getemployeeleave"),
+    path('adding-leave', views.leave, name="addingleave"),
+
+
+
+    path('allstaff', views.allstaff, name='allstaff'),
+    path('departmentwise', views.departmentwise, name='departmentwise'),
+    path('employeelist/<int:id>',views.employeelist,name="employeelist"),
+    path('addclient', views.addclient, name='addclient'),
+
+
+
+    
+]   

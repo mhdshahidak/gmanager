@@ -50,4 +50,10 @@ urlpatterns = [
     path('qcrework', views.qcrework, name='qcrework'),
 
 
-]
+
+
+
+    path('allstaff', views.allstaff, name='allstaff'),
+    path('departmentwise', views.departmentwise, name='departmentwise'),
+    path('employeelist/<int:id>',views.employeelist,name="employeelist"),
+]    

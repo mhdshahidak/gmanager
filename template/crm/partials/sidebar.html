@@ -28,6 +28,23 @@
                             <li {% if is_feedBack %} class="active" {% endif %}> 
 								<a href="{% url 'crm:feedback' %}"><i class="la la-comment-dots"></i> <span>Feed back</span></a>
 							</li>
+							<li class="submenu">
+								<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<!-- <li><a href="">All Employees</a></li>
+									<li><a href="">Leaves </a></li>
+									<li><a href="">Leave Settings</a></li>
+									<li><a href="">Attendance</a></li> -->
+									<li {% if is_attantanceList %} class="active" {% endif %}> 
+										<a href="{% url 'crm:attantancelist' %}">Add Attantance</a>
+									</li>
+									<li {% if is_attantanceReport %} class="active" {% endif %} > 
+										<a href="{% url 'crm:attantancereport' %}">Attendance Report</a>
+									</li>
+									<li {% if is_allstaff %} class="active" {% endif %}><a href="{% url 'crm:allstaff' %}">All Staffs</a></li>
+									<li {% if is_departmentwise %} class="active" {% endif %}><a href="{% url 'crm:departmentwise' %}">Departments</a></li>
+								</ul>
+							</li>
 							<li class="menu-title"> 
 								<span>More</span>
 							</li>
