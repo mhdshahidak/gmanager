@@ -28,10 +28,14 @@ def index(request):
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    enquirylistcount = Enquiry.objects.filter(status = 'Enquiry').count()
+    waitforqc = Project.objects.filter(status="Qc").count()
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+    leavecount = LeaveRequests.objects.filter(pm_accept=False,status="Waiting").count()
     context={
         "is_pmindex":True,
         "pm":pm,
+        "enquirylistcount":enquirylistcount,
         "addedtoprop":addedtoprop,
         "billcreation":billcreation,
         "billadvance":billadvance,
@@ -39,6 +43,8 @@ def index(request):
         "rejected":rejected,
         "enquirylist":enquirylist,
         "enquirylistdata":enquirylistdata,
+        "waitforqc":waitforqc,
+        "leavecount":leavecount,
 
     }
     return render (request,'pm/index.html',context)    
@@ -178,7 +184,7 @@ def addproject(request,id):
 @auth_pm
 def addteam(request,id):
     pm = request.user.employee
-    employee = Employees.objects.all()
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
     context={
         "employee":employee,
         "id":id,
@@ -274,9 +280,11 @@ def srs(request):
 @auth_pm
 def fullprojectlist(request):
     pm = request.user.employee
+    project = Project.objects.exclude(status="Completed")
     context = {
         "is_fullprojectlist":True,
         "pm":pm,
+        "projects":project,
     }
     return render (request,'pm/project/fullprojectlist.html',context)  
 
@@ -392,6 +400,7 @@ def leadersearch(request):
         "id":details.id,
         "name":details.name,
         "member":member_obj.id,
+        "profile":details.emp_profile.url,
        
         
     }
