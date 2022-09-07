@@ -225,24 +225,19 @@ def attantanceList(request):
         employdata =Employees.objects.get(id=Employeeid)
         saveattendence= Attendence(employee=employdata, date=date ,punch_intime=punchin, punch_outtime=punchout)
         saveattendence.save()
-        print(len(attendence))
         if len(attendence) == 1 :
             for i in enumerate(attendence):
-                print(i)
                 if i[1]=='Morning':
-                    print('morning')
                     Attendence.objects.filter(id=saveattendence.id).update(morning=True)
                     return redirect ('/crm/attantancelist')
 
                 elif i[1] == 'Afternoon':
-                    print('Afternoon')
                     Attendence.objects.filter(id=saveattendence.id).update(evening=True)
                     return redirect ('/crm/attantancelist')   
 
                 else:
                     print('dfvsfvbgf','@'*10)
         elif len(attendence) == 2 :
-            print("BOTH WORKING","$"*10)
             Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
             return redirect ('/crm/attantancelist')
         else :
@@ -255,6 +250,15 @@ def attantanceList(request):
     return render(request, 'crm/attantancelist.html',context)
 
 
+
+def leave(request):
+    if request.method =='POST':
+        date = request.POST['date']
+        Employeeid = request.POST['idleave']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date, status='Leave')
+        saveattendence.save()
+        return redirect ('/crm/attantancelist')
 
 
 
@@ -276,7 +280,6 @@ def getemployeedata(request,id):
 @csrf_exempt
 def getemployeeleave(request,id):
     details =Employees.objects.get(id=id)
-    print(details)
 
     data={
         "id":details.id,
@@ -293,13 +296,10 @@ def getemployeeleave(request,id):
 def attantanceReport(request):
     if request.method =='POST':
         serachdate = request.POST['serachdate']
-        print(serachdate,'*'*7)
         serachdate = request.POST['serachdate']
         if Attendence.objects.filter(date=serachdate).exists():
-            print('exist')
             presentdate = Attendence.objects.filter(status='Present').count()
             absentdate = Attendence.objects.filter(status='Leave').count()
-            print(presentdate,absentdate)
             employeedetails = Attendence.objects.filter(date=serachdate).all()
 
             context={

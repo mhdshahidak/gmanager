@@ -27,6 +27,7 @@ urlpatterns = [
     path('attantancereport', views.attantanceReport, name="attantancereport"),
     path('getemployeedata/<str:id>', views.getemployeedata, name="getemployeedata"),
     path('getemployeeleave/<str:id>', views.getemployeeleave, name="getemployeeleave"),
+    path('adding-leave', views.leave, name="addingleave"),
 
 
 
