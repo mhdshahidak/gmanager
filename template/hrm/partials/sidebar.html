@@ -35,6 +35,9 @@
                 <li {% if is_attantanceReport %} class="active" {% endif %} > 
                     <a href="{% url 'hrm:excuse' %}"><i class="las la-calendar-minus"></i><span>Excuse Report</span></a>
                 </li>
+                <li {% if is_team %} class="active" {% endif %} > 
+                    <a href="{% url 'hrm:team' %}"><i class="fa fa-user-plus"></i><span>Team</span></a>
+                </li>
                 <li class="menu-title"> 
                     <span>More</span>
                 </li>

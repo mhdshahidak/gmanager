@@ -93,11 +93,10 @@ class Updation(models.Model):
 
 
 class Reworks(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectStatus, on_delete=models.CASCADE)
     note = models.TextField(null=True, default="Add Note")
+    status = models.CharField(null=True, max_length=15,  default="Not Seen")
     
-
-
 
 
 

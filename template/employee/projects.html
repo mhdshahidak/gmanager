@@ -31,7 +31,7 @@
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                         <div class="dash-widget-info">
-                            <h3>112</h3>
+                            <h3>{{project_count}}</h3>
                             <span>Total Projects</span>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                                         <td>
                                             <h2 class="table-avatar">
                     
-                                                <a href="">Brothers group</a>
+                                                <a href="" style="color: #4d13aa;">Brothers group</a>
                                             </h2>
                                         </td>
                                         <td>
@@ -138,102 +138,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for p in ongoing %}
                                     <tr>
                                         <td>
-                                            12/02/2022
+                                            {{p.project.starteddate|date:"d-m-y"}}
                                         </td>
                                         <td>
-                                            <a href="">Onflap</a>
+                                            <a href="" style="color: #4d13aa;">{{p.project.projectname|upper}}</a>
                                         </td>
-                                        <td>25/05/2022</td>
+                                        <td>{{p.project.endingdate|date:"d-m-y"}}</td>
                                         <td>
-                                            <i class="las la-circle"></i>
-                                            ongoing
+                                            <span class="badge badge-pill bg-success-light" >
+                                                {{p.status}}
+                                            </span>
                                         </td>
                                         <td>
-                                            75%
+                                            {{p.completion}} %
                                             <div class="progress progress-xs">
-                                                <div class="progress-bar w-75" role="progressbar" style="width: 10%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar w-75" role="progressbar" style="width: {{p.status}}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                                                 </div>
                                                
                                             </div>
                                         </td>
                                     
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            12/02/2022
-                                        </td>
-                                        <td>
-                                            <a href="">Onflap</a>
-                                        </td>
-                                        <td>25/05/2022</td>
-                                        <td>
-                                            <i class="las la-circle"></i>
-                                            ongoing
-                                        </td>
-                                        <td>
-                                            75%
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar w-75" role="progressbar" style="width: 10%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                               
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="">                            
-                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
-                                            </a>                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            12/02/2022
-                                        </td>
-                                        <td>
-                                            <a href="">Onflap</a>
-                                        </td>
-                                        <td>25/05/2022</td>
-                                        <td>
-                                            <i class="las la-circle"></i>
-                                            ongoing
-                                        </td>
-                                        <td>
-                                            75%
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar w-75" role="progressbar" style="width: 10%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                               
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="">                            
-                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
-                                            </a>                                        
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            12/02/2022
-                                        </td>
-                                        <td>
-                                            <a href="">Onflap</a>
-                                        </td>
-                                        <td>25/05/2022</td>
-                                        <td>
-                                            <i class="las la-circle"></i>
-                                            ongoing
-                                        </td>
-                                        <td>
-                                            75%
-                                            <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip" title="" style="width: 88%" data-bs-original-title="88%" aria-label="88%"></div>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="">                            
-                                                <span class="btn badge-pill bg-success-light text-center"><i class="las la-pen"></i></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -256,54 +185,39 @@
                             <table class="table table-center table-hover datatable" style="padding: 20px;border-radius: 20px;">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Employee</th>
-                                        <th>Email</th>
-                                        <th>Joining Date</th>
-                                        <th>Department</th>
+                                        <th>End Date</th>
+                                        <th>Project</th>
+                                        <th>Added Date</th>
                                         <th>Status</th>
+                                        <th>Completion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for q in qc_projects %}
                                     <tr>
                                         <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-09.jpg' %}"
-                                                        alt="User Image"></a>
-                                                <a href="profile.html">Brian Johnson <span>9876543210</span></a>
-                                            </h2>
+                                            {{q.project.starteddate|date:"d-m-y"}}
                                         </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="6705150e06090d080f0914080927021f060a170b024904080a">[email&#160;protected]</a>
-                                        </td>
-                                        <td>$295</td>
-                                        <td>16 Nov 2020</td>
-                                        <td><span class="btn badge-pill bg-success-light">Active</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile.html" class="avatar avatar-sm me-2"><img
-                                                        class="avatar-img rounded-circle"
-                                                        src="{% static 'ceo/img/profiles/avatar-12.jpg' %}"
-                                                        alt="User Image"></a>
-                                                <a href="profile.html">Karlene Chaidez
-                                                    <span>9876543210</span></a>
-                                            </h2>
+                                            <a href="" style="color: #4d13aa;">{{q.project.projectname|upper}}</a>
                                         </td>
-                                        <td><a href="https://kanakku.dreamguystech.com/cdn-cgi/l/email-protection"
-                                                class="__cf_email__"
-                                                data-cfemail="bfd4decdd3dad1dadcd7ded6dbdac5ffdac7ded2cfd3da91dcd0d2">[email&#160;protected]</a>
+                                        <td>{{q.project.endingdate|date:"d-m-y"}}</td>
+                                        <td class="">
+                                            <span class="badge badge-pill bg-success-light" >
+                                            {{q.status}}
+                                            </span>
                                         </td>
-                                        <td>-</td>
-                                        <td>29 Sep 2020</td>
                                         <td>
-                                            <span class="btn badge-pill bg-danger-light">Inactive</span></td>
+                                            {{q.completion}} %
+                                            <div class="progress progress-xs">
+                                                <div class="progress-bar w-75" role="progressbar" style="width: {{q.completion}}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                               
+                                            </div>
                                         </td>
-                                    </tr>
                                     
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
