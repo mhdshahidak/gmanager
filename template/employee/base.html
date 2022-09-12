@@ -49,6 +49,21 @@
         .card-table .card-header {
             border-radius: 1.25rem 1.25rem 0rem 1.25rem;
         }
+      
+    .pagination > .active > a, .pagination > .active > span {
+    color: #343333;
+    padding: 5px;
+}
+.form-control {
+    border-color: #e3e3e3;
+    box-shadow: none;
+    font-size: 15px;
+    height: 32px;
+}
+#divdatatable{
+    padding: 15px;
+
+}
     </style>
 
     <!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
@@ -100,9 +115,11 @@
     <!-- Datatable JS -->
     <!-- <script src="{% static 'employee/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'employee/datatables/datatables.min.js' %}"></script> -->
-    <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
-		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script>
-
+    <!-- <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script> -->
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
     <!-- Datetimepicker JS -->
     <script src="{% static 'ceo/js/moment.min.js' %}"></script>
@@ -136,13 +153,16 @@
         //     $.fn.dataTableExt.sErrMode = 'throw';
 
         // });
-
-
-        $('#tabledata').dataTable({
-
-            searching: true,
-           
+        $(document).ready(function () {
+            $('#datatable').dataTable();
         });
+
+
+        // $('#tabledata').dataTable({
+
+        //     searching: true,
+
+        // });
 
 
     </script>
