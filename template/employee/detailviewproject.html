@@ -46,53 +46,7 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title m-b-20">Uploaded image files</h5>
-                        <div class="row">
-                            <div class="col-md-3 col-sm-4 col-lg-4 col-xl-3">
-                                <div class="uploaded-box">
-                                    <div class="uploaded-img">
-                                        <img src="{% static 'ceo/img/placeholder.jpg' %}" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="uploaded-img-name">
-                                        demo.png
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-lg-4 col-xl-3">
-                                <div class="uploaded-box">
-                                    <div class="uploaded-img">
-                                        <img src="{% static 'ceo/img/placeholder.jpg' %}" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="uploaded-img-name">
-                                        demo.png
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-lg-4 col-xl-3">
-                                <div class="uploaded-box">
-                                    <div class="uploaded-img">
-                                        <img src="{% static 'ceo/img/placeholder.jpg' %}" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="uploaded-img-name">
-                                        demo.png
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-4 col-lg-4 col-xl-3">
-                                <div class="uploaded-box">
-                                    <div class="uploaded-img">
-                                        <img src="{% static 'ceo/img/placeholder.jpg' %}" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="uploaded-img-name">
-                                        demo.png
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title m-b-20">Uploaded files</h5>
@@ -103,24 +57,17 @@
                                         <span class="files-icon"><i class="fa fa-file-pdf-o"></i></span>
                                     </div>
                                     <div class="files-info">
-                                        <span class="file-name text-ellipsis"><a href="#">AHA Selfcare Mobile
-                                                Application Test-Cases.xls</a></span>
-                                        <span class="file-author"><a href="#">John Doe</a></span> <span
-                                            class="file-date">May 31st at 6:53 PM</span>
-                                        <div class="file-size">Size: 14.8Mb</div>
+                                        <span class="file-name text-ellipsis"><a href="#">SRS</a></span>
+                                        {% if  viewsrs.srsfile.url != None %}
+                                        <a href="{{ viewsrs.srsfile.url }}"> <i class="fa fa-download"></i>Download</a>
+                
+                
+                                        {% endif %}
+                                        <!-- <span class="file-author"><a href="{{viewsrs.srsfile.url}}"> <i class="fa fa-download"></i>Download</a></span>  -->
+                                        <span class="file-date">{{viewsrs.added_time}}</span>
+                                        <!-- <div class="file-size">Size: 14.8Mb</div> -->
                                     </div>
-                                    <ul class="files-action">
-                                        <li class="dropdown dropdown-action">
-                                            <a href="" class="dropdown-toggle btn btn-link" data-bs-toggle="dropdown"
-                                                aria-expanded="false"><i class="material-icons">more_horiz</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="javascript:void(0)">Download</a>
-                                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#share_files">Share</a>
-                                                <a class="dropdown-item" href="javascript:void(0)">Delete</a>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                   
                                 </div>
                             </li>
                             <li>
@@ -331,38 +278,40 @@
                                 </tr>
                                 <tr>
                                     <td>Priority:</td>
-                                   
+
                                     <td class="text-end">
                                         <div class="btn-group">
 
-                                            {% if projectdetail.projecttype == 'Low' %} <a href="#" class="badge badge-primary">{{projectdetail.projecttype}} </a> {% elif projectdetail.projecttype == 'Medium' %} <a href="#" class="badge badge-success">{{projectdetail.projecttype}} </a>{% elif projectdetail.projecttype == 'High' %}<a href="#" class="badge badge-danger">{{projectdetail.projecttype}} </a> {% endif %}
-                                           
+                                            {% if projectdetail.projecttype == 'Low' %} <a href="#"  class="badge badge-primary">{{projectdetail.projecttype}} </a> {% elif projectdetail.projecttype == 'Medium' %} <a href="#" class="badge badge-success">{{projectdetail.projecttype}} </a>{% elif  projectdetail.projecttype == 'High' %}<a href="#" class="badge badge-danger">{{projectdetail.projecttype}} </a> {% endif %}
+
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td>Status:</td>
-                                    <td class="text-end">{% if progressreport.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ progressreport.status}}</span> {% elif progressreport.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ progressreport.status }}</span> {% elif progressreport.status == 'Completed' %} <span class="badge bg-danger">{{ progressreport.status }}</span> {% elif progressreport.status == 'Not Started' %}<span class="badge bg-info">{{ progressreport.status }}</span> {% elif progressreport.status == 'W4C' %} <span class="badge bg-secondary">{{ progressreport.status }}</span> {% elif progressreport.status == 'Delayed' %} <span class="badge bg-warning-light">{{ progressreport.status }}</span> {% elif progressreport.status == 'Qc' %} <span class="badge bg-primary-light">{{progressreport.status }}</span> {% elif progressreport.status == 'Rework' %} <span class="badge bg-info-light">{{ progressreport.status }}</span> {% endif %}
+                                    <td class="text-end">{% if progressreport.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ progressreport.status}}</span>{% elif progressreport.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ progressreport.status }}</span> {% elif progressreport.status == 'Completed' %} <span class="badge bg-danger">{{ progressreport.status }}</span> {% elif progressreport.status == 'Not Started' %}<span class="badge bg-info">{{ progressreport.status }}</span> {% elif progressreport.status == 'W4C' %} <span class="badge bg-secondary">{{ progressreport.status }}</span> {% elif progressreport.status == 'Delayed' %} <span class="badge bg-warning-light">{{ progressreport.status }}</span> {% elif progressreport.status == 'Qc' %} <span class="badge bg-primary-light">{{ progressreport.status }}</span> {% elif  progressreport.status == 'Rework' %} <span class="badge bg-info-light">{{ progressreport.status }}</span> {% endif %} </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <p class="m-b-5">Progress <span class="text-success float-end">{{progressreport.completion}}%</span></p>
+                        <p class="m-b-5">Progress <span
+                                class="text-success float-end">{{progressreport.completion}}%</span></p>
                         <div class="progress progress-xs mb-0">
-                            <div class="progress-bar bg-success" role="progressbar" data-bs-toggle="tooltip" title="{{progressreport.completion}}%"
-                                style="width: {{progressreport.completion}}%"></div>
+                            <div class="progress-bar bg-success" role="progressbar" data-bs-toggle="tooltip"
+                                title="{{progressreport.completion}}%" style="width: {{progressreport.completion}}%">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card project-user">
                     <div class="card-body">
                         <h6 class="card-title m-b-20">Assigned Leader </h6>
-                            <!-- <button type="button"
+                        <!-- <button type="button"
                                 class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#assign_leader"><i class="fa fa-plus"></i> Add</button> -->
                         <ul class="list-box">
                             <li>
-                                <a href="">
+                                <a href=""  onclick="DataGets({{ progressreport.member.lead.id }})" data-bs-toggle="modal" data-bs-target="#add_client">
                                     <div class="list-item">
                                         <div class="list-left">
                                             <span class="avatar"><img alt=""
@@ -376,7 +325,7 @@
                                     </div>
                                 </a>
                             </li>
-                           
+
                         </ul>
                     </div>
                 </div>
@@ -384,45 +333,30 @@
                     <div class="card-body">
                         <h6 class="card-title m-b-20">
                             Assigned users
-                            <button type="button" class="float-end btn btn-primary btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#assign_user"><i class="fa fa-plus"></i> Add</button>
+                            
                         </h6>
                         <ul class="list-box">
 
 
                             {% for i in members %}
                             <li>
-                                <a href="">
+                                <a href="" onclick="DataGets({% for img in i.team.all %}  {{ img.id }} {% endfor %})" data-bs-toggle="modal" data-bs-target="#add_client">
                                     <div class="list-item">
                                         <div class="list-left">
 
 
-                                            {% if i.team__emp_profile %}
-                                            <div class="text-center">
-                                          <img class="detail_picture img-thumbnail" src="{{i.team__emp_profile.url}}">
-                                                                </div>
-                                                                {% endif %}
 
-
-
-                                            <!-- <span class="avatar"><img alt=""
-                                                    src="{{i.team__emp_profile.url}}"></span> -->
-                                        </div>
+                                            <span class="avatar"><img alt="" src="{% for img in i.team.all %} {{img.emp_profile.url }} {% endfor %}"></span>
+                                        </div> 
                                         <div class="list-body">
-                                            <span class="message-author">{{ i.team__name }}</span>
+                                            <span class="message-author"> {% for img in i.team.all %}  {{ img.name }} {% endfor %}</span>
                                             <div class="clearfix"></div>
-                                            <span class="message-content">{{ i.team__catagory__title}}</span>
+                                            <span class="message-content"> {% for img in i.team.all %}  {{ img.catagory.title }} {% endfor %}</span>
                                         </div>
                                     </div>
                                 </a>
                             </li>
                             {% endfor %}
-                          
-                           
-
-
-                            <!-- <li onclick="DataGet({{ i.team__id }})" class="m-t-10" class="btn add-btn" data-bs-toggle="modal"
-                            data-bs-target="#add_client">{{ i.team__name }}</li> -->
                         </ul>
                     </div>
                 </div>
@@ -698,8 +632,95 @@
         </div>
     </div>
     <!-- /Edit Project Modal -->
-
+    <div id="add_client" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-view">
+                                        <div class="profile-img-wrap">
+                                            <div class="profile-img">
+                                                <a id="div" href="">
+                                                    <img id="profileimg" src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="profile-basic">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="profile-info-left">
+                                                        <h3 class="user-name m-t-0" id="name">Syamjith Babu</h3>
+                                                        <small class="text-muted" id="catagory">CEO</small>
+                                                        <div class="staff-id">Employee ID : <span id="employee_id"></span> </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <ul class="personal-info">
+                                                        <!-- <li>
+                                                            <span class="title">Phone:</span>
+                                                            <span class="text"><a href="">9876543210</a></span>
+                                                        </li> -->
+                                                        <li>
+                                                            <span class="title">Email:</span>
+                                                            <span class="text" id="email">barrycuda@example.com</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Birthday:</span>
+                                                            <span class="text" id="dob">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Address:</span>
+                                                            <span class="text" id="address"></span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+
+
+
+
+
+
+
+<script>
+    function DataGets(id){
+        $.ajax({
+            url: "/employee/getprofiledata/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+                $('#name').html(responce.value.name)
+                $('#catagory').html(responce.value.catagory)
+                $('#employee_id').html(responce.value.employee_id)
+                $('#email').html(responce.value.email)
+                $('#dob').html(responce.value.dob)
+                $('#address').html(responce.value.address)
+                $('#profileimg').attr("src",responce.value.emp_profile)
+               
+
+                
+            }
+
+        })
+    }
+</script>
 {% endblock %}

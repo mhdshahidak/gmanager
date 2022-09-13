@@ -49,8 +49,8 @@ class Meeting(models.Model):
 
 class SRS(models.Model): 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    srsfile = models.FileField(upload_to="Praposalpdf/", max_length=100000)
-    added_time = models.DateTimeField(auto_now_add=True)
+    srsfile = models.FileField(upload_to="srs/",null=True,blank=True)
+    added_date = models.DateField(null=True,blank=True)
 
 
 

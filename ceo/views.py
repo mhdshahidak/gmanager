@@ -339,3 +339,21 @@ def viedetails(request,id):
     }
  
     return JsonResponse({'value': data})    
+
+
+
+
+def handler404(request,exception):
+    return render(request, 'error/404.html', status=404)
+
+
+
+def handler500(request, *args, **argv):
+    response = render("error/500.html")
+    response.status_code = 500
+    return response
+
+
+
+
+

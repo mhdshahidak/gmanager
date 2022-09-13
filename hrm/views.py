@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render,redirect
 from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers,Attendence
 from pm.models import Project
@@ -305,6 +306,7 @@ def addingattendence(request):
 
 def employeedetails(request,id):
     details = Employees.objects.get(id=id)
+    emergency= EmergenctContact.objects.get(employee=details)
     # project = ProjectMembers.objects.get(team=details)
     data={
         "name":details.name,
@@ -321,6 +323,12 @@ def employeedetails(request,id):
        "state":details.state,
        "nationality":details.nationality,
        "marital_status":details.marital_status,
+       "username":details.username,
+       "password":details.password,
+       "emergency_number":emergency.emergency_number,
+       "primarycontact_name":emergency.primarycontact_name,
+       "relation":emergency.relation,
+
        
    
     }
@@ -333,3 +341,43 @@ def employeedetails(request,id):
 def deleteemployee(request,id):
     Employees.objects.get(id=id).delete()
     return redirect('/hrm/employees')
+
+
+
+def editemployee(request,id):
+    n = Employees.objects.get(id=id)
+    emergency = EmergenctContact.objects.get(employee=n)
+    empform = EmployeeRegisterForm(request.POST or None, request.FILES or None,instance=n) 
+    empcontactform = EmergenctContactForm(request.POST or None,instance=emergency)
+    if request.method == 'POST' or 'FILES':
+        print('post worked') 
+        print(empform.errors)
+        if empform.is_valid() and empcontactform.is_valid():
+            print(empform.errors)
+            print('valid') 
+            data = empform.save()
+            empcontactform.save()
+            password_upadte = get_user_model().objects.get(employee=n)
+            password_upadte.set_password(data.password)
+            password_upadte.save()
+            get_user_model().objects.filter(employee=n).update(username=data.username)
+            return redirect('hrm:employees')
+        else:
+            print('not valid')    
+    else:
+        print('else worked')
+        empform = EmployeeRegisterForm(request.POST or None, request.FILES or None,instance=n) 
+        empcontactform = EmergenctContactForm(request.POST or None,instance=emergency)
+        context={
+           "empform":empform,
+           "empcontactform":empcontactform
+
+        }
+        return render(request,'hrm/editemployee.html',context)
+    print('not worked')
+    context={
+           "empform":empform,
+           "empcontactform":empcontactform
+
+        }    
+    return render(request,'hrm/editemployee.html',context)    
