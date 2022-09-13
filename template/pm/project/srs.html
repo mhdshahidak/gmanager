@@ -46,12 +46,12 @@
                                 <td>{{i.project.enquiry.type}}</td>
                                
                                 <td>
-                                    <a href="{{ i.srsfile.url }} " class="btn  badge-pill bg-primary-light m-t-10"><i class="las la-file-download"></i> Download</a>
+                                    <a href="{{ i.srsfile.url }} " download class="btn  badge-pill bg-primary-light m-t-10"><i class="las la-file-download"></i> Download</a>
 
                                 </td>
                                 <td>
                                     <a href="" onclick="ChangeVal({{i.project.id}})" class="btn  badge-pill bg-success-light m-t-10 text-end"> SRS Accept</a>
-
+                                    <a href="" onclick="RejectVal({{i.project.id}})" class="btn  badge-pill bg-danger-light m-t-10 text-end"> Reject SRS</a>
                                 </td>
                                
                             </tr>
@@ -87,6 +87,32 @@
         })
 
     }
+
+
+
+    function RejectVal(id){
+        $.ajax({
+            url: "/pm/srsreject",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+
+    }
 </script>
+
+
+
+
+
 
 {% endblock %}

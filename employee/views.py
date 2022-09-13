@@ -7,8 +7,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
 from gmanager.decorators import auth_employee
-
+import datetime
 from django.db.models import Q
+from datetime import datetime
+from pytz import timezone 
 # Create your views here.
 
 
@@ -37,7 +39,7 @@ def employeeHome(request):
 def viewproject(request):
     emp = request.user.employee
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
+    meetinglist = ProjectMembers.objects.filter(team=employeedata,project__status='Waiting for SRS' ) | ProjectMembers.objects.filter(lead=employeedata,project__status='Waiting for SRS')
     
     context = {
         "is_meeting":True,
@@ -55,10 +57,21 @@ def empMeetingLink(request,id):
     emp = request.user.employee
     projectid= Project.objects.get(id=id)
     meetinglist = Meeting.objects.filter(project=projectid)
+    # today = datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%d-%m')
+    # print(today)
+    todate = datetime.now()
+
+    print(todate.date())
+    to_date = todate.date().strftime('%Y-%d-%m')
+    # print(to_date,"%"*10)
     if request.method == 'POST':
         fileuploads = request.FILES['fileupload']
-        upoload=SRS(project=projectid,srsfile=fileuploads)
-        upoload.save()
+        print(fileuploads,'88'*10)
+        
+        srsss = SRS.objects.get(project=projectid)
+        print(srsss,"%"*20)
+        upoload=SRS.objects.filter(project=projectid).update(srsfile=fileuploads,added_date=to_date)
+        print(upoload,'scucess'*2)
         Project.objects.filter(id=id).update(status='SRS uploaded')
         return redirect('/employee/viewproject')
     context = {
@@ -384,15 +397,20 @@ def projeclist(request):
 
 
 def detailview(request,id):
+    emp = request.user.employee
     projectdetail = Project.objects.get(id=id)
     daily_report = DailyProgress.objects.filter(project=projectdetail).values('date','status','note','employee__name')
     progressreport = ProjectStatus.objects.get(project=projectdetail)
-    members =ProjectMembers.objects.filter(project=projectdetail).values('team__name','team__id','team__emp_profile','team__catagory__title')
+    members =ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs =SRS.objects.get(project=projectdetail)
+    print(viewsrs.srsfile)
 
     context={
+         "emp":emp,
         "projectdetail":projectdetail,
         "daily_report":daily_report,
         "progressreport":progressreport,
-        "members":members
+        "members":members,
+        "viewsrs":viewsrs,
     }
     return render(request,'employee/detailviewproject.html',context)
