@@ -397,14 +397,16 @@ def projeclist(request):
 
 
 def detailview(request,id):
+    emp = request.user.employee
     projectdetail = Project.objects.get(id=id)
     daily_report = DailyProgress.objects.filter(project=projectdetail).values('date','status','note','employee__name')
     progressreport = ProjectStatus.objects.get(project=projectdetail)
-    members =ProjectMembers.objects.filter(project=projectdetail).values('team__name','team__id','team__emp_profile','team__catagory__title')
+    members =ProjectMembers.objects.filter(project=projectdetail)
     viewsrs =SRS.objects.get(project=projectdetail)
     print(viewsrs.srsfile)
 
     context={
+         "emp":emp,
         "projectdetail":projectdetail,
         "daily_report":daily_report,
         "progressreport":progressreport,

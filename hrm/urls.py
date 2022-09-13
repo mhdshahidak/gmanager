@@ -27,6 +27,7 @@ urlpatterns = [
     path('addingattendence', views.addingattendence, name="addingattendence"),
     path('employeedetails/<str:id>', views.employeedetails, name="employeedetails"),
     path('deleteemployee/<str:id>', views.deleteemployee, name="deleteemployee"),
+    path('editemployee/<str:id>', views.editemployee, name="editemployee"),
 
     
 

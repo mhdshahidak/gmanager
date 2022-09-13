@@ -340,18 +340,18 @@
 
                             {% for i in members %}
                             <li>
-                                <a href="" onclick="DataGets({{ i.team__id }})" data-bs-toggle="modal" data-bs-target="#add_client">
+                                <a href="" onclick="DataGets({% for img in i.team.all %}  {{ img.id }} {% endfor %})" data-bs-toggle="modal" data-bs-target="#add_client">
                                     <div class="list-item">
                                         <div class="list-left">
 
 
 
-                                            <span class="avatar"><img alt="" src="{{ i.team__emp_profile }}"></span>
+                                            <span class="avatar"><img alt="" src="{% for img in i.team.all %} {{img.emp_profile.url }} {% endfor %}"></span>
                                         </div> 
                                         <div class="list-body">
-                                            <span class="message-author">{{ i.team__name }}</span>
+                                            <span class="message-author"> {% for img in i.team.all %}  {{ img.name }} {% endfor %}</span>
                                             <div class="clearfix"></div>
-                                            <span class="message-content">{{ i.team__catagory__title}}</span>
+                                            <span class="message-content"> {% for img in i.team.all %}  {{ img.catagory.title }} {% endfor %}</span>
                                         </div>
                                     </div>
                                 </a>
