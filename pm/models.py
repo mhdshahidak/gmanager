@@ -49,8 +49,7 @@ class Meeting(models.Model):
 
 class SRS(models.Model): 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    srsfile = models.FileField(upload_to="srs/",null=True,blank=True)
-    added_date = models.DateField(null=True,blank=True)
+    srsfile = models.FileField(null=True,default='deafult-01.jpg',upload_to='srs/')
 
 
 
@@ -67,7 +66,8 @@ class ProjectStatus(models.Model):
 
 class ProjectProgressFiles(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    files = models.FileField(null=True)
+    files = models.FileField(null=True,blank=True)
+    date = models.DateTimeField(auto_now=True)
 
 
 
