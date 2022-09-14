@@ -138,10 +138,12 @@ def crm(request):
 @login_required(login_url='/')
 def employe(request):
     empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
+    emp_count = Employees.objects.filter(status="Online").count()
 
     context = {
         "is_employe" : True,
-        "empllist":empllist
+        "empllist":empllist,
+        "emp_count":emp_count,
     }
     return render (request,'ceo/dashboard/employee.html',context)  
 
@@ -313,8 +315,10 @@ def rejectedlist(request):
 
 @login_required(login_url='/')
 def projectlist(request):
+    projects = Project.objects.all()
     context = {
         "is_project" : True,
+        "projects":projects,
     }
     return render (request,'ceo/project/projectlist.html',context)  
 
@@ -339,3 +343,21 @@ def viedetails(request,id):
     }
  
     return JsonResponse({'value': data})    
+
+
+
+
+def handler404(request,exception):
+    return render(request, 'error/404.html', status=404)
+
+
+
+def handler500(request, *args, **argv):
+    response = render("error/500.html")
+    response.status_code = 500
+    return response
+
+
+
+
+

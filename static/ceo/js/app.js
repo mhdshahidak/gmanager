@@ -115,6 +115,7 @@ $(document).ready(function() {
 	}
 	
 	// Sidebar Slimscroll
+	
 
 	if($slimScrolls.length > 0) {
 		$slimScrolls.slimScroll({

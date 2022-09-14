@@ -164,6 +164,8 @@ def addproject(request,id):
             Project.objects.filter(id=data.id).update(enquiry=deatils)
             project = Project.objects.get(id=data.id)           
             Enquiry.objects.filter(id=id).update(status="Project Added")
+            projectsrs=  SRS(project=project)
+            projectsrs.save()
 
             return redirect('/pm/addteam/'+str(data.id))
         else:
@@ -494,6 +496,12 @@ def srsapprovel(request):
     return JsonResponse({'message': 'sucesses'}) 
 
 
+
+@csrf_exempt
+def srsreject(request):
+    id=request.POST['EnquaryID']
+    Project.objects.filter(id=id).update(status = 'Waiting for SRS')
+    return JsonResponse({'message': 'sucesses'}) 
 
 
 @csrf_exempt

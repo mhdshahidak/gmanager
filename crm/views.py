@@ -296,7 +296,7 @@ def getemployeeleave(request,id):
 def attantanceReport(request):
     if request.method =='POST':
         serachdate = request.POST['serachdate']
-        serachdate = request.POST['serachdate']
+        # serachdate = request.POST['serachdate']
         if Attendence.objects.filter(date=serachdate).exists():
             presentdate = Attendence.objects.filter(status='Present').count()
             absentdate = Attendence.objects.filter(status='Leave').count()

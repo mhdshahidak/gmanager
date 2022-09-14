@@ -1,0 +1,164 @@
+{% extends "hrm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Excuse</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Excuse List</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.name.label}}
+                                {{empform.name}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.employee_id.label}}
+                                {{empform.employee_id}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.catagory.label}}
+                                {{empform.catagory}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.email.label}}
+                                {{empform.email}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.phone.label}}
+                                {{empform.phone}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.dob.label}}
+                                {{empform.dob}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">  
+                            <div class="form-group">
+                                {{empform.whatsapp_number.label}}
+                                {{empform.whatsapp_number}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">  
+                            <div class="form-group">
+                                {{empform.join_date.label}}
+                                {{empform.join_date}}
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                        <div class="form-group">
+                            {{empform.address.label}}
+                            {{empform.address}}
+                        </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.district.label}}
+                                {{empform.district}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{empform.state.label}}
+                                {{empform.state}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{empform.nationality.label}}
+                                {{empform.nationality}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.marital_status.label}}
+                                {{empform.marital_status}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{empform.emp_profile.label}}
+                                {{empform.emp_profile}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{empform.username.label}}
+                                {{empform.username}}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{empform.password.label}}
+                                {{empform.password}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <!-- {{empcontactform.primarycontact_name.label}} -->
+                                Emergency Contact Name
+                                {{empcontactform.primarycontact_name}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{empcontactform.emergency_number.label}}
+                                {{empcontactform.emergency_number}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{empcontactform.relation.label}}
+                                {{empcontactform.relation}}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+
+    </div>
+   
+
+
+</div>
+
+
+{% endblock %}

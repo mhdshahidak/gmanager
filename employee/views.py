@@ -1,4 +1,5 @@
 from ast import And, Or
+from distutils.command.upload import upload
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
@@ -7,8 +8,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
 from gmanager.decorators import auth_employee
-
+import datetime
 from django.db.models import Q
+from datetime import datetime
+from pytz import timezone 
 # Create your views here.
 
 
@@ -37,7 +40,7 @@ def employeeHome(request):
 def viewproject(request):
     emp = request.user.employee
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    meetinglist = ProjectMembers.objects.filter(team=employeedata ) | ProjectMembers.objects.filter(lead=employeedata)
+    meetinglist = ProjectMembers.objects.filter(team=employeedata,project__status='Waiting for SRS' ) | ProjectMembers.objects.filter(lead=employeedata,project__status='Waiting for SRS')
     
     context = {
         "is_meeting":True,
@@ -55,10 +58,26 @@ def empMeetingLink(request,id):
     emp = request.user.employee
     projectid= Project.objects.get(id=id)
     meetinglist = Meeting.objects.filter(project=projectid)
+    # today = datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%d-%m')
+    # print(today)
+    todate = datetime.now()
+
+    print(todate.date(),'%'*29)
+    to_date = todate.date().strftime('%Y-%m-%d')
+    # print(to_date,"%"*10)
     if request.method == 'POST':
         fileuploads = request.FILES['fileupload']
-        upoload=SRS(project=projectid,srsfile=fileuploads)
+        print(fileuploads,'88'*10)
+        
+        
+        # upoload=SRS.objects.filter(project=projectid).update(srsfile=fileuploads)
+        # print(upoload,'scucess'*2)
+        # Project.objects.filter(id=id).update(status='SRS uploaded')
+        # return redirect('/employee/viewproject')
+        upoload=SRS.objects.get(project=projectid)
+        upoload.srsfile = fileuploads
         upoload.save()
+        print(upoload,'scucess'*2)
         Project.objects.filter(id=id).update(status='SRS uploaded')
         return redirect('/employee/viewproject')
     context = {
@@ -141,13 +160,28 @@ def empDailyProgress(request,id):
         username = request.POST['username']
         password = request.POST['password']
         instruction = request.POST['instruction']
-       
-        ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
-        valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
-        valuesss.save()
+        # fileupload = ""
+        fileupload =request.FILES.get('fileupload', "New default that isn't None")
+        print(fileupload,"%"*10)
+
+        if fileupload != None:
+            print("if worked","7"*10)
+
+            ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
+            valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
+            valuesss.save()
+            uploded= ProjectProgressFiles(project=project_obj,files=fileupload)
+            uploded.save()
+            return redirect('/employee')
+        else:
+            print("else worked","0"*10)
+            ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
+            valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
+            valuesss.save()   
+            return redirect('/employee')
+
        
 
-        return redirect('/employee')
     context = {
         "is_dailyprogress":True,
         "proj_sts":proj_sts,
@@ -384,15 +418,23 @@ def projeclist(request):
 
 
 def detailview(request,id):
+    emp = request.user.employee
     projectdetail = Project.objects.get(id=id)
     daily_report = DailyProgress.objects.filter(project=projectdetail).values('date','status','note','employee__name')
     progressreport = ProjectStatus.objects.get(project=projectdetail)
-    members =ProjectMembers.objects.filter(project=projectdetail).values('team__name','team__id','team__emp_profile','team__catagory__title')
+    members =ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs =SRS.objects.get(project=projectdetail)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(files="New default that isn't None")
+    # print(uploadedfiles,'$$'*34)
+    
 
     context={
+        "emp":emp,
         "projectdetail":projectdetail,
         "daily_report":daily_report,
         "progressreport":progressreport,
-        "members":members
+        "members":members,
+        "viewsrs":viewsrs,
+        "uploadedfiles":uploadedfiles
     }
     return render(request,'employee/detailviewproject.html',context)

@@ -28,7 +28,11 @@ class Project(models.Model):
     endingdate = models.DateTimeField()
     projecttype = models.CharField(max_length = 50,null=True, choices=choices)
 
-
+    def get_members(self):
+        return ProjectMembers.objects.filter(project=self)
+    
+    def get_progres(self):
+        return ProjectStatus.objects.filter(project=self)
 
 
 
@@ -49,8 +53,7 @@ class Meeting(models.Model):
 
 class SRS(models.Model): 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    srsfile = models.FileField(upload_to="Praposalpdf/", max_length=100000)
-    added_time = models.DateTimeField(auto_now_add=True)
+    srsfile = models.FileField(null=True,default='deafult-01.jpg',upload_to='srs/')
 
 
 
@@ -67,7 +70,8 @@ class ProjectStatus(models.Model):
 
 class ProjectProgressFiles(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    files = models.FileField(null=True)
+    files = models.FileField(null=True,blank=True)
+    date = models.DateTimeField(auto_now=True)
 
 
 

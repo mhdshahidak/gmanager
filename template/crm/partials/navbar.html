@@ -5,7 +5,7 @@
 			
 				<!-- Logo -->
                 <div class="header-left">
-                    <a href="admin-dashboard.html" class="logo">
+                    <a href="#" class="logo">
 						<img src="{% static 'GEDEXO LOGO ai.png' %}" width="40" height="40" alt="">
 					</a>
                 </div>
@@ -247,8 +247,7 @@
 							<span>CRM</span>
 						</a>
 						<div class="dropdown-menu">
-							{% comment %} <a class="dropdown-item" href="{% url 'crm:profile' %}">My Profile</a>
-							<a class="dropdown-item" href="{% url 'common:settings'%}">Settings</a> {% endcomment %}
+							<a class="dropdown-item" href="{% url 'common:settings'%}">Settings</a>
 							<a class="dropdown-item" href="{% url 'ceo:logout' %}">Logout</a>
 						</div>
 					</li>
@@ -259,8 +258,8 @@
 				<div class="dropdown mobile-user-menu">
 					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 					<div class="dropdown-menu dropdown-menu-right">
-						{% comment %} <a class="dropdown-item" href="profile.html">My Profile</a>
-						<a class="dropdown-item" href="settings.html">Settings</a> {% endcomment %}
+						
+						<a class="dropdown-item" href="{% url 'common:settings'%}">Settings</a>
 						<a class="dropdown-item" href="{% url 'ceo:logout' %}">Logout</a>
 					</div>
 				</div>
