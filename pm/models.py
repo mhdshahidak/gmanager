@@ -28,7 +28,11 @@ class Project(models.Model):
     endingdate = models.DateTimeField()
     projecttype = models.CharField(max_length = 50,null=True, choices=choices)
 
-
+    def get_members(self):
+        return ProjectMembers.objects.filter(project=self)
+    
+    def get_progres(self):
+        return ProjectStatus.objects.filter(project=self)
 
 
 
