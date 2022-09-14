@@ -1,4 +1,5 @@
 from ast import And, Or
+from distutils.command.upload import upload
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
@@ -61,16 +62,21 @@ def empMeetingLink(request,id):
     # print(today)
     todate = datetime.now()
 
-    print(todate.date())
-    to_date = todate.date().strftime('%Y-%d-%m')
+    print(todate.date(),'%'*29)
+    to_date = todate.date().strftime('%Y-%m-%d')
     # print(to_date,"%"*10)
     if request.method == 'POST':
         fileuploads = request.FILES['fileupload']
         print(fileuploads,'88'*10)
         
-        srsss = SRS.objects.get(project=projectid)
-        print(srsss,"%"*20)
-        upoload=SRS.objects.filter(project=projectid).update(srsfile=fileuploads,added_date=to_date)
+        
+        # upoload=SRS.objects.filter(project=projectid).update(srsfile=fileuploads)
+        # print(upoload,'scucess'*2)
+        # Project.objects.filter(id=id).update(status='SRS uploaded')
+        # return redirect('/employee/viewproject')
+        upoload=SRS.objects.get(project=projectid)
+        upoload.srsfile = fileuploads
+        upoload.save()
         print(upoload,'scucess'*2)
         Project.objects.filter(id=id).update(status='SRS uploaded')
         return redirect('/employee/viewproject')
@@ -154,13 +160,28 @@ def empDailyProgress(request,id):
         username = request.POST['username']
         password = request.POST['password']
         instruction = request.POST['instruction']
-       
-        ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
-        valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
-        valuesss.save()
+        # fileupload = ""
+        fileupload =request.FILES.get('fileupload', "New default that isn't None")
+        print(fileupload,"%"*10)
+
+        if fileupload != None:
+            print("if worked","7"*10)
+
+            ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
+            valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
+            valuesss.save()
+            uploded= ProjectProgressFiles(project=project_obj,files=fileupload)
+            uploded.save()
+            return redirect('/employee')
+        else:
+            print("else worked","0"*10)
+            ProjectStatus.objects.filter(project=project_obj).update(status=projectstatus, completion=percentage, url_project=link, username=username, password=password)
+            valuesss=DailyProgress(project=project_obj,employee=employee_id,status=timetype,note=instruction)
+            valuesss.save()   
+            return redirect('/employee')
+
        
 
-        return redirect('/employee')
     context = {
         "is_dailyprogress":True,
         "proj_sts":proj_sts,
@@ -403,14 +424,17 @@ def detailview(request,id):
     progressreport = ProjectStatus.objects.get(project=projectdetail)
     members =ProjectMembers.objects.filter(project=projectdetail)
     viewsrs =SRS.objects.get(project=projectdetail)
-    print(viewsrs.srsfile)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(files="New default that isn't None")
+    # print(uploadedfiles,'$$'*34)
+    
 
     context={
-         "emp":emp,
+        "emp":emp,
         "projectdetail":projectdetail,
         "daily_report":daily_report,
         "progressreport":progressreport,
         "members":members,
         "viewsrs":viewsrs,
+        "uploadedfiles":uploadedfiles
     }
     return render(request,'employee/detailviewproject.html',context)

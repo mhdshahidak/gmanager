@@ -14,7 +14,7 @@
                 <div class="col">
                     <h3 class="page-title">Employee</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Employee</li>
                     </ul>
                 </div>
@@ -32,189 +32,92 @@
                         <ul class="nav nav-tabs nav-tabs-bottom">
                             <li class="nav-item"><a class="nav-link active" href="#bottom-tab1"
                                     data-bs-toggle="tab">Profile</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-bs-toggle="tab">Change
-                                    Password</a></li>
+                            
                         </ul>
 
                         <div class="tab-content">
 
                             <div class="tab-pane show active" id="bottom-tab1">
-                                
-                                <form action="" method="POST">
-                                    {% csrf_token %}
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="profile-img-wrap edit-img">
-                                                    <img class="inline-block" src="{{empform.emp_profile.url}}"
-                                                        alt="user">
-                                                    <div class="fileupload btn">
-                                                        <span class="btn-text">edit</span>
-                                                        {{empform.emp_profile}}
-                                                        <!-- <input class="upload" type="file"> -->
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.name.label}}
-                                                            {{empform.name}}
-                                                            <!-- <label>First Name</label>
-                                                            <input type="text" class="form-control" value="John"> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.employee_id.label}}
-                                                            {{empform.employee_id}}
-                                                            <!-- <label>Last Name</label>
-                                                            <input type="text" class="form-control" value="Doe"> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.catagory.label}}
-                                                            {{empform.catagory}}
-                                                            <!-- <label>Birth Date</label>
-                                                            <div class="cal-icon">
-                                                                <input class="form-control datetimepicker" type="text"
-                                                                    value="05/06/1985">
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.phone.label}}
-                                                            {{empform.phone}}
-                                                            <!-- <label>Gender</label>
-                                                            <select class="select form-control">
-                                                                <option value="male selected">Male</option>
-                                                                <option value="female">Female</option>
-                                                            </select> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.email.label}}
-                                                            {{empform.email}}
-                                                            <!-- <label>Gender</label>
-                                                            <select class="select form-control">
-                                                                <option value="male selected">Male</option>
-                                                                <option value="female">Female</option>
-                                                            </select> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.dob.label}}
-                                                            {{empform.dob}}
-                                                            <!-- <label>Gender</label>
-                                                            <select class="select form-control">
-                                                                <option value="male selected">Male</option>
-                                                                <option value="female">Female</option>
-                                                            </select> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.whatsapp_number.label}}
-                                                            {{empform.whatsapp_number}}
-                                                            <!-- <label>Gender</label>
-                                                            <select class="select form-control">
-                                                                <option value="male selected">Male</option>
-                                                                <option value="female">Female</option>
-                                                            </select> -->
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            {{empform.join_date.label}}
-                                                            {{empform.join_date}}
-                                                            <!-- <label>Gender</label>
-                                                            <select class="select form-control">
-                                                                <option value="male selected">Male</option>
-                                                                <option value="female">Female</option>
-                                                            </select> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    {{empform.address.label}}
-                                                    {{empform.address}}
-                                                    <!-- <label>Address</label>
-                                                    <input type="text" class="form-control" value="4487 Snowbird Lane"> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.district.label}}
-                                                    {{empform.district}}
-                                                    <!-- <label>State</label>
-                                                    <input type="text" class="form-control" value="New York"> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.state.label}}
-                                                    {{empform.state}}
-                                                    <!-- <label>Country</label>
-                                                    <input type="text" class="form-control" value="United States"> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.nationality.label}}
-                                                    {{empform.nationality}}
-                                                    <!-- <label>Pin Code</label>
-                                                    <input type="text" class="form-control" value="10523"> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.marital_status.label}}
-                                                    {{empform.marital_status}}
-                                                    <!-- <label>Phone Number</label>
-                                                    <input type="text" class="form-control" value="631-889-3206"> -->
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.username.label}}
-                                                    {{empform.username}}
 
+                                <form action="" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="profile-img-wrap edit-img">
+                                                <img class="inline-block" src="{{userdetails.emp_profile.url}}" alt="user">
+                                                <div class="fileupload btn">
+                                                    <span class="btn-text">edit</span>
+                                                    <!-- {{empform.emp_profile}} -->
+                                                    <input class="upload" name="pic" value="{{userdetails.emp_profile}}" type="file">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.password.label}}
-                                                    {{empform.password}}
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- {{empform.name.label}}
+                                                            {{empform.name}} -->
+                                                        <label>Name</label>
+                                                        <input type="text" class="form-control" name="name" value="{{userdetails.name}}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.emergency_number.label}}
-                                                    {{empform.emergency_number}}
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- {{empform.phone.label}}
+                                                            {{empform.phone}} -->
+                                                        <label>Email</label>
+                                                        <input type="text" class="form-control" name="email" value="{{userdetails.email}}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.primarycontact_name.label}}
-                                                    {{empform.primarycontact_name}}
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- {{empform.employee_id.label}}
+                                                            {{empform.employee_id}} -->
+                                                        <label>Phone</label>
+                                                        <input type="text" class="form-control" name="phone" value="{{userdetails.phone}}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    {{empform.relation.label}}
-                                                    {{empform.relation}}
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <!-- {{empform.employee_id.label}}
+                                                            {{empform.employee_id}} -->
+                                                        <label>Whatsapp</label>
+                                                        <input type="text" class="form-control" name="whatsapp" value="{{userdetails.whatsapp_number}}">
+                                                    </div>
                                                 </div>
+                                                
                                             </div>
                                         </div>
-                                        <div class="submit-section">
-                                            <button class="btn btn-primary submit-btn">Submit</button>
+                                    </div>
+                                    <div class="row">
+
+                                      
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <!-- {{empform.username.label}}
+                                                    {{empform.username}} -->
+                                                <label>Emergency Contact Name</label>
+                                                <input type="text" class="form-control" name="emgname" value="{{emergency.primarycontact_name}}">
+
+                                            </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Emergency Contact Number</label>
+                                                <input type="text" class="form-control" name="emgnumber" value="{{emergency.emergency_number}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Realtionship</label>
+                                                <input type="text" class="form-control" name="emgrelation" value="{{emergency.relation}}">
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="submit-section">
+                                        <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                                    </div>
                                 </form>
                             </div>
 

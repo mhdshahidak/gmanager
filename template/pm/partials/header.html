@@ -5,7 +5,7 @@
 			
     <!-- Logo -->
     <div class="header-left">
-        <a href="admin-dashboard.html" class="logo">
+        <a href="#" class="logo">
             <img src="{% static 'GEDEXO LOGO ai.png' %}" width="40" height="40" alt="">
         </a>
     </div>
@@ -259,6 +259,7 @@
         <div class="dropdown-menu dropdown-menu-right">
             <!-- <a class="dropdown-item" href="">My Profile</a>
             <a class="dropdown-item" href="">Settings</a> -->
+            <a class="dropdown-item" href="{% url 'common:settings'%}">Settings</a>
             <a class="dropdown-item" href="{% url 'ceo:logout' %}">Logout</a>
         </div>
     </div>

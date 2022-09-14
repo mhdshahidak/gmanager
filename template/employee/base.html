@@ -106,6 +106,7 @@
     <script src="{% static 'ceo/js/chart.js' %}"></script>
 
     <!-- Custom JS -->
+    <script src="{% static 'ceo/js/jquery.slimscroll.min.js' %}"></script>
     <script src="{% static 'ceo/js/app.js' %}"></script>
 
 
@@ -117,11 +118,14 @@
     <script src="{% static 'employee/datatables/datatables.min.js' %}"></script> -->
     <!-- <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
 		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script> -->
+
+        
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
     <!-- Datetimepicker JS -->
+    
     <script src="{% static 'ceo/js/moment.min.js' %}"></script>
     <script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
 
@@ -166,6 +170,9 @@
 
 
     </script>
+    {% block js %}
+    
+    {% endblock %}
 </body>
 
 </html>
