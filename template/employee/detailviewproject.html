@@ -237,26 +237,26 @@
                             
                         </h6>
                         <ul class="list-box">
+                            {% for memb in members %}
+                                {% for m in memb.team.all %}
+                                <li>
+                                    <a href="" onclick="DataGets({{m.id}})" data-bs-toggle="modal" data-bs-target="#add_client">
+                                        <div class="list-item">
+                                            <div class="list-left">
 
 
-                            {% for i in members %}
-                            <li>
-                                <a href="" onclick="DataGets({% for img in i.team.all %}  {{ img.id }} {% endfor %})" data-bs-toggle="modal" data-bs-target="#add_client">
-                                    <div class="list-item">
-                                        <div class="list-left">
 
-
-
-                                            <span class="avatar"><img alt="" src="{% for img in i.team.all %} {{img.emp_profile.url }} {% endfor %}"></span>
-                                        </div> 
-                                        <div class="list-body">
-                                            <span class="message-author"> {% for img in i.team.all %}  {{ img.name }} {% endfor %}</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content"> {% for img in i.team.all %}  {{ img.catagory.title }} {% endfor %}</span>
+                                                <span class="avatar"><img alt="" src="{{m.emp_profile.url}}"></span>
+                                            </div> 
+                                            <div class="list-body">
+                                                <span class="message-author"> {{m.name}}</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content"> {{m.catagory.title}}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </li>
+                                    </a>
+                                </li>
+                                {% endfor %}
                             {% endfor %}
                         </ul>
                     </div>

@@ -29,9 +29,19 @@ def index(request):
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
     enquirylistcount = Enquiry.objects.filter(status = 'Enquiry').count()
-    waitforqc = Project.objects.filter(status="Qc").count()
+    # waitforqc = Project.objects.filter(status="Qc").count()
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
     leavecount = LeaveRequests.objects.filter(pm_accept=False,status="Waiting").count()
+    notstated =ProjectStatus.objects.filter(status = 'Not Started').count()
+    ongoing =ProjectStatus.objects.filter(status = 'On Going').count()
+    onscheduling =ProjectStatus.objects.filter(status = 'On Scheduling').count()
+    delayed =ProjectStatus.objects.filter(status = 'Delayed').count()
+    waitforqc =ProjectStatus.objects.filter(status = 'Qc').count()
+    w4c =ProjectStatus.objects.filter(status = 'W4C').count()
+    rework =ProjectStatus.objects.filter(status = 'Rework').count()
+    completed =ProjectStatus.objects.filter(status = 'Completed').count()
+    srs=SRS.objects.filter(project__status='SRS uploaded').count()
+    
     context={
         "is_pmindex":True,
         "pm":pm,
@@ -45,6 +55,14 @@ def index(request):
         "enquirylistdata":enquirylistdata,
         "waitforqc":waitforqc,
         "leavecount":leavecount,
+        "srs":srs,
+        "notstated":notstated,
+        "ongoing":ongoing,
+        "onscheduling":onscheduling,
+        "delayed":delayed,
+        "w4c":w4c,
+        "rework":rework,
+         "completed":completed,
 
     }
     return render (request,'pm/index.html',context)    
@@ -202,7 +220,7 @@ def addschedule(request,id):
     pm = request.user.employee
     project_obj = Project.objects.get(id=id)
     team_mbr = ProjectMembers.objects.get(project=project_obj)
-    mbr = ProjectMembers.objects.filter(project=project_obj).values('team__name','team__emp_profile')
+    mbr = ProjectMembers.objects.filter(project=project_obj)
     if request.method == 'POST':
         meetingDate = request.POST['meetingDate']
         platform = request.POST['platform']

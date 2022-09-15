@@ -4,6 +4,7 @@ from . import views
 app_name = 'employee'
 
 urlpatterns = [
+    path('base',views.base,name='base'),
     path('',views.employeeHome,name='employeehome'),
 
     path('meetings/<int:id>',views.empMeetingLink,name='meetings'),
@@ -42,6 +43,8 @@ urlpatterns = [
 
    path('projeclist',views.projeclist,name='projeclist'),
    path('detailview/<int:id>',views.detailview,name='detailview'),
+#    path('logout_view',views.logout_view,name='logout_view'),
+    path('countval',views.countval,name='countval'),
     
 ]
 
