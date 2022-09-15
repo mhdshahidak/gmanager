@@ -16,11 +16,15 @@ def hrmHome(request):
     emp = Employees.objects.all().count()
     project = Project.objects.all().count()
     client = Client.objects.all().count()
+    leave = LeaveRequests.objects.filter(pm_accept = True , status ='Waiting').count()
+    listvalue= ExcuseRequests.objects.filter(status = 'Waiting').count()
     context = {
         "is_hrmHome":True,
         'emp' : emp,
         "project":project,
-        "client":client
+        "client":client,
+        "leave":leave,
+        "listvalue":listvalue
     }
     return render(request, 'hrm/hrmhome.html',context)
 

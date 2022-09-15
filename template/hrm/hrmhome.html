@@ -33,6 +33,7 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'hrm:clientlist' %}">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
@@ -42,6 +43,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
             {% comment %} <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
@@ -55,15 +57,53 @@
                 </div>
             </div> {% endcomment %}
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'hrm:employees' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{emp}}</h3>
+                                <span>Employees</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'hrm:leaverequest' %}">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                        </span>
                         <div class="dash-widget-info">
-                            <h3>{{emp}}</h3>
-                            <span>Employees</span>
+                            <h3>{{leave}}</h3>
+
+                            <span>Leave Request </span>
                         </div>
                     </div>
                 </div>
+                </a>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'hrm:excuse' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+
+                                <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{listvalue}}</h3>
+                                <span>Excuse Report</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+
             </div>
         </div>
         

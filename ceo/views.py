@@ -75,14 +75,14 @@ def ceodashboard(request):
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
-    notstated =Project.objects.filter(status = 'Not Started').count()
-    ongoing =Project.objects.filter(status = 'On Going').count()
-    onscheduling =Project.objects.filter(status = 'On Scheduling').count()
-    delayed =Project.objects.filter(status = 'Delayed').count()
-    qc =Project.objects.filter(status = 'Qc').count()
-    w4c =Project.objects.filter(status = 'W4C').count()
-    rework =Project.objects.filter(status = 'Rework').count()
-    completed =Project.objects.filter(status = 'Completed').count()
+    notstated =ProjectStatus.objects.filter(status = 'Not Started').count()
+    ongoing =ProjectStatus.objects.filter(status = 'On Going').count()
+    onscheduling =ProjectStatus.objects.filter(status = 'On Scheduling').count()
+    delayed =ProjectStatus.objects.filter(status = 'Delayed').count()
+    qc =ProjectStatus.objects.filter(status = 'Qc').count()
+    w4c =ProjectStatus.objects.filter(status = 'W4C').count()
+    rework =ProjectStatus.objects.filter(status = 'Rework').count()
+    completed =ProjectStatus.objects.filter(status = 'Completed').count()
    
    
  
