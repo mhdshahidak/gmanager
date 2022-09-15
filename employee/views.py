@@ -12,9 +12,18 @@ import datetime
 from django.db.models import Q
 from datetime import datetime
 from pytz import timezone 
+# from django.contrib.auth import logout
 # Create your views here.
 
 
+
+
+
+
+
+def base(request):
+    print('hello')
+    return render(request,'employee/base.html')
 # ----- home -----
 @login_required(login_url='/')
 @auth_employee
@@ -23,12 +32,16 @@ def employeeHome(request):
     print(emp)
     employeedata=Employees.objects.get(id=request.user.employee.id)
     listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
-    
+    member = ProjectStatus.objects.filter(member__team=employeedata).count()
+    lead =ProjectStatus.objects.filter(member__lead=employeedata).count()
+    # |ProjectStatus.objects.filter(member__lead=employeedata).count()
     context={
         "is_home":True,
         "employeedata":employeedata,
         "listdata":listdata,
         "emp":emp,
+        "lead":lead,
+        "member":member,
     }
     return render(request,'employee/home.html',context)
 
@@ -100,13 +113,15 @@ def allProjects(request):
     ongoing = ProjectStatus.objects.filter(status = 'On Going').exclude(status='Qc')
     qc_projects = ProjectStatus.objects.filter(status='Qc')
     allproject =ProjectStatus.objects.filter(Q(member__lead = request.user.employee) | Q(member__team = request.user.employee))
+    projectlist= ProjectStatus.objects.all()
     context = {
         "emp":emp,
         "is_allprojects":True,
         "ongoing":ongoing,
         "qc_projects":qc_projects,
         "project_count":project_count,
-        "allproject":allproject
+        "allproject":allproject,
+        "projectlist":projectlist
         
     }
     return render(request,'employee/projects.html',context)
@@ -438,3 +453,18 @@ def detailview(request,id):
         "uploadedfiles":uploadedfiles
     }
     return render(request,'employee/detailviewproject.html',context)
+
+
+# def logout_view(request):
+#     logout(request)
+#     return redirect('ceo:login')    
+
+
+def countval(request):
+    
+
+    employeedata=Employees.objects.get(id=request.user.employee.id)
+    meetinglist1 = ProjectMembers.objects.filter(team=employeedata,project__status='Waiting for SRS' ).count()
+    meetinglist2= ProjectMembers.objects.filter(lead=employeedata,project__status='Waiting for SRS').count()
+    meetingcount = int(meetinglist1)+int(meetinglist2)
+    return meetingcount
