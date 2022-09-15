@@ -25,10 +25,10 @@
                 <li {% if is_attantanceList %} class="active" {% endif %}> 
                     <a href="{% url 'hrm:attantancelist' %}"><i class="la la-calendar-check"></i> <span>Add Attantance</span></a>
                 </li>
-                <li {% if is_leaveReport %} class="active" {% endif %} > 
+                <!-- <li {% if is_leaveReport %} class="active" {% endif %} > 
                     <a href="{% url 'hrm:leavereport' %}"><i class="la la-pie-chart"></i><span>Leave Report</span></a>
                     
-                </li>
+                </li> -->
                 <li {% if is_attantanceReport %} class="active" {% endif %} > 
                     <a href="{% url 'hrm:attantancereport' %}"><i class="la la-calendar"></i> <span>Attendance Report</span></a>
                 </li>
