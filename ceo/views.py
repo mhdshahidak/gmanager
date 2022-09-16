@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
-from pm.models import DailyProgress,Project,Enquiry,ProjectStatus
+from pm.models import SRS, DailyProgress,Project,Enquiry, ProjectMembers, ProjectProgressFiles,ProjectStatus
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -361,3 +361,32 @@ def handler500(request, *args, **argv):
 
 
 
+def statusproject(request,selected_status):
+    allproject=ProjectStatus.objects.filter(status = selected_status)
+    context={
+        "allproject":allproject,
+    }
+    return render (request,'ceo/statusproject.html',context)
+
+
+
+def statusviewproject(request,id):
+  
+    projectdetail = Project.objects.get(id=id)
+    daily_report = DailyProgress.objects.filter(project=projectdetail).values('date','status','note','employee__name')
+    progressreport = ProjectStatus.objects.get(project=projectdetail)
+    members =ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs =SRS.objects.get(project=projectdetail)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(files="New default that isn't None")
+    context={
+        "projectdetail":projectdetail,
+        "daily_report":daily_report,
+        "progressreport":progressreport,
+        "members":members,
+        "viewsrs":viewsrs,
+        "uploadedfiles":uploadedfiles
+    }
+    return render (request,'ceo/statusviewproject.html',context)
+
+
+    
