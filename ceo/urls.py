@@ -39,6 +39,8 @@ urlpatterns = [
 
     path('viedetail/<int:id>', views.viedetails, name='viedetails'),
 
+    path('statusproject/<str:selected_status>', views.statusproject, name='statusproject'),
+    path('statusviewproject/<int:id>', views.statusviewproject, name='statusviewproject'),
 
 
 ]
