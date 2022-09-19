@@ -168,24 +168,46 @@ def viewenquiry(request,id):
 def createProject(request,id):
     details = EnquiryNote.objects.get(id=id)
     form=EnquiryForm(request.POST,request.FILES)
+    form2=ClientForm(request.POST) 
     if request.method == 'POST': 
       
         if form.is_valid():
             data = form.save()           
             Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
             EnquiryNote.objects.filter(id=id).update(status='DeActivate')   
-            return redirect('/crm/addclient')
+            return redirect('/crm/')
             
     context = {
         "details":details,
         "form":form,
+        "form2":form2,
         "id":id
     }
     
     return render(request,'crm/create_project.html',context)
     
 
+def addclient(request):
+    form=ClientForm(request.POST) 
+    clientdata =Client.objects.all()
+    if request.method == 'POST': 
+          
+        if form.is_valid():           
+            data = form.save() 
+            form_data = Client.objects.get(id=data.id)
+            User = get_user_model()
+            User.objects.create_user(username=form_data.username, password=form_data.password,client=form_data)
+            return redirect('/crm/clientlist')
+        else:
+            pass
+    else:
 
+        context = {
+            "is_clientList":True,
+            "form":form,
+            "clientdata":clientdata
+        }
+    return render(request,'crm/addclient.html',context)
 
 
 
@@ -196,7 +218,8 @@ def viewdata(request,id):
     
     data={
         "note":details.note,
-        "date":details.date,
+        "date":details.date.date(),
+        "file":details.files.url,
        
         
 
@@ -381,24 +404,3 @@ def employeelist(request,id):
 
 
 
-def addclient(request):
-    form=ClientForm(request.POST) 
-    clientdata =Client.objects.all()
-    if request.method == 'POST': 
-          
-        if form.is_valid():           
-            data = form.save() 
-            form_data = Client.objects.get(id=data.id)
-            User = get_user_model()
-            User.objects.create_user(username=form_data.username, password=form_data.password,client=form_data)
-            return redirect('/crm/clientlist')
-        else:
-            pass
-    else:
-
-        context = {
-            "is_clientList":True,
-            "form":form,
-            "clientdata":clientdata
-        }
-    return render(request,'crm/addclient.html',context)

@@ -44,3 +44,5 @@ admin.site.register(Updation)
 
 
 admin.site.register(Reworks)
+
+admin.site.register(Task)
