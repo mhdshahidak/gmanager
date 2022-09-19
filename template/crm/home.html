@@ -45,26 +45,30 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>{{enquirylistToday}}</h3>
-                            <span> New Enquiries</span>
+                <a href="{% url 'crm:enquirylist' %}">               
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{enquirylistToday}}</h3>
+                                <span> New Enquiries</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>{{enquirylist}}</h3>
-                            <span> Enquiries</span>
+                <a href="{% url 'crm:enquirylist' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{enquirylist}}</h3>
+                                <span> Enquiries</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
@@ -78,15 +82,17 @@
                 </div>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>{{clientsCount}}</h3>
-                            <span>Clients</span>
+                <a href="{% url 'crm:clientlist' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+                            <div class="dash-widget-info">
+                                <h3>{{clientsCount}}</h3>
+                                <span>Clients</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             {% comment %} <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
