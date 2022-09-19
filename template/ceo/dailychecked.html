@@ -22,7 +22,28 @@
             </div>
         </div>
         <!-- /Page Header -->
-        
+        <form action="" method="post">
+            <div class="row filter-row">
+
+                {% csrf_token %}
+                <div class="col-sm-6 col-md-3">
+                    <div class="form-group form-focus">
+                        <input type="date" name="serachdate" class="form-control floating">
+                        
+                    </div>
+                    {% if status == 1 %}
+                        <p style="color: red;"> No One Updated On This Date</p>
+                        {% endif %}
+                </div>
+
+
+                <div class="col-sm-6 col-md-3">
+                    <button type="submit" class="btn btn-success w-100">Search</button>
+
+                </div>
+
+            </div>
+        </form>
      
         
         <div class="row">

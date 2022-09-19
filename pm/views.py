@@ -263,23 +263,63 @@ def meetings(request):
 @auth_pm
 def task(request):
     pm = request.user.employee
-    projects = Project.objects.all()
+    projects = Updation.objects.filter(status="CRM Checked")
     context = {
         "is_task":True,
         "projects" : projects,
         "pm":pm,
     }
     return render (request,'pm/project/task.html', context)
-    
 
+
+@csrf_exempt    
+def taskmember(request):
+    employeename=request.POST['employees']
+    # leaderid=request.POST['leaderid']
+    # employee_prjt = request.POST['memberObj']
+    # projectid = request.POST['projectid']
+    details=Employees.objects.get(name=employeename)
+    print(details)
+    member_prjct_obj = Task.objects.get(id=employee_prjt)
+    member_prjct_obj.team.add(details)
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        "catagory":details.catagory.title,
+        "profile":details.emp_profile.url,
+
+        
+    }
+    
+   
+    return JsonResponse({'value': data})
 
 
     
 
 @login_required(login_url='/')
 @auth_pm
-def viewtask(request):
-    return render (request,'pm/project/viewtask.html')  
+def viewtask(request,id):
+    print(id)
+    updation=Updation.objects.get(id=id)
+    if request.method =='POST':
+        type = request.POST['type']
+        startdate = request.POST['startdate']
+        enddate = request.POST['enddate']
+        print(type,startdate,enddate)
+        taskobj = Task(project=updation, type=type, startdate=startdate, enddate=enddate)
+        taskobj.save()
+
+        return redirect('/pm/task')
+     # employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    # taskobj = Task(project=updation)
+    # taskobj.save()
+    context={
+        "updation":updation,
+        # "employee":employee
+    }
+    return render (request,'pm/project/viewtask.html',context)  
 
 
 @login_required(login_url='/')

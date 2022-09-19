@@ -1,12 +1,10 @@
-from ast import And, Or
-from distutils.command.upload import upload
-from multiprocessing import context
+
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from ceo.models import EmergenctContact, Employees, SubCatagory,TeamMembers
+from ceo.models import EmergenctContact, Employees, SubCatagory, TeamMembers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from pm.models import ProjectMembers,Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
+from pm.models import ProjectMembers, Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
 from gmanager.decorators import auth_employee
 import datetime
 from django.db.models import Q
@@ -111,7 +109,7 @@ def allProjects(request):
     project_count = ProjectStatus.objects.filter(Q(member__lead = request.user.employee) | Q(member__team = request.user.employee)).count()
     print(project_count)
     ongoing = ProjectStatus.objects.filter(status = 'On Going').exclude(status='Qc')
-    qc_projects = ProjectStatus.objects.filter(status='Qc')
+    qc_projects = ProjectStatus.objects.filter(status = 'Qc')
     allproject =ProjectStatus.objects.filter(Q(member__lead = request.user.employee) | Q(member__team = request.user.employee))
     projectlist= ProjectStatus.objects.all()
     context = {
@@ -354,17 +352,27 @@ def empTimeline(request):
 def empTeam(request):
     emp = request.user.employee
     emp= Employees.objects.get(id=request.user.employee.id)
-    team_name = TeamMembers.objects.get(employee=emp)
-    ream_all = TeamMembers.objects.filter(teamname=team_name.teamname)
-    # employee_details = ProjectStatus.objects.all()
-    # print(employee_details)
-    context = {
-        "is_team":True,
-        "emp":emp,
-        "team_name":ream_all,
-        # "employee_details":employee_details
-    }
-    return render(request,'employee/team.html',context)
+    if TeamMembers.objects.filter(employee=emp).exists():
+
+        team_name = TeamMembers.objects.get(employee=emp)
+        ream_all = TeamMembers.objects.filter(teamname=team_name.teamname)
+        # employee_details = ProjectStatus.objects.all()
+        # print(employee_details)
+        context = {
+            "is_team":True,
+            "emp":emp,
+            "team_name":ream_all,
+            # "employee_details":employee_details
+        }
+        return render(request,'employee/team.html',context)
+    else:
+        context = {
+            "is_team":True,
+            "emp":emp,
+            # "employee_details":employee_details
+        }
+        return render(request,'employee/team.html',context)
+
 
 
 #------ Profile ------

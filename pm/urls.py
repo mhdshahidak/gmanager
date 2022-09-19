@@ -20,7 +20,9 @@ urlpatterns = [
     path('addteam/<str:id>', views.addteam, name='addteam'),
     path('addschedule/<str:id>', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
-    path('viewtask', views.viewtask, name='viewtask'),
+    path('viewtask/<str:id>', views.viewtask, name='viewtask'),
+    path('taskmember', views.taskmember, name='taskmember'),
+    
     path('srs', views.srs, name='srs'),
     path('fullprojectlist', views.fullprojectlist, name='fullprojectlist'),
 
