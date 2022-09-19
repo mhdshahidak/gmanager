@@ -78,8 +78,7 @@ def updation(request):
     if request.method == 'POST':
         updation = request.POST['updation']
         projectid = request.POST['projectid']
-        
-        upload = request.FILES['upload']
+        upload = request.FILES.get('upload', "New default that isn't None")
         project_id =Project.objects.get(id=projectid)
         update = Updation(project=project_id,note=updation, files=upload)
         update.save()

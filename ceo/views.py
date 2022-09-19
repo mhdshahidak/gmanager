@@ -283,17 +283,33 @@ def editEmployeeDetails(request,id):
 
 @login_required(login_url='/')
 def dailychecked(request):
- 
+    if request.method == 'POST':
 
-   
-    today = datetime.datetime.now()
-   
-    projectlists =DailyProgress.objects.filter(date=today)
-    context ={
-        "is_dailychecked" : True,
-        "projectlists":projectlists,
-    }
-    return render (request,'ceo/dailychecked.html',context) 
+        serachdate = request.POST['serachdate']
+         
+        print(serachdate)
+        if DailyProgress.objects.filter(date=serachdate).exists():
+            print('exist')
+            projectlists =DailyProgress.objects.filter(date=serachdate)
+            context ={
+            "is_dailychecked" : True,
+            "projectlists":projectlists,
+             "status":0
+            }
+            return render (request,'ceo/dailychecked.html',context)
+        else:
+            print('not exist') 
+            context ={
+            "is_dailychecked" : True,
+             "status":1
+            } 
+            return render (request,'ceo/dailychecked.html',context)  
+    else:
+
+        context ={
+            "is_dailychecked" : True,
+        }
+        return render (request,'ceo/dailychecked.html',context) 
 
 
 @login_required(login_url='/')

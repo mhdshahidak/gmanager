@@ -1,3 +1,4 @@
+from typing import Type
 from django.db import models
 
 from crm.models import Enquiry
@@ -92,7 +93,7 @@ class Updation(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     note = models.TextField(null=True, default="Add Note")
     date = models.DateTimeField(auto_now_add=True)
-    files = models.FileField(null=True,default='default_img.jpg')
+    files = models.FileField(null=True,default='default_img.jpg',blank=True,upload_to='Updation/')
     status = models.CharField(max_length=15, default="Not Checked")
 
 
@@ -101,6 +102,11 @@ class Reworks(models.Model):
     note = models.TextField(null=True, default="Add Note")
     status = models.CharField(null=True, max_length=15,  default="Not Seen")
     
-
+class Task(models.Model):
+    project = models.ForeignKey(Updation, on_delete=models.CASCADE)
+    team = models.ManyToManyField(Employees,null=True,blank=True)
+    startdate = models.DateField(null=True,blank=True)
+    enddate = models.DateField(null=True,blank=True)
+    type = models.CharField(max_length=15,null=True,blank=True)
 
 
