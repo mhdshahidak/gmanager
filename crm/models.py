@@ -17,7 +17,7 @@ class EnquiryNote(models.Model):
 
 
 class Enquiry(models.Model):
-    choices = (('Web Services','Web Services'),('Mobile','Mobile'),('Seo','Seo'),('Graphics','Graphics'))
+    choices = (('Web Services','Web Services'),('Mobile Application','Mobile Application'),('Seo','Seo'),('Graphic Designing','Graphic Designing'),('Digital Marketing','Digital Marketing'))
     Enquirynote = models.ForeignKey(EnquiryNote, on_delete = models.CASCADE,null=True)
     enquirydate = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length = 25,default= 'Enquiry')
