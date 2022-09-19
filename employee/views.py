@@ -384,7 +384,7 @@ def empProfile(request):
     context = {
         "is_profile":True,
         "emp":emp,
-        "emp":employee,
+        "employee":employee,
     }
     return render(request,'employee/profile.html',context)
 
