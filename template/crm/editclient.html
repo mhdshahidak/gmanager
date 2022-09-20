@@ -1,0 +1,95 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Clients </h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Edit Client</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+       
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label"> Name <span class="text-danger">*</span></label>
+                      <input type="text" value="{{clientdetails.name}}" class="form-control" name="name" id="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label">Company Name</label>
+                        <input type="text" value="{{clientdetails.companyname}}"  class="form-control" name="companyname" id="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label">Phone <span class="text-danger">*</span></label>
+                        <input type="text" value="{{clientdetails.phone}}" class="form-control" name="phone" id="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label">Whatsapp <span class="text-danger">*</span></label>
+                        <input type="text" value="{{clientdetails.whatsapp_number}}" class="form-control" name="Whatsapp" id="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label">Username <span class="text-danger">*</span></label>
+                        <input type="text" value="{{clientdetails.username}}" class="form-control" name="username" id="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label">Password <span class="text-danger">*</span></label>
+                        <input type="text" value="{{clientdetails.password}}" class="form-control" name="password" id="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-form-label">Email</label>
+                        <input type="text" value="{{clientdetails.email}}" class="form-control" name="email" id="">
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-form-label">Address</label>
+                        <!-- <input type="text" value="{{clientdetails.address}}" class="form-control" name="" id=""> -->
+
+                        <textarea name="address"  class="form-control" id="" cols="30" rows="5">{{clientdetails.address}}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+            </div>
+        </form>
+        <!-- Search Filter -->
+        
+        <!-- /Search Filter -->
+        
+        
+    </div>
+    <!-- /Page Content -->
+    
+</div>
+
+{% endblock %}

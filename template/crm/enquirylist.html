@@ -32,8 +32,15 @@
         <div class="row">
             {% for enquiry in enquirylistdata %}
             <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
-                    
+              
                     <div class="card">
+                        <div class="dropdown dropdown-action profile-action">
+                            <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"  onclick="Deleteemployee({{enquiry.id}})" ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+
+                            </div>
+                        </div>
                         <a href="{% url 'crm:viewenquiry'  enquiry.id   %}" style="text-decoration: none; color: black;">
                             <div class="card-body">
     
@@ -366,13 +373,41 @@
 </div>
 
 
-<script src="https://cdn.tiny.cloud/1/nklzzr80nbh42fu5eby0d4ipfkv57tp61il9if12c53ie9le/tinymce/5/tinymce.min.js"
+<!-- <script src="https://cdn.tiny.cloud/1/nklzzr80nbh42fu5eby0d4ipfkv57tp61il9if12c53ie9le/tinymce/5/tinymce.min.js"
     referrerpolicy="origin"></script>
 <script>
     tinymce.init({
         selector: "#mytextarea"
     });
 
+</script> -->
+
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function Deleteemployee(id) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    setTimeout(function () {
+                        window.location.href = "/crm/deleteenquery/" + id
+                    }, 1000);
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    }
 </script>
 
 {% endblock %}

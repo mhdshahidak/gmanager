@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render,redirect
 from . form import EnquiryForm,ClientForm
 from . models import *
@@ -403,4 +404,43 @@ def employeelist(request,id):
 
 
 
+
+
+
+def deleteenquery(request,id):
+    EnquiryNote.objects.get(id=id).delete()
+    return redirect('/crm/enquirylist')
+
+
+def editclient(request,id):
+    clientdetails= Client.objects.get(id=id)
+    if request.method =='POST':
+        name = request.POST['name']
+        companyname = request.POST['companyname']
+        phone = request.POST['phone']
+        Whatsapp = request.POST['Whatsapp']
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        address = request.POST['address']
+        Client.objects.filter(id=id).update(name=name, companyname=companyname, address=address, phone=phone, email=email, whatsapp_number=Whatsapp, username=username, password=password)
+        print(username,password,'$'*38)
+        password_upadte = get_user_model().objects.get(client=clientdetails)
+        password_upadte.set_password(password)
+        password_upadte.save()
+        get_user_model().objects.filter(client=clientdetails).update(username=username)
+        return redirect('/crm/clientlist')
+    else:
+
+        context={
+            "clientdetails":clientdetails,
+        }
+        return render(request,'crm/editclient.html',context)
+    
+
+
+
+def deleteclient(request,id):
+    Client.objects.get(id=id).delete()
+    return redirect('/crm/clientlist')
 

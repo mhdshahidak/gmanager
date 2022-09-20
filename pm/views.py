@@ -247,8 +247,10 @@ def addschedule(request,id):
 @login_required(login_url='/')
 @auth_pm
 def meetings(request):
-    pm = request.user.employee
-    meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    pm = request.user.employee  
+    # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS")
+
     context = {
         "is_meetings":True,
         "meetings":meetings,

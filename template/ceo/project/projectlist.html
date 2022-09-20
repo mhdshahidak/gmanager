@@ -61,14 +61,8 @@
                 <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
                     <div class="card">
                         <div class="card-body">
-                            <div class="dropdown dropdown-action profile-action">
-                                <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit_project"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_project"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                </div>
-                            </div>
-                            <h4 class="project-title"><a href="{% url 'ceo:viewproject' %}">{{project.projectname}}</a></h4>
+                           
+                            <h4 class="project-title"><a href="{% url 'ceo:viewproject' project.id %}">{{project.projectname}}</a></h4>
                             <small class="block text-ellipsis m-b-15">
                                 <span class="text-xs">Status :</span> <span class="text-lg">{{project.status}} </span>
                             </small>
@@ -76,33 +70,21 @@
                             </p>
                             <div class="pro-deadline m-b-15">
                                 <div class="sub-title">
-                                    End Date:
+                                    Company Name:
                                 </div>
                                 <div class="text-muted">
-                                    {{project.endingdate.date}}
+                                    {{project.companyname}}
                                 </div>
                             </div>
-                            {% for member in project.get_members %}
-                            <div class="project-members m-b-15">
-                                <div>Project Leader :</div>
-                                <ul class="team-members">
-                                    <li>
-                                        <a href="#" data-bs-toggle="tooltip" title="{{member.lead.name}}"><img alt="" src="{{member.lead.emp_profile.url}}"></a>
-                                    </li>
-                                </ul>
+                            <div class="pro-deadline m-b-15">
+                                <div class="sub-title">
+                                    Client Name:
+                                </div>
+                                <div class="text-muted">
+                                    {{project.clientname}}
+                                </div>
                             </div>
-                            <div class="project-members m-b-15">
-                                <div>Team :</div>
-                                <ul class="team-members">
-                                    {% for team in member.team.all %}
-                                        <li>
-                                            <a href="#" data-bs-toggle="tooltip" title="{{team.name}}"><img alt="" src="{{team.emp_profile.url}}"></a>
-                                        </li>
-                                    {% endfor %}
-                                    
-                                </ul>
-                            </div>
-                            {% endfor %}
+                        
                             {% comment %} <p class="m-b-5">Progress <span class="text-success float-end">40%</span></p>
                             <div class="progress progress-xs mb-0">
                                 <div class="progress-bar bg-success" role="progressbar" data-bs-toggle="tooltip" title="40%" style="width: 40%"></div>
