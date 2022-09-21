@@ -32,7 +32,7 @@ class Enquiry(models.Model):
     files = models.FileField(upload_to="Enquiry/", max_length=100000,blank=True, null=True)
     details = models.CharField(max_length = 1000000,null=True)
     reason = models.CharField(max_length = 1000000,null=True,default= 'no reason')
-
+    address = models.CharField(max_length = 1000000,null=True,blank=True)
 
     def __str__(self):
         return str(self.projectname)        

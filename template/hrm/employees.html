@@ -63,6 +63,7 @@
                     <table class="table table-striped custom-table datatable">
                         <thead>
                             <tr>
+                                <th>Sl.no</th>
                                 <th>Name</th>
                                 <th>Employee ID</th>
                                 <th>Email</th>
@@ -74,6 +75,7 @@
                         <tbody>
                             {% for emp in allemp %}
                             <tr>
+                                <td>{{forloop.counter}}</td>
                                 <td>
                                     <h2 class="table-avatar" data-bs-toggle="modal" onclick="DataGet({{emp.employee.id}})" data-bs-target="#add_team">
                                         <a class="avatar"><img alt="" src="{{emp.employee.emp_profile.url}}"></a>
@@ -372,6 +374,7 @@
                                 <div class="form-group">
                                     {{empform.username.label}}
                                     {{empform.username}}
+                                    <p id="msg" style="color: red;"></p>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -403,7 +406,7 @@
                         </div>
                         
                         <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">Submit</button>
+                            <button id="formsubmit" class="btn btn-primary submit-btn">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -734,7 +737,6 @@
     
 </div>
 
-
 <script>
     function DataGet(id){
         $.ajax({
@@ -806,5 +808,43 @@
                 }
             });
     }
+
+
+
+
+    
+   
+</script>
+{% endblock %}
+
+
+{% block js %}
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script>
+    $("#checkusername").on("change", function() {
+    // var val = $(this).val();
+    // alert(val)
+    $.ajax({
+            url: "/hrm/checkexist",
+            type: 'post',
+            data: {
+                'checkname': $(this).val()
+            },
+            success: function (responce) {
+                console.log(responce.IsExist)
+
+                if (responce.IsExist == true) {
+                    document.getElementById('msg').innerHTML = 'Username Already Exist '
+
+                    $('#formsubmit').prop('disabled', true)
+                }
+                else {
+                    document.getElementById('msg').innerHTML = ''
+                    $('#formsubmit').prop('disabled', false)
+                }
+            }
+
+        })
+});
 </script>
 {% endblock %}

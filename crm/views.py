@@ -1,6 +1,7 @@
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from . form import EnquiryForm,ClientForm
+
 from . models import *
 from ceo.models import Client, EmergenctContact, Employees,Attendence,SubCatagory
 from django.contrib.auth import get_user_model

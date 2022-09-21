@@ -12,6 +12,8 @@ from datetime import datetime, timedelta, time
 from pytz import timezone
 from django.db.models import Q
 from gmanager.decorators import auth_pm
+from django.contrib.auth import get_user_model
+from crm.form import ClientForm
 # Create your views here.
 @login_required(login_url='/')
 @auth_pm
@@ -211,6 +213,35 @@ def addteam(request,id):
         "pm":pm,
     }
     return render (request,'pm/project/addteam.html',context)
+
+
+@login_required(login_url='/')
+@auth_pm
+def client(request):
+
+    form=ClientForm(request.POST) 
+    clientdata =Client.objects.all()
+    if request.method == 'POST': 
+          
+        if form.is_valid():           
+            data = form.save() 
+            form_data = Client.objects.get(id=data.id)
+            User = get_user_model()
+            User.objects.create_user(username=form_data.username, password=form_data.password,client=form_data)
+            return redirect('pm:client')
+        else:
+            pass
+    else:
+
+        context = {
+            "is_clientList":True,
+            "form":form,
+            "clientdata":clientdata
+        }
+        return render(request,'pm/client.html', context)
+
+
+
 
 
 

@@ -33,7 +33,7 @@
                                 <th>Client Name </th>
                                 <th>Whatsapp  Number </th>
                                 <th>Email </th>
-                                <th>Date & Time </th>
+                                <th>View</th>
                                 <th>View Praposal</th>
                                
                                 
@@ -52,7 +52,8 @@
                                 <td>{{ i.enquiry.clientname }}</td>
                                 <td>{{ i.enquiry.whatsapp }}</td>
                                 <td>{{ i.enquiry.email }}</td>
-                                <td>{{ i.enquiry.enquirydate }}</td>
+                                <td><button  data-bs-toggle="modal"  data-bs-target="#edit_client"onclick="DataGets({{ i.enquiry.id }})" class="btn  badge-pill bg-info-light ">View </button>
+                                </td>
                                 <th><a href="{{ i.praposalpdf.url }}"><i class="fa fa-download"></i> download</a></th>
                                 
                                 <td class="text-end">
@@ -77,7 +78,42 @@
     <!-- /Page Content -->
 
 
-
+    <div id="edit_client" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deatils </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="meta">
+                                <li><span>Project Name :</span> <span id="projectname"></span></li>
+                                <li><span>Company Name :</span> <span id="companyname"></span> </li>
+                                <li><span>Client Name:</span> <span id="clientname"></span> </li>
+                                <li><span>Email :</span> <span id="email"></span> </li>
+                                <li><span> Phone : </span> <span id="phone"></span></li>
+                                <li><span> Whatsapp :</span> <span id="whatsapp"></span> </li>
+                                <li><span> Refered By : </span> <span id="referredby"></span></li>
+                                <li><span> Type :</span> <span id="type"></span> </li>
+                             
+                            </ul>
+                            <!-- <h4 class="card-title">Blockquotes</h4> -->
+                            <blockquote class="blockquote">
+                                <p class="mb-0">Address</p>
+                            </blockquote>
+                            <blockquote >
+                                <p class="mb-0" id="address"></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -96,6 +132,31 @@
 
                
                 window.location.reload()
+            }
+
+        })
+    }
+
+
+    function DataGets(id){
+        $.ajax({
+            url: "/accounts/viedetails/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+
+                // console.log(responce)
+                $('#address').html(responce.value.address)
+                $('#companyname').html(responce.value.companyname)
+                $('#projectname').html(responce.value.projectname)
+                $('#clientname').html(responce.value.clientname)
+                $('#email').html(responce.value.email)
+                $('#phone').html(responce.value.phone)
+                $('#whatsapp').html(responce.value.whatsapp)
+                $('#referredby').html(responce.value.referredby)
+                $('#type').html(responce.value.type)
+                
             }
 
         })

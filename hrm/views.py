@@ -385,3 +385,12 @@ def editemployee(request,id):
 
         }    
     return render(request,'hrm/editemployee.html',context)    
+
+
+
+
+@csrf_exempt
+def checkexist(request):
+    check_name = request.POST['checkname']
+    object = Employees.objects.filter(username=check_name).exists()
+    return JsonResponse({'IsExist':object})
