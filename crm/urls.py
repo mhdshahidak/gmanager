@@ -35,6 +35,10 @@ urlpatterns = [
     path('departmentwise', views.departmentwise, name='departmentwise'),
     path('employeelist/<int:id>',views.employeelist,name="employeelist"),
     path('addclient', views.addclient, name='addclient'),
+    path('deleteenquery/<int:id>',views.deleteenquery,name="deleteenquery"),
+    path('editclient/<int:id>',views.editclient,name="editclient"),
+    path('deleteclient/<int:id>',views.deleteclient,name="deleteclient"),
+
 
 
 

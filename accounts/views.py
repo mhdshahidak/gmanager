@@ -75,4 +75,24 @@ def changefollow(request):
     Enquiry.objects.filter(id=id).update(status = 'Advance Paid')
     return JsonResponse({'message': 'sucesses'}) 
 
-    
+
+
+
+
+@csrf_exempt
+def viedetails(request,id):
+    getdata =  Enquiry.objects.get(id=id)
+    data ={
+        'projectname':getdata.projectname,
+        'companyname':getdata.companyname,
+        'clientname':getdata.clientname,
+        'email':getdata.email,
+        'phone':getdata.phone,
+        'whatsapp':getdata.whatsapp,
+        'referredby':getdata.referredby,
+        'type':getdata.type,
+        'address':getdata.address,
+        
+        
+    }
+    return JsonResponse({'value': data})

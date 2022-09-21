@@ -18,6 +18,7 @@ urlpatterns = [
     path('unassigneproject', views.unassigneproject, name='unassigneproject'),
     path('addproject/<str:id>', views.addproject, name='addproject'),
     path('addteam/<str:id>', views.addteam, name='addteam'),
+    path('client', views.client, name='client'),
     path('addschedule/<str:id>', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
     path('viewtask/<str:id>', views.viewtask, name='viewtask'),

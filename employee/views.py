@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from ceo.models import EmergenctContact, Employees, SubCatagory, TeamMembers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+
 from pm.models import ProjectMembers, Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
 from gmanager.decorators import auth_employee
 import datetime
@@ -29,9 +30,23 @@ def employeeHome(request):
     emp = request.user.employee
     print(emp)
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    listdata = ProjectStatus.objects.filter(member__team=employeedata) |ProjectStatus.objects.filter(member__lead=employeedata)
+    listdata = ProjectStatus.objects.filter(member__team=employeedata ).exclude(status='Completed') |ProjectStatus.objects.filter(member__lead=employeedata).exclude(status='Completed')
     member = ProjectStatus.objects.filter(member__team=employeedata).count()
     lead =ProjectStatus.objects.filter(member__lead=employeedata).count()
+
+
+
+
+    meetinglist1 = ProjectMembers.objects.filter(team=employeedata,project__status='Waiting for SRS' ).count()
+    meetinglist2 =  ProjectMembers.objects.filter(lead=employeedata,project__status='Waiting for SRS').count()
+    meetingcount =meetinglist1 + meetinglist2
+    print(meetingcount)
+    reworklist1 = Reworks.objects.filter(project__member__team=employeedata,status='Not Seen').count()
+    reworklist2= Reworks.objects.filter(project__member__lead=employeedata,status='Not Seen').count()
+    reworkcount=reworklist1 + reworklist2
+    # listdatasss = ProjectStatus.objects.get(member__team=employeedata,status='Rework')
+    # reworklist = Reworks.objects.filter(project=listdatasss,status='Not Seen').count()
+    # print(reworklist)
     # |ProjectStatus.objects.filter(member__lead=employeedata).count()
     context={
         "is_home":True,
@@ -40,6 +55,8 @@ def employeeHome(request):
         "emp":emp,
         "lead":lead,
         "member":member,
+        "meetingcount":meetingcount,
+        "reworkcount":reworkcount
     }
     return render(request,'employee/home.html',context)
 
@@ -133,17 +150,25 @@ def empRework(request):
     emp = request.user.employee
     employeedata=Employees.objects.get(id=request.user.employee.id)
     
-    if ProjectStatus.objects.filter(member__team=employeedata,status='Rework').exists():
-        listdata = ProjectStatus.objects.get(member__team=employeedata,status='Rework')
-        reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
-        context = {
+    reworklist = Reworks.objects.filter(project__member__team=employeedata,status='Not Seen') | Reworks.objects.filter(project__member__lead=employeedata,status='Not Seen')
+ 
+    context = {
         "is_rework":True,
         "emp":emp,
         "reworklist":reworklist
         }
-        return render(request,'employee/rework.html',context)
-    else:
-        return render(request,'employee/rework.html')
+    return render(request,'employee/rework.html',context)
+    # if ProjectStatus.objects.filter(member__team=employeedata,status='Rework').exists():
+    #     listdata = ProjectStatus.objects.get(member__team=employeedata,status='Rework')
+    #     reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
+    #     context = {
+    #     "is_rework":True,
+    #     "emp":emp,
+    #     "reworklist":reworklist
+    #     }
+    #     return render(request,'employee/rework.html',context)
+    # else:
+    #     return render(request,'employee/rework.html')
 
     # |ProjectStatus.objects.filter(member__lead=employeedata)
     # reworklist = Reworks.objects.filter(project=listdata,status='Not Seen')
@@ -384,7 +409,7 @@ def empProfile(request):
     context = {
         "is_profile":True,
         "emp":emp,
-        "emp":employee,
+        "employee":employee,
     }
     return render(request,'employee/profile.html',context)
 

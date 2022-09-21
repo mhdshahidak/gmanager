@@ -25,7 +25,7 @@ class EmployeeRegisterForm(forms.ModelForm):
             'nationality': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Nationality','name':'nationality'}),
             'marital_status': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Marital status','name':'marital_status'}),
             'emp_profile' : FileInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off','name':'emp_profile','id':'emp_profile'}),
-            'username': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'username','name':'username'}),
+            'username': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'username','name':'username','id':'checkusername'}),
             'password': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'password','name':'password'}),
             # 'c_password': PasswordInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'c_password','name':'c_password'}),
             

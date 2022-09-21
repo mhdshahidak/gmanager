@@ -28,7 +28,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                    <a href="{% url 'ceo:projectlist' %}">
+                    <a href="">
                         <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{projects}}</h3>
@@ -231,77 +231,93 @@
         <div class="row">
 
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
-                        </span>
-                        <!-- <span class="dash-widget-icon"><i class="fa fa-user"></i></span> -->
-                        <div class="dash-widget-info">
-                            <h3>{{enquirylist}}</h3>
-
-                            <span>Enquiries list </span>
+                <a href="/projectlist/Enquiry">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+    
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                            </span>
+                            <!-- <span class="dash-widget-icon"><i class="fa fa-user"></i></span> -->
+                            <div class="dash-widget-info">
+                                <h3>{{enquirylist}}</h3>
+    
+                                <span>Enquiries list </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{addedtoprop}}</h3>
-                            <span>Added to Praposal </span>
+                <a href="/projectlist/Added To Proposal">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{addedtoprop}}</h3>
+                                <span>Added to Praposal </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/proposal_accepted.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{billcreation}}</h3>
-                            <span>Praposal Acepted </span>
+                <a href="/projectlist/Bill Creation">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/proposal_accepted.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{billcreation}}</h3>
+                                <span>Praposal Acepted </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{billadvance}}</h3>
-                            <span>Advance Sented </span>
+                <a href="/projectlist/Bill Advance">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{billadvance}}</h3>
+                                <span>Advance Sented </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+             
 
             </div>
 
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{ advancepaid}}</h3>
-                            <span>Unassigned Project</span>
+
+                <a href="/projectlist/Advance Paid">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ advancepaid}}</h3>
+                                <span>Unassigned Project</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'ceo:rejectedlist' %}">
@@ -327,7 +343,7 @@
                             </span>
                             <div class="dash-widget-info">
                                 <h3>{{notstated}}</h3>
-                                <span>Not Started  </span>
+                                <span>On Scheduling  </span>
                             </div>
                         </div>
                     </div>
@@ -352,7 +368,7 @@
                
 
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="/statusproject/On Scheduling">
                     <div class="card dash-widget">
                         <div class="card-body">
@@ -368,7 +384,7 @@
                 </a>
                 
 
-            </div>
+            </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="/statusproject/Delayed">
                     <div class="card dash-widget">
@@ -457,7 +473,6 @@
            
 
             <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="{% url 'ceo:projectlist' %}">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
@@ -467,7 +482,6 @@
                             </div>
                         </div>
                     </div>
-                </a>
 
             </div> -->
 

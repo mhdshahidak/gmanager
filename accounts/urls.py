@@ -17,6 +17,7 @@ urlpatterns = [
 
     path('changebill', views.changebill, name='changebill'),
     path('changefollow', views.changefollow, name='changefollow'),
+    path('viedetails/<str:id>', views.viedetails, name='viedetails'),
 
 
 
