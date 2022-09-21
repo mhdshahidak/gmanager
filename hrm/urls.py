@@ -28,6 +28,7 @@ urlpatterns = [
     path('employeedetails/<str:id>', views.employeedetails, name="employeedetails"),
     path('deleteemployee/<str:id>', views.deleteemployee, name="deleteemployee"),
     path('editemployee/<str:id>', views.editemployee, name="editemployee"),
+    path('checkexist', views.checkexist, name="checkexist"),
 
     
 

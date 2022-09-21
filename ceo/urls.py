@@ -31,8 +31,8 @@ urlpatterns = [
 
 
     path('project', views.project, name='project'),
-    path('projectlist', views.projectlist, name='projectlist'),
-    path('viewproject', views.viewproject, name='viewproject'),
+    path('projectlist/<str:selected_status>', views.projectlist, name='projectlist'),
+    path('viewproject/<int:id>', views.viewproject, name='viewproject'),
 
     path('editemployee/<int:id>',views.editEmployeeDetails,name='editemployee'),
     path('rejectedlist', views.rejectedlist, name='rejectedlist'),

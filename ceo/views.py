@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
-from pm.models import SRS, DailyProgress,Project,Enquiry, ProjectMembers, ProjectProgressFiles,ProjectStatus
+from pm.models import SRS, DailyProgress,Project,Enquiry, ProjectMembers, ProjectProgressFiles,ProjectStatus,Praposalpdf
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -69,7 +69,14 @@ def ceodashboard(request):
     clients  = Client.objects.all().count()
     employees = Employees.objects.all().count()
 
-    enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    # addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
+    # billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
+    # billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+    # advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    enquirylist = Enquiry.objects.filter(status = 'Enquiry').count()
+    print(enquirylist)
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
@@ -137,8 +144,9 @@ def crm(request):
 
 @login_required(login_url='/')
 def employe(request):
-    empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
-    emp_count = Employees.objects.filter(status="Online").count()
+    # empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
+    empllist = Employees.objects.all()
+    emp_count = Employees.objects.all().count()
 
     context = {
         "is_employe" : True,
@@ -330,8 +338,8 @@ def rejectedlist(request):
 
 
 @login_required(login_url='/')
-def projectlist(request):
-    projects = Project.objects.all()
+def projectlist(request,selected_status):
+    projects = Enquiry.objects.filter(status = selected_status)
     context = {
         "is_project" : True,
         "projects":projects,
@@ -340,11 +348,24 @@ def projectlist(request):
 
 
 @login_required(login_url='/')
-def viewproject(request):
-    context = {
+def viewproject(request,id):
+    enquiry =Enquiry.objects.get(id=id)
+    if Praposalpdf.objects.filter(enquiry=enquiry).exists:
+        propsosal=Praposalpdf.objects.filter(enquiry=enquiry)
+        print(propsosal,'#'*10)
+        context = {
         "is_project" : True,
-    }
-    return render (request,'ceo/project/viewproject.html',context)        
+        "enquiry":enquiry,
+        "propsosal":propsosal
+        }
+        return render (request,'ceo/project/viewproject.html',context) 
+    else:
+        context = {
+        "is_project" : True,
+        "enquiry":enquiry
+        }
+        return render (request,'ceo/project/viewproject.html',context)     
+          
     
 
 
