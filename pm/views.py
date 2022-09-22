@@ -343,8 +343,10 @@ def viewtask(request,id):
         print(type,startdate,enddate)
         taskobj = Task(project=updation, type=type, startdate=startdate, enddate=enddate)
         taskobj.save()
-
-        return redirect('/pm/task')
+        id_only = str(taskobj.id)
+        Updation.objects.filter(id=id).update(status="Team Assigned")
+        return redirect('/pm/taskteam/'+ id_only)
+        
      # employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
     # taskobj = Task(project=updation)
     # taskobj.save()
@@ -518,11 +520,6 @@ def membersearch(request):
     member_prjct_obj = ProjectMembers.objects.get(id=employee_prjt)
     member_prjct_obj.team.add(details)
     # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
-
-
-
-
-    
     
     data={
         "id":details.id,
@@ -534,6 +531,37 @@ def membersearch(request):
     
    
     return JsonResponse({'value': data})    
+
+
+
+
+@csrf_exempt
+def taskmembersearch(request):
+    employeename=request.POST['member']
+    taskid = request.POST['taskid']
+
+
+     
+    details=Employees.objects.get(name=employeename)
+    member_prjct_obj = Task.objects.get(id=taskid)
+    member_prjct_obj.team.add(details)
+    # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        "catagory":details.catagory.title,
+
+        
+    }
+    
+   
+    return JsonResponse({'value': data})    
+
+
+
+
+
 
 
 @csrf_exempt
@@ -687,3 +715,15 @@ def employeelist(request,id):
     }
     return render(request,'pm/employeelist.html',context)
  
+
+
+@login_required(login_url='/')
+def taskteam(request,id):
+    print(id)
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context = {
+        "employee":employee,
+        "id":id,
+    }
+    return render(request,'pm/project/taskteam.html',context)
+

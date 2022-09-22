@@ -25,8 +25,8 @@
                     <div class="card-body">
                         <ul class="nav nav-tabs nav-tabs-bottom">
                             <li class="nav-item"><a class="nav-link active" href="#bottom-tab1" data-bs-toggle="tab">Tasks</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-bs-toggle="tab">Pending Task</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#bottom-tab3" data-bs-toggle="tab">Completed Task</a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="#bottom-tab2" data-bs-toggle="tab">Pending Task</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#bottom-tab3" data-bs-toggle="tab">Completed Task</a></li> -->
                         </ul>
 
                         <div class="tab-content">
@@ -34,21 +34,26 @@
                                 <table class="table table-center table-hover datatable" id="tb1" style="padding: 20px;border-radius: 20px;">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th>Date</th>
+                                            <th>Sl.No</th>
                                             <th>Project</th>
                                             <th>Client</th>
-                                            <th>Note</th>
-                                            <th>Status</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Type</th>
+                                            <th>View</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for i in taskdetails %}
                                         <tr>
-                                            <td> 16 Nov 2020 </td>
-                                            <td> Brothers Group of company </td>
-                                            <td>bro</td>
-                                            <td> Change images and font size </td>
-                                            <td class="text-center"><span class="btn badge-pill bg-success-light">Completed</span></td>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td> {{i.project.project.projectname}} </td>
+                                            <td> {{i.project.project.client.name}} </td>
+                                            <td>{{i.startdate}}</td>
+                                            <td> {{i.enddate}} </td>
+                                            <td> {{i.type}} </td>
+                                            <td class="text-center"><span class="btn badge-pill bg-info-light" data-bs-toggle="modal"  data-bs-target="#edit_client"onclick="DataGets({{ i.project.id }})" >View</span></td>
                                             <td class="text-end">
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -59,38 +64,8 @@
 												</div>
 											</td>
                                         </tr>
-                                        <tr>
-                                            <td> 16 Nov 2020 </td>
-                                            <td> Brothers Group of company </td>
-                                            <td>bro</td>
-                                            <td> Change images and font size </td>
-                                            <td class="text-center"><span class="btn badge-pill bg-success-light">Completed</span></td>
-                                            <td class="text-end">
-												<div class="dropdown dropdown-action">
-													<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_indicator"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-													</div>
-												</div>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td> 16 Nov 2020 </td>
-                                            <td> Brothers Group of company </td>
-                                            <td>bro</td>
-                                            <td> Change images and font size </td>
-                                            <td class="text-center"><span class="btn badge-pill bg-danger-light">Pending</span></td>
-                                            <td class="text-end">
-												<div class="dropdown dropdown-action">
-													<a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_indicator"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-													</div>
-												</div>
-											</td>
-                                        </tr>
+                                        {% endfor %}
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -166,9 +141,83 @@
             </div>
         </div>
     </div>
+    <div id="edit_client" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Deatils </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="meta">
+                                
+                                <li><span> Date :</span> <span id="date"></span> </li>
+                                <!-- <li><span> Refered By : </span> <span id="referredby"></span></li>
+                                <li><span> Type :</span> <span id="type"></span> </li> -->
+                             
+                            </ul>
+                            <!-- <h4 class="card-title">Blockquotes</h4> -->
+                            <blockquote class="blockquote">
+                                <p class="mb-0">Note</p>
+                            </blockquote>
+                            <blockquote >
+                                <p class="mb-0" id="note"></p>
+                            </blockquote>
+
+                            <blockquote id="upload" class="blockquote">
+                                <p class="mb-0">Uploded File</p>
+                            </blockquote>
+                            <blockquote >
+                                <a href="" id="files" download>Download</a>
+                                <!-- <p class="mb-0" id="note"></p> -->
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+
+
+<script>
+    function DataGets(id){
+        $.ajax({
+            url: "/employee/taskdetails/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+
+                // alert(responce.value.files)
+                
+                $('#date').html(responce.value.date)
+                $('#note').html(responce.value.note)
+                if (responce.value.files =="/media/New%20default%20that%20isn't%20None"){
+                    $('#files').hide()
+                    $('#upload').hide()
+                    
+                }
+                else{
+                    $('#files').show()
+                    $('#upload').show()
+                    $('#files').attr('href',responce.value.files)
+                }
+                // $('#files').attr('href',responce.value.files)
+                // $('#referredby').html(responce.value.referredby)
+                // $('#type').html(responce.value.type)
+                
+            }
+
+        })
+    }
+</script>
 
 {% endblock %}
 
