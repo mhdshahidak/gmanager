@@ -75,7 +75,7 @@ def index(request):
 @auth_pm
 def enquiry(request):
     pm = request.user.employee
-    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry').exclude(type='Graphics')
     context={
         "is_enquiry":True,
         "pm":pm,
@@ -97,7 +97,7 @@ def viewenquries(request,id):
             data.enquiry=details
             data.save()
             Enquiry.objects.filter(id=id).update(status = 'Added To Proposal')
-            return redirect('/pm/proposal')
+            return redirect('/pm/enquiry')
         else:
             pass 
     else:

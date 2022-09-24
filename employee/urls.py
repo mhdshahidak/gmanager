@@ -13,9 +13,13 @@ urlpatterns = [
     # path('projectsrs',views.projectSrs,name='projectsrs'),
     path('emprework',views.empRework,name='emprework'),
     path('dailyprogress/<int:id>',views.empDailyProgress,name='dailyprogress'),
-    path('progressreport/<int:id>',views.empProgressReport,name='progressreport'),   
+    path('progressreport/<int:id>',views.empProgressReport,name='progressreport'), 
+
     path('emptask',views.empTask,name='emptask'),
     path('taskdetails/<int:id>',views.taskdetails,name='taskdetails'),
+    path('taskreport/<int:id>',views.taskreport,name='taskreport'),
+
+    
 
     
     path('emphomework',views.empHomework,name='emphomework'),

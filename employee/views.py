@@ -34,6 +34,7 @@ def employeeHome(request):
     member = ProjectStatus.objects.filter(member__team=employeedata).count()
     lead =ProjectStatus.objects.filter(member__lead=employeedata).count()
 
+    
 
 
 
@@ -519,3 +520,6 @@ def taskdetails(request,id):
     }
     # print(data.files)
     return JsonResponse({'value': data})    
+
+def taskreport(request,id):
+    return render(request,'employee/taskreport.html')
