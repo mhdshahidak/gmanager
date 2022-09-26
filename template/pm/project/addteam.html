@@ -14,7 +14,7 @@
                 <div class="col">
                     <h3 class="page-title">Projects</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Projects</li>
                     </ul>
                 </div>
@@ -67,20 +67,9 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="pro-team-members">
-                                    <h4>Leader </h4>
+                                    <h4>Team Members </h4>
                                     <div class="avatar-group">
-                                        <div class="avatar">
-                                            <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                                src="{% static 'ceo/img/profiles/avatar-02.jpg' %}">
-                                        </div>
-                                        <div class="avatar">
-                                            <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                                src="{% static 'ceo/img/profiles/avatar-09.jpg' %}">
-                                        </div>
-                                        <div class="avatar">
-                                            <img class="avatar-img rounded-circle border border-white" alt="User Image"
-                                                src="{% static 'ceo/img/profiles/avatar-12.jpg' %}">
-                                        </div>
+                                       
                                         <div class="avatar">
                                             <a href="" class="avatar-title rounded-circle border border-white"
                                                 data-bs-toggle="modal" data-bs-target="#assign_leader"><i
@@ -133,7 +122,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Assign Leader to this project</h5>
+                    <h5 class="modal-title">Assign Member to this project</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -187,8 +176,10 @@
                     $('#projectmemberid').val(responce.value.projectmemberid)
                     $('#memberBox').val(responce.value.member)
 
-                    $('#image').attr("src", responce.value.emp_profile)
+                    $('#image').attr("src", responce.value.profile)
                     $('#title').attr("title", responce.value.name)
+
+                    $('#employees').attr('disabled', true);
                     // window.location.reload()
                 }
 
@@ -215,7 +206,7 @@
                 },
                 success: function (responce) {
                     $('#tab').append('<tr id="tr"><td>' + responce.value.id + '</td><td>' + responce.value.name + '</td><td>' + responce.value.catagory + '</td></tr>')
-                    $('#member').val('')
+                    $('#member').val('')                                    
 
                 }
 

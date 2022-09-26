@@ -13,7 +13,7 @@
                 <div class="col">
                     <h3 class="page-title">Leave Request</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Leave Request</li>
                     </ul>
                 </div>
@@ -39,7 +39,7 @@
                             data-bs-toggle="modal" onclick="ViewDetails({{i.id}})" data-bs-target="#edit_client">View Reason</a></div>
                     <a href="#" class="btn btn-white btn-sm m-t-10" onclick="AcceptDetails({{i.id}})">Accept</a>
                     <a href="#" class="btn btn-white btn-sm m-t-10" data-bs-toggle="modal"
-                        data-bs-target="#delete_client"   onclick="RejectDetails({{i.id}})">Delect</a>
+                        data-bs-target="#delete_client"   onclick="RejectDetails({{i.id}})">Delete</a>
                 </div>
             </div>
              {% endfor %}

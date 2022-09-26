@@ -3,7 +3,7 @@
 {% block content %}
 
 <style>
-    .card1{
+    .card1 {
         border-radius: 20px;
     }
 </style>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <!-- /Count Cards -->
 
@@ -79,35 +79,37 @@
             <div class="col-sm-12">
                 <div class="card card-table card1">
                     <div class="card-header">
-                        <h4 class="card-title mb-0">Task</h4>
+                        <h4 class="card-title mb-0">My Projects</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="padding: 20px;"> 
-                            <table class="table table-center table-hover " style="padding: 20px;border-radius: 20px;">
+                        <div class="table-responsive" style="padding: 15px;">
+                            <table class="table table-center table-hover " style="padding: 20px;border-radius: 20px;" id="datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Project</th>
-                                        <th>Created At</th>
-                                        <th> Task</th>
-                                        <th> Attachment</th>
+                                        <th>Sl.No</th>
+                                        <th>Project Name</th>
+                                        <th>Status</th>
+                                      
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for i in allproject %}
                                     <tr>
+                                        <td>{{forloop.counter }}</td>
                                         <td>
                                             <h2 class="table-avatar">
-                    
-                                                <a href="" style="color: #4d13aa;">Brothers group</a>
+
+                                                <a href="{% url 'employee:detailview' i.project.id %}"
+                                                    style="color: #4d13aa;">{{i.project.projectname}}</a>
                                             </h2>
                                         </td>
-                                        <td>
-                                            2 days, 3 hours ago
-                                        </td>
-                                        <td> ------------- </td>
-                                        <td>
-                                            <a href=""> images for banner section</a>
-                                        </td>
+                                        <td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span> {% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{ i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif %}
+
+                                        
                                     </tr>
+                                    {% endfor %}
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -122,47 +124,37 @@
             <div class="col-sm-12">
                 <div class="card card-table card1">
                     <div class="card-header">
-                        <h4>Projects</h4>
+                        <h4>All Projects</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="padding: 20px;"> 
-                            <table class="table table-center table-hover datatable" style="padding: 20px;border-radius: 20px;">
+                        <div class="table-responsive" style="padding: 15px;">
+                            <table class="table table-center table-hover " style="padding: 20px;border-radius: 20px;" id="datatableall">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>End Date</th>
-                                        <th>Project</th>
-                                        <th>Added Date</th>
+                                        <th>Sl.No</th>
+                                        <th>Project Name</th>
                                         <th>Status</th>
-                                        <th>Completion</th>
-                                        <th class="text-end">Action</th>
+                                      
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for p in ongoing %}
+                                    {% for i in projectlist %}
                                     <tr>
+                                        <td>{{forloop.counter }}</td>
                                         <td>
-                                            {{p.project.starteddate|date:"d-m-y"}}
+                                            <h2 class="table-avatar">
+
+                                                <a href="{% url 'employee:detailview' i.project.id %}"
+                                                    style="color: #4d13aa;">{{i.project.projectname}}</a>
+                                            </h2>
                                         </td>
-                                        <td>
-                                            <a href="" style="color: #4d13aa;">{{p.project.projectname|upper}}</a>
-                                        </td>
-                                        <td>{{p.project.endingdate|date:"d-m-y"}}</td>
-                                        <td>
-                                            <span class="badge badge-pill bg-success-light" >
-                                                {{p.status}}
-                                            </span>
-                                        </td>
-                                        <td>
-                                            {{p.completion}} %
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar w-75" role="progressbar" style="width: {{p.status}}%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-                                                </div>
-                                               
-                                            </div>
-                                        </td>
-                                    
+                                        <td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span> {% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{ i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif %}
+
+                                        
                                     </tr>
                                     {% endfor %}
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -181,8 +173,9 @@
                         <h4>Completed Projects</h4>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive" style="padding: 20px;"> 
-                            <table class="table table-center table-hover datatable" style="padding: 20px;border-radius: 20px;">
+                        <div class="table-responsive" style="padding: 20px;">
+                            <table class="table table-center table-hover datatable"
+                                style="padding: 20px;border-radius: 20px;">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>End Date</th>
@@ -203,19 +196,21 @@
                                         </td>
                                         <td>{{q.project.endingdate|date:"d-m-y"}}</td>
                                         <td class="">
-                                            <span class="badge badge-pill bg-success-light" >
-                                            {{q.status}}
+                                            <span class="badge badge-pill bg-success-light">
+                                                {{q.status}}
                                             </span>
                                         </td>
                                         <td>
                                             {{q.completion}} %
                                             <div class="progress progress-xs">
-                                                <div class="progress-bar w-75" role="progressbar" style="width: {{q.completion}}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar w-75" role="progressbar"
+                                                    style="width: {{q.completion}}%" aria-valuenow="" aria-valuemin="0"
+                                                    aria-valuemax="100">
                                                 </div>
-                                               
+
                                             </div>
                                         </td>
-                                    
+
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -240,4 +235,3 @@
 
 
 {% endblock %}
-

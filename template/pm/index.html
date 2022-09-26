@@ -23,32 +23,41 @@
 
         <div class="row">
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{enquirylist}}</h3>
+                <a href="{% url 'pm:enquiry' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
 
-                            <span>Enquiries list </span>
+                                <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{enquirylistcount}}</h3>
+                                <span>Proposal List </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{addedtoprop}}</h3>
-                            <span>Added to Praposal </span>
+                <a href="{% url 'pm:proposal' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+
+                                <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{addedtoprop}}</h3>
+                                <span>Proposal Sented</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
@@ -73,25 +82,27 @@
                         </span>
                         <div class="dash-widget-info">
                             <h3>{{billadvance}}</h3>
-                            <span>Advance Sented </span>
+                            <span>Bill Sented</span>
                         </div>
                     </div>
                 </div>
 
             </div>
-
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{ advancepaid}}</h3>
-                            <span>Unassigned Project</span>
+                <a href="{% url 'pm:unassigneproject' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ advancepaid}}</h3>
+                                <span>Unassigned Project</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
@@ -106,6 +117,170 @@
                     </div>
                 </div>
 
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{enquirylist}}</h3>
+
+                            <span>Enquiries list </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'pm:srs' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{srs}}</h3>
+
+                                <span>Srs View </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{notstated}}</h3>
+                            <span>On Scheduling </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{ongoing}}</h3>
+                            <span>On Going </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{onscheduling}}</h3>
+                            <span>On Scheduling </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div> -->
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{delayed}}</h3>
+                            <span>Delayed Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'pm:qcapprovel' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/qc.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{waitforqc}}</h3>
+                                <span>QC Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{w4c}}</h3>
+                            <span>W4C Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/rework.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{rework}}</h3>
+                            <span>Reworks Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/completed_projects.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{completed}}</h3>
+                            <span>Completed Project </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'pm:leaverequest' %}">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{leavecount}}</h3>
+
+                            <span>Leave Request </span>
+                        </div>
+                    </div>
+                </div>
+                </a>
             </div>
 
 
@@ -132,17 +307,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {% for enquiry in enquirylistdata %}
+                                    {% for enquiry in enquirylistdata %}
                                     <tr>
                                         <td>
-                                            <h2><a href="">{{enquiry.projectname}}</a></h2>
+                                            <h2><a
+                                                    href="{% url 'pm:viewenquries' enquiry.id %}">{{enquiry.projectname}}</a>
+                                            </h2>
                                         </td>
                                         <td>{{enquiry.clientname}}</td>
                                         <td>{{enquiry.phone}}</td>
                                         <td>{{enquiry.enquirydate.date}}</td>
-                                        <td>{{enquiry.type}}</td>                                      
+                                        <td>{{enquiry.type}}</td>
                                     </tr>
-                                {% endfor %}
+                                    {% endfor %}
 
                                 </tbody>
                             </table>

@@ -8,18 +8,19 @@ from django.forms.widgets import SelectMultiple, TextInput, Textarea, EmailInput
 class EnquiryForm(forms.ModelForm):
     class Meta:
         model = Enquiry
-        fields = ('projectname','files','companyname','clientname','email','phone','referredby','type','details','whatsapp')
+        fields = ('projectname','files','companyname','clientname','email','phone','referredby','type','details','whatsapp','address')
       
         widgets = {
             'details': Textarea(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Details','name':'details','id':'details'}),
+            'address': Textarea(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Address','name':'address','id':'details'}),
             'projectname': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Projectname','name':'projectname'}),
             'companyname': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Company Name','name':'companyname'}),
             'clientname': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Client Name','name':'clientname'}),
             'referredby': TextInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Referred By','name':'referredby','value':id}),
-            'email': EmailInput(attrs={'class': 'form-control bx-inp', 'required': 'required', 'autocomplete':'off', 'placeholder':'E-mail','name':'email'}),
+            'email': EmailInput(attrs={'class': 'form-control bx-inp', 'autocomplete':'off', 'placeholder':'E-mail','name':'email'}),
             'phone': NumberInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Phone','name':'phone'}),
             'whatsapp': NumberInput(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'whatsapp','name':'whatsapp'}),
-            'files': FileInput(attrs={'class': 'form-control bx-inp','autocomplete':'off', 'placeholder':'files','name':'files'}),
+            'files': FileInput(attrs={'class': 'form-control bx-inp', 'required': False,'autocomplete':'off', 'placeholder':'files','name':'files'}),
             'type': Select(attrs={'class': 'form-control bx-inp','required': 'required', 'autocomplete':'off', 'placeholder':'Select','name':'Select'}),
         }
 

@@ -69,10 +69,10 @@
 	.user-card .card-block .user-image img {
 		z-index: 20;
 		position: absolute;
-		top: 5px;
-		left: 5px;
-		width: 100px;
-		height: 100px;
+		top: 0px;
+		left: 0px;
+		width: 120px;
+		height: 135px;
 	}
 
 	.img-radius {
@@ -159,13 +159,13 @@
 		color: #EC4A89;
 	}
 
-	.user-card .card-block .user-image:before {
+	/* .user-card .card-block .user-image:before {
 		bottom: 0;
 		border-bottom-left-radius: 50px;
 		border-bottom-right-radius: 50px;
-	}
+	} */
 
-	.user-card .card-block .user-image:after,
+	/* .user-card .card-block .user-image:after,
 	.user-card .card-block .user-image:before {
 		content: "";
 		width: 100%;
@@ -174,15 +174,15 @@
 		position: absolute;
 		left: 0;
 		z-index: 10;
-	}
+	} */
 
-	.user-card .card-block .user-image:after {
+	/* .user-card .card-block .user-image:after {
 		top: 0;
 		border-top-left-radius: 50px;
 		border-top-right-radius: 50px;
-	}
+	} */
 
-	.user-card .card-block .user-image:after,
+	/* .user-card .card-block .user-image:after,
 	.user-card .card-block .user-image:before {
 		content: "";
 		width: 100%;
@@ -191,7 +191,7 @@
 		position: absolute;
 		left: 0;
 		z-index: 10;
-	}
+	} */
 
 	.dash-widget .card-body .dash-widget-info {
 		text-align: left;
@@ -203,6 +203,17 @@
 			width: 21%;
 		}
 	}
+
+
+	.image1{
+	width: 200px;
+	height: 251px;
+	border-radius: 50%;
+	position: relative;
+	margin: 0 auto;
+	display: inline-block;
+	padding: 5px;
+}
 </style>
 
 <!-- Page Wrapper -->
@@ -214,42 +225,91 @@
 		<!-- Page Header -->
 		<div class="page-header">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
 					<h3 class="page-title">Welcome {{employeedata.name|capfirst}} !</h3>
 					<ul class="breadcrumb">
 						<li class="breadcrumb-item active">Dashboard</li>
 					</ul>
 				</div>
+				
+				
+				
 			</div>
+			
 		</div>
 		<!-- /Page Header -->
 
 
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-12">
 				<div class="row">
+					<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+						<a href="{% url 'employee:viewproject' %}">
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+									<div class="dash-widget-info">
+										<h3>{{meetingcount}}</h3>
+										<span>Meeting & SRS</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						
+					</div>
+					<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+						<a href="{% url 'employee:emprework' %}">
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+									<div class="dash-widget-info">
+										<h3>{{reworkcount}}</h3>
+										<span>Reworks</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						
+					</div>
+					
+					<div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+						<!-- <a href="{% url 'employee:emptask' %}"> -->
+							<div class="card dash-widget">
+								<div class="card-body">
+									<span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+									<div class="dash-widget-info">
+										<h3>0</h3>
+										<span>Task</span>
+									</div>
+								</div>
+							</div>
+						<!-- </a> -->
+						
+					</div>
+				</div>
+				<!-- <div class="row">
 
-					<!-- Traffic light -->
-					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4"  >
+					
+					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
 						<div class="card dash-widget" style="background-color: rgb(201, 247, 201);">
 							<div class="card-body">
 								<div class="dash-widget-info">
 									<h3>112</h3>
-									<!-- <span>Projects</span> -->
+									
 								</div>
-								<span ><img src="{% static 'green.png' %}" alt=""></span>
+								<span><img src="{% static 'green.png' %}" alt=""></span>
 
 							</div>
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-4 col-lg-4 col-xl-4">
-						<div class="card dash-widget" style="background-color: rgb(247, 224, 183);" >
+						<div class="card dash-widget" style="background-color: rgb(247, 224, 183);">
 							<div class="card-body">
 								<div class="dash-widget-info">
 									<h3>44</h3>
-									<!-- <span>Clients</span> -->
+								
 								</div>
-								<span ><img src="{% static 'orange.png' %}" alt=""></span>
+								<span><img src="{% static 'orange.png' %}" alt=""></span>
 
 							</div>
 						</div>
@@ -259,98 +319,108 @@
 							<div class="card-body">
 								<div class="dash-widget-info">
 									<h3>37</h3>
-									<!-- <span>Tasks</span> -->
+									
 								</div>
 								<span class=""><img src="{% static 'red.png' %}" alt=""></span>
 
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<!-- ----- projects ----- -->
-						<h5 class="dash-title f-t-w-90">Projects </h5>
-						<div class="col-md-12">
-							<div class="card card-table card1">
-								<div class="card-body">
-									<div class="table-responsive" style="padding: 20px;">
-										<table class="table table-center table-hover datatable"
-											style="padding: 20px;border-radius: 20px;" id="tabledata">
-											<thead class="thead-light">
-												<tr>
-													<th>End Date</th>
-													<th>Project</th>
-													
-													<th>Status</th>
-													<th>Completion</th>
-													<th>Action</th>
-												</tr>
-											</thead>
-											<tbody>
+					
+				</div> -->
+			</div>
+			<!-- <div class="col-md-6">
+				<div class="row">
+					
+				</div>
+			</div> -->
+			
+		</div>
+		
+		<div class="row">
+		
+			<h5 class="dash-title f-t-w-90">Projects </h5>
+			<div class="col-lg-8 ">
+				<div class="card card-table card1">
+					<div class="card-body">
+						<div class="table-responsive" id="divdatatable">
+							<table class="table table-center table-hover datatable"
+								style="padding: 5px;border-radius: 20px;" id="datatable">
+								<thead class="thead-light">
+									<tr>
+										<th>End Date</th>
+										<th>Project</th>
 
-												{% for i in listdata %}
-												<tr>
-													<td>
-														{{i.project.endingdate.date|date:"d-m-y"}}
-													</td>
-													<td>
-														<a href="{% url 'employee:progressreport' i.project.id   %}" style="color: #4d13aa;">{{i.project.projectname|upper}}</a>
-													</td>
-													
-													
-														
-													    <td>{% if i.status == 'On Going'  %} <span class="badge badge-pill bg-success-light">{{ i.status }}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Not Started' %} <span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span> {% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{ i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{ i.status }}</span>  {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span>  {% endif %}  </td>
-														
-													
-													<td>
-														{{i.completion}}%
-														<div class="progress progress-xs">
-															<div class="progress-bar w-45" role="progressbar"
-																style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}" aria-valuemin="0"
-																aria-valuemax="100">
-															</div>
+										<th>Status</th>
+										<th>Completion</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-														</div>
-													</td>
-													<td>
-														<a href="{% url 'employee:dailyprogress' i.project.id %}" class="btn btn-lg">
-															<span class="badge badge-pill bg-success-light text-center"><i
-																	class="las la-pen"></i></span>
-														</a>
-													</td>
-												</tr>
-												{% endfor %}
-												
-												
+									{% for i in listdata %}
+									<tr>
+										<td>
+											{{i.project.endingdate.date|date:"d-m-y"}}
+										</td>
+										<td>
+											<a href="{% url 'employee:progressreport' i.project.id   %}"
+												style="color: #4d13aa;">{{i.project.projectname|upper}}</a>
+										</td>
 
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
+
+
+										<td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span>{% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif%} </td>
+
+
+										<td>
+											{{i.completion}}%
+											<div class="progress progress-xs">
+												<div class="progress-bar w-45" role="progressbar"
+													style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}"
+													aria-valuemin="0" aria-valuemax="100">
+												</div>
+
+											</div>
+										</td>
+										<td>
+											<a href="{% url 'employee:dailyprogress' i.project.id %}"
+												class="btn btn-lg">
+												<span class="badge badge-pill bg-success-light text-center"><i
+														class="las la-pen"></i></span>
+											</a>
+										</td>
+									</tr>
+									{% endfor %}
+
+
+
+								</tbody>
+							</table>
 						</div>
-						<!-- ---- /projects ----- -->
 					</div>
 				</div>
 			</div>
-
-			<div class="col-md-4 col-sm-12 col-lg-12 col-xl-4">
+			<div class="col-lg-4">
 				<div class="card user-card">
 					<div class="card-block">
-						<div class="user-image">
-							<img src="{{employeedata.emp_profile.url}}" class="img-radius"
-								alt="User-Profile-Image">
+						
+						<div class="image1">
+							<img src="{{employeedata.emp_profile.url}}" class="img-radius" alt="User-Profile-Image">
 						</div>
 						<h6 class="f-w-900 m-t-25 h6 m-b-10">{{employeedata.name|capfirst}}</h6>
-						<p class="text-muted  f-w-30 "><a href="tel:{{employeedata.phone}}">{{employeedata.phone}}</a></p>
+						<p class="text-muted  f-w-30 "><a href="tel:{{employeedata.phone}}">{{employeedata.phone}}</a>
+						</p>
 						<p class="text-muted ">Active | Born {{employeedata.dob}}</p>
 
 						<hr>
 						<p class="text-muted m-t-15">Employee ID: {{employeedata.employee_id|upper}}</p>
 						<hr>
 						<div class="row justify-content-center user-social-link">
-							<div class="col-auto"><a href="https://api.whatsapp.com/{{employeedata.whatsapp_number}}" target="_blank"><i class="fa fa-whatsapp" style="color: green;"></i></a>
+							<div class="col-auto"><a href="//api.whatsapp.com/send?phone=91{{employeedata.whatsapp_number}}&text=Hi"
+									target="_blank"><i class="fa fa-whatsapp" style="color: green;"></i></a>
 							</div>
-							<div class="col-auto"><a href=""><i class="fa fa-envelope"
+							<div class="col-auto"><a href="mailto:{{employeedata.email}}?subject=Me&body=Hello!"><i class="fa fa-envelope"
 										style="color: rgb(248, 195, 47);"></i></a></div>
 						</div>
 					</div>
@@ -363,12 +433,12 @@
 							<div class="card-body">
 								<div class="time-list">
 									<div class="dash-stats-list">
-										<h4>71</h4>
-										<p>Total Projects</p>
+										<h4>{{lead}}</h4>
+										<p>Project Lead</p>
 									</div>
 									<div class="dash-stats-list">
-										<h4>14</h4>
-										<p>Pending Tasks</p>
+										<h4>{{member}}</h4>
+										<p>Project Member</p>
 									</div>
 								</div>
 								<div class="request-btn">
@@ -379,35 +449,31 @@
 						</div>
 					</section>
 				</div>
-				<div class="col-lg-12">
-					<section>
-						<h5 class="dash-title">Your Leave</h5>
-						<div class="card">
-							<div class="card-body">
-								<div class="time-list">
-									<div class="dash-stats-list">
-										<h4>4.5</h4>
-										<p>Leave Taken</p>
+				<!-- <div class="col-lg-12">
+						<section>
+							<h5 class="dash-title">Your Leave</h5>
+							<div class="card">
+								<div class="card-body">
+									
+									<div class="request-btn">
+										<a class="btn btn-primary" href="{% url 'common:leaveapplication' %}">Apply
+											Leave</a>
 									</div>
-									<div class="dash-stats-list">
-										<h4>12</h4>
-										<p>Remaining</p>
-									</div>
-								</div>
-								<div class="request-btn">
-									<a class="btn btn-primary" href="{% url 'common:leaveapplication' %}">Apply Leave</a>
 								</div>
 							</div>
-						</div>
-					</section>
-				</div>
+						</section>
+					</div> -->
 			</div>
+			
 		</div>
+
 	</div>
 	<!-- /Page Content -->
 
 </div>
 <!-- /Page Wrapper -->
+
+
 
 
 

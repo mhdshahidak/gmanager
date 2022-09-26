@@ -15,6 +15,12 @@
                             <li {% if is_enquiryList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:enquirylist' %}"><i class="la la-edit"></i> <span>Enquiry</span></a>
 							</li>
+							<li  {% if is_enquiry %} class="active" {% endif %}> 
+								<a href="{% url 'crm:graphicenquiry' %}"><i class="la la-plus"></i> <span>Create Proposal</span></a>
+							</li>
+							<li  {% if is_proposal %} class="active" {% endif %}> 
+								<a href="{% url 'crm:proposal' %}"><i class="la la-tasks"></i> <span>Client Approvel List</span></a>
+							</li>
                             <li {% if is_clientList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:clientlist' %}"><i class="la la-users"></i> <span>Clients</span></a>
 							</li>
@@ -28,6 +34,23 @@
                             <li {% if is_feedBack %} class="active" {% endif %}> 
 								<a href="{% url 'crm:feedback' %}"><i class="la la-comment-dots"></i> <span>Feed back</span></a>
 							</li>
+							<li class="submenu">
+								<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
+								<ul style="display: none;">
+									<!-- <li><a href="">All Employees</a></li>
+									<li><a href="">Leaves </a></li>
+									<li><a href="">Leave Settings</a></li>
+									<li><a href="">Attendance</a></li> -->
+									<li {% if is_attantanceList %} class="active" {% endif %}> 
+										<a href="{% url 'crm:attantancelist' %}">Add Attantance</a>
+									</li>
+									<li {% if is_attantanceReport %} class="active" {% endif %} > 
+										<a href="{% url 'crm:attantancereport' %}">Attendance Report</a>
+									</li>
+									<li {% if is_allstaff %} class="active" {% endif %}><a href="{% url 'crm:allstaff' %}">All Staffs</a></li>
+									<li {% if is_departmentwise %} class="active" {% endif %}><a href="{% url 'crm:departmentwise' %}">Departments</a></li>
+								</ul>
+							</li>
 							<li class="menu-title"> 
 								<span>More</span>
 							</li>
@@ -36,7 +59,7 @@
 								<a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
 							</li>
 							<li {% if is_settings %} class="active" {% endif %}> 
-								<a href=""><i class="la la-cog"></i> <span>Settings</span></a>
+								<a href="{% url 'common:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
 							</li>
 							<li {% if is_settings %} class="active" {% endif %}> 
 								<a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>

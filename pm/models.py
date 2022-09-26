@@ -1,3 +1,4 @@
+from typing import Type
 from django.db import models
 
 from crm.models import Enquiry
@@ -28,7 +29,11 @@ class Project(models.Model):
     endingdate = models.DateTimeField()
     projecttype = models.CharField(max_length = 50,null=True, choices=choices)
 
-
+    def get_members(self):
+        return ProjectMembers.objects.filter(project=self)
+    
+    def get_progres(self):
+        return ProjectStatus.objects.filter(project=self)
 
 
 
@@ -49,8 +54,7 @@ class Meeting(models.Model):
 
 class SRS(models.Model): 
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    srsfile = models.FileField(upload_to="Praposalpdf/", max_length=100000)
-    added_time = models.DateTimeField(auto_now_add=True)
+    srsfile = models.FileField(null=True,default='deafult-01.jpg',upload_to='srs/')
 
 
 
@@ -67,7 +71,8 @@ class ProjectStatus(models.Model):
 
 class ProjectProgressFiles(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    files = models.FileField(null=True)
+    files = models.FileField(null=True,blank=True)
+    date = models.DateTimeField(auto_now=True)
 
 
 
@@ -88,14 +93,20 @@ class Updation(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     note = models.TextField(null=True, default="Add Note")
     date = models.DateTimeField(auto_now_add=True)
-    files = models.FileField(null=True,default='default_img.jpg')
+    files = models.FileField(null=True,default='default_img.jpg',blank=True,upload_to='Updation/')
     status = models.CharField(max_length=15, default="Not Checked")
 
 
 class Reworks(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(ProjectStatus, on_delete=models.CASCADE)
     note = models.TextField(null=True, default="Add Note")
+    status = models.CharField(null=True, max_length=15,  default="Not Seen")
     
-
+class Task(models.Model):
+    project = models.ForeignKey(Updation, on_delete=models.CASCADE)
+    team = models.ManyToManyField(Employees,blank=True)
+    startdate = models.DateField(null=True,blank=True)
+    enddate = models.DateField(null=True,blank=True)
+    type = models.CharField(max_length=15,null=True,blank=True)
 
 

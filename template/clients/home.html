@@ -1,0 +1,47 @@
+{% extends 'clients/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Payments</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Payments</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            {% for i in project %}
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-4">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><a href="{% url 'clients:viewproject' i.id  %}"><i class="fa fa-download"></i></a> </span>
+                        <div class="dash-widget-info">
+                            <h3>{{ i.projectname }}</h3>
+                            <span>{{ i.projecttype }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+           
+           
+        </div>
+    </div>
+    <!-- /Page Content -->
+    
+</div>
+
+{% endblock %}

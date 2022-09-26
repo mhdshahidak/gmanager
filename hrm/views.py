@@ -1,5 +1,6 @@
+from multiprocessing import context
 from django.shortcuts import render,redirect
-from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers
+from ceo.models import EmergenctContact, Employees,LeaveRequests,ExcuseRequests,Client,TeamCategory,TeamMembers,Attendence
 from pm.models import Project
 from hrm.form import EmergenctContactForm, EmployeeRegisterForm
 from django.contrib.auth.decorators import login_required
@@ -15,11 +16,15 @@ def hrmHome(request):
     emp = Employees.objects.all().count()
     project = Project.objects.all().count()
     client = Client.objects.all().count()
+    leave = LeaveRequests.objects.filter(pm_accept = True , status ='Waiting').count()
+    listvalue= ExcuseRequests.objects.filter(status = 'Waiting').count()
     context = {
         "is_hrmHome":True,
         'emp' : emp,
         "project":project,
-        "client":client
+        "client":client,
+        "leave":leave,
+        "listvalue":listvalue
     }
     return render(request, 'hrm/hrmhome.html',context)
 
@@ -39,6 +44,7 @@ def employeeList(request):
             EmergenctContact.objects.filter(id=empcontact.id).update(employee=form_data)
             User = get_user_model()
             User.objects.create_user(username=form_data.username, password=form_data.password,employee=form_data)
+            return redirect('/hrm/employees')
         else:
             context={
             "empform" : empform,
@@ -133,6 +139,33 @@ def addteam(request,id):
 @login_required(login_url='/')
 @auth_hrm
 def attantanceReport(request):
+    if request.method =='POST':
+        serachdate = request.POST['serachdate']
+        print(serachdate,'*'*7)
+        serachdate = request.POST['serachdate']
+        if Attendence.objects.filter(date=serachdate).exists():
+            print('exist')
+            presentdate = Attendence.objects.filter(status='Present').count()
+            absentdate = Attendence.objects.filter(status='Leave').count()
+            print(presentdate,absentdate)
+            employeedetails = Attendence.objects.filter(date=serachdate).all()
+
+            context={
+                "is_attantanceReport":True,
+                "presentdate":presentdate,
+                "absentdate":absentdate,
+                "employeedetails":employeedetails,
+                 "status":0
+
+            }
+            return render(request, 'hrm/attantancereport.html',context)
+
+
+        else:
+            context={
+                "status":1
+            }
+            return render(request, 'hrm/attantancereport.html',context)
     context = {
         "is_attantanceReport":True,
     }
@@ -152,11 +185,55 @@ def hrsettings(request):
 @auth_hrm
 def attantanceList(request):
     allemp = Employees.objects.all()
+    if request.method =='POST':
+        attendence = request.POST.getlist('attendence[]')
+        date = request.POST['date']
+        punchin = request.POST['punchin']
+        punchout = request.POST['punchout']
+        Employeeid = request.POST['Employeeid']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date ,punch_intime=punchin, punch_outtime=punchout)
+        saveattendence.save()
+        print(len(attendence))
+        if len(attendence) == 1 :
+            for i in enumerate(attendence):
+                print(i)
+                if i[1]=='Morning':
+                    print('morning')
+                    Attendence.objects.filter(id=saveattendence.id).update(morning=True)
+                    return redirect ('/hrm/attantancelist')
+
+                elif i[1] == 'Afternoon':
+                    print('Afternoon')
+                    Attendence.objects.filter(id=saveattendence.id).update(evening=True)
+                    return redirect ('/hrm/attantancelist')   
+
+                else:
+                    print('dfvsfvbgf','@'*10)
+        elif len(attendence) == 2 :
+            print("BOTH WORKING","$"*10)
+            Attendence.objects.filter(id=saveattendence.id).update(morning=True,evening=True)
+            return redirect ('/hrm/attantancelist')
+        else :
+            return redirect ('/hrm/attantancelist')
+
     context = {
         "is_attantanceList":True,
         "allemp" : allemp,
     }
     return render(request, 'hrm/attantancelist.html',context)
+
+
+
+
+def leave(request):
+    if request.method =='POST':
+        date = request.POST['date']
+        Employeeid = request.POST['idleave']
+        employdata =Employees.objects.get(id=Employeeid)
+        saveattendence= Attendence(employee=employdata, date=date, status='Leave')
+        saveattendence.save()
+        return redirect ('/hrm/attantancelist')
 
 
 
@@ -204,8 +281,116 @@ def getemployeedata(request,id):
 
 
 @csrf_exempt
+def getemployeeleave(request,id):
+    details =Employees.objects.get(id=id)
+    print(details)
+
+    data={
+        "id":details.id,
+        "name":details.name,
+        "employeeid":details.employee_id,
+         "catagory":details.catagory.title,
+        
+    }
+    return JsonResponse({'value': data})
+
+
+
+
+
+
+@csrf_exempt
 def addingattendence(request):
     # choice=request.POST['selected_checkboxes']
     # print(choice)
     
     pass
+
+
+
+def employeedetails(request,id):
+    details = Employees.objects.get(id=id)
+    emergency= EmergenctContact.objects.get(employee=details)
+    # project = ProjectMembers.objects.get(team=details)
+    data={
+        "name":details.name,
+        "catagory":details.catagory.title,
+        "employee_id":details.employee_id,
+        "email":details.email,
+        "dob":details.dob,
+        "address":details.address,
+       "emp_profile":details.emp_profile.url,
+       "phone":details.phone,
+       "whatsapp_number":details.whatsapp_number,
+       "join_date":details.join_date,
+       "district":details.district,
+       "state":details.state,
+       "nationality":details.nationality,
+       "marital_status":details.marital_status,
+       "username":details.username,
+       "password":details.password,
+       "emergency_number":emergency.emergency_number,
+       "primarycontact_name":emergency.primarycontact_name,
+       "relation":emergency.relation,
+
+       
+   
+    }
+    return JsonResponse({'value': data})
+
+
+
+
+
+def deleteemployee(request,id):
+    Employees.objects.get(id=id).delete()
+    return redirect('/hrm/employees')
+
+
+
+def editemployee(request,id):
+    n = Employees.objects.get(id=id)
+    emergency = EmergenctContact.objects.get(employee=n)
+    empform = EmployeeRegisterForm(request.POST or None, request.FILES or None,instance=n) 
+    empcontactform = EmergenctContactForm(request.POST or None,instance=emergency)
+    if request.method == 'POST' or 'FILES':
+        print('post worked') 
+        print(empform.errors)
+        if empform.is_valid() and empcontactform.is_valid():
+            print(empform.errors)
+            print('valid') 
+            data = empform.save()
+            empcontactform.save()
+            password_upadte = get_user_model().objects.get(employee=n)
+            password_upadte.set_password(data.password)
+            password_upadte.save()
+            get_user_model().objects.filter(employee=n).update(username=data.username)
+            return redirect('hrm:employees')
+        else:
+            print('not valid')    
+    else:
+        print('else worked')
+        empform = EmployeeRegisterForm(request.POST or None, request.FILES or None,instance=n) 
+        empcontactform = EmergenctContactForm(request.POST or None,instance=emergency)
+        context={
+           "empform":empform,
+           "empcontactform":empcontactform
+
+        }
+        return render(request,'hrm/editemployee.html',context)
+    print('not worked')
+    context={
+           "empform":empform,
+           "empcontactform":empcontactform
+
+        }    
+    return render(request,'hrm/editemployee.html',context)    
+
+
+
+
+@csrf_exempt
+def checkexist(request):
+    check_name = request.POST['checkname']
+    object = Employees.objects.filter(username=check_name).exists()
+    return JsonResponse({'IsExist':object})

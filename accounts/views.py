@@ -1,6 +1,8 @@
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from crm.models import Enquiry
+from pm.models import Praposalpdf
+
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -14,13 +16,23 @@ def base(request):
 @login_required(login_url='/')
 @auth_accounts
 def home(request):
-    return render (request,'accounts/home.html')
+    createqotation = Enquiry.objects.filter(status='Bill Creation').count()
+    pendingadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+
+    context={
+        "createqotation":createqotation,
+        "pendingadvance":pendingadvance,
+    }
+    return render (request,'accounts/home.html',context)
 
 
 @login_required(login_url='/')
 @auth_accounts
 def praposal(request):
-    praposallist = Enquiry.objects.filter(status='Bill Creation')
+
+    praposallist= Praposalpdf.objects.filter(enquiry__status='Bill Creation')
+    print(praposallist)
+    # praposallist = Enquiry.objects.filter(status='Bill Creation')
     context = {
         "praposallist":praposallist
     }
@@ -64,4 +76,24 @@ def changefollow(request):
     Enquiry.objects.filter(id=id).update(status = 'Advance Paid')
     return JsonResponse({'message': 'sucesses'}) 
 
-    
+
+
+
+
+@csrf_exempt
+def viedetails(request,id):
+    getdata =  Enquiry.objects.get(id=id)
+    data ={
+        'projectname':getdata.projectname,
+        'companyname':getdata.companyname,
+        'clientname':getdata.clientname,
+        'email':getdata.email,
+        'phone':getdata.phone,
+        'whatsapp':getdata.whatsapp,
+        'referredby':getdata.referredby,
+        'type':getdata.type,
+        'address':getdata.address,
+        
+        
+    }
+    return JsonResponse({'value': data})

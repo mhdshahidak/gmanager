@@ -7000,3 +7000,29 @@ button.close {
 }
 
 /*# sourceMappingURL=style.css.map */
+.scrlling {
+  overflow-y: auto;
+
+}
+.scrlling::-webkit-scrollbar{
+  background: rgb(204, 204, 204);
+    width: 7px;
+    position: absolute;
+    top: 87px;
+    opacity: 0.4;
+    display: block;
+    border-radius: 7px;
+    z-index: 99;
+    right: 1px;
+    height: 52.236px;
+    width: 7px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    display: none;
+    border-radius: 7px;
+    background: rgb(51, 51, 51);
+    opacity: 0.2;
+    z-index: 90;
+    right: 1px;
+}

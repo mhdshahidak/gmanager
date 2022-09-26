@@ -18,9 +18,12 @@ urlpatterns = [
     path('unassigneproject', views.unassigneproject, name='unassigneproject'),
     path('addproject/<str:id>', views.addproject, name='addproject'),
     path('addteam/<str:id>', views.addteam, name='addteam'),
+    path('client', views.client, name='client'),
     path('addschedule/<str:id>', views.addschedule, name='addschedule'),
     path('task', views.task, name='task'),
-    path('viewtask', views.viewtask, name='viewtask'),
+    path('viewtask/<str:id>', views.viewtask, name='viewtask'),
+    path('taskmember', views.taskmember, name='taskmember'),
+    
     path('srs', views.srs, name='srs'),
     path('fullprojectlist', views.fullprojectlist, name='fullprojectlist'),
 
@@ -39,15 +42,27 @@ urlpatterns = [
     path('typereason', views.typereason, name='typereason'),
     path('leadersearch', views.leadersearch, name='leadersearch'),
     path('membersearch', views.membersearch, name='membersearch'),
+    
+    path('taskmembersearch', views.taskmembersearch, name='taskmembersearch'),
     path('viedetails/<str:id>', views.viedetails, name='viedetails'),
     path('acceptdeatils/<str:id>', views.acceptdeatils, name='acceptdeatils'),
     path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
     path('reason', views.reason, name='reason'),
     path('srsapprovel', views.srsapprovel, name='srsapprovel'),
+    path('srsreject', views.srsreject, name='srsreject'),
+    
     path('Changedailyreport/<str:id>', views.Changedailyreport, name='Changedailyreport'),
     path('changeqc', views.changeqc, name='changeqc'),
     path('rejectedqc/<str:id>', views.rejectedqc, name='rejectedqc'), 
     path('qcrework', views.qcrework, name='qcrework'),
 
+    
 
-]
+
+
+    path('allstaff', views.allstaff, name='allstaff'),
+    path('departmentwise', views.departmentwise, name='departmentwise'),
+    path('employeelist/<int:id>',views.employeelist,name="employeelist"),
+
+    path('taskteam/<int:id>',views.taskteam,name="taskteam"),
+]    

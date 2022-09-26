@@ -3,7 +3,7 @@ from multiprocessing import context
 from django.shortcuts import render,redirect
 from . models import *
 from crm.models import Enquiry,EnquiryNote
-from ceo.models import Employees ,LeaveRequests
+from ceo.models import Employees ,LeaveRequests,SubCatagory
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from . form import PraposalpdfForm,ProjectForm
@@ -12,6 +12,8 @@ from datetime import datetime, timedelta, time
 from pytz import timezone
 from django.db.models import Q
 from gmanager.decorators import auth_pm
+from django.contrib.auth import get_user_model
+from crm.form import ClientForm
 # Create your views here.
 @login_required(login_url='/')
 @auth_pm
@@ -28,10 +30,24 @@ def index(request):
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
+    enquirylistcount = Enquiry.objects.filter(status = 'Enquiry').count()
+    # waitforqc = Project.objects.filter(status="Qc").count()
     enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+    leavecount = LeaveRequests.objects.filter(pm_accept=False,status="Waiting").count()
+    notstated =ProjectStatus.objects.filter(status = 'Not Started').count()
+    ongoing =ProjectStatus.objects.filter(status = 'On Going').count()
+    onscheduling =ProjectStatus.objects.filter(status = 'On Scheduling').count()
+    delayed =ProjectStatus.objects.filter(status = 'Delayed').count()
+    waitforqc =ProjectStatus.objects.filter(status = 'Qc').count()
+    w4c =ProjectStatus.objects.filter(status = 'W4C').count()
+    rework =ProjectStatus.objects.filter(status = 'Rework').count()
+    completed =ProjectStatus.objects.filter(status = 'Completed').count()
+    srs=SRS.objects.filter(project__status='SRS uploaded').count()
+    
     context={
         "is_pmindex":True,
         "pm":pm,
+        "enquirylistcount":enquirylistcount,
         "addedtoprop":addedtoprop,
         "billcreation":billcreation,
         "billadvance":billadvance,
@@ -39,6 +55,16 @@ def index(request):
         "rejected":rejected,
         "enquirylist":enquirylist,
         "enquirylistdata":enquirylistdata,
+        "waitforqc":waitforqc,
+        "leavecount":leavecount,
+        "srs":srs,
+        "notstated":notstated,
+        "ongoing":ongoing,
+        "onscheduling":onscheduling,
+        "delayed":delayed,
+        "w4c":w4c,
+        "rework":rework,
+         "completed":completed,
 
     }
     return render (request,'pm/index.html',context)    
@@ -49,7 +75,7 @@ def index(request):
 @auth_pm
 def enquiry(request):
     pm = request.user.employee
-    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry').exclude(type='Graphics')
     context={
         "is_enquiry":True,
         "pm":pm,
@@ -71,7 +97,7 @@ def viewenquries(request,id):
             data.enquiry=details
             data.save()
             Enquiry.objects.filter(id=id).update(status = 'Added To Proposal')
-            return redirect('/pm/proposal')
+            return redirect('/pm/enquiry')
         else:
             pass 
     else:
@@ -158,6 +184,8 @@ def addproject(request,id):
             Project.objects.filter(id=data.id).update(enquiry=deatils)
             project = Project.objects.get(id=data.id)           
             Enquiry.objects.filter(id=id).update(status="Project Added")
+            projectsrs=  SRS(project=project)
+            projectsrs.save()
 
             return redirect('/pm/addteam/'+str(data.id))
         else:
@@ -178,13 +206,42 @@ def addproject(request,id):
 @auth_pm
 def addteam(request,id):
     pm = request.user.employee
-    employee = Employees.objects.all()
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
     context={
         "employee":employee,
         "id":id,
         "pm":pm,
     }
     return render (request,'pm/project/addteam.html',context)
+
+
+@login_required(login_url='/')
+@auth_pm
+def client(request):
+
+    form=ClientForm(request.POST) 
+    clientdata =Client.objects.all()
+    if request.method == 'POST': 
+          
+        if form.is_valid():           
+            data = form.save() 
+            form_data = Client.objects.get(id=data.id)
+            User = get_user_model()
+            User.objects.create_user(username=form_data.username, password=form_data.password,client=form_data)
+            return redirect('pm:client')
+        else:
+            pass
+    else:
+
+        context = {
+            "is_clientList":True,
+            "form":form,
+            "clientdata":clientdata
+        }
+        return render(request,'pm/client.html', context)
+
+
+
 
 
 
@@ -194,7 +251,7 @@ def addschedule(request,id):
     pm = request.user.employee
     project_obj = Project.objects.get(id=id)
     team_mbr = ProjectMembers.objects.get(project=project_obj)
-    mbr = ProjectMembers.objects.filter(project=project_obj).values('team__name','team__emp_profile')
+    mbr = ProjectMembers.objects.filter(project=project_obj)
     if request.method == 'POST':
         meetingDate = request.POST['meetingDate']
         platform = request.POST['platform']
@@ -221,8 +278,10 @@ def addschedule(request,id):
 @login_required(login_url='/')
 @auth_pm
 def meetings(request):
-    pm = request.user.employee
-    meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    pm = request.user.employee  
+    # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS")
+
     context = {
         "is_meetings":True,
         "meetings":meetings,
@@ -237,23 +296,65 @@ def meetings(request):
 @auth_pm
 def task(request):
     pm = request.user.employee
-    projects = Project.objects.all()
+    projects = Updation.objects.filter(status="CRM Checked")
     context = {
         "is_task":True,
         "projects" : projects,
         "pm":pm,
     }
     return render (request,'pm/project/task.html', context)
-    
 
+
+@csrf_exempt    
+def taskmember(request):
+    employeename=request.POST['employees']
+    # leaderid=request.POST['leaderid']
+    # employee_prjt = request.POST['memberObj']
+    # projectid = request.POST['projectid']
+    details=Employees.objects.get(name=employeename)
+    print(details)
+    member_prjct_obj = Task.objects.get(id=employee_prjt)
+    member_prjct_obj.team.add(details)
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        "catagory":details.catagory.title,
+        "profile":details.emp_profile.url,
+
+        
+    }
+    
+   
+    return JsonResponse({'value': data})
 
 
     
 
 @login_required(login_url='/')
 @auth_pm
-def viewtask(request):
-    return render (request,'pm/project/viewtask.html')  
+def viewtask(request,id):
+    print(id)
+    updation=Updation.objects.get(id=id)
+    if request.method =='POST':
+        type = request.POST['type']
+        startdate = request.POST['startdate']
+        enddate = request.POST['enddate']
+        print(type,startdate,enddate)
+        taskobj = Task(project=updation, type=type, startdate=startdate, enddate=enddate)
+        taskobj.save()
+        id_only = str(taskobj.id)
+        Updation.objects.filter(id=id).update(status="Team Assigned")
+        return redirect('/pm/taskteam/'+ id_only)
+        
+     # employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    # taskobj = Task(project=updation)
+    # taskobj.save()
+    context={
+        "updation":updation,
+        # "employee":employee
+    }
+    return render (request,'pm/project/viewtask.html',context)  
 
 
 @login_required(login_url='/')
@@ -274,9 +375,11 @@ def srs(request):
 @auth_pm
 def fullprojectlist(request):
     pm = request.user.employee
+    project = Project.objects.exclude(status="Completed")
     context = {
         "is_fullprojectlist":True,
         "pm":pm,
+        "projects":project,
     }
     return render (request,'pm/project/fullprojectlist.html',context)  
 
@@ -392,6 +495,7 @@ def leadersearch(request):
         "id":details.id,
         "name":details.name,
         "member":member_obj.id,
+        "profile":details.emp_profile.url,
        
         
     }
@@ -416,11 +520,6 @@ def membersearch(request):
     member_prjct_obj = ProjectMembers.objects.get(id=employee_prjt)
     member_prjct_obj.team.add(details)
     # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
-
-
-
-
-    
     
     data={
         "id":details.id,
@@ -432,6 +531,37 @@ def membersearch(request):
     
    
     return JsonResponse({'value': data})    
+
+
+
+
+@csrf_exempt
+def taskmembersearch(request):
+    employeename=request.POST['member']
+    taskid = request.POST['taskid']
+
+
+     
+    details=Employees.objects.get(name=employeename)
+    member_prjct_obj = Task.objects.get(id=taskid)
+    member_prjct_obj.team.add(details)
+    # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        "catagory":details.catagory.title,
+
+        
+    }
+    
+   
+    return JsonResponse({'value': data})    
+
+
+
+
+
 
 
 @csrf_exempt
@@ -486,6 +616,12 @@ def srsapprovel(request):
 
 
 
+@csrf_exempt
+def srsreject(request):
+    id=request.POST['EnquaryID']
+    Project.objects.filter(id=id).update(status = 'Waiting for SRS')
+    return JsonResponse({'message': 'sucesses'}) 
+
 
 @csrf_exempt
 def Changedailyreport(request,id):
@@ -515,10 +651,79 @@ def qcrework(request):
     id=request.POST['id']
     typereason=request.POST['reason']
     projectidd=Project.objects.get(id=id)
-    reworkdata= Reworks(project=projectidd,note=typereason)
+    prostatus = ProjectStatus.objects.get(project=projectidd)
+    reworkdata= Reworks(project=prostatus,note=typereason)
     reworkdata.save()
     projectcount = ProjectStatus.objects.get(project=projectidd)
     projectcount.rework_count = projectcount.rework_count + 1
     projectcount.save()
     status=ProjectStatus.objects.filter(project=projectidd).update(status='Rework',completion=94)
     return JsonResponse({'value': 'msg'})
+
+
+
+
+
+@login_required(login_url='/')
+def allstaff(request):
+    all_emp = Employees.objects.all().order_by('name')
+
+   
+      
+    context={
+            "is_allstaff" : True,
+            "employees":all_emp,
+        }
+    return render (request,'pm/allstaff.html',context)    
+
+
+
+
+@login_required(login_url='/')
+def departmentwise(request):
+    department = SubCatagory.objects.all()
+    class cat:
+        def __init__(self,title,counts,id) :
+            self.title = title
+            self.counts = counts
+            self.id = id
+
+    estimatelist=[]
+    for i in department:
+        id=i.id
+        emp_count = Employees.objects.filter(catagory=i).count()
+       
+        estimatelist.append(cat(i,emp_count,id))
+      
+    context = {
+        "is_departmentwise" : True,
+        "emp_count":estimatelist,
+        # "departments":department,
+            }
+    return render (request,'pm/departmentwise.html',context)    
+
+
+
+
+@login_required(login_url='/')
+def employeelist(request,id):
+    category = SubCatagory.objects.get(id=id)
+    employees = Employees.objects.filter(catagory=category)
+    context = {
+        "category":category,
+        "employees":employees
+    }
+    return render(request,'pm/employeelist.html',context)
+ 
+
+
+@login_required(login_url='/')
+def taskteam(request,id):
+    print(id)
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context = {
+        "employee":employee,
+        "id":id,
+    }
+    return render(request,'pm/project/taskteam.html',context)
+

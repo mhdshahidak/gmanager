@@ -14,7 +14,7 @@
                 <div class="col">
                     <h3 class="page-title">Employee</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Employee</li>
                     </ul>
                 </div>
@@ -32,59 +32,61 @@
         
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive">
-                    <table class="table table-striped custom-table datatable">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Employee ID</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th class="text-nowrap">Join Date</th>
-                                <th>Role</th>
-                                <th class="text-end no-sort">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for employee in employees %}
-                            <tr>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="" class="avatar">
-                                            <img alt="" src="{{employee.emp_profile.url}}">
-                                        </a>
-                                        <a href="">{{employee.name}}<span></span></a>
-                                    </h2>
-                                </td>
-                                <td>{{employee.employee_id}}</td>
-                                <td>{{employee.email}}</td>
-                                <td>{{employee.phone}}</td>
-                                <td>{{employee.join_date}}</td>
-                                <td>
-                                    <div class="text-center">
-                                        <a href="" class="btn btn-white btn-sm btn-rounded" aria-expanded="false">{{employee.catagory.title}} </a>
-                                        <!-- <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="#">Software Engineer</a>
-                                            <a class="dropdown-item" href="#">Software Tester</a>
-                                            <a class="dropdown-item" href="#">Frontend Developer</a>
-                                            <a class="dropdown-item" href="#">UI/UX Developer</a>data-bs-toggle="modal" data-bs-target="#edit_employee"
-                                        </div> -->
-                                    </div>
-                                </td>
-                                <td class="text-end">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="{% url 'ceo:editemployee' employee.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                <div class="card">
+                    <div class="table-responsive" style="padding: 15px;">
+                        <table class="table table-striped custom-table datatable" style="padding: 20px;border-radius: 20px;" id="datatableall">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Employee ID</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th class="text-nowrap">Join Date</th>
+                                    <th>Role</th>
+                                    <th class="text-end no-sort">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for employee in employees %}
+                                <tr>
+                                    <td>
+                                        <h2 class="table-avatar" data-bs-toggle="modal" onclick="DataGet({{employee.id}})" data-bs-target="#add_team">
+                                            <span class="avatar">
+                                                <img alt="" src="{{employee.emp_profile.url}}">
+                                            </span>
+                                            <a >{{employee.name}}<span></span></a>
+                                        </h2>
+                                    </td>
+                                    <td>{{employee.employee_id}}</td>
+                                    <td>{{employee.email}}</td>
+                                    <td>{{employee.phone}}</td>
+                                    <td>{{employee.join_date}}</td>
+                                    <td>
+                                        <div class="text-center">
+                                            <a href="" class="btn btn-white btn-sm btn-rounded" aria-expanded="false">{{employee.catagory.title}} </a>
+                                            <!-- <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Software Engineer</a>
+                                                <a class="dropdown-item" href="#">Software Tester</a>
+                                                <a class="dropdown-item" href="#">Frontend Developer</a>
+                                                <a class="dropdown-item" href="#">UI/UX Developer</a>data-bs-toggle="modal" data-bs-target="#edit_employee"
+                                            </div> -->
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                    </td>
+                                    <td class="text-end">
+                                        <div class="dropdown dropdown-action">
+                                            <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="{% url 'ceo:editemployee' employee.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+               
             </div>
         </div>
     </div>
@@ -189,96 +191,7 @@
     </div>
     <!-- /Add Employee Modal -->
     
-    <!-- Edit Employee Modal -->
-    <!-- <div id="edit_employee" class="modal custom-modal fade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Employee</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <!-- <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                    {{form.name}}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Employee ID</label>
-                                    
-                                    <input class="form-control" value="{{form.employee_id}}" type="text" name="empid">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Phone </label>
-                                    <input class="form-control" value="9876543210" type="text" name="phone">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                    <input class="form-control" value="johndoe@example.com" type="email" name="email">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label> Whatsapp number <span class="text-danger">*</span></label>
-                                    <input class="form-control" value="johndoe" type="password" name="whatsapp_number">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>DOB <span class="text-danger">*</span></label>
-                                    <input class="form-control" value="johndoe" type="password" name="dob">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">  
-                                <div class="form-group">
-                                    <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
-                                    <div class="cal-icon"><input class="form-control datetimepicker" type="text" name="joindate"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Category <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Select Designation</option>
-                                        <option>Web Designer</option>
-                                        <option>Web Developer</option>
-                                        <option>Android Developer</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Username <span class="text-danger">*</span></label>
-                                    <input class="form-control" value="johndoe" type="text" name="username">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="col-form-label">Password</label>
-                                    <input class="form-control" value="johndoe" type="password" name="password">
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="submit-section">
-                            <button class="btn btn-primary submit-btn">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
+ 
     <!-- /Edit Employee Modal -->
     
     <!-- Delete Employee Modal -->
@@ -305,8 +218,242 @@
         </div>
     </div>
     <!-- /Delete Employee Modal -->
+    <div id="add_team" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="profile-view">
+                                        <div class="profile-img-wrap">
+                                            <div class="profile-img">
+                                                <a href="">
+                                                    <img src="{% static 'ceo/img/profiles/avatar-19.jpg' %}" id="profileimg" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="profile-basic">
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <div class="profile-info-left">
+                                                        <h3 class="user-name m-t-0" id="name">Syamjith Babu</h3>
+                                                        <small class="text-muted" id="catagory">CEO</small>
+                                                        <div class="staff-id" id="employee_id">Employee ID : CLT-0001</div>
+                                                        <div class="staff-id" id="marital_status">Marital Status : CLT-0001</div>
+                                                        <div class="staff-id" id="email">Email: CLT-0001</div>
+                                                       <ul >
+                                                        <li>
+                                                            <span class="title">Birthday:</span>
+                                                            <span class="text" id="dob">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Whatsapp :</span>
+                                                            <span class="text" id="whatsapp_number"><a href="">9876543210</a></span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Nationality:</span>
+                                                            <span class="text" id="nationality">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Username:</span>
+                                                            <span class="text" id="username">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Password:</span>
+                                                            <span class="text" id="password">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Emergency  Name:</span>
+                                                            <span class="text" id="primarycontact_name">5754 Airport Rd, Coosada, AL, 36020</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Relation:</span>
+                                                            <span class="text" id="relation">5754 Airport Rd, Coosada, AL, 36020</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">Number:</span>
+                                                            <span class="text" id="emergency_number">5754 Airport Rd, Coosada, AL, 36020</span>
+                                                        </li>
+                                                       </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <ul class="personal-info">
+                                                        <li>
+                                                            <span class="title">Phone:</span>
+                                                            <span class="text" id="phone"><a href="">9876543210</a></span>
+                                                        </li>
+                                                        
+                                                        
+                                                       
+                                                        <li>
+                                                            <span class="title">Join Date:</span>
+                                                            <span class="text" id="join_date">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">District:</span>
+                                                            <span class="text" id="district">2nd August</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="title">State:</span>
+                                                            <span class="text" id="state">2nd August</span>
+                                                        </li>
+                                                        
+
+                                                        <li>
+                                                            <span class="title">Address:</span>
+                                                            <span class="text" id="address">5754 Airport Rd, Coosada, AL, 36020</span>
+                                                        </li>
+                                              
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="card tab-box">
+                        <div class="row user-tabs">
+                            <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
+                                <ul class="nav nav-tabs nav-tabs-bottom">
+                                    <li class="nav-item col-sm-3"><a class="nav-link active" data-bs-toggle="tab"
+                                            href="#myprojects">Projects</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
     
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="tab-content profile-tab-content">
+    
+                                
+                                <div id="myprojects" class="tab-pane fade show active">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-md-4 col-xl-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="dropdown profile-action">
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#edit_project"><i
+                                                                    class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#delete_project"><i
+                                                                    class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                        </div>
+                                                    </div>
+                                                    <h4 class="project-title" id="project_name"><a href="">Office
+                                                            Management</a></h4>
+                                                    <small class="block text-ellipsis m-b-15">
+                                                        <span class="text-xs">Client:</span> <span class="text-muted" id="client">open tasks,
+                                                        </span>
+                                                        <span class="text-xs">Start date</span> 
+                                                        <span class="text-muted" id="startdate">tasks
+                                                            completed</span>
+                                                        <span class="text-xs">End date</span> 
+                                                            <span class="text-muted" id="enddate">tasks
+                                                            completed</span>
+                                                    </small>
+                                                    <p class="text-muted">Lorem Ipsum is simply dummy text of the printing
+                                                        and
+                                                        typesetting industry. When an unknown printer took a galley of type
+                                                        and
+                                                        scrambled it...
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+    
+                            </div>
+                        </div>
+                    </div> -->
+    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
+
+<script>
+    function DataGet(id){
+        $.ajax({
+            url: "/hrm/employeedetails/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+                $('#name').html(responce.value.name)
+                $('#catagory').html(responce.value.catagory)
+                $('#employee_id').html(responce.value.employee_id)
+                $('#email').html(responce.value.email)
+                $('#dob').html(responce.value.dob)
+                $('#address').html(responce.value.address)
+                $('#profileimg').attr("src",responce.value.emp_profile)
+                $('#phone').html(responce.value.phone)
+                $('#whatsapp_number').html(responce.value.whatsapp_number)
+                $('#join_date').html(responce.value.join_date)
+                $('#district').html(responce.value.district)
+                $('#state').html(responce.value.state)
+                $('#nationality').html(responce.value.nationality)
+                $('#marital_status').html(responce.value.marital_status)
+                $('#username').html(responce.value.username)
+                $('#password').html(responce.value.password)
+                $('#primarycontact_name').html(responce.value.primarycontact_name)
+                $('#relation').html(responce.value.relation)
+                $('#emergency_number').html(responce.value.emergency_number)
+                
+
+				// $('#project_name').attr("src",responce.value.project_name)
+				// $('#client').attr("src",responce.value.client)
+                // $('#startdate').attr("src",responce.value.startdate)
+				// $('#enddate').attr("src",responce.value.enddate)
+            }
+			
+        })
+    }
+
+
+
+
+    function Deleteemployee(id){
+        alert(id)
+    }
+</script>
+
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function Deleteemployee(id) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this imaginary file!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    setTimeout(function () {
+                        window.location.href = "/hrm/deleteemployee/" + id
+                    }, 1000);
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
+    }
+</script>
 
 {% endblock %}

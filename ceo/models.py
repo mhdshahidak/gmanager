@@ -59,7 +59,7 @@ class Employees(models.Model):
     state = models.CharField(max_length = 25, null = True)
     nationality = models.CharField(max_length = 30, null = True)
     marital_status = models.CharField(max_length = 10, null = True)
-    emp_profile = VersatileImageField(upload_to = 'empProfile', null = True,default='default_img.jpg')
+    emp_profile = VersatileImageField(upload_to = 'empProfile', null = True,default='deafult-01.jpg')
     status = models.CharField(max_length = 25,default= 'Online')
     username = models.CharField(max_length = 50)
     password = models.CharField(max_length = 100)
@@ -140,6 +140,7 @@ class Attendence(models.Model):
     punch_outtime = models.TimeField(null=True)
     morning = models.BooleanField(default=False)
     evening = models.BooleanField(default=False)
+    status = models.CharField(max_length = 25,default= 'Present')
 
 
     

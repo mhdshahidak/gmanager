@@ -21,8 +21,14 @@ urlpatterns = [
 
 
     path('getemployeedata/<str:id>', views.getemployeedata, name="getemployeedata"),
+    path('getemployeeleave/<str:id>', views.getemployeeleave, name="getemployeeleave"),
+    path('leave', views.leave, name="leave"),
+    
     path('addingattendence', views.addingattendence, name="addingattendence"),
-
+    path('employeedetails/<str:id>', views.employeedetails, name="employeedetails"),
+    path('deleteemployee/<str:id>', views.deleteemployee, name="deleteemployee"),
+    path('editemployee/<str:id>', views.editemployee, name="editemployee"),
+    path('checkexist', views.checkexist, name="checkexist"),
 
     
 

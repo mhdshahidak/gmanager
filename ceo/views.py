@@ -6,7 +6,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from crm.models import EnquiryNote
-from pm.models import DailyProgress,Project,Enquiry,ProjectStatus
+from pm.models import SRS, DailyProgress,Project,Enquiry, ProjectMembers, ProjectProgressFiles,ProjectStatus,Praposalpdf
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -69,20 +69,27 @@ def ceodashboard(request):
     clients  = Client.objects.all().count()
     employees = Employees.objects.all().count()
 
-    enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    # addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
+    # billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
+    # billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
+    # advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
+    enquirylist = Enquiry.objects.filter(status = 'Enquiry').count()
+    print(enquirylist)
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
     advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
-    notstated =Project.objects.filter(status = 'Not Started').count()
-    ongoing =Project.objects.filter(status = 'On Going').count()
-    onscheduling =Project.objects.filter(status = 'On Scheduling').count()
-    delayed =Project.objects.filter(status = 'Delayed').count()
-    qc =Project.objects.filter(status = 'Qc').count()
-    w4c =Project.objects.filter(status = 'W4C').count()
-    rework =Project.objects.filter(status = 'Rework').count()
-    completed =Project.objects.filter(status = 'Completed').count()
+    notstated =ProjectStatus.objects.filter(status = 'Not Started').count()
+    ongoing =ProjectStatus.objects.filter(status = 'On Going').count()
+    onscheduling =ProjectStatus.objects.filter(status = 'On Scheduling').count()
+    delayed =ProjectStatus.objects.filter(status = 'Delayed').count()
+    qc =ProjectStatus.objects.filter(status = 'Qc').count()
+    w4c =ProjectStatus.objects.filter(status = 'W4C').count()
+    rework =ProjectStatus.objects.filter(status = 'Rework').count()
+    completed =ProjectStatus.objects.filter(status = 'Completed').count()
    
    
  
@@ -137,11 +144,14 @@ def crm(request):
 
 @login_required(login_url='/')
 def employe(request):
-    empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
+    # empllist = Employees.objects.filter(catagory__catagory__catagory_title='EMPLOYEE')
+    empllist = Employees.objects.all()
+    emp_count = Employees.objects.all().count()
 
     context = {
         "is_employe" : True,
-        "empllist":empllist
+        "empllist":empllist,
+        "emp_count":emp_count,
     }
     return render (request,'ceo/dashboard/employee.html',context)  
 
@@ -240,7 +250,7 @@ def allstaff(request):
             emergecy = EmergenctContact(employee=form_data)
             emergecy.save()
 
-            return redirect('ceo:ceodashboard')
+            return redirect('ceo:allstaff')
         else:
             pass
 
@@ -281,17 +291,33 @@ def editEmployeeDetails(request,id):
 
 @login_required(login_url='/')
 def dailychecked(request):
- 
+    if request.method == 'POST':
 
-   
-    today = datetime.datetime.now()
-   
-    projectlists =DailyProgress.objects.filter(date=today)
-    context ={
-        "is_dailychecked" : True,
-        "projectlists":projectlists,
-    }
-    return render (request,'ceo/dailychecked.html',context) 
+        serachdate = request.POST['serachdate']
+         
+        print(serachdate)
+        if DailyProgress.objects.filter(date=serachdate).exists():
+            print('exist')
+            projectlists =DailyProgress.objects.filter(date=serachdate)
+            context ={
+            "is_dailychecked" : True,
+            "projectlists":projectlists,
+             "status":0
+            }
+            return render (request,'ceo/dailychecked.html',context)
+        else:
+            print('not exist') 
+            context ={
+            "is_dailychecked" : True,
+             "status":1
+            } 
+            return render (request,'ceo/dailychecked.html',context)  
+    else:
+
+        context ={
+            "is_dailychecked" : True,
+        }
+        return render (request,'ceo/dailychecked.html',context) 
 
 
 @login_required(login_url='/')
@@ -312,19 +338,34 @@ def rejectedlist(request):
 
 
 @login_required(login_url='/')
-def projectlist(request):
+def projectlist(request,selected_status):
+    projects = Enquiry.objects.filter(status = selected_status)
     context = {
         "is_project" : True,
+        "projects":projects,
     }
     return render (request,'ceo/project/projectlist.html',context)  
 
 
 @login_required(login_url='/')
-def viewproject(request):
-    context = {
+def viewproject(request,id):
+    enquiry =Enquiry.objects.get(id=id)
+    if Praposalpdf.objects.filter(enquiry=enquiry).exists:
+        propsosal=Praposalpdf.objects.filter(enquiry=enquiry)
+        print(propsosal,'#'*10)
+        context = {
         "is_project" : True,
-    }
-    return render (request,'ceo/project/viewproject.html',context)        
+        "enquiry":enquiry,
+        "propsosal":propsosal
+        }
+        return render (request,'ceo/project/viewproject.html',context) 
+    else:
+        context = {
+        "is_project" : True,
+        "enquiry":enquiry
+        }
+        return render (request,'ceo/project/viewproject.html',context)     
+          
     
 
 
@@ -339,3 +380,50 @@ def viedetails(request,id):
     }
  
     return JsonResponse({'value': data})    
+
+
+
+
+def handler404(request,exception):
+    return render(request, 'error/404.html', status=404)
+
+
+
+def handler500(request, *args, **argv):
+    response = render("error/500.html")
+    response.status_code = 500
+    return response
+
+
+
+
+
+def statusproject(request,selected_status):
+    allproject=ProjectStatus.objects.filter(status = selected_status)
+    context={
+        "allproject":allproject,
+    }
+    return render (request,'ceo/statusproject.html',context)
+
+
+
+def statusviewproject(request,id):
+  
+    projectdetail = Project.objects.get(id=id)
+    daily_report = DailyProgress.objects.filter(project=projectdetail).values('date','status','note','employee__name')
+    progressreport = ProjectStatus.objects.get(project=projectdetail)
+    members =ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs =SRS.objects.get(project=projectdetail)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(files="New default that isn't None")
+    context={
+        "projectdetail":projectdetail,
+        "daily_report":daily_report,
+        "progressreport":progressreport,
+        "members":members,
+        "viewsrs":viewsrs,
+        "uploadedfiles":uploadedfiles
+    }
+    return render (request,'ceo/statusviewproject.html',context)
+
+
+    

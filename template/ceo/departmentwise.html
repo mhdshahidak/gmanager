@@ -13,7 +13,7 @@
                 <div class="col">
                     <h3 class="page-title">Department</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Departments</li>
                     </ul>
                 </div>
@@ -55,7 +55,7 @@
         <!-- Search Filter -->
 
         <div class="row staff-grid-row">
-        {% for department in emp_count %}
+            {% for department in emp_count %}
             <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
 
                 <div class="profile-widget">
@@ -78,14 +78,15 @@
                     </h4>
                     <h5 class="user-name m-t-10 mb-0 text-ellipsis">
                         <a href="">
-                          <!-- {{emp_count}} -->
-                          {{department.title}}
+                            <!-- {{emp_count}} -->
+                            {{department.title}}
                         </a>
                     </h5>
-                    <a href="{% url 'ceo:departmentwiseemployee' department.id  %}" class="btn btn-white btn-sm m-t-10" class="btn add-btn">View Profile</a>
+                    <a href="{% url 'ceo:departmentwiseemployee' department.id  %}" class="btn btn-white btn-sm m-t-10"
+                        class="btn add-btn">View Profile</a>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
     <!-- /Page Content -->

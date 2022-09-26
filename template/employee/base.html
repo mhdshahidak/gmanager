@@ -1,121 +1,180 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- <meta charset="utf-8">
+
+<head>
+    <!-- <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="description" content="Smarthr - Bootstrap Admin Template">
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow"> -->
-        <title>g-manager </title>
-		
-		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{% static 'g.png' %}">
-		
-		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{% static 'ceo/css/bootstrap.min.css' %}">
-		
-		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="{% static 'ceo/css/font-awesome.min.css' %}">
-		
-		<!-- Lineawesome CSS -->
-        <link rel="stylesheet" href="{% static 'ceo/css/line-awesome.min.css' %}">
-		
-		<!-- Chart CSS -->
-		<link rel="stylesheet" href="{% static 'ceo/plugins/morris/morris.css' %}">
-		
-		<!-- Main CSS -->
-        <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
+    <title>g-manager </title>
 
-		<!-- Datatable CSS -->
-        <link rel="stylesheet" href="{% static 'employee/datatables/datatables.min.css' %}">
-		<!-- <link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}"> -->
-		
-		<!-- Select2 CSS -->
-		<link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'g.png' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/bootstrap.min.css' %}">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/font-awesome.min.css' %}">
+
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/line-awesome.min.css' %}">
+
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/plugins/morris/morris.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/style.css' %}">
+
+    <!-- Datatable CSS -->
+    <!-- <link rel="stylesheet" href="{% static 'employee/datatables/datatables.min.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'ceo/css/dataTables.bootstrap4.min.css' %}">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="{% static 'ceo/css/select2.min.css' %}">
 
 
 
-		<link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
-        <link rel="stylesheet" href="{% static 'employee/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'ceo/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'employee/css/style.css' %}">
 
-        <style>
-            .card{
-                border-radius: 1.25rem;
-            }
-            .card-table .card-header {
-                border-radius: 1.25rem 1.25rem 0rem 1.25rem;
-            }
-        </style>
-		
-		<!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
+    <style>
+        .card {
+            border-radius: 1.25rem;
+        }
+
+        .card-table .card-header {
+            border-radius: 1.25rem 1.25rem 0rem 1.25rem;
+        }
+      
+    .pagination > .active > a, .pagination > .active > span {
+    color: #343333;
+    padding: 5px;
+    }
+    .form-control {
+        border-color: #e3e3e3;
+        box-shadow: none;
+        font-size: 15px;
+        height: 32px;
+    }
+    #divdatatable{
+        padding: 15px;
+
+    }
+    </style>
+
+    <!-- HTML5 shim and Respond.js' %} IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
 			<script src="{% static 'ceo/js/html5shiv.min.js' %}"></script>
 			<script src="{% static 'ceo/js/respond.min.js' %}"></script>
 		<![endif]-->
-    </head>
-	
-    <body>
-		<!-- Main Wrapper -->
-        <div class="main-wrapper">
-		
-            {% include 'employee/partials/navbar.html' %}
-            <!-- /Header -->
-    
-            <!-- Sidebar -->
-            {% include 'employee/partials/sidebar.html' %}
-            <!-- /Sidebar -->
-    
-            {% block content %}
-    
-            {% endblock %}
-			
-        </div>
-		<!-- /Main Wrapper -->
-		
-		<!-- jQuery -->
-        <script src="{% static 'ceo/js/jquery-3.6.0.min.js' %}"></script>
-		
-		<!-- Bootstrap Core JS -->
-        <script src="{% static 'ceo/js/bootstrap.bundle.min.js' %}"></script>
-		
-		<!-- Slimscroll JS -->
-		<script src="{% static 'ceo/js/jquery.slimscroll.min.js' %}"></script>
-		
-		<!-- Chart JS -->
-		<script src="{% static 'ceo/plugins/morris/morris.min.js' %}"></script>
-		<script src="{% static 'ceo/plugins/raphael/raphael.min.js' %}"></script>
-		<script src="{% static 'ceo/js/chart.js' %}"></script>
-		
-		<!-- Custom JS -->
-		<script src="{% static 'ceo/js/app.js' %}"></script>
+</head>
+
+<body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+
+        {% include 'employee/partials/navbar.html' %}
+        <!-- /Header -->
+
+        <!-- Sidebar -->
+        {% include 'employee/partials/sidebar.html' %}
+        <!-- /Sidebar -->
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'ceo/js/jquery-3.6.0.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'ceo/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="{% static 'ceo/js/jquery.slimscroll.min.js' %}"></script>
+
+    <!-- Chart JS -->
+    <script src="{% static 'ceo/plugins/morris/morris.min.js' %}"></script>
+    <script src="{% static 'ceo/plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'ceo/js/chart.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'ceo/js/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'ceo/js/app.js' %}"></script>
 
 
-		<!-- Select2 JS -->
-		<script src="{% static 'ceo/js/select2.min.js' %}"></script>
-		
-		<!-- Datatable JS -->
-        <script src="{% static 'employee/datatables/jquery.dataTables.min.js' %}"></script>
-        <script src="{% static 'employee/datatables/datatables.min.js' %}"></script>
-		<!-- <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
+    <!-- Select2 JS -->
+    <script src="{% static 'ceo/js/select2.min.js' %}"></script>
+
+    <!-- Datatable JS -->
+    <!-- <script src="{% static 'employee/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'employee/datatables/datatables.min.js' %}"></script> -->
+    <!-- <script src="{% static 'ceo/js/jquery.dataTables.min.js' %}"></script>
 		<script src="{% static 'ceo/js/dataTables.bootstrap4.min.js' %}"></script> -->
 
+        
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
-		<!-- Datetimepicker JS -->
-		<script src="{% static 'ceo/js/moment.min.js' %}"></script>
-		<script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
-		
-		
-        <!-- <script>
-            if ($('.datatable').length > 0) {
-                $('.datatable').DataTable({
-                    language: {
-                        search: '<i class="fa fa-search"></i>',
-                        searchPlaceholder: "Search"
-                    }
-                });
-            }
-        </script> -->
-    </body>
+    <!-- Datetimepicker JS -->
+    
+    <script src="{% static 'ceo/js/moment.min.js' %}"></script>
+    <script src="{% static 'ceo/js/bootstrap-datetimepicker.min.js' %}"></script>
+
+
+    <!-- <script>
+
+        $(document).ready(function() {
+            $('.datatable').dataTable({
+                "aLengthMenu": [[5, 10, 15, -1], [5, 10, 50, "All"]],
+                "bDestroy": true 
+            });
+        });
+
+
+
+        if ($('.datatable').length > 0) {
+            $('.datatable').DataTable({
+                language: {
+                    search: '<i class="fa fa-search"></i>',
+                    searchPlaceholder: "Search"
+                    
+                }
+            });
+        }
+    </script> -->
+    <script>
+
+        // $(document).ready(function () {
+        //     $.fn.dataTableExt.sErrMode = 'throw';
+
+        // });
+        $(document).ready(function () {
+            $('#datatable').dataTable();
+            $('#datatableall').dataTable();
+            
+        });
+
+
+        // $('#tabledata').dataTable({
+
+        //     searching: true,
+
+        // });
+
+
+    </script>
+    {% block js %}
+    
+    {% endblock %}
+</body>
+
 </html>
