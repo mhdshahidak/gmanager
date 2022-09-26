@@ -7,12 +7,12 @@ from . models import *
 from ceo.models import Client, EmergenctContact, Employees,Attendence,SubCatagory
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from pm.models import Praposalpdf, Updation ,Project
+from pm.models import Praposalpdf, Updation ,Project,ProjectStatus,ProjectMembers,Meeting,SRS
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from datetime import date
 from gmanager.decorators import auth_crm
-from pm.form import PraposalpdfForm
+from pm.form import PraposalpdfForm,ProjectForm
 # Create your views here.
 
 
@@ -29,7 +29,8 @@ def crmHome(request):
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
-    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid',type='Graphic Designing').count()
+    # enquirylist = Enquiry.objects.filter(status = 'Advance Paid',type='Graphic Designing')
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
     clientsCount = Client.objects.all().count()
     clients = Client.objects.all()
@@ -73,7 +74,8 @@ def enquiryList(request):
 @login_required(login_url='/')
 @auth_crm
 def graphicenquiry(request):
-    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry',type='Graphics')
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry',type='Graphic Designing')
+    print(enquirylistdata)
     context ={
         "enquirylistdata":enquirylistdata,
     }
@@ -229,7 +231,15 @@ def createProject(request,id):
         if form.is_valid():
             data = form.save()           
             Enquiry.objects.filter(id=data.id).update(Enquirynote=details) 
-            EnquiryNote.objects.filter(id=id).update(status='DeActivate')   
+            EnquiryNote.objects.filter(id=id).update(status='DeActivate')  
+            if data.type =="Graphic Designing":
+                print("if")
+                Enquiry.objects.filter(id=data.id).update(status="Added To Proposal")
+                return redirect('/crm/')
+            else:
+                print("else")
+                pass 
+                return redirect('/crm/')               
             return redirect('/crm/')
             
     context = {
@@ -306,6 +316,10 @@ def proposal(request):
 def savaProposal(request):
     id=request.POST['EnquaryID']
     Enquiry.objects.filter(id=id).update(status = 'Bill Creation')
+    getenq= Enquiry.objects.get(id=id)
+    prpr=Praposalpdf(enquiry=getenq)
+    prpr.save()
+    
     return JsonResponse({'message': 'sucesses'}) 
 
 @csrf_exempt
@@ -533,3 +547,84 @@ def deleteclient(request,id):
     Client.objects.get(id=id).delete()
     return redirect('/crm/clientlist')
 
+@login_required(login_url='/')
+@auth_crm
+def unassigneproject(request):
+    enquirylist = Enquiry.objects.filter(status = 'Advance Paid',type='Graphic Designing')
+    context={
+        "is_unassigneproject":True,
+        "enquirylist":enquirylist,
+    }
+    return render (request,'crm/unassigneproject.html',context)         
+
+
+
+
+@login_required(login_url='/')
+@auth_crm
+def addproject(request,id):
+    pm = request.user.employee
+    deatils= Enquiry.objects.get(id=id)
+    form=ProjectForm(request.POST)
+    if request.method == 'POST': 
+        if form.is_valid():
+            data = form.save()
+            Project.objects.filter(id=data.id).update(enquiry=deatils)
+            project = Project.objects.get(id=data.id)           
+            Enquiry.objects.filter(id=id).update(status="Project Added")
+            projectsrs=  SRS(project=project)
+            projectsrs.save()
+
+            return redirect('/crm/addteam/'+str(data.id))
+        else:
+            pass 
+    else:
+
+        context={
+       
+        "form":form,
+        "pm":pm,
+        }
+        return render (request,'crm/addproject.html',context)
+    return render (request,'crm/addproject.html',context)  
+
+
+
+@login_required(login_url='/')
+@auth_crm
+def addteam(request,id):
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context={
+        "employee":employee,
+        "id":id,
+    }
+    return render (request,'crm/addteam.html',context)
+
+
+@login_required(login_url='/')
+@auth_crm
+def addschedule(request,id):
+    project_obj = Project.objects.get(id=id)
+    team_mbr = ProjectMembers.objects.get(project=project_obj)
+    mbr = ProjectMembers.objects.filter(project=project_obj)
+    if request.method == 'POST':
+        meetingDate = request.POST['meetingDate']
+        platform = request.POST['platform']
+        time = request.POST['time']
+        link = request.POST['link']
+
+        meeting = Meeting(project=project_obj,date=meetingDate,time=time,platform=platform,meeting_link=link)
+        meeting.save()
+        project_obj.status = "SRS Approved"
+        project_obj.save()
+        addstatus=ProjectStatus(project=project_obj,member=team_mbr)
+        addstatus.save()
+        return redirect('crm:crmhome')
+        
+    context = {
+        "team":team_mbr,
+        "mbr":mbr,
+        "project":project_obj,
+        # "members":memberrs,
+    }
+    return render (request,'crm/addschedule.html',context)      

@@ -55,10 +55,16 @@
                                 <td><button  data-bs-toggle="modal"  data-bs-target="#edit_client"onclick="DataGets({{ i.enquiry.id }})" class="btn  badge-pill bg-info-light ">View </button>
                                 </td>
                                 <th>
-                                    {% if i.praposalpdf.url == '/media/no' %} 
-                                    {% else %}
+
+
+                                    {% if i.praposalpdf.url != None %}
                                     <a href="{{ i.praposalpdf.url }}"><i class="fa fa-download"></i> download</a>
+            
+            
                                     {% endif %}
+
+
+                                 
                                 </th>
                                 
                                 <td class="text-end">

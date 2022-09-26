@@ -1,0 +1,207 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Meeting Schedule</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Meeting Schedule</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">Meeting Schedule</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="#" method="POST">
+                            {% csrf_token %}
+                            <h4 class="card-title">Project Information</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Project Category</label>
+                                        <input type="text" readonly value="{{project.enquiry.type}}"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Client Name</label>
+
+                                        <input type="text" readonly value="{{project.enquiry.clientname}}"
+                                            class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="d-block">Priority:</label>
+                                        <div class="form-check form-check-inline">
+
+                                            <label class="form-check-label" for="high">{{project.projecttype}}</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Project Name</label>
+                                        <input type="text" readonly value="{{project.enquiry.projectname}}"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone</label>
+                                        <input type="text" readonly value="{{project.enquiry.phone}}"
+                                            class="form-control">
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                            <h4 class="card-title">Meeting List</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+
+
+
+                                    <div class="form-group">
+                                        <div class="pro-team-members">
+                                            <h4>Leader </h4>
+                                            <div class="avatar-group">
+                                                <div class="avatar">
+                                                    <img class="avatar-img rounded-circle border border-white"
+                                                        alt="User Image" src="{{team.lead.emp_profile.url}}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Date</label>
+                                        <input type="date" class="form-control" required name="meetingDate">
+                                        <!-- <input type="number" value="{{project.id}}" class="form-control"  name="projectID"> -->
+
+                                        <!-- <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Platform</label>
+                                        <input type="text" class="form-control" required name="platform">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="pro-team-members">
+                                            <h4>Team</h4>
+                                            <div class="avatar-group">
+                                                {% for m in mbr %}
+                                                    {% for i in m.team.all %}
+                                                    <div class="avatar">
+                                                        <img class="avatar-img rounded-circle border border-white"
+                                                            alt="User Image" src="{{i.emp_profile.url}}">
+                                                    </div>
+                                                    <div>
+                                                        <p>{{i.name}}</p>
+                                                        <!-- <input value="{{mbr.name}}"> -->
+                                                    </div>
+                                                    {% endfor %}
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-form-label">Meeting Time <span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group time timepicker">
+                                            <input class="form-control" type="time" name="time">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Meeting Link</label>
+                                        <input type="text" class="form-control" name="link">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- Assign Leader Modal -->
+<div id="assign_leader" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign Leader to this project</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group m-b-30">
+                    <input placeholder="Search to add a leader" class="form-control search-input" type="text">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+
+                <div class="submit-section">
+                    <button class="btn btn-primary submit-btn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Assign Leader Modal -->
+
+<!-- Assign User Modal -->
+<div id="assign_user" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Assign the Team to this project</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group m-b-30">
+                    <input placeholder="Search a user to assign" class="form-control search-input" type="text">
+                    <button class="btn btn-primary">Search</button>
+                </div>
+
+                <div class="submit-section">
+                    <button class="btn btn-primary submit-btn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Assign User Modal -->
+
+{% endblock %}
