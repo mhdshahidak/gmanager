@@ -22,10 +22,10 @@ def crmHome(request):
 
     crm_rrr = request.user.employee.catagory.title
 
-    todate = today = datetime.datetime.now()
-
+    todate = datetime.datetime.now().date() 
     enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
-    enquirylistToday = EnquiryNote.objects.filter(status = 'Active',added_time__gte=todate).count()
+    enquirylistToday = EnquiryNote.objects.filter(status = 'Active',added_time__date=todate).count()
+    # print(enquirylistToday)
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
