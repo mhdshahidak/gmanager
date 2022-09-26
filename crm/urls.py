@@ -6,6 +6,9 @@ app_name = 'crm'
 urlpatterns = [
     path('', views.crmHome, name="crmhome"),
     path('enquirylist', views.enquiryList, name="enquirylist"),
+    path('graphicenquiry', views.graphicenquiry, name="graphicenquiry"),
+    path('viewgraphicenquries/<str:id>', views.viewgraphicenquries, name="viewgraphicenquries"),
+    
     path('clientlist', views.clientList, name="clientlist"),
     path('projectlist', views.projectList, name="projectlist"),
     path('followuplist', views.followUpList, name="followuplist"),
@@ -21,6 +24,13 @@ urlpatterns = [
     path('changedata/<str:id>',views.changedata,name='changedata'),
     
     
+
+
+    path('proposal', views.proposal, name="proposal"),
+    path('savaProposal', views.savaProposal, name="savaProposal"),
+    path('rejectedreason/<str:id>', views.rejectedreason, name="rejectedreason"),
+    path('typereason', views.typereason, name="typereason"),
+
 
 
     path('attantancelist', views.attantanceList, name="attantancelist"),

@@ -1,4 +1,4 @@
-{% extends 'pm/partials/base.html' %}
+{% extends "crm/base.html" %}
 {% load static %}
 {% block content %}
 
@@ -69,10 +69,10 @@
                 </div>
                 <div class="w-sidebar">
                     <div class="widget widget-category">
-                        <h4 class="widget-title"><i class="fa fa-upload"></i> Praposal</h4>
-                        <form method="post" enctype="multipart/form-data">
+                      
+                        <form method="post" >
                             {% csrf_token %}
-                            {{forms.praposalpdf}}
+                           
                             <div class="request-btn mt-4">
                                 <button type="submit" class="btn btn-primary">Send proposal</button>
                             </div>

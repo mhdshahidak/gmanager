@@ -42,6 +42,8 @@ urlpatterns = [
     path('typereason', views.typereason, name='typereason'),
     path('leadersearch', views.leadersearch, name='leadersearch'),
     path('membersearch', views.membersearch, name='membersearch'),
+    
+    path('taskmembersearch', views.taskmembersearch, name='taskmembersearch'),
     path('viedetails/<str:id>', views.viedetails, name='viedetails'),
     path('acceptdeatils/<str:id>', views.acceptdeatils, name='acceptdeatils'),
     path('rejectdeatils/<str:id>', views.rejectdeatils, name='rejectdeatils'),
@@ -54,11 +56,13 @@ urlpatterns = [
     path('rejectedqc/<str:id>', views.rejectedqc, name='rejectedqc'), 
     path('qcrework', views.qcrework, name='qcrework'),
 
-
+    
 
 
 
     path('allstaff', views.allstaff, name='allstaff'),
     path('departmentwise', views.departmentwise, name='departmentwise'),
     path('employeelist/<int:id>',views.employeelist,name="employeelist"),
+
+    path('taskteam/<int:id>',views.taskteam,name="taskteam"),
 ]    

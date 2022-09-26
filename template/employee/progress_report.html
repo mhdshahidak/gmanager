@@ -127,10 +127,17 @@
                         <div>
                             <p>{{ projectstatus.completion }}%</p>
                             <div class="progress progress-md">
-                                <div class="progress-bar" role="progressbar" style="width: 10%" aria-valuenow="95"
+                                <div class="progress-bar w-45" role="progressbar"
+                                    style="width: {{projectstatus.completion}}%" aria-valuenow="{{projectstatus.completion}}"
                                     aria-valuemin="0" aria-valuemax="100">
                                 </div>
+
                             </div>
+                            <!-- <div class="progress progress-md">
+                                <div class="progress-bar" role="progressbar" style="width:{{projectstatus.completion}}%" aria-valuenow="{{ projectstatus.completion }}"
+                                    aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

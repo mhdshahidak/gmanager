@@ -31,6 +31,7 @@ def home(request):
 def praposal(request):
 
     praposallist= Praposalpdf.objects.filter(enquiry__status='Bill Creation')
+    print(praposallist)
     # praposallist = Enquiry.objects.filter(status='Bill Creation')
     context = {
         "praposallist":praposallist

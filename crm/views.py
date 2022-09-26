@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from multiprocessing import context
 from django.shortcuts import render,redirect
 from . form import EnquiryForm,ClientForm
@@ -6,12 +7,12 @@ from . models import *
 from ceo.models import Client, EmergenctContact, Employees,Attendence,SubCatagory
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from pm.models import Updation ,Project
+from pm.models import Praposalpdf, Updation ,Project
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from datetime import date
 from gmanager.decorators import auth_crm
-
+from pm.form import PraposalpdfForm
 # Create your views here.
 
 
@@ -68,6 +69,58 @@ def enquiryList(request):
         "enquirylistdata":enquirylistdata
     }
     return render(request,'crm/enquirylist.html', context)
+
+@login_required(login_url='/')
+@auth_crm
+def graphicenquiry(request):
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry',type='Graphics')
+    context ={
+        "enquirylistdata":enquirylistdata,
+    }
+    return render(request,'crm/graphicenquiry.html', context)
+
+
+
+@login_required(login_url='/')
+@auth_crm
+def viewgraphicenquries(request,id):
+    details = Enquiry.objects.get(id=id)
+    if request.method == 'POST': 
+        pro=Praposalpdf(enquiry=details,praposalpdf="no")
+        pro.save()
+        Enquiry.objects.filter(id=id).update(status = 'Bill Creation')
+        return redirect('/crm/')
+
+    else:
+        context={
+        "details":details ,
+    }
+    return render (request,'crm/viewgraphicenquries.html',context) 
+
+    # forms=PraposalpdfForm(request.POST,request.FILES)
+    # if request.method == 'POST': 
+    #     if forms.is_valid():
+    #         data = forms.save()
+    #         data.enquiry=details
+    #         data.save()
+    #         Enquiry.objects.filter(id=id).update(status = 'Added To Proposal')
+    #         return redirect('/crm/')
+    #     else:
+    #         pass 
+    # else:
+
+    #     context={
+    #     "details":details ,
+    #     "forms":forms,
+      
+    #     }
+    #     return render (request,'crm/viewgraphicenquries.htmll',context) 
+    # context={
+    #     "details":details ,
+    # }
+    # return render (request,'crm/viewgraphicenquries.html',context) 
+
+
 
 @login_required(login_url='/')
 @auth_crm
@@ -235,6 +288,41 @@ def changedata(request,id):
     return JsonResponse({'value': 'data'})  
 
 
+
+@login_required(login_url='/')
+@auth_crm
+def proposal(request):
+    data = Enquiry.objects.filter(status = 'Added To Proposal')
+   
+    context ={
+        "is_proposal":True,
+        "data":data,
+       
+    }
+    return render(request,'crm/parposal.html',context)
+
+
+@csrf_exempt
+def savaProposal(request):
+    id=request.POST['EnquaryID']
+    Enquiry.objects.filter(id=id).update(status = 'Bill Creation')
+    return JsonResponse({'message': 'sucesses'}) 
+
+@csrf_exempt
+def rejectedreason(request,id):
+    details=Enquiry.objects.get(id=id)
+    
+    data={
+        "id":details.id,
+    }
+    return JsonResponse({'value': data})
+
+@csrf_exempt
+def typereason(request):
+    id=request.POST['id']
+    typereason=request.POST['reason']
+    Enquiry.objects.filter(id=id).update(status='Rejected',reason=typereason)
+    return JsonResponse({'value': 'msg'})
 
 
 @login_required(login_url='/')
