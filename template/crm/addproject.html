@@ -1,6 +1,9 @@
-{% extends 'pm/partials/base.html' %}
+{% extends "crm/base.html" %}
 {% load static %}
 {% block content %}
+
+
+
 
 
 
@@ -38,8 +41,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Project Name</label>
-                               
-                                <input type="text" class="form-control" disabled  value="{{updation.project.projectname}}">
+                                {{form.projectname}}
+                                <!-- <input list="enquirylist" class="form-control" name="enquiry" id="enquiry"> -->
 
 
 
@@ -49,13 +52,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label> Project Type</label>
-                                <select  required  class="form-control"   name="type" id="">
-                                    <option selected disabled value="">Choose</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
-                                
+                                <!-- <input class="form-control" name="pro" type="text"> -->
+                                {{ form.projecttype }}
                             </div>
                         </div>
                     </div>
@@ -63,46 +61,35 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Start Date</label>
-                                <input class="form-control " name="startdate" type="date">
+                                {{ form.starteddate }}
                                 <!-- <div class="cal-icon">
-                                    <input class="form-control datetimepicker" name="startdate" type="text">
+                                    <input class="form-control datetimepicker" type="text">
                                 </div> -->
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>End Date</label>
-                                <input class="form-control " name="enddate"type="date">
-                               
+                                {{ form.endingdate }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Add Employees</label>
-                                <input list="employee" onchange="Addmember()" class="form-control" name="employees" id="employees">
-
-                                <datalist id="employee">
-                                    {% for i in employee %}
-
-                                    <option value="{{ i.name }}">{{ i.name }}</option>
-                                    {% endfor %}    
-                                    
-                                </datalist>
+                                <label>Client</label>
+                                
+                                {{ form.client }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Assigned To</label>
-                                <div class="project-members">
-                                    <a href="#" data-bs-toggle="tooltip" id="title" title="" class="avatar">
-                                        <img src="{% static 'ceo/img/profiles/avatar-16.jpg' %}" id="image" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                       
+                    </div>
                     <!-- <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -174,58 +161,10 @@
     </div>
     <!-- /Page Content -->
 
-    <script>
-        // function Addemployee() {
-        //     $.ajax({
-        //         url: "/pm/leadersearch",
-        //         type: 'post',
-        //         data: {
-        //             'projectid': $('#projectid').val(),
-        //             'employee': $('#employees').val()
 
-        //         },
-        //         success: function (responce) {
-        //             $('#id').val(responce.value.id)
-        //             $('#projectmemberid').val(responce.value.projectmemberid)
-        //             $('#memberBox').val(responce.value.member)
-
-        //             $('#image').attr("src", responce.value.profile)
-        //             $('#title').attr("title", responce.value.name)
-
-        //             $('#employees').attr('disabled', true);
-        //         }
-
-
-        //     })
-
-        // }
-
-
-
-        function Addmember() {
-            $.ajax({
-                url: "/pm/taskmember",
-                type: 'post',
-                data: {
-                    'employees': $('#employees').val(),
-                    // 'member': $('#member').val(),
-                    // 'projectid': $('#projectid').val(),
-                    // 'memberObj': $('#memberBox').val()
-                    // 'employee': $('#employees').val(),
-                    // 'projectmemberid': $('#projectmemberid').val()
-
-
-                },
-                success: function (responce) {
-                    $('#image').attr("src", responce.value.profile)
-                }
-
-
-            })
-
-        }
-    </script>
 
 </div>
+
+
 
 {% endblock %}

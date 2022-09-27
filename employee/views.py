@@ -5,7 +5,7 @@ from ceo.models import EmergenctContact, Employees, SubCatagory, TeamMembers
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
-from pm.models import ProjectMembers, Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks
+from pm.models import ProjectMembers, Meeting ,Project,SRS,ProjectStatus,DailyProgress,ProjectProgressFiles, Reworks, Task, Updation
 from gmanager.decorators import auth_employee
 import datetime
 from django.db.models import Q
@@ -34,6 +34,7 @@ def employeeHome(request):
     member = ProjectStatus.objects.filter(member__team=employeedata).count()
     lead =ProjectStatus.objects.filter(member__lead=employeedata).count()
 
+    
 
 
 
@@ -111,7 +112,8 @@ def empMeetingLink(request,id):
     context = {
         "emp":emp,
         "is_meeting":True,
-        "meetinglist":meetinglist
+        "meetinglist":meetinglist,
+        "projectid":projectid
       
     }
     return render(request,'employee/meeting_list.html',context)
@@ -187,6 +189,7 @@ def empRework(request):
 @auth_employee
 def empDailyProgress(request,id):
     emp = request.user.employee
+    print(request.user.employee.catagory.title)
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
     employee_id = Employees.objects.get(id=request.user.employee.id)
@@ -258,9 +261,14 @@ def empProgressReport(request,id):
 @auth_employee
 def empTask(request):
     emp = request.user.employee
+
+    employeedata=Employees.objects.get(id=request.user.employee.id)
+    taskdetails = Task.objects.filter(team=employeedata )
+    print(taskdetails)
     context = {
         "is_task":True,
-        "emp":emp
+        "emp":emp,
+        "taskdetails":taskdetails
     }
     return render(request,'employee/task.html',context)
 
@@ -501,3 +509,19 @@ def countval(request):
     meetinglist2= ProjectMembers.objects.filter(lead=employeedata,project__status='Waiting for SRS').count()
     meetingcount = int(meetinglist1)+int(meetinglist2)
     return meetingcount
+
+
+
+@csrf_exempt
+def taskdetails(request,id):
+    getdata =  Updation.objects.get(id=id)
+    data ={
+        'note':getdata.note,
+        'date':getdata.date,
+        'files':getdata.files.url,    
+    }
+    # print(data.files)
+    return JsonResponse({'value': data})    
+
+def taskreport(request,id):
+    return render(request,'employee/taskreport.html')

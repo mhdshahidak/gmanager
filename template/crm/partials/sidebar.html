@@ -15,6 +15,21 @@
                             <li {% if is_enquiryList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:enquirylist' %}"><i class="la la-edit"></i> <span>Enquiry</span></a>
 							</li>
+							<!-- <li  {% if is_enquiry %} class="active" {% endif %}> 
+								<a href="{% url 'crm:graphicenquiry' %}"><i class="la la-plus"></i> <span>Create Proposal</span></a>
+							</li> -->
+							<li  {% if is_proposal %} class="active" {% endif %}> 
+								<a href="{% url 'crm:proposal' %}"><i class="la la-tasks"></i> <span>Client Approvel List</span></a>
+							</li>
+							<li {% if is_unassigneproject %} class="active" {% endif %}> 
+								<a href="{% url 'crm:unassigneproject' %}"><i class="la la-rocket"></i> <span>Un Assigneproject</span></a>
+							</li>
+							<li {% if is_meetinglist %} class="active" {% endif %}> 
+								<a href="{% url 'crm:meetinglist' %}"><i class="la la-rocket"></i> <span>Meeting Approved</span></a>
+							</li>
+							<li {% if is_dailyprogress %} class="active" {% endif %}> 
+								<a href="{% url 'crm:dailyprogress' %}"><i class="la la-pie-chart"></i> <span>Daily Progress Report</span></a>
+							</li>
                             <li {% if is_clientList %} class="active" {% endif %}> 
 								<a href="{% url 'crm:clientlist' %}"><i class="la la-users"></i> <span>Clients</span></a>
 							</li>

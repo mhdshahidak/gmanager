@@ -29,8 +29,9 @@ def home(request):
 @login_required(login_url='/')
 @auth_accounts
 def praposal(request):
-
+    # Enquiry.objects.filter(status='Bill Creation')
     praposallist= Praposalpdf.objects.filter(enquiry__status='Bill Creation')
+    print(praposallist)
     # praposallist = Enquiry.objects.filter(status='Bill Creation')
     context = {
         "praposallist":praposallist

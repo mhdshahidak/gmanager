@@ -6,6 +6,9 @@ app_name = 'crm'
 urlpatterns = [
     path('', views.crmHome, name="crmhome"),
     path('enquirylist', views.enquiryList, name="enquirylist"),
+    path('graphicenquiry', views.graphicenquiry, name="graphicenquiry"),
+    path('viewgraphicenquries/<str:id>', views.viewgraphicenquries, name="viewgraphicenquries"),
+    
     path('clientlist', views.clientList, name="clientlist"),
     path('projectlist', views.projectList, name="projectlist"),
     path('followuplist', views.followUpList, name="followuplist"),
@@ -23,6 +26,13 @@ urlpatterns = [
     
 
 
+    path('proposal', views.proposal, name="proposal"),
+    path('savaProposal', views.savaProposal, name="savaProposal"),
+    path('rejectedreason/<str:id>', views.rejectedreason, name="rejectedreason"),
+    path('typereason', views.typereason, name="typereason"),
+
+
+
     path('attantancelist', views.attantanceList, name="attantancelist"),
     path('attantancereport', views.attantanceReport, name="attantancereport"),
     path('getemployeedata/<str:id>', views.getemployeedata, name="getemployeedata"),
@@ -38,6 +48,19 @@ urlpatterns = [
     path('deleteenquery/<int:id>',views.deleteenquery,name="deleteenquery"),
     path('editclient/<int:id>',views.editclient,name="editclient"),
     path('deleteclient/<int:id>',views.deleteclient,name="deleteclient"),
+
+
+    path('unassigneproject', views.unassigneproject, name='unassigneproject'),
+    path('addproject/<str:id>', views.addproject, name='addproject'),
+    path('addteam/<str:id>', views.addteam, name='addteam'),
+    path('addschedule/<str:id>', views.addschedule, name='addschedule'),
+    path('meetinglist', views.meetinglist, name='meetinglist'),
+    path('meetingapproved', views.meetingapproved, name='meetingapproved'),
+    path('dailyprogress', views.dailyprogress, name='dailyprogress'),
+    path('viewdailyreport/<str:id>', views.viewdailyreport, name='viewdailyreport'),
+    path('Changedailyreport/<str:id>', views.Changedailyreport, name='Changedailyreport'),
+    
+    
 
 
 

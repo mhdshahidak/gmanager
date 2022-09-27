@@ -104,7 +104,7 @@ class Reworks(models.Model):
     
 class Task(models.Model):
     project = models.ForeignKey(Updation, on_delete=models.CASCADE)
-    team = models.ManyToManyField(Employees,null=True,blank=True)
+    team = models.ManyToManyField(Employees,blank=True)
     startdate = models.DateField(null=True,blank=True)
     enddate = models.DateField(null=True,blank=True)
     type = models.CharField(max_length=15,null=True,blank=True)

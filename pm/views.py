@@ -28,7 +28,7 @@ def index(request):
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
-    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').exclude(type='Graphic Designing').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
     enquirylistcount = Enquiry.objects.filter(status = 'Enquiry').count()
     # waitforqc = Project.objects.filter(status="Qc").count()
@@ -73,9 +73,12 @@ def index(request):
 
 @login_required(login_url='/')
 @auth_pm
+
 def enquiry(request):
     pm = request.user.employee
-    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry')
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry').exclude(type='Graphic Designing')
+    for i in enquirylistdata:
+        print(i.type)
     context={
         "is_enquiry":True,
         "pm":pm,
@@ -97,7 +100,7 @@ def viewenquries(request,id):
             data.enquiry=details
             data.save()
             Enquiry.objects.filter(id=id).update(status = 'Added To Proposal')
-            return redirect('/pm/proposal')
+            return redirect('/pm/enquiry')
         else:
             pass 
     else:
@@ -162,7 +165,7 @@ def viewproject(request):
 @auth_pm
 def unassigneproject(request):
     pm = request.user.employee
-    enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
+    enquirylist = Enquiry.objects.filter(status = 'Advance Paid').exclude(type='Graphic Designing')
     context={
         "is_unassigneproject":True,
         "enquirylist":enquirylist,
@@ -343,8 +346,10 @@ def viewtask(request,id):
         print(type,startdate,enddate)
         taskobj = Task(project=updation, type=type, startdate=startdate, enddate=enddate)
         taskobj.save()
-
-        return redirect('/pm/task')
+        id_only = str(taskobj.id)
+        Updation.objects.filter(id=id).update(status="Team Assigned")
+        return redirect('/pm/taskteam/'+ id_only)
+        
      # employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
     # taskobj = Task(project=updation)
     # taskobj.save()
@@ -389,7 +394,7 @@ def dailyprogress(request):
     pm = request.user.employee
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
-    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct()
+    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct().exclude(project__enquiry__type="Graphic Designing")
     context={
         "is_dailyprogress":True,
         "projectlists":projectlists,
@@ -457,6 +462,9 @@ def changeStatus(request):
 def savaProposal(request):
     id=request.POST['EnquaryID']
     Enquiry.objects.filter(id=id).update(status = 'Bill Creation')
+
+
+    # savaProposal
     return JsonResponse({'message': 'sucesses'}) 
 
 
@@ -518,11 +526,6 @@ def membersearch(request):
     member_prjct_obj = ProjectMembers.objects.get(id=employee_prjt)
     member_prjct_obj.team.add(details)
     # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
-
-
-
-
-    
     
     data={
         "id":details.id,
@@ -534,6 +537,37 @@ def membersearch(request):
     
    
     return JsonResponse({'value': data})    
+
+
+
+
+@csrf_exempt
+def taskmembersearch(request):
+    employeename=request.POST['member']
+    taskid = request.POST['taskid']
+
+
+     
+    details=Employees.objects.get(name=employeename)
+    member_prjct_obj = Task.objects.get(id=taskid)
+    member_prjct_obj.team.add(details)
+    # projectId = Project.objects.filter(id=projectid).update(status = "Team Ass")
+    
+    data={
+        "id":details.id,
+        "name":details.name,
+        "catagory":details.catagory.title,
+
+        
+    }
+    
+   
+    return JsonResponse({'value': data})    
+
+
+
+
+
 
 
 @csrf_exempt
@@ -687,3 +721,15 @@ def employeelist(request,id):
     }
     return render(request,'pm/employeelist.html',context)
  
+
+
+@login_required(login_url='/')
+def taskteam(request,id):
+    print(id)
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context = {
+        "employee":employee,
+        "id":id,
+    }
+    return render(request,'pm/project/taskteam.html',context)
+
