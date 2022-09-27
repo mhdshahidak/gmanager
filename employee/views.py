@@ -112,7 +112,8 @@ def empMeetingLink(request,id):
     context = {
         "emp":emp,
         "is_meeting":True,
-        "meetinglist":meetinglist
+        "meetinglist":meetinglist,
+        "projectid":projectid
       
     }
     return render(request,'employee/meeting_list.html',context)
@@ -188,6 +189,7 @@ def empRework(request):
 @auth_employee
 def empDailyProgress(request,id):
     emp = request.user.employee
+    print(request.user.employee.catagory.title)
     project_obj = Project.objects.get(id=id)
     proj_sts = ProjectStatus.objects.get(project=project_obj)
     employee_id = Employees.objects.get(id=request.user.employee.id)

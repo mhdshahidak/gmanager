@@ -28,7 +28,7 @@ def index(request):
     addedtoprop = Enquiry.objects.filter(status = 'Added To Proposal').count()
     billcreation = Enquiry.objects.filter(status = 'Bill Creation').count()
     billadvance = Enquiry.objects.filter(status = 'Bill Advance').count()
-    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
+    advancepaid = Enquiry.objects.filter(status = 'Advance Paid').exclude(type='Graphic Designing').count()
     rejected = Enquiry.objects.filter(status = 'Rejected').count()
     enquirylistcount = Enquiry.objects.filter(status = 'Enquiry').count()
     # waitforqc = Project.objects.filter(status="Qc").count()
@@ -73,9 +73,12 @@ def index(request):
 
 @login_required(login_url='/')
 @auth_pm
+
 def enquiry(request):
     pm = request.user.employee
-    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry').exclude(type='Graphics')
+    enquirylistdata = Enquiry.objects.filter(status = 'Enquiry').exclude(type='Graphic Designing')
+    for i in enquirylistdata:
+        print(i.type)
     context={
         "is_enquiry":True,
         "pm":pm,
@@ -162,7 +165,7 @@ def viewproject(request):
 @auth_pm
 def unassigneproject(request):
     pm = request.user.employee
-    enquirylist = Enquiry.objects.filter(status = 'Advance Paid')
+    enquirylist = Enquiry.objects.filter(status = 'Advance Paid').exclude(type='Graphic Designing')
     context={
         "is_unassigneproject":True,
         "enquirylist":enquirylist,
@@ -391,7 +394,7 @@ def dailyprogress(request):
     pm = request.user.employee
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
-    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct()
+    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct().exclude(project__enquiry__type="Graphic Designing")
     context={
         "is_dailyprogress":True,
         "projectlists":projectlists,
@@ -459,6 +462,9 @@ def changeStatus(request):
 def savaProposal(request):
     id=request.POST['EnquaryID']
     Enquiry.objects.filter(id=id).update(status = 'Bill Creation')
+
+
+    # savaProposal
     return JsonResponse({'message': 'sucesses'}) 
 
 
