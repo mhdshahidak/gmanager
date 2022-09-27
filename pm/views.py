@@ -394,7 +394,7 @@ def dailyprogress(request):
     pm = request.user.employee
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
-    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct()
+    projectlists =DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').order_by('project').distinct().exclude(project__enquiry__type="Graphic Designing")
     context={
         "is_dailyprogress":True,
         "projectlists":projectlists,

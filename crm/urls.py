@@ -54,6 +54,13 @@ urlpatterns = [
     path('addproject/<str:id>', views.addproject, name='addproject'),
     path('addteam/<str:id>', views.addteam, name='addteam'),
     path('addschedule/<str:id>', views.addschedule, name='addschedule'),
+    path('meetinglist', views.meetinglist, name='meetinglist'),
+    path('meetingapproved', views.meetingapproved, name='meetingapproved'),
+    path('dailyprogress', views.dailyprogress, name='dailyprogress'),
+    path('viewdailyreport/<str:id>', views.viewdailyreport, name='viewdailyreport'),
+    path('Changedailyreport/<str:id>', views.Changedailyreport, name='Changedailyreport'),
+    
+    
 
 
 
