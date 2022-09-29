@@ -339,6 +339,7 @@ def taskmember(request):
 def viewtask(request,id):
     print(id)
     updation=Updation.objects.get(id=id)
+    print(updation.project.id,'**'*10)
     if request.method =='POST':
         type = request.POST['type']
         startdate = request.POST['startdate']
@@ -347,6 +348,7 @@ def viewtask(request,id):
         taskobj = Task(project=updation, type=type, startdate=startdate, enddate=enddate)
         taskobj.save()
         id_only = str(taskobj.id)
+        Project.objects.filter(id=updation.project.id).update(status="Task")
         Updation.objects.filter(id=id).update(status="Team Assigned")
         return redirect('/pm/taskteam/'+ id_only)
         

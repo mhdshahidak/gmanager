@@ -30,9 +30,13 @@ def employeeHome(request):
     emp = request.user.employee
     print(emp)
     employeedata=Employees.objects.get(id=request.user.employee.id)
-    listdata = ProjectStatus.objects.filter(member__team=employeedata ).exclude(status='Completed') |ProjectStatus.objects.filter(member__lead=employeedata).exclude(status='Completed')
+    listdata = ProjectStatus.objects.filter(member__team=employeedata ).exclude(status='Completed', project__status="Task") |ProjectStatus.objects.filter(member__lead=employeedata).exclude(status='Completed',project__status="Task")
     member = ProjectStatus.objects.filter(member__team=employeedata).count()
     lead =ProjectStatus.objects.filter(member__lead=employeedata).count()
+    taskassign =Task.objects.filter(team=employeedata)
+    print(taskassign,'#'*10)
+
+    completepro = ProjectStatus.objects.filter(member__team=employeedata,status='Completed' ) |ProjectStatus.objects.filter(member__lead=employeedata,status='Completed')
 
     
 
@@ -57,7 +61,9 @@ def employeeHome(request):
         "lead":lead,
         "member":member,
         "meetingcount":meetingcount,
-        "reworkcount":reworkcount
+        "reworkcount":reworkcount,
+        "taskassign":taskassign,
+        "completepro":completepro
     }
     return render(request,'employee/home.html',context)
 
