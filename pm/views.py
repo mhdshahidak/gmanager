@@ -24,6 +24,7 @@ from .models import (
     Reworks,
     Task,
     Updation,
+    ProjectProgressFiles
     
 )
 
@@ -291,6 +292,9 @@ def meetings(request):
     pm = request.user.employee
     # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
     meetings = Meeting.objects.filter(project__status="Waiting for SRS")
+
+
+    
 
     context = {
         "is_meetings": True,
@@ -715,3 +719,50 @@ def taskteam(request, id):
         "id": id,
     }
     return render(request, "pm/project/taskteam.html", context)
+
+
+def statusproject(request, selected_status):
+    allproject = ProjectStatus.objects.filter(status=selected_status)
+    context = {
+        "allproject": allproject,
+    }
+    return render(request, "pm/statusproject.html", context)
+
+
+
+def statusviewproject(request, id):
+
+    projectdetail = Project.objects.get(id=id)
+    daily_report = DailyProgress.objects.filter(project=projectdetail).values(
+        "date", "status", "note", "employee__name"
+    )
+    progressreport = ProjectStatus.objects.get(project=projectdetail)
+    members = ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs = SRS.objects.get(project=projectdetail)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(
+        files="New default that isn't None"
+    )
+    context = {
+        "projectdetail": projectdetail,
+        "daily_report": daily_report,
+        "progressreport": progressreport,
+        "members": members,
+        "viewsrs": viewsrs,
+        "uploadedfiles": uploadedfiles,
+    }
+    return render(request, "pm/statusviewproject.html", context)    
+
+@login_required(login_url="/")
+def rejectedlist(request):
+    rejected = Enquiry.objects.filter(status="Rejected")
+    context = {"is_project": True, "rejected": rejected}
+    return render(request, "pm/rejectedlist.html", context)    
+
+@csrf_exempt
+def viedetails11(request, id):
+    getdata = Enquiry.objects.get(id=id)
+    data = {
+        "reason": getdata.reason,
+    }
+
+    return JsonResponse({"value": data})    
