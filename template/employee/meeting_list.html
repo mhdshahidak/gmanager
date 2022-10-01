@@ -65,8 +65,8 @@
                 </div>
             </div>
         </div>
-    
-
+        {% if projectid.enquiry.type == "Graphic Designing" %}
+        {% else %}
         <div class="row" style="margin-top:20px ;">
             <div class="col-sm-12">
                 <div class="card mb-0">
@@ -89,6 +89,9 @@
                 </div>
             </div>
         </div>
+        {% endif %}
+
+        
 
         
     </div>			

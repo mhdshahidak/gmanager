@@ -14,7 +14,7 @@
                 <div class="col-sm-12">
                     <h3 class="page-title"> Create Proposal Request</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="admin-dashboard.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active">Create Proposal Request</li>
                     </ul>
                 </div>
@@ -113,10 +113,17 @@
                             
                            
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Description</label>
                                         {{form.details}}
+                                        <!-- <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea> -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        {{form.address}}
                                         <!-- <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea> -->
                                     </div>
                                 </div>

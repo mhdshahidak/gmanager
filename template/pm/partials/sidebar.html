@@ -12,8 +12,11 @@
                 <li  {% if is_enquiry %} class="active" {% endif %}> 
                     <a href="{% url 'pm:enquiry' %}"><i class="la la-edit"></i> <span>Create Proposal</span></a>
                 </li>
-                <li  {% if is_proposal %} class="active" {% endif %}> 
+                <!-- <li  {% if is_proposal %} class="active" {% endif %}> 
                     <a href="{% url 'pm:proposal' %}"><i class="la la-tasks"></i> <span>Client Approvel List</span></a>
+                </li> -->
+                <li  > 
+                    <a href="{% url 'pm:client' %}"><i class="la la-users"></i> <span>Clients List</span></a>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span class="menu-arrow"></span></a>
@@ -68,7 +71,7 @@
                     <a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}> 
-                    <a href=""><i class="la la-cog"></i> <span>Settings</span></a>
+                    <a href="{% url 'common:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
                 </li>
                 <li {% if is_settings %} class="active" {% endif %}> 
                     <a href="{% url 'common:excuse' %}"><i class="las la-clock"></i> <span>Excuse Form</span></a>
