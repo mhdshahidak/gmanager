@@ -105,6 +105,7 @@
                 </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'pm:rejectedlist' %}">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
@@ -116,10 +117,10 @@
                         </div>
                     </div>
                 </div>
-
+                    </a>
             </div>
 
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
@@ -132,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'pm:srs' %}">
                     <div class="card dash-widget">
@@ -152,7 +153,7 @@
             </div>
 
 
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
@@ -165,51 +166,128 @@
                     </div>
                 </div>
 
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{ongoing}}</h3>
-                            <span>On Going </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{onscheduling}}</h3>
-                            <span>On Scheduling </span>
-                        </div>
-                    </div>
-                </div>
-
             </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{delayed}}</h3>
-                            <span>Delayed Project </span>
+                <a href="/pm/statusproject/Not Started">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{notstated}}</h3>
+                                <span>On Scheduling  </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+               
 
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/pm/statusproject/On Going">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ongoing}}</h3>
+                                <span>On Going  </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+               
+
+            </div>
+           
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/pm/statusproject/Delayed">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{delayed}}</h3>
+                                <span>Delayed Project </span>
+                            </div>
+                        </div>
+                    </div>
+    
+                </a>
+               
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'pm:qcapprovel' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/qc.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{waitforqc}}</h3>
+                                <span> QC Project List</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/pm/statusproject/W4C">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{w4c}}</h3>
+                                <span>W4C Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/pm/statusproject/Rework">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/rework.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{rework}}</h3>
+                                <span>Reworks Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+               
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/pm/statusproject/Completed">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/completed_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{completed}}</h3>
+                                <span>Completed Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+              
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/pm/statusproject/Qc">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon">
@@ -222,48 +300,7 @@
                         </div>
                     </div>
                 </a>
-
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{w4c}}</h3>
-                            <span>W4C Project </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/rework.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{rework}}</h3>
-                            <span>Reworks Project </span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/completed_projects.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{completed}}</h3>
-                            <span>Completed Project </span>
-                        </div>
-                    </div>
-                </div>
+               
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
