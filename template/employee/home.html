@@ -400,7 +400,128 @@
 						</div>
 					</div>
 				</div>
+				<h5 class="dash-title f-t-w-90">tasks </h5>
+				<div class="card card-table card1">
+					
+					<div class="card-body">
+						<div class="table-responsive" id="divdatatable">
+							<table class="table table-center table-hover datatable"
+								style="padding: 5px;border-radius: 20px;" id="datatable">
+								<thead class="thead-light">
+									<tr>
+										<th>End Date</th>
+										<th>Project</th>
+
+										
+										<th>Completion</th>
+										<!-- <th>Action</th> -->
+									</tr>
+								</thead>
+								<tbody>
+
+									{% for i in taskassign %}
+									<tr>
+										<td>
+											{{i.enddate}}
+										</td>
+										<td>
+											<a href="{% url 'employee:progressreport' i.project.project.id   %}"
+												style="color: #4d13aa;">{{i.project.project.projectname|upper}}</a>
+										</td>
+
+
+
+
+
+										<!-- <td>
+											{{i.completion}}%
+											<div class="progress progress-xs">
+												<div class="progress-bar w-45" role="progressbar"
+													style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}"
+													aria-valuemin="0" aria-valuemax="100">
+												</div>
+
+											</div>
+										</td> -->
+										<td>
+											<a href="{% url 'employee:dailyprogress' i.project.project.id %}"
+												class="btn btn-lg">
+												<span class="badge badge-pill bg-success-light text-center"><i
+														class="las la-pen"></i></span>
+											</a>
+										</td>
+									</tr>
+									{% endfor %}
+
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<h5 class="dash-title f-t-w-90">Completed Projects </h5>
+				<div class="card card-table card1">
+					<div class="card-body">
+						<div class="table-responsive" id="divdatatable">
+							<table class="table table-center table-hover datatable"
+								style="padding: 5px;border-radius: 20px;" id="datatable">
+								<thead class="thead-light">
+									<tr>
+										<th>End Date</th>
+										<th>Project</th>
+
+										<th>Status</th>
+										<th>Completion</th>
+										<!-- <th>Action</th> -->
+									</tr>
+								</thead>
+								<tbody>
+
+									{% for i in completepro %}
+									<tr>
+										<td>
+											{{i.project.endingdate.date|date:"d-m-y"}}
+										</td>
+										<td>
+											<a href="{% url 'employee:progressreport' i.project.id   %}"
+												style="color: #4d13aa;">{{i.project.projectname|upper}}</a>
+										</td>
+
+
+
+										<td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span>{% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif%} </td>
+
+
+										<td>
+											{{i.completion}}%
+											<div class="progress progress-xs">
+												<div class="progress-bar w-45" role="progressbar"
+													style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}"
+													aria-valuemin="0" aria-valuemax="100">
+												</div>
+
+											</div>
+										</td>
+										<!-- <td>
+											<a href="{% url 'employee:dailyprogress' i.project.id %}"
+												class="btn btn-lg">
+												<span class="badge badge-pill bg-success-light text-center"><i
+														class="las la-pen"></i></span>
+											</a>
+										</td> -->
+									</tr>
+									{% endfor %}
+
+
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
+			
 			<div class="col-lg-4">
 				<div class="card user-card">
 					<div class="card-block">
@@ -466,6 +587,7 @@
 			</div>
 			
 		</div>
+		
 
 	</div>
 	<!-- /Page Content -->

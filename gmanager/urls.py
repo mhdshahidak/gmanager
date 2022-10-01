@@ -13,24 +13,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
+
 from ceo import views
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',include('ceo.urls')),
-    path('employee/',include('employee.urls')),
-    path('crm/',include('crm.urls')),
-    path('hrm/',include('hrm.urls')),
-    path('accounts/',include('accounts.urls')),
-    path('clients/',include('clients.urls')),
-    path('gm/',include('gm.urls')),
-    path('pm/',include('pm.urls')),
-    path('common/',include('common.urls')),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        path("admin/", admin.site.urls),
+        path("", include("ceo.urls")),
+        path("employee/", include("employee.urls")),
+        path("crm/", include("crm.urls")),
+        path("hrm/", include("hrm.urls")),
+        path("accounts/", include("accounts.urls")),
+        path("clients/", include("clients.urls")),
+        path("gm/", include("gm.urls")),
+        path("pm/", include("pm.urls")),
+        path("common/", include("common.urls")),
+    ]
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
 
 admin.site.site_header = "G-mananger Administration"
 admin.site.site_title = "g-manager  Admin Portal"
