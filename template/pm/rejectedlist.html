@@ -1,0 +1,122 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Rejected List</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Rejected List</li>
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <!-- Search Filter -->
+       
+        <!-- /Search Filter -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Enquiries Name</th>
+                                <th>Company Name</th>
+                                <th>Date</th>
+                                <th>View Reason</th>
+                                
+                                <!-- <th class="text-end no-sort">Action</th> -->
+                            </tr>
+                        </thead>
+                      <tbody>
+                       {% for i in rejected %} 
+                       <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            <h2 class="table-avatar">
+                               {{i.projectname}}<span> {{i.type}}</span>
+                            </h2>
+                        </td>
+                        <td>{{i.companyname}}</td>
+                        <td>{{i.enquirydate.date}}</td>
+                        <td class="text-center">
+                            <a href="" onclick="ViewDetails({{i.id}})" class="btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#view_reason"><i class="fa fa-eye">View</i> </a>
+                       </td>
+                        
+                       
+                    </tr>
+                       {% endfor %}
+                       
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+    <div id="view_reason" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">View Reason </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="meta">
+                               
+                             
+                            </ul>
+                            <!-- <h4 class="card-title">Blockquotes</h4> -->
+                            <blockquote class="blockquote">
+                                <p class="mb-0">Reason</p>
+                            </blockquote>
+                            <blockquote >
+                                <p class="mb-0" id="reason"></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+   
+    
+</div>
+
+<script>
+      function ViewDetails(id){
+        $.ajax({
+            url: "/pm/viedetails11/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+
+               
+                $('#reason').html(responce.value.reason)
+                
+            }
+
+        })
+    }
+</script>
+
+{% endblock %}

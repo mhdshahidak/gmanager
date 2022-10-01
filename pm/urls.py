@@ -52,4 +52,14 @@ urlpatterns = [
     path("departmentwise", views.departmentwise, name="departmentwise"),
     path("employeelist/<int:id>", views.employeelist, name="employeelist"),
     path("taskteam/<int:id>", views.taskteam, name="taskteam"),
+    path(
+        "statusproject/<str:selected_status>", views.statusproject, name="statusproject"
+    ),
+    path(
+        "statusviewproject/<int:id>", views.statusviewproject, name="statusviewproject"
+    ),
+    path("rejectedlist", views.rejectedlist, name="rejectedlist"),
+    path("viedetails11/<int:id>", views.viedetails11, name="viedetails11"),
+    
+    
 ]

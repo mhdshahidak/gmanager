@@ -80,6 +80,8 @@ def ceodashboard(request):
     # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
     enquirylist = Enquiry.objects.filter(status="Enquiry").count()
     print(enquirylist)
+    enquirylist1 = EnquiryNote.objects.filter(status="Active").count()
+
     addedtoprop = Enquiry.objects.filter(status="Added To Proposal").count()
     billcreation = Enquiry.objects.filter(status="Bill Creation").count()
     billadvance = Enquiry.objects.filter(status="Bill Advance").count()
@@ -113,6 +115,7 @@ def ceodashboard(request):
         "w4c": w4c,
         "rework": rework,
         "completed": completed,
+        "enquirylist1":enquirylist1
     }
     return render(request, "ceo/dashboard/admin.html", context)
 
@@ -399,3 +402,12 @@ def statusviewproject(request, id):
         "uploadedfiles": uploadedfiles,
     }
     return render(request, "ceo/statusviewproject.html", context)
+
+
+
+@login_required(login_url="/")
+
+def enquiryList(request):
+    enquirylistdata = EnquiryNote.objects.filter(status="Active")
+    context = {"is_enquiryList": True, "enquirylistdata": enquirylistdata}
+    return render(request, "ceo/enquirylist.html", context)
