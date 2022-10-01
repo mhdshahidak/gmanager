@@ -1,0 +1,266 @@
+{% extends 'crm/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Daily View</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Project</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="project-task">
+                    <ul class="nav nav-tabs nav-tabs-top nav-justified mb-0">
+                        <li class="nav-item"><a class="nav-link active" href="#all_tasks" data-bs-toggle="tab"
+                                aria-expanded="true">Morning</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#pending_tasks" data-bs-toggle="tab"
+                                aria-expanded="false">Afternoon</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#completed_tasks" data-bs-toggle="tab"
+                                aria-expanded="false">Evenging</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="all_tasks">
+                            <div class="card-body">
+                                <div class="tab-content pt-0">
+                                    <div>
+
+                                        {% for i in morning %}
+                                        <h5 class="card-title">{{i.employee.name}}</h5>
+                                        <p class="card-text">{{i.note}}.</p>
+
+                                        {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" 
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %}
+
+                                        <!-- {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %} -->
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="pending_tasks">
+                            <div class="card-body">
+                                <div class="tab-content pt-0">
+                                    <div>
+                                        {% for i in afternoon %}
+                                        <h5 class="card-title">{{i.employee.name}}</h5>
+                                        <p class="card-text">{{i.note}}.</p>
+
+
+
+                                        {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval{{i.id}}"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %}
+                                        <!-- {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="noonbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %} -->
+
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="completed_tasks">
+                            <div class="card-body">
+                                <div class="tab-content pt-0">
+                                    <div>
+                                        {% for i in evening %}
+                                        <h5 class="card-title">{{i.employee.name}}</h5>
+                                        <p class="card-text">{{i.note}}.</p>
+                                          
+                                        
+                                       
+                                        {% if i.checked == False %}
+                                        <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="buttonval{{i.id}}"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div>
+                                        {% else %}
+                                        <div class="text-end">
+                                            <button disabled class="btn  badge-pill bg-danger-light m-t-10">Checked
+                                            </button>
+
+                                        </div>
+                                        {% endif %}
+                                        <!-- <div class="text-end">
+                                            <button onclick="ChangeStatus({{i.id}})" id="evengbutton"
+                                                class="btn  badge-pill bg-success-light m-t-10">Checked </button>
+
+                                        </div> -->
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Content -->
+
+
+
+
+
+
+</div>
+
+
+
+<script>
+    function ChangeStatus(id) {
+        $.ajax({
+            url: "/crm/Changedailyreport/" + id,
+            type: 'GET',
+
+            success: function (responce) {
+
+                // $("#buttonval",id).addClass('btn  badge-pill bg-danger-light m-t-10').removeClass('btn  badge-pill bg-success-light m-t-10');
+                window.location.reload()
+                // $("#buttonval" + id).removeClass('bg-success-light')
+                // $("#buttonval" + id).addClass('bg-danger-light')
+
+
+            }
+
+        })
+
+
+    }
+
+
+
+
+    // window.addEventListener("load", function () {
+
+    //     // Check time and update the button's state every second.
+    //     setInterval(updateSubmitButtonState, 1000);
+    // }, false);
+
+    // function updateSubmitButtonState() {
+    //     var currentTime = new Date();
+    //     var hours = currentTime.getHours();
+    //     var minutes = currentTime.getMinutes();
+    //     var hours = currentTime.getHours();
+    //     var minutes = currentTime.getMinutes();
+
+    //     var newButton = document.getElementById("buttonval");
+    //     var noonbutton = document.getElementById("noonbutton");
+    //     var evengbutton = document.getElementById("evengbutton");
+
+    //     // Between 9:00 and 11.00
+    //     // or Between 11:00 and 11:25
+    //     if ((hours == 8 && minutes >= 59)
+    //         || (hours == 9 && minutes <= 57)) {
+
+    //         newButton.style.display = "fixed";
+    //         noonbutton.style.display = "none";
+    //         evengbutton.style.display = "none";
+    //         // alert('if worked 1st')
+    //     }
+    //     // Between 1:00 and 3.00
+    //     else if ((hours == 12 && minutes >= 59)
+    //         || (hours == 14 && minutes <= 59)) {
+    //         // alert('if worked 2nd')
+    //         noonbutton.style.display = "fixed";
+    //         newButton.style.display = "none";
+    //         evengbutton.style.display = "none";
+    //     }
+    //     // Between 4:00 and 6.00
+    //     else if ((hours == 15 && minutes >= 59)
+    //         || (hours == 17 && minutes <= 59)) {
+    //         // alert('if worked 3rd')
+    //         evengbutton.style.display = "fixed";
+    //         noonbutton.style.display = "none";
+    //         newButton.style.display = "none";
+    //     }
+    //     else {
+    //         // alert('else worked')
+    //         // aler(currentTime)
+    //         newButton.style.display = "none";
+    //         // alert('else worked')    
+    //         noonbutton.style.display = "none";
+    //         evengbutton.style.display = "none";
+    //     }
+
+
+    // }
+
+
+
+
+    // ----------------------------------
+
+
+</script>
+
+{% endblock %}

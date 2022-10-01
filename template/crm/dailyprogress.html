@@ -1,0 +1,76 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Employee</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Employee</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table datatable">
+                        <thead>
+                            <tr>
+                                <th>Sl.No</th>
+                                <th>Project Name</th>
+                                
+                                <th>Started Date</th>
+                                <th>Ending Date</th>
+                                <th class="text-nowrap text-end no-sort">View</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in projectlists %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>
+                                   {{ i.project__projectname }}
+                                </td>
+                                <td>  {{ i.project__starteddate.date }}</td>
+                                <td>  {{ i.project__endingdate.date }} </td>
+                                <td>
+                                    <a href="{% url 'crm:viewdailyreport' i.project__id %}"
+                                        class="btn  badge-pill bg-info-light m-t-10">View </a>
+                                </td>
+
+
+
+                            </tr>
+                            {% endfor %}
+
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+</div>
+
+
+
+{% endblock %}
