@@ -68,7 +68,7 @@ def logout_view(request):
 
 @login_required(login_url="/")
 def ceodashboard(request):
-    projects = Project.objects.filter(~Q(enquiry__status="Rejected")).count()
+    # projects = ProjectStatus.objects.filter(status="Not Started",).count()
     clients = Client.objects.all().count()
     employees = Employees.objects.all().count()
 
@@ -95,6 +95,7 @@ def ceodashboard(request):
     w4c = ProjectStatus.objects.filter(status="W4C").count()
     rework = ProjectStatus.objects.filter(status="Rework").count()
     completed = ProjectStatus.objects.filter(status="Completed").count()
+    projects=notstated+ongoing+onscheduling+delayed+qc+w4c+rework+completed
 
     context = {
         "is_ceodashboard": True,
