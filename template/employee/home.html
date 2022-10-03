@@ -358,7 +358,41 @@
 								</thead>
 								<tbody>
 
-									{% for i in listdata %}
+									{% for i in leaddata %}
+									<tr>
+										<td>
+											{{i.project.endingdate.date|date:"d-m-y"}}
+										</td>
+										<td>
+											<a href="{% url 'employee:progressreport' i.project.id   %}"
+												style="color: #4d13aa;">{{i.project.projectname|upper}}</a>
+										</td>
+
+
+
+										<td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span>{% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif%} </td>
+
+
+										<td>
+											{{i.completion}}%
+											<div class="progress progress-xs">
+												<div class="progress-bar w-45" role="progressbar"
+													style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}"
+													aria-valuemin="0" aria-valuemax="100">
+												</div>
+
+											</div>
+										</td>
+										<td>
+											<a href="{% url 'employee:dailyprogress' i.project.id %}"
+												class="btn btn-lg">
+												<span class="badge badge-pill bg-success-light text-center"><i
+														class="las la-pen"></i></span>
+											</a>
+										</td>
+									</tr>
+									{% endfor %}
+									{% for i in teamdata %}
 									<tr>
 										<td>
 											{{i.project.endingdate.date|date:"d-m-y"}}
@@ -478,7 +512,41 @@
 								</thead>
 								<tbody>
 
-									{% for i in completepro %}
+									{% for i in completedlead %}
+									<tr>
+										<td>
+											{{i.project.endingdate.date|date:"d-m-y"}}
+										</td>
+										<td>
+											<a href="{% url 'employee:progressreport' i.project.id   %}"
+												style="color: #4d13aa;">{{i.project.projectname|upper}}</a>
+										</td>
+
+
+
+										<td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span>{% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif%} </td>
+
+
+										<td>
+											{{i.completion}}%
+											<div class="progress progress-xs">
+												<div class="progress-bar w-45" role="progressbar"
+													style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}"
+													aria-valuemin="0" aria-valuemax="100">
+												</div>
+
+											</div>
+										</td>
+										<!-- <td>
+											<a href="{% url 'employee:dailyprogress' i.project.id %}"
+												class="btn btn-lg">
+												<span class="badge badge-pill bg-success-light text-center"><i
+														class="las la-pen"></i></span>
+											</a>
+										</td> -->
+									</tr>
+									{% endfor %}
+									{% for i in completedteam %}
 									<tr>
 										<td>
 											{{i.project.endingdate.date|date:"d-m-y"}}

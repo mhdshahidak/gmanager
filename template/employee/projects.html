@@ -86,16 +86,28 @@
                             <table class="table table-center table-hover " style="padding: 20px;border-radius: 20px;" id="datatable">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th>Sl.No</th>
                                         <th>Project Name</th>
                                         <th>Status</th>
                                       
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for i in allproject %}
+                                    {% for i in lead %}
                                     <tr>
-                                        <td>{{forloop.counter }}</td>
+                                        <td>
+                                            <h2 class="table-avatar">
+
+                                                <a href="{% url 'employee:detailview' i.project.id %}"
+                                                    style="color: #4d13aa;">{{i.project.projectname}}</a>
+                                            </h2>
+                                        </td>
+                                        <td>{% if i.status == 'On Going' %} <span class="badge badge-pill bg-success-light">{{ i.status}}</span> {% elif i.status == 'On Scheduling' %} <span class="badge bg-danger-light">{{ i.status }}</span> {% elif i.status == 'Completed' %} <span class="badge bg-danger">{{ i.status }}</span> {% elif i.status == 'Not Started' %}<span class="badge bg-info">{{ i.status }}</span> {% elif i.status == 'W4C' %} <span class="badge bg-secondary">{{ i.status }}</span> {% elif i.status == 'Delayed' %} <span class="badge bg-warning-light">{{ i.status }}</span> {% elif i.status == 'Qc' %} <span class="badge bg-primary-light">{{i.status }}</span> {% elif i.status == 'Rework' %} <span class="badge bg-info-light">{{ i.status }}</span> {% endif %}
+
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                    {% for i in team %}
+                                    <tr>
                                         <td>
                                             <h2 class="table-avatar">
 
