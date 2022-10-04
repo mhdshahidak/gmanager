@@ -1,4 +1,4 @@
-{% extends 'ceo/partials/base.html' %}
+{% extends 'pm/partials/base.html' %}
 {% load static %}
 {% block content %}
 
@@ -254,7 +254,7 @@
                         <div class="card">
                             <div class="card-body">
                           
-                                    <h4 class="project-title"><a href="{% url 'ceo:statusviewproject' i.project.id %}">{{i.project.projectname}}</a></h4>
+                                    <h4 class="project-title"><a href="{% url 'pm:statusviewproject' i.project.id %}">{{i.project.projectname}}</a></h4>
 
 
                                 <small class="block text-ellipsis m-b-15">
@@ -326,7 +326,7 @@
                         <div class="card">
                             <div class="card-body">
                                 
-                                <h4 class="project-title"><a href="{% url 'ceo:statusviewproject' i.project.id %}">>{{i.project.projectname}}</a></h4>
+                                <h4 class="project-title"> <a href="{% url 'pm:statusviewproject' i.project.id %}">{{i.project.projectname}}</a></h4>
                                 <small class="block text-ellipsis m-b-15">
                                      <span class="text-muted">{{i.project.client}}</span>
                                      <span class="text-muted">{{i.project.projecttype}}</span>

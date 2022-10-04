@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
-from ceo.models import Employees, LeaveRequests, SubCatagory
+from ceo.models import Employees, LeaveRequests, SubCatagory,EmergenctContact
 from crm.form import ClientForm
 from crm.models import Enquiry, EnquiryNote
 from gmanager.decorators import auth_pm
@@ -766,3 +766,23 @@ def viedetails11(request, id):
     }
 
     return JsonResponse({"value": data})    
+
+def employeeprofile(request, id):
+    employedetails = Employees.objects.get(id=id)
+    primarycontact = EmergenctContact.objects.get(employee=employedetails)
+
+    # employeedata=Employees.objects.get(id=request.user.employee.id)
+    team = ProjectStatus.objects.filter(
+        member__team=employedetails
+    ) 
+    lead= ProjectStatus.objects.filter(member__lead=employedetails)
+    # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
+
+    context = {
+        "employedetails": employedetails,
+        "primarycontact": primarycontact,
+        "team": team,
+        "lead":lead
+
+    }
+    return render(request, "pm/employeeprofile.html", context)    
