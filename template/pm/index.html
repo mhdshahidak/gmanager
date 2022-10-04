@@ -378,37 +378,22 @@
                     </a>
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                {% if leavecount == 0 %}
-                <a href="#" style="color: green;">
+              
+                <a href="{% url 'pm:leaverequest' %}" >
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon">
                                 <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{leavecount}}</h3>
+                                <h3 class="{% if leavecount == 0 %} text-success {% else %} text-danger {% endif %}">{{leavecount}}</h3>
     
-                                <span>Leave Request </span>
+                                <span class="{% if leavecount == 0 %} text-success {% else %} text-danger {% endif %}">Leave Request </span>
                             </div>
                         </div>
                     </div>
                 </a>
-                {% else %}
-                <a href="% url 'pm:leaverequest' %}" style="color: red;">
-                    <div class="card dash-widget">
-                        <div class="card-body">
-                            <span class="dash-widget-icon">
-                                <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
-                            </span>
-                            <div class="dash-widget-info">
-                                <h3>{{leavecount}}</h3>
-    
-                                <span>Leave Request </span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                {% endif %}
+               
                
             </div>
 
