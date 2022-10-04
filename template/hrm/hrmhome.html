@@ -78,9 +78,9 @@
                             <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
                         </span>
                         <div class="dash-widget-info">
-                            <h3>{{leave}}</h3>
+                            <h3 class="{% if leave == 0 %} text-success {% else %} text-danger {% endif %}">{{leave}}</h3>
 
-                            <span>Leave Request </span>
+                            <span class="{% if leave == 0 %} text-success {% else %} text-danger {% endif %}">Leave Request </span>
                         </div>
                     </div>
                 </div>
@@ -96,8 +96,8 @@
 
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{listvalue}}</h3>
-                                <span>Excuse Report</span>
+                                <h3 class="{% if listvalue == 0 %} text-success {% else %} text-danger {% endif %}" >{{listvalue}}</h3>
+                                <span class="{% if listvalue == 0 %} text-success {% else %} text-danger {% endif %}">Excuse Report</span>
                             </div>
                         </div>
                     </div>

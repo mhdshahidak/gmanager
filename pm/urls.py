@@ -60,6 +60,7 @@ urlpatterns = [
     ),
     path("rejectedlist", views.rejectedlist, name="rejectedlist"),
     path("viedetails11/<int:id>", views.viedetails11, name="viedetails11"),
+    path("employeeprofile/<int:id>", views.employeeprofile, name="employeeprofile"),
     
     
 ]

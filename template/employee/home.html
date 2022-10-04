@@ -249,8 +249,8 @@
 								<div class="card-body">
 									<span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
 									<div class="dash-widget-info">
-										<h3>{{meetingcount}}</h3>
-										<span>Meeting & SRS</span>
+										<h3 class="{% if meetingcount == 0 %} text-success {% else %} text-danger {% endif %}">{{meetingcount}}</h3>
+										<span class="{% if meetingcount == 0 %} text-success {% else %} text-danger {% endif %}">Meeting & SRS</span>
 									</div>
 								</div>
 							</div>
@@ -263,8 +263,8 @@
 								<div class="card-body">
 									<span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
 									<div class="dash-widget-info">
-										<h3>{{reworkcount}}</h3>
-										<span>Reworks</span>
+										<h3 class="{% if reworkcount == 0 %} text-success {% else %} text-danger {% endif %}">{{reworkcount}}</h3>
+										<span class="{% if reworkcount == 0 %} text-success {% else %} text-danger {% endif %}">Reworks</span>
 									</div>
 								</div>
 							</div>
