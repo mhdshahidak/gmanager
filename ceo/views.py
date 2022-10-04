@@ -97,7 +97,6 @@ def ceodashboard(request):
     completed = ProjectStatus.objects.filter(status="Completed").count()
     projects=notstated+ongoing+onscheduling+delayed+qc+w4c+rework+completed
 
-    
 
     context = {
         "is_ceodashboard": True,
