@@ -31,9 +31,10 @@
                                 <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
 
                             </span>
+                            
                             <div class="dash-widget-info">
-                                <h3>{{enquirylistcount}}</h3>
-                                <span>Proposal List </span>
+                                <h3 class="{% if enquirylistcount == 0 %} text-success {% else %} text-danger {% endif %}">{{enquirylistcount}}</h3>
+                                <span class="{% if enquirylistcount == 0 %} text-success {% else %} text-danger {% endif %}">Proposal List </span>
                             </div>
                         </div>
                     </div>
@@ -51,8 +52,8 @@
 
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{addedtoprop}}</h3>
-                                <span>Proposal Sented</span>
+                                <h3 class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">{{addedtoprop}}</h3>
+                                <span class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">Proposal Sented</span>
                             </div>
                         </div>
                     </div>
@@ -67,8 +68,8 @@
                             <img src="{% static 'ceo/img/proposal_accepted.jpg' %}" alt="">
                         </span>
                         <div class="dash-widget-info">
-                            <h3>{{billcreation}}</h3>
-                            <span>Praposal Acepted </span>
+                            <h3 class="{% if billcreation == 0 %} text-success {% else %} text-danger {% endif %}">{{billcreation}}</h3>
+                            <span class="{% if billcreation == 0 %} text-success {% else %} text-danger {% endif %}">Praposal Acepted </span>
                         </div>
                     </div>
                 </div>
@@ -81,8 +82,8 @@
                             <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
                         </span>
                         <div class="dash-widget-info">
-                            <h3>{{billadvance}}</h3>
-                            <span>Bill Sented</span>
+                            <h3 class="{% if billadvance == 0 %} text-success {% else %} text-danger {% endif %}">{{billadvance}}</h3>
+                            <span class="{% if billadvance == 0 %} text-success {% else %} text-danger {% endif %}">Bill Sented</span>
                         </div>
                     </div>
                 </div>
@@ -97,28 +98,14 @@
                                 <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{ advancepaid}}</h3>
-                                <span>Unassigned Project</span>
+                                <h3 class="{% if advancepaid == 0 %} text-success {% else %} text-danger {% endif %}">{{ advancepaid}}</h3>
+                                <span class="{% if advancepaid == 0 %} text-success {% else %} text-danger {% endif %}">Unassigned Project</span>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="{% url 'pm:rejectedlist' %}">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/rejected_project.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{rejected}}</h3>
-                            <span>Rejected Project </span>
-                        </div>
-                    </div>
-                </div>
-                    </a>
-            </div>
+           
 
             <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
@@ -142,9 +129,9 @@
                                 <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{srs}}</h3>
+                                <h3 class="{% if srs == 0 %} text-success {% else %} text-danger {% endif %}">{{srs}}</h3>
 
-                                <span>Srs View </span>
+                                <span class="{% if srs == 0 %} text-success {% else %} text-danger {% endif %}">Srs View </span>
                             </div>
                         </div>
                     </div>
@@ -168,7 +155,20 @@
 
             </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="/pm/statusproject/Not Started">
+                {% if notstated == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{notstated}}</h3>
+                            <span>On Scheduling </span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <a href="/pm/statusproject/Not Started" style="color: red;">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon">
@@ -176,16 +176,31 @@
                             </span>
                             <div class="dash-widget-info">
                                 <h3>{{notstated}}</h3>
-                                <span>On Scheduling  </span>
+                                <span>On Scheduling </span>
                             </div>
                         </div>
                     </div>
                 </a>
-               
+                {% endif %}
+
+
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="/pm/statusproject/On Going">
+                {% if ongoing == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ongoing}}</h3>
+                                <span>On Going </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/pm/statusproject/On Going" style="color: red;">
                     <div class="card dash-widget">
                         <div class="card-body">
                             <span class="dash-widget-icon">
@@ -193,19 +208,34 @@
                             </span>
                             <div class="dash-widget-info">
                                 <h3>{{ongoing}}</h3>
-                                <span>On Going  </span>
+                                <span>On Going </span>
                             </div>
                         </div>
                     </div>
                 </a>
-               
+                {% endif %}
+                
+
 
             </div>
            
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="/pm/statusproject/Delayed">
+                {% if delayed == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                   <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{delayed}}</h3>
+                                <span>Delayed Project </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/pm/statusproject/Delayed" style="color: red;">
                     <div class="card dash-widget">
-                        <div class="card-body">
+                       <div class="card-body">
                             <span class="dash-widget-icon">
                                 <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
                             </span>
@@ -215,9 +245,9 @@
                             </div>
                         </div>
                     </div>
-    
                 </a>
-               
+                {% endif %}
+
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'pm:qcapprovel' %}">
@@ -227,8 +257,8 @@
                                 <img src="{% static 'ceo/img/qc.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{waitforqc}}</h3>
-                                <span> QC Project List</span>
+                                <h3 class="{% if waitforqc == 0 %} text-success {% else %} text-danger {% endif %}">{{waitforqc}}</h3>
+                                <span class="{% if waitforqc == 0 %} text-success {% else %} text-danger {% endif %}"> QC Project List</span>
                             </div>
                         </div>
                     </div>
@@ -236,9 +266,22 @@
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="/pm/statusproject/W4C">
+                {% if w4c == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                   <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{w4c}}</h3>
+                                <span>W4C Project </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/pm/statusproject/W4C" style="color: red;">
                     <div class="card dash-widget">
-                        <div class="card-body">
+                       <div class="card-body">
                             <span class="dash-widget-icon">
                                 <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
                             </span>
@@ -249,10 +292,27 @@
                         </div>
                     </div>
                 </a>
-                
+                {% endif %}
+               
+
 
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if rework == 0 %}
+                <a href="#" style="color: green;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/rework.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{rework}}</h3>
+                                <span>Reworks Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% else %}
                 <a href="/pm/statusproject/Rework">
                     <div class="card dash-widget">
                         <div class="card-body">
@@ -266,8 +326,7 @@
                         </div>
                     </div>
                 </a>
-               
-
+                {% endif %}
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="/pm/statusproject/Completed">
@@ -286,7 +345,7 @@
               
 
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="/pm/statusproject/Qc">
                     <div class="card dash-widget">
                         <div class="card-body">
@@ -302,22 +361,55 @@
                 </a>
                
 
-            </div>
+            </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="{% url 'pm:leaverequest' %}">
+                <a href="{% url 'pm:rejectedlist' %}">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                            <img src="{% static 'ceo/img/rejected_project.jpg' %}" alt="">
                         </span>
                         <div class="dash-widget-info">
-                            <h3>{{leavecount}}</h3>
-
-                            <span>Leave Request </span>
+                            <h3>{{rejected}}</h3>
+                            <span>Rejected Project </span>
                         </div>
                     </div>
                 </div>
+                    </a>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if leavecount == 0 %}
+                <a href="#" style="color: green;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{leavecount}}</h3>
+    
+                                <span>Leave Request </span>
+                            </div>
+                        </div>
+                    </div>
                 </a>
+                {% else %}
+                <a href="% url 'pm:leaverequest' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{leavecount}}</h3>
+    
+                                <span>Leave Request </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+               
             </div>
 
 

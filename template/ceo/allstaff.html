@@ -50,12 +50,22 @@
                                 {% for employee in employees %}
                                 <tr>
                                     <td>
-                                        <h2 class="table-avatar" data-bs-toggle="modal" onclick="DataGet({{employee.id}})" data-bs-target="#add_team">
+                                        <!-- <h2 class="table-avatar" data-bs-toggle="modal" onclick="DataGet({{employee.id}})" data-bs-target="#add_team">
                                             <span class="avatar">
                                                 <img alt="" src="{{employee.emp_profile.url}}">
                                             </span>
                                             <a >{{employee.name}}<span></span></a>
+                                        </h2> -->
+                                         <h2 class="table-avatar">
+                                            <a href="{% url 'ceo:employeeprofile' employee.id %}">
+                                                <span class="avatar">
+                                                    <img alt="" src="{{employee.emp_profile.url}}">
+                                                </span>
+                                                {{employee.name}}
+                                         </a>
+                                            
                                         </h2>
+                                        
                                     </td>
                                     <td>{{employee.employee_id}}</td>
                                     <td>{{employee.email}}</td>

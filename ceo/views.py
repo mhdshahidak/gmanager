@@ -97,6 +97,7 @@ def ceodashboard(request):
     completed = ProjectStatus.objects.filter(status="Completed").count()
     projects=notstated+ongoing+onscheduling+delayed+qc+w4c+rework+completed
 
+
     context = {
         "is_ceodashboard": True,
         "projects": projects,
@@ -181,15 +182,18 @@ def employeeprofile(request, id):
     primarycontact = EmergenctContact.objects.get(employee=employedetails)
 
     # employeedata=Employees.objects.get(id=request.user.employee.id)
-    proemployee = ProjectStatus.objects.filter(
+    team = ProjectStatus.objects.filter(
         member__team=employedetails
-    ) | ProjectStatus.objects.filter(member__lead=employedetails)
+    ) 
+    lead= ProjectStatus.objects.filter(member__lead=employedetails)
     # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
 
     context = {
         "employedetails": employedetails,
         "primarycontact": primarycontact,
-        "proemployee": proemployee,
+        "team": team,
+        "lead":lead
+
     }
     return render(request, "ceo/employeeprofile.html", context)
 
@@ -412,3 +416,26 @@ def enquiryList(request):
     enquirylistdata = EnquiryNote.objects.filter(status="Active")
     context = {"is_enquiryList": True, "enquirylistdata": enquirylistdata}
     return render(request, "ceo/enquirylist.html", context)
+
+@login_required(login_url="/")
+
+def listallproject(request):
+    allproject = ProjectStatus.objects.all()
+  
+    context = {
+        "is_enquiryList": True, 
+        "allproject": allproject
+        }
+    return render(request, "ceo/listallproject.html", context)
+
+
+def clientlist(request):
+    clienilist = Client.objects.all()
+  
+    context = {
+        "is_enquiryList": True, 
+        "clienilist": clienilist
+        }
+    return render(request, "ceo/clientlist.html", context)
+    
+    

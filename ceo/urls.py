@@ -39,5 +39,10 @@ urlpatterns = [
         "statusviewproject/<int:id>", views.statusviewproject, name="statusviewproject"
     ),
     path("enquirylist", views.enquiryList, name="enquirylist"),
+
+    path("listallproject", views.listallproject, name="listallproject"),
+    path("clientlist", views.clientlist, name="clientlist"),
+
+    
     
 ]
