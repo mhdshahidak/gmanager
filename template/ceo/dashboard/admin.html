@@ -416,17 +416,19 @@
 
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 {% if advancepaid == 0 %}
-                <div class="card dash-widget" style="color: green;">
-                    <div class="card-body">
+               
+                    <div class="card dash-widget" style=" color: green;">
+                        <div class="card-body">
                             <span class="dash-widget-icon">
-                                <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{ongoing}}</h3>
-                                <span>On Going </span>
+                                <h3>{{ advancepaid}}</h3>
+                                <span>Unassigned Project</span>
                             </div>
                         </div>
-                </div>
+                    </div>
+               
                 {% else %}
                 <a href="/projectlist/Advance Paid" style="color: red;">
                     <div class="card dash-widget">
