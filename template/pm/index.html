@@ -34,7 +34,7 @@
                             
                             <div class="dash-widget-info">
                                 <h3 class="{% if enquirylistcount == 0 %} text-success {% else %} text-danger {% endif %}">{{enquirylistcount}}</h3>
-                                <span class="{% if enquirylistcount == 0 %} text-success {% else %} text-danger {% endif %}">Proposal List </span>
+                                <span class="{% if enquirylistcount == 0 %} text-success {% else %} text-danger {% endif %}">Proposal Requests </span>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             </span>
                             <div class="dash-widget-info">
                                 <h3 class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">{{addedtoprop}}</h3>
-                                <span class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">Proposal Sented</span>
+                                <span class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">Sented Proposal </span>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
 
 
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
@@ -74,8 +74,8 @@
                     </div>
                 </div>
 
-            </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            </div> -->
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'pm:unassigneproject' %}">
                     <div class="card dash-widget">
@@ -107,20 +107,23 @@
             </div>
            
 
-            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{enquirylist}}</h3>
-
-                            <span>Enquiries list </span>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'pm:meetings' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3 class="{% if meetings == 0 %} text-success {% else %} text-danger {% endif %}">{{meetings}}</h3>
+    
+                                <span class="{% if meetings == 0 %} text-success {% else %} text-danger {% endif %}">Upcoming Meetings </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div> -->
+                </a>
+                
+            </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'pm:srs' %}">
                     <div class="card dash-widget">
@@ -155,19 +158,7 @@
 
             </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                {% if notstated == 0 %}
-                <div class="card dash-widget" style="color: green;">
-                    <div class="card-body">
-                        <span class="dash-widget-icon">
-                            <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
-                        </span>
-                        <div class="dash-widget-info">
-                            <h3>{{notstated}}</h3>
-                            <span>On Scheduling </span>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
+              
                 <a href="/pm/statusproject/Not Started" style="color: red;">
                     <div class="card dash-widget">
                         <div class="card-body">
@@ -175,13 +166,13 @@
                                 <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{notstated}}</h3>
-                                <span>On Scheduling </span>
+                                <h3 class="{% if notstated == 0 %} text-success {% else %} text-danger {% endif %}">{{notstated}}</h3>
+                                <span class="{% if notstated == 0 %} text-success {% else %} text-danger {% endif %}">Scheduled Projects </span>
                             </div>
                         </div>
                     </div>
                 </a>
-                {% endif %}
+               
 
 
 
