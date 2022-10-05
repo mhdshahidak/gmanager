@@ -63,6 +63,8 @@ def index(request):
     rework = ProjectStatus.objects.filter(status="Rework").count()
     completed = ProjectStatus.objects.filter(status="Completed").count()
     srs = SRS.objects.filter(project__status="SRS uploaded").count()
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS").count()
+    print(meetings)
 
     context = {
         "is_pmindex": True,
@@ -85,6 +87,7 @@ def index(request):
         "w4c": w4c,
         "rework": rework,
         "completed": completed,
+        "meetings":meetings
     }
     return render(request, "pm/index.html", context)
 
