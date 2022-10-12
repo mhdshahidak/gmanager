@@ -148,9 +148,10 @@ def empMeetingLink(request, id):
 @auth_employee
 def allProjects(request):
     emp = request.user.employee
-    project_count = ProjectStatus.objects.filter(
-        Q(member__lead=request.user.employee) | Q(member__team=request.user.employee)
-    ).count()
+    project_count1 = ProjectStatus.objects.filter(member__lead=request.user.employee) .count()
+    project_count2 = ProjectStatus.objects.filter(member__team=request.user.employee) .count()
+    project_count=project_count1+project_count2
+    
     print(project_count)
     ongoing = ProjectStatus.objects.filter(status="On Going").exclude(status="Qc")
     qc_projects = ProjectStatus.objects.filter(status="Qc")

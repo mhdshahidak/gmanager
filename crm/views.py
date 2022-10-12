@@ -620,14 +620,12 @@ def addschedule(request, id):
         meetingDate = request.POST["meetingDate"]
         platform = request.POST["platform"]
         time = request.POST["time"]
-        link = request.POST["link"]
 
         meeting = Meeting(
             project=project_obj,
             date=meetingDate,
             time=time,
             platform=platform,
-            meeting_link=link,
         )
         meeting.save()
         project_obj.status = "Waiting for SRS"
@@ -666,18 +664,19 @@ def dailyprogress(request):
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
     projectlists = (
-        DailyProgress.objects.filter(
-            date=today, project__enquiry__type="Graphic Designing"
-        )
+        DailyProgress.objects.filter(date=today,project__enquiry__type="Graphic Designing")
         .values(
             "project__projectname",
             "project__starteddate",
             "project__endingdate",
             "project__id",
+
         )
         .order_by("project")
         .distinct()
     )
+    # for i in projectlists:
+    #     print(i,'@'*10)
     context = {
         "is_dailyprogress": True,
         "projectlists": projectlists,

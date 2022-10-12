@@ -37,18 +37,37 @@
                                                 <option value="On Going">On Going</option>
                                                 <!-- <option value="On Scheduling">On Scheduling</option> -->
                                                 <option value="Delayed">Delayed</option>
+                                                {% if request.user.employee.catagory.title == 'Graphics' %}
+                                                <option value="W4C">W4C</option>
+                                                <option value="Completed">Completed</option>
+                                                {% else %}
                                                 <option value="Qc">Qc</option>
-                                               
-                                              
+                                                {% endif %}
+
+
+
                                             </select>
                                         </div>
                                         <div class="col-md-6 mb-3">
-                                            <label >Percentage</label>
-                                            <input type="text" name="percentage"  onchange="NumberCheck(this.value)"  class="form-control" id="percentagenumber"
-                                                placeholder=""  value="{{proj_sts.completion}}" required>
-                                            <div id="msg" style="display: none;" class="valid-feedback">
-                                                Maximum Up to 95%
-                                            </div>
+                                            <label>Percentage</label>
+                                            {% if request.user.employee.catagory.title == 'Graphics' %}
+                                            <input type="text" name="percentage" onchange="NumberGraphic(this.value)"
+                                                class="form-control" id="percentagenumber" placeholder=""
+                                                value="{{proj_sts.completion}}" required>
+                                                <div id="msg1" style="display: none;" class="valid-feedback">
+                                                    Maximum Up to 100%
+                                                </div>
+                                            {% else %}
+                                            <input type="text" name="percentage" onchange="NumberCheck(this.value)"
+                                                class="form-control" id="percentagenumber" placeholder=""
+                                                value="{{proj_sts.completion}}" required>
+                                                <div id="msg" style="display: none;" class="valid-feedback">
+                                                    Maximum Up to 95%
+                                                </div>
+                                            {% endif %}
+                                            <!-- <input type="text" name="percentage"  onchange="NumberCheck(this.value)"  class="form-control" id="percentagenumber"
+                                                placeholder=""  value="{{proj_sts.completion}}" required> -->
+                                            
                                         </div>
                                     </div>
 
@@ -56,7 +75,8 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom03">Closur Date</label>
                                             <input type="text" class="form-control" id="validationCustom03" readonly
-                                                placeholder="" value="{{proj_sts.project.endingdate|date:"d-m-y"}}" style="background-color: white;color:rgb(212, 14, 14);" required>
+                                                placeholder="" value="{{proj_sts.project.endingdate|date:" d-m-y"}}"
+                                                style="background-color: white;color:rgb(212, 14, 14);" required>
                                             <div class="invalid-feedback">
                                                 Please provide a valid city.
                                             </div>
@@ -64,7 +84,8 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" value="Morning" name="timetype" required> Morning
+                                                    <input type="radio" value="Morning" name="timetype" required>
+                                                    Morning
                                                 </label>
                                             </div>
                                             <div class="radio">
@@ -84,19 +105,20 @@
                                     <div class="col-lg-12">
                                         <div class="input-group">
                                             <span class="input-group-text">https://</span>
-                                            <input type="text" name="link" value="{{proj_sts.url_project}}" class="form-control">
+                                            <input type="text" name="link" value="{{proj_sts.url_project}}"
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-row row">
                                         <div class="col-md-6 mb-3">
                                             <label for="">Username</label>
-                                            <input type="text" name="username" value="{{proj_sts.username}}" class="form-control" id="" placeholder=""
-                                                value="">
+                                            <input type="text" name="username" value="{{proj_sts.username}}"
+                                                class="form-control" id="" placeholder="" value="">
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="">Password</label>
-                                            <input type="text" name="password" value="{{proj_sts.password}}" class="form-control" id="" placeholder=""
-                                                value="">
+                                            <input type="text" name="password" value="{{proj_sts.password}}"
+                                                class="form-control" id="" placeholder="" value="">
 
                                         </div>
                                     </div>
@@ -105,20 +127,22 @@
                                         <div class="col-lg-12">
                                             <div class="input-group">
                                                 <!-- <span class="input-group-text">https://</span> -->
-                                                <input type="file" name="fileupload"  class="form-control">
+                                                <input type="file" name="fileupload" class="form-control">
                                             </div>
                                         </div>
                                     </div>
-                                   
+
 
                                 </div>
                                 <div class="col-md-6">
                                     <div class="col-md-12 col-lg-12 col-xl-12 ">
-                                        <textarea  name="instruction" 
+                                        <textarea name="instruction"
                                             style="min-height: 400px; min-width: 480px;"></textarea>
                                     </div>
                                     <div class="col-md-3 col-lg-3 col-xl-3 col-sm-12">
-                                        <button class="btn " style="margin-top: 10px;margin-bottom: 10px;background-color: #4d13aa;color: white;margin-left: 200px;" type="submit">SAVE</button>
+                                        <button class="btn "
+                                            style="margin-top: 10px;margin-bottom: 10px;background-color: #4d13aa;color: white;margin-left: 200px;"
+                                            type="submit">SAVE</button>
                                     </div>
                                 </div>
 
@@ -132,22 +156,37 @@
     </div>
 </div>
 <script>
-  function NumberCheck(val){
-   if(val<95){
-    $('#msg').hide()
-   }
-   else if(val==95){
-   
-    $('#percentagenumber').prop('readonly', true);
-    $('#msg').hide()
-   }
-   else{
-    $('#percentagenumber').val('')
-    $('#msg').show()
-    
-   }
-  }  
+    function NumberCheck(val) {
+        if (val < 95) {
+            $('#msg').hide()
+        }
+        else if (val == 95) {
 
+            $('#percentagenumber').prop('readonly', true);
+            $('#msg').hide()
+        }
+        else {
+            $('#percentagenumber').val('')
+            $('#msg').show()
+
+        }
+    }
+    function NumberGraphic(val) {
+        if (val < 100) {
+            $('#msg1').hide()
+        }
+        else if (val == 100) {
+
+            $('#percentagenumber').prop('readonly', true);
+            $('#msg1').hide()
+        }
+        else {
+            $('#percentagenumber').val('')
+            $('#msg1').show()
+
+        }
+    }
+    
 </script>
 
 
