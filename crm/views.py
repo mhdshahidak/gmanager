@@ -1,4 +1,5 @@
 from datetime import datetime
+from multiprocessing import context
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -6,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
-from ceo.models import Attendence, Client, Employees, SubCatagory
+from ceo.models import Attendence, Client, Employees, SubCatagory,LeaveRequests
 
 # from datetime import date
 from gmanager.decorators import auth_crm
@@ -50,6 +51,8 @@ def crmHome(request):
     clients = Client.objects.all()
     projectcount = Project.objects.all().count()
     completed_project = Project.objects.filter(status="Completed").count()
+    leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics").count()
+
 
     if request.method == "POST":
         instructions = request.POST["instruction"]
@@ -71,6 +74,7 @@ def crmHome(request):
         # "enquirylistToday":enquirylistToday,
         "clientsCount": clientsCount,
         "clients": clients,
+        "leavecount":leavecount
     }
     return render(request, "crm/home.html", context)
 
@@ -710,4 +714,32 @@ def viewdailyreport(request, id):
 @csrf_exempt
 def Changedailyreport(request, id):
     DailyProgress.objects.filter(id=id).update(checked=True)
+    return JsonResponse({"message": "sucesses"})
+
+
+def leavereport(request):
+    data= LeaveRequests.objects.filter(hr_accept=True, pm_accept=True,viewstatus="Not Seen")
+    print(data)
+    context={
+    "data":data
+    }
+    return render(request, "crm/leavereport.html",context)
+
+
+
+
+def leaverequest(request):
+    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics")
+    context = {
+        "is_leaverequest": True,
+        "leave": leave,
+    }
+    return render(request, "crm/leaverequest.html",context)
+
+
+
+@csrf_exempt
+def leavestatus(request):
+    id = request.POST["EnquaryID"]
+    LeaveRequests.objects.filter(id=id).update(viewstatus="Seen")
     return JsonResponse({"message": "sucesses"})

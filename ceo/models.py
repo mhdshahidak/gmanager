@@ -123,6 +123,7 @@ class LeaveRequests(models.Model):
     pm_accept = models.BooleanField(default=False)
     status = models.CharField(max_length=25, default="Waiting")
     rejected_reason = models.CharField(max_length=1000, null=True)
+    viewstatus = models.CharField(max_length=25, default="Not Seen")
 
 
 class ExcuseRequests(models.Model):
