@@ -437,8 +437,8 @@ def attantanceReport(request):
         serachdate = request.POST["serachdate"]
         # serachdate = request.POST['serachdate']
         if Attendence.objects.filter(date=serachdate).exists():
-            presentdate = Attendence.objects.filter(status="Present").count()
-            absentdate = Attendence.objects.filter(status="Leave").count()
+            presentdate = Attendence.objects.filter(date=serachdate,status="Present").count()
+            absentdate = Attendence.objects.filter(date=serachdate,status="Leave").count()
             employeedetails = Attendence.objects.filter(date=serachdate).all()
 
             context = {
