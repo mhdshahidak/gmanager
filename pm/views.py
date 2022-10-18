@@ -53,7 +53,7 @@ def index(request):
     enquirylistcount = Enquiry.objects.filter(status="Enquiry").count()
     # waitforqc = Project.objects.filter(status="Qc").count()
     enquirylistdata = Enquiry.objects.filter(status="Enquiry")
-    leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting").count()
+    leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting").exclude(employee__catagory__title="Graphics").count()
     notstated = ProjectStatus.objects.filter(status="Not Started").count()
     ongoing = ProjectStatus.objects.filter(status="On Going").count()
     onscheduling = ProjectStatus.objects.filter(status="On Scheduling").count()
@@ -465,7 +465,7 @@ def qcapprovel(request):
 @auth_pm
 def leaverequest(request):
     pm = request.user.employee
-    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting")
+    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting").exclude(employee__catagory__title="Graphics")
     context = {
         "is_leaverequest": True,
         "leave": leave,

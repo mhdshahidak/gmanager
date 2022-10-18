@@ -48,6 +48,10 @@ urlpatterns = [
     path("meetinglist", views.meetinglist, name="meetinglist"),
     path("meetingapproved", views.meetingapproved, name="meetingapproved"),
     path("dailyprogress", views.dailyprogress, name="dailyprogress"),
+    path("leaverequest", views.leaverequest, name="leaverequest"),
+    path("leavereport", views.leavereport, name="leavereport"),
+    
+    path("leavestatus", views.leavestatus, name="leavestatus"),
     path("viewdailyreport/<str:id>", views.viewdailyreport, name="viewdailyreport"),
     path(
         "Changedailyreport/<str:id>", views.Changedailyreport, name="Changedailyreport"
