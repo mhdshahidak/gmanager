@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'crm:enquirylist' %}">               
                     <div class="card dash-widget">
@@ -63,8 +63,8 @@
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
                             <div class="dash-widget-info">
-                                <h3>{{enquirylist}}</h3>
-                                <span> Enquiries</span>
+                                <h3  class="{% if enquirylist == 0 %} text-success {% else %} text-danger {% endif %}">{{enquirylist}}</h3>
+                                <span  class="{% if enquirylist == 0 %} text-success {% else %} text-danger {% endif %}"> Enquiries</span>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,8 @@
 
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{addedtoprop}}</h3>
-                                <span>Proposal Sented</span>
+                                <h3  class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">{{addedtoprop}}</h3>
+                                <span  class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">Proposal Sented</span>
                             </div>
                         </div>
                     </div>
@@ -99,8 +99,8 @@
                                 <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
                             </span>
                             <div class="dash-widget-info">
-                                <h3>{{ advancepaid}}</h3>
-                                <span>Unassigned Project</span>
+                                <h3  class="{% if advancepaid == 0 %} text-success {% else %} text-danger {% endif %}">{{ advancepaid}}</h3>
+                                <span  class="{% if advancepaid == 0 %} text-success {% else %} text-danger {% endif %}">Unassigned Project</span>
                             </div>
                         </div>
                     </div>
@@ -129,6 +129,25 @@
                         </div>
                     </div>
                 </a>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+              
+                <a href="{% url 'crm:leaverequest' %}" >
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/onscheduling.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3 class="{% if leavecount == 0 %} text-success {% else %} text-danger {% endif %}">{{leavecount}}</h3>
+    
+                                <span class="{% if leavecount == 0 %} text-success {% else %} text-danger {% endif %}">Leave Request </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+               
+               
             </div>
             {% comment %} <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">

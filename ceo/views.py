@@ -68,7 +68,7 @@ def logout_view(request):
 
 @login_required(login_url="/")
 def ceodashboard(request):
-    projects = Project.objects.filter(~Q(enquiry__status="Rejected")).count()
+    # projects = ProjectStatus.objects.filter(status="Not Started",).count()
     clients = Client.objects.all().count()
     employees = Employees.objects.all().count()
 
@@ -80,6 +80,8 @@ def ceodashboard(request):
     # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
     enquirylist = Enquiry.objects.filter(status="Enquiry").count()
     print(enquirylist)
+    enquirylist1 = EnquiryNote.objects.filter(status="Active").count()
+
     addedtoprop = Enquiry.objects.filter(status="Added To Proposal").count()
     billcreation = Enquiry.objects.filter(status="Bill Creation").count()
     billadvance = Enquiry.objects.filter(status="Bill Advance").count()
@@ -93,6 +95,8 @@ def ceodashboard(request):
     w4c = ProjectStatus.objects.filter(status="W4C").count()
     rework = ProjectStatus.objects.filter(status="Rework").count()
     completed = ProjectStatus.objects.filter(status="Completed").count()
+    projects=notstated+ongoing+onscheduling+delayed+qc+w4c+rework+completed
+
 
     context = {
         "is_ceodashboard": True,
@@ -113,6 +117,7 @@ def ceodashboard(request):
         "w4c": w4c,
         "rework": rework,
         "completed": completed,
+        "enquirylist1":enquirylist1
     }
     return render(request, "ceo/dashboard/admin.html", context)
 
@@ -177,15 +182,18 @@ def employeeprofile(request, id):
     primarycontact = EmergenctContact.objects.get(employee=employedetails)
 
     # employeedata=Employees.objects.get(id=request.user.employee.id)
-    proemployee = ProjectStatus.objects.filter(
+    team = ProjectStatus.objects.filter(
         member__team=employedetails
-    ) | ProjectStatus.objects.filter(member__lead=employedetails)
+    ) 
+    lead= ProjectStatus.objects.filter(member__lead=employedetails)
     # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
 
     context = {
         "employedetails": employedetails,
         "primarycontact": primarycontact,
-        "proemployee": proemployee,
+        "team": team,
+        "lead":lead
+
     }
     return render(request, "ceo/employeeprofile.html", context)
 
@@ -399,3 +407,35 @@ def statusviewproject(request, id):
         "uploadedfiles": uploadedfiles,
     }
     return render(request, "ceo/statusviewproject.html", context)
+
+
+
+@login_required(login_url="/")
+
+def enquiryList(request):
+    enquirylistdata = EnquiryNote.objects.filter(status="Active")
+    context = {"is_enquiryList": True, "enquirylistdata": enquirylistdata}
+    return render(request, "ceo/enquirylist.html", context)
+
+@login_required(login_url="/")
+
+def listallproject(request):
+    allproject = ProjectStatus.objects.all()
+  
+    context = {
+        "is_enquiryList": True, 
+        "allproject": allproject
+        }
+    return render(request, "ceo/listallproject.html", context)
+
+
+def clientlist(request):
+    clienilist = Client.objects.all()
+  
+    context = {
+        "is_enquiryList": True, 
+        "clienilist": clienilist
+        }
+    return render(request, "ceo/clientlist.html", context)
+    
+    

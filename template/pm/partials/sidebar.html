@@ -22,7 +22,7 @@
                     <a href="#"><i class="la la-rocket"></i> <span> Projects</span> <span class="menu-arrow"></span></a>
                     <ul style="display: none;">
                         <li {% if is_fullprojectlist %} class="active" {% endif %}><a href="{% url 'pm:fullprojectlist' %}">Ongoing Project List</a></li>
-                        <li {% if is_project %} class="active" {% endif %}><a href="{% url 'pm:project' %}">All Projects</a></li>
+                        <!-- <li {% if is_project %} class="active" {% endif %}><a href="{% url 'pm:project' %}">All Projects</a></li> -->
                         <li {% if is_unassigneproject %} class="active" {% endif %}><a href="{% url 'pm:unassigneproject' %}">Un-Assigned Projects</a></li>
                         <li {% if is_srs %} class="active" {% endif %}><a href="{% url 'pm:srs' %}">View SRS</a></li>
                         

@@ -31,8 +31,8 @@
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                             <div class="dash-widget-info">
-                                <h3>{{createqotation}}</h3>
-                                <span>Create Quotation</span>
+                                <h3 class="{% if createqotation == 0 %} text-success {% else %} text-danger {% endif %}">{{createqotation}}</h3>
+                                <span class="{% if createqotation == 0 %} text-success {% else %} text-danger {% endif %}">Create Quotation</span>
                             </div>
                         </div>
                     </div>
@@ -46,8 +46,8 @@
                         <div class="card-body">
                             <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                             <div class="dash-widget-info">
-                                <h3>{{pendingadvance}}</h3>
-                                <span>Pending Advance</span>
+                                <h3 class="{% if pendingadvance == 0 %} text-success {% else %} text-danger {% endif %}">{{pendingadvance}}</h3>
+                                <span class="{% if pendingadvance == 0 %} text-success {% else %} text-danger {% endif %}">Pending Advance</span>
                             </div>
                         </div>
                     </div>

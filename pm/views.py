@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
-from ceo.models import Employees, LeaveRequests, SubCatagory
+from ceo.models import Employees, LeaveRequests, SubCatagory,EmergenctContact
 from crm.form import ClientForm
 from crm.models import Enquiry, EnquiryNote
 from gmanager.decorators import auth_pm
@@ -24,6 +24,7 @@ from .models import (
     Reworks,
     Task,
     Updation,
+    ProjectProgressFiles
     
 )
 
@@ -52,7 +53,7 @@ def index(request):
     enquirylistcount = Enquiry.objects.filter(status="Enquiry").count()
     # waitforqc = Project.objects.filter(status="Qc").count()
     enquirylistdata = Enquiry.objects.filter(status="Enquiry")
-    leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting").count()
+    leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting").exclude(employee__catagory__title="Graphics").count()
     notstated = ProjectStatus.objects.filter(status="Not Started").count()
     ongoing = ProjectStatus.objects.filter(status="On Going").count()
     onscheduling = ProjectStatus.objects.filter(status="On Scheduling").count()
@@ -62,6 +63,8 @@ def index(request):
     rework = ProjectStatus.objects.filter(status="Rework").count()
     completed = ProjectStatus.objects.filter(status="Completed").count()
     srs = SRS.objects.filter(project__status="SRS uploaded").count()
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS").count()
+    print(meetings)
 
     context = {
         "is_pmindex": True,
@@ -84,6 +87,7 @@ def index(request):
         "w4c": w4c,
         "rework": rework,
         "completed": completed,
+        "meetings":meetings
     }
     return render(request, "pm/index.html", context)
 
@@ -292,6 +296,9 @@ def meetings(request):
     # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
     meetings = Meeting.objects.filter(project__status="Waiting for SRS")
 
+
+    
+
     context = {
         "is_meetings": True,
         "meetings": meetings,
@@ -458,7 +465,7 @@ def qcapprovel(request):
 @auth_pm
 def leaverequest(request):
     pm = request.user.employee
-    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting")
+    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting").exclude(employee__catagory__title="Graphics")
     context = {
         "is_leaverequest": True,
         "leave": leave,
@@ -715,3 +722,70 @@ def taskteam(request, id):
         "id": id,
     }
     return render(request, "pm/project/taskteam.html", context)
+
+
+def statusproject(request, selected_status):
+    allproject = ProjectStatus.objects.filter(status=selected_status)
+    context = {
+        "allproject": allproject,
+    }
+    return render(request, "pm/statusproject.html", context)
+
+
+
+def statusviewproject(request, id):
+
+    projectdetail = Project.objects.get(id=id)
+    daily_report = DailyProgress.objects.filter(project=projectdetail).values(
+        "date", "status", "note", "employee__name"
+    )
+    progressreport = ProjectStatus.objects.get(project=projectdetail)
+    members = ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs = SRS.objects.get(project=projectdetail)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(
+        files="New default that isn't None"
+    )
+    context = {
+        "projectdetail": projectdetail,
+        "daily_report": daily_report,
+        "progressreport": progressreport,
+        "members": members,
+        "viewsrs": viewsrs,
+        "uploadedfiles": uploadedfiles,
+    }
+    return render(request, "pm/statusviewproject.html", context)    
+
+@login_required(login_url="/")
+def rejectedlist(request):
+    rejected = Enquiry.objects.filter(status="Rejected")
+    context = {"is_project": True, "rejected": rejected}
+    return render(request, "pm/rejectedlist.html", context)    
+
+@csrf_exempt
+def viedetails11(request, id):
+    getdata = Enquiry.objects.get(id=id)
+    data = {
+        "reason": getdata.reason,
+    }
+
+    return JsonResponse({"value": data})    
+
+def employeeprofile(request, id):
+    employedetails = Employees.objects.get(id=id)
+    primarycontact = EmergenctContact.objects.get(employee=employedetails)
+
+    # employeedata=Employees.objects.get(id=request.user.employee.id)
+    team = ProjectStatus.objects.filter(
+        member__team=employedetails
+    ) 
+    lead= ProjectStatus.objects.filter(member__lead=employedetails)
+    # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
+
+    context = {
+        "employedetails": employedetails,
+        "primarycontact": primarycontact,
+        "team": team,
+        "lead":lead
+
+    }
+    return render(request, "pm/employeeprofile.html", context)    
