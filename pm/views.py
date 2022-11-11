@@ -295,8 +295,6 @@ def meetings(request):
     pm = request.user.employee
     # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
     meetings = Meeting.objects.filter(project__status="Waiting for SRS")
-
-
     
 
     context = {

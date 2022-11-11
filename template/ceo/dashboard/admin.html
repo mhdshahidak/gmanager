@@ -329,6 +329,74 @@
             </div>
 
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if meetings == 0 %}
+               
+                    <div class="card dash-widget" style=" color: green;">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ meetings }}</h3>
+                                <span>Meetings</span>
+                            </div>
+                        </div>
+                    </div>
+               
+                {% else %}
+                <a href="{% url 'ceo:meetingsCeo' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ meetings}}</h3>
+                                <span>Meetings</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if srs == 0 %}
+               
+                    <div class="card dash-widget" style=" color: green;">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ srs }}</h3>
+                                <span>SRS view</span>
+                            </div>
+                        </div>
+                    </div>
+               
+                {% else %}
+                <a href="{% url 'ceo:srsCeo' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{srs}}</h3>
+                                <span>SRS view</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 {% if notstated == 0 %}
                 <div class="card dash-widget" style="color: green;">
                     <div class="card-body">

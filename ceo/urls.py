@@ -54,6 +54,12 @@ urlpatterns = [
     path("addteam-ceo/<str:id>", views.addteamCeo, name="addteamceo"),
     path("addschedule-ceo/<str:id>", views.addscheduleCeo, name="addscheduleCeo"),
 
+    path("meetings-ceo", views.meetingsCeo, name="meetingsCeo"),
+    path("srs-ceo", views.srsCeo, name="srsCeo"),
+
+
+    
+
     # crm
     path("viewenquiry-ceo/<str:id>", views.viewenquiryCeo, name="viewenquiryCeo"),
     path("createproject-ceo/<str:id>", views.createProjectCeo, name="createprojectCeo"),

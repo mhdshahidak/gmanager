@@ -26,7 +26,7 @@ def leave_application(request):
     if request.method == "POST":
         if leave_form.is_valid():
             data = leave_form.save()
-            LeaveRequests.objects.filter(id=data.id).update(employee=user_name)
+            LeaveRequests.objects.filter(id=data.id).update(employee=user_name,pm_accept=True)
             if request.user.employee.catagory.catagory.catagory_title == "EMPLOYEE":
                 return redirect("employee:employeehome")
             elif request.user.employee.catagory.catagory.catagory_title == "HRM":

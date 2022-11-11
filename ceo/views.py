@@ -98,6 +98,8 @@ def ceodashboard(request):
     w4c = ProjectStatus.objects.filter(status="W4C").count()
     rework = ProjectStatus.objects.filter(status="Rework").count()
     completed = ProjectStatus.objects.filter(status="Completed").count()
+    srs = SRS.objects.filter(project__status="SRS uploaded").count()
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS").count()
     projects=notstated+ongoing+onscheduling+delayed+qc+w4c+rework+completed
 
     print(billcreation,"#"*10)
@@ -121,7 +123,9 @@ def ceodashboard(request):
         "w4c": w4c,
         "rework": rework,
         "completed": completed,
-        "enquirylist1":enquirylist1
+        "enquirylist1":enquirylist1,
+        "srs":srs,
+        "meetings":meetings,
     }
     return render(request, "ceo/dashboard/admin.html", context)
 
@@ -569,6 +573,25 @@ def addscheduleCeo(request, id):
     return render(request, "ceo/pmfeatures/add-schedule-ceo.html", context)
 
 
+def meetingsCeo(request):
+
+    # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS")
+    context = {
+        "is_meetings": True,
+        "meetings": meetings,
+    }
+    return render(request, "ceo/pmfeatures/meeting-ceo.html", context)
+
+
+def srsCeo(request):
+    viewsrs = SRS.objects.filter(project__status="SRS uploaded")
+    context = {
+        "is_srs": True,
+        "viewsrs": viewsrs,
+
+    }
+    return render(request, "ceo/pmfeatures/srs-ceo.html", context)
 
  # crm
 
