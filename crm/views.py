@@ -1,4 +1,5 @@
 from datetime import datetime
+from multiprocessing import context
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -6,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
-from ceo.models import Attendence, Client, Employees, SubCatagory
+from ceo.models import Attendence, Client, Employees, SubCatagory,LeaveRequests
 
 # from datetime import date
 from gmanager.decorators import auth_crm
@@ -50,6 +51,8 @@ def crmHome(request):
     clients = Client.objects.all()
     projectcount = Project.objects.all().count()
     completed_project = Project.objects.filter(status="Completed").count()
+    leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics").count()
+
 
     if request.method == "POST":
         instructions = request.POST["instruction"]
@@ -71,6 +74,7 @@ def crmHome(request):
         # "enquirylistToday":enquirylistToday,
         "clientsCount": clientsCount,
         "clients": clients,
+        "leavecount":leavecount
     }
     return render(request, "crm/home.html", context)
 
@@ -79,7 +83,10 @@ def crmHome(request):
 @auth_crm
 def enquiryList(request):
     enquirylistdata = EnquiryNote.objects.filter(status="Active")
-    context = {"is_enquiryList": True, "enquirylistdata": enquirylistdata}
+    context = {
+        "is_enquiryList": True,
+        "enquirylistdata": enquirylistdata,
+    }
     return render(request, "crm/enquirylist.html", context)
 
 
@@ -251,7 +258,6 @@ def createProject(request, id):
             else:
                 print("else")
                 return redirect("/crm/")
-            return redirect("/crm/")
 
     context = {"details": details, "form": form, "form2": form2, "id": id}
 
@@ -433,8 +439,8 @@ def attantanceReport(request):
         serachdate = request.POST["serachdate"]
         # serachdate = request.POST['serachdate']
         if Attendence.objects.filter(date=serachdate).exists():
-            presentdate = Attendence.objects.filter(status="Present").count()
-            absentdate = Attendence.objects.filter(status="Leave").count()
+            presentdate = Attendence.objects.filter(date=serachdate,status="Present").count()
+            absentdate = Attendence.objects.filter(date=serachdate,status="Leave").count()
             employeedetails = Attendence.objects.filter(date=serachdate).all()
 
             context = {
@@ -501,6 +507,9 @@ def employeelist(request, id):
 
 def deleteenquery(request, id):
     EnquiryNote.objects.get(id=id).delete()
+    users = request.user
+    if users.is_superuser == True:
+        return redirect("ceo:enquirylist")
     return redirect("/crm/enquirylist")
 
 
@@ -620,14 +629,12 @@ def addschedule(request, id):
         meetingDate = request.POST["meetingDate"]
         platform = request.POST["platform"]
         time = request.POST["time"]
-        link = request.POST["link"]
 
         meeting = Meeting(
             project=project_obj,
             date=meetingDate,
             time=time,
             platform=platform,
-            meeting_link=link,
         )
         meeting.save()
         project_obj.status = "Waiting for SRS"
@@ -666,18 +673,19 @@ def dailyprogress(request):
     today = datetime.now().date()
     # projectlists=DailyProgress.objects.filter(date=today).values('project__projectname','project__starteddate','project__endingdate','project__id').annotate(name_count=Count('project__projectname')).exclude(name_count=1)
     projectlists = (
-        DailyProgress.objects.filter(
-            date=today, project__enquiry__type="Graphic Designing"
-        )
+        DailyProgress.objects.filter(date=today,project__enquiry__type="Graphic Designing")
         .values(
             "project__projectname",
             "project__starteddate",
             "project__endingdate",
             "project__id",
+
         )
         .order_by("project")
         .distinct()
     )
+    # for i in projectlists:
+    #     print(i,'@'*10)
     context = {
         "is_dailyprogress": True,
         "projectlists": projectlists,
@@ -711,4 +719,32 @@ def viewdailyreport(request, id):
 @csrf_exempt
 def Changedailyreport(request, id):
     DailyProgress.objects.filter(id=id).update(checked=True)
+    return JsonResponse({"message": "sucesses"})
+
+
+def leavereport(request):
+    data= LeaveRequests.objects.filter(hr_accept=True, pm_accept=True,viewstatus="Not Seen")
+    print(data)
+    context={
+    "data":data
+    }
+    return render(request, "crm/leavereport.html",context)
+
+
+
+
+def leaverequest(request):
+    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics")
+    context = {
+        "is_leaverequest": True,
+        "leave": leave,
+    }
+    return render(request, "crm/leaverequest.html",context)
+
+
+
+@csrf_exempt
+def leavestatus(request):
+    id = request.POST["EnquaryID"]
+    LeaveRequests.objects.filter(id=id).update(viewstatus="Seen")
     return JsonResponse({"message": "sucesses"})

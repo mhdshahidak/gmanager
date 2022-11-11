@@ -1,0 +1,94 @@
+{% extends 'pm/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .card1 {
+        border-radius: 20px;
+    }
+</style>
+
+<div class="page-wrapper">
+    <div class="content container-fluid">
+
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Count cards -->
+    
+        <!-- /Count Cards -->
+
+        <!-- -----Task----- -->
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table card1">
+                    <div class="card-header">
+                        <h4 class="card-title mb-0">My Projects</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive" style="padding: 15px;">
+                            <table class="table table-center table-hover " style="padding: 20px;border-radius: 20px;" id="datatable">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th>Sl.No</th>
+                                        <th>Project Name</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Progress</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in allproject %}
+                                    <tr>
+                                        <td>{{forloop.counter }}</td>
+                                        <td>
+                                            <h2 class="table-avatar">
+
+                                                <a href="{% url 'pm:statusviewproject' i.project.id %}"
+                                                    style="color: #4d13aa;">{{i.project.projectname}}</a>
+                                            </h2>
+                                        </td>
+
+                                        <td>{{i.project.starteddate.date}}</td>
+                                        <td>{{i.project.endingdate.date}}</td>
+                                        <td>
+											{{i.completion}}%
+											<div class="progress progress-xs">
+												<div class="progress-bar w-45" role="progressbar"
+													style="width: {{i.completion}}%" aria-valuenow="{{i.completion}}"
+													aria-valuemin="0" aria-valuemax="100">
+												</div>
+
+											</div>
+										</td>
+                                    </tr>
+                                    {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -----/Task----- -->
+
+        <!-- ---/Note--- -->
+    </div>
+</div>
+
+
+{% endblock %}

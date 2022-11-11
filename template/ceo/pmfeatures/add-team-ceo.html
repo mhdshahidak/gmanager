@@ -1,0 +1,217 @@
+{% extends 'ceo/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-end ms-auto">
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+
+
+                <input type="hidden" value="{{id}}" name="" id="projectid">
+                <input type="hidden" name="" id="projectmemberid">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Add Project Leader</label>
+                            <input list="employeLead" onchange="Addemployee()" class="form-control" name="employees"
+                                id="employees">
+
+                            <datalist id="employeLead">
+                                {% for i in employee %}
+
+                                <option value="{{ i.name }}">{{ i.name }}</option>
+                                {% endfor %}
+
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Team Leader</label>
+                            <div class="project-members">
+                                <a href="#" data-bs-toggle="tooltip" id="title" title="" class="avatar">
+                                    <img src="{% static 'ceo/img/profiles/avatar-16.jpg' %}" id="image" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div class="pro-team-members">
+                                    <h4>Team Members </h4>
+                                    <div class="avatar-group">
+                                       
+                                        <div class="avatar">
+                                            <a href="" class="avatar-title rounded-circle border border-white"
+                                                data-bs-toggle="modal" data-bs-target="#assign_leader"><i
+                                                    class="fa fa-plus"></i></a>
+                                        </div>
+
+                                        <input type="hidden" name="" id="id">
+                                        <input type="hidden" name="" id="memberBox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table id="tab" class="table table-striped custom-table mb-0 datatable">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30px;">Id</th>
+                                        <th>Employee Name </th>
+                                        <th>Category </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr>
+
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="submit-section">
+                            <a href="{% url 'ceo:addscheduleCeo' id %}" class="btn btn-primary submit-btn">Submit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Page Content -->
+    <div id="assign_leader" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign Member to this project</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group m-b-30">
+                        <input list="employee" class="form-control" name="member" id="member">
+
+                        <datalist id="employee">
+                            {% for i in employee %}
+
+                            <option value="{{ i.name }}">{{ i.name }}</option>
+                            {% endfor %}
+
+                        </datalist>
+                    </div>
+
+
+                    <div class="submit-section">
+                        <button onclick="Addmember()" class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+   
+    <!-- <table id="tab" border="2">
+        <tr>
+            <th>slno</th>
+            <th>name</th>
+            <th>age</th>
+
+        </tr>
+
+
+    </table> -->
+    
+</div>
+
+<script>
+    function Addemployee() {
+        $.ajax({
+            url: "/pm/leadersearch",
+            type: 'post',
+            data: {
+                'projectid': $('#projectid').val(),
+                'employee': $('#employees').val()
+
+            },
+            success: function (responce) {
+                $('#id').val(responce.value.id)
+                $('#projectmemberid').val(responce.value.projectmemberid)
+                $('#memberBox').val(responce.value.member)
+
+                $('#image').attr("src", responce.value.profile)
+                $('#title').attr("title", responce.value.name)
+
+                $('#employees').attr('disabled', true);
+                // window.location.reload()
+            }
+
+
+        })
+
+    }
+
+
+    function Addmember() {
+        $.ajax({
+            url: "/pm/membersearch",
+            type: 'post',
+            data: {
+                'leaderid': $('#id').val(),
+                'member': $('#member').val(),
+                'projectid': $('#projectid').val(),
+                'memberObj': $('#memberBox').val()
+                // 'employee': $('#employees').val(),
+                // 'projectmemberid': $('#projectmemberid').val()
+            },
+            success: function (responce) {
+                $('#tab').append('<tr id="tr"><td>' + responce.value.id + '</td><td>' + responce.value.name + '</td><td>' + responce.value.catagory + '</td></tr>')
+                $('#member').val('')
+            }
+        })
+
+    }
+</script>
+
+
+{% endblock %}

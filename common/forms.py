@@ -46,7 +46,7 @@ class LeaveRequestsForm(forms.ModelForm):
                     "type": "date",
                 }
             ),
-            "no_days": NumberInput(
+            "no_days": TextInput(
                 attrs={
                     "class": "form-control bx-inp",
                     "required": "required",

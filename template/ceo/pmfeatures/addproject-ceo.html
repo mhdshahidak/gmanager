@@ -1,0 +1,99 @@
+{% extends 'ceo/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-end ms-auto">
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                {{form.projectname}}
+                                <!-- <input list="enquirylist" class="form-control" name="enquiry" id="enquiry"> -->
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label> Project Type</label>
+                                <!-- <input class="form-control" name="pro" type="text"> -->
+                                {{ form.projecttype }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                {{ form.starteddate }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>End Date</label>
+                                {{ form.endingdate }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Client</label>
+                                
+                                {{ form.client }}
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+</div>
+
+
+{% endblock %}

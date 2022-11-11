@@ -137,7 +137,6 @@ def addteam(request, id):
 def attantanceReport(request):
     if request.method == "POST":
         serachdate = request.POST["serachdate"]
-        print(serachdate, "*" * 7)
         serachdate = request.POST["serachdate"]
         if Attendence.objects.filter(date=serachdate).exists():
             print("exist")
@@ -330,8 +329,6 @@ def editemployee(request, id):
         print("post worked")
         print(empform.errors)
         if empform.is_valid() and empcontactform.is_valid():
-            print(empform.errors)
-            print("valid")
             data = empform.save()
             empcontactform.save()
             password_upadte = get_user_model().objects.get(employee=n)

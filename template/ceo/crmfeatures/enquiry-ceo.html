@@ -1,0 +1,169 @@
+{% extends 'ceo/partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title"> View Enquiries</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Enquiries Details</li>
+                    </ul>
+                    <div class="col-auto float-end ms-auto">
+                        <a href="{% url 'ceo:createprojectCeo' id %}" class="btn add-btn"><i
+                                class="fa fa-plus"></i> Request A Proposal </a>
+                        <div class="view-icons">
+    
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <!-- Content Starts -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <article class="post">
+                            <h1 class="post-title"><span>Created :</span> {{details.added_time}} </h1>
+                           
+                            
+                            <h2>Description</h2>
+                            <p>
+                                {{ details.description|safe }}
+                            </p>
+                            
+                        </article>
+                        
+                    </div>
+                </div>
+            </div>
+
+           
+        </div>
+        <!-- /Content End -->
+        
+    </div>
+    <!-- /Page Content -->
+    {% comment %} <div id="create_project" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Project</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post"   enctype="multipart/form-data" >
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Project Name</label>
+                                    {{form.projectname}}
+                                    <!-- <input class="form-control" type="text"> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Client Name</label>
+                                    {{form.clientname}}
+                                 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Comapny Name</label>
+                                    {{form.companyname}}
+                                    <!-- <input class="form-control" type="text"> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    {{form.email}}
+                                    <!-- <input class="form-control" type="text"> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    {{form.phone}}
+                                    <!-- <input class="form-control" type="text"> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Whatsapp Number</label>
+                                    {{form.whatsapp}}
+                                    <!-- <input cl/rm-control" type="text"> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Referred By</label>
+                                    {{form.referredby}}
+                                    <!-- <input class="form-control" type="text"> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    {{form.type}}
+                                    <!-- <select class="select form-control">
+                                        <option>Web</option>
+                                        <option>Graphics</option>
+                                    </select> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                       
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    {{form.details}}
+                                    <!-- <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea> -->
+                                </div>
+                            </div>
+                            
+                        </div>
+                      
+                        <div class="form-group">
+                            <label>Upload Files</label>
+                            {{form.files}}
+                            <!-- <input class="form-control" type="file"> -->
+                        </div>
+                        <div class="submit-section">
+                            <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+</div>
+
+
+
+
+{% endblock %}

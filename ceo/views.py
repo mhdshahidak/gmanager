@@ -4,12 +4,16 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
+from crm.form import ClientForm, EnquiryForm
+from pm.form import PraposalpdfForm, ProjectForm
+
 
 from crm.models import EnquiryNote
 from pm.models import (
     SRS,
     DailyProgress,
     Enquiry,
+    Meeting,
     Praposalpdf,
     Project,
     ProjectMembers,
@@ -68,7 +72,7 @@ def logout_view(request):
 
 @login_required(login_url="/")
 def ceodashboard(request):
-    projects = Project.objects.filter(~Q(enquiry__status="Rejected")).count()
+    # projects = ProjectStatus.objects.filter(status="Not Started",).count()
     clients = Client.objects.all().count()
     employees = Employees.objects.all().count()
 
@@ -79,7 +83,8 @@ def ceodashboard(request):
     # advancepaid = Enquiry.objects.filter(status = 'Advance Paid').count()
     # enquirylist = EnquiryNote.objects.filter(status = 'Active').count()
     enquirylist = Enquiry.objects.filter(status="Enquiry").count()
-    print(enquirylist)
+    enquirylist1 = EnquiryNote.objects.filter(status="Active").count()
+
     addedtoprop = Enquiry.objects.filter(status="Added To Proposal").count()
     billcreation = Enquiry.objects.filter(status="Bill Creation").count()
     billadvance = Enquiry.objects.filter(status="Bill Advance").count()
@@ -93,6 +98,9 @@ def ceodashboard(request):
     w4c = ProjectStatus.objects.filter(status="W4C").count()
     rework = ProjectStatus.objects.filter(status="Rework").count()
     completed = ProjectStatus.objects.filter(status="Completed").count()
+    projects=notstated+ongoing+onscheduling+delayed+qc+w4c+rework+completed
+
+    print(billcreation,"#"*10)
 
     context = {
         "is_ceodashboard": True,
@@ -113,6 +121,7 @@ def ceodashboard(request):
         "w4c": w4c,
         "rework": rework,
         "completed": completed,
+        "enquirylist1":enquirylist1
     }
     return render(request, "ceo/dashboard/admin.html", context)
 
@@ -177,15 +186,18 @@ def employeeprofile(request, id):
     primarycontact = EmergenctContact.objects.get(employee=employedetails)
 
     # employeedata=Employees.objects.get(id=request.user.employee.id)
-    proemployee = ProjectStatus.objects.filter(
+    team = ProjectStatus.objects.filter(
         member__team=employedetails
-    ) | ProjectStatus.objects.filter(member__lead=employedetails)
+    ) 
+    lead= ProjectStatus.objects.filter(member__lead=employedetails)
     # procount = ProjectStatus.objects.filter(member__team=employedetails,status='On Going') |ProjectStatus.objects.filter(member__lead=employedetails,status='On Going').count()
 
     context = {
         "employedetails": employedetails,
         "primarycontact": primarycontact,
-        "proemployee": proemployee,
+        "team": team,
+        "lead":lead
+
     }
     return render(request, "ceo/employeeprofile.html", context)
 
@@ -287,9 +299,7 @@ def editEmployeeDetails(request, id):
 @login_required(login_url="/")
 def dailychecked(request):
     if request.method == "POST":
-
         serachdate = request.POST["serachdate"]
-
         print(serachdate)
         if DailyProgress.objects.filter(date=serachdate).exists():
             print("exist")
@@ -399,3 +409,221 @@ def statusviewproject(request, id):
         "uploadedfiles": uploadedfiles,
     }
     return render(request, "ceo/statusviewproject.html", context)
+
+
+
+@login_required(login_url="/")
+
+def enquiryList(request):
+    enquirylistdata = EnquiryNote.objects.filter(status="Active")
+    context = {"is_enquiryList": True, "enquirylistdata": enquirylistdata}
+    return render(request, "ceo/enquirylist.html", context)
+
+@login_required(login_url="/")
+
+def listallproject(request):
+    allproject = ProjectStatus.objects.all()
+  
+    context = {
+        "is_enquiryList": True, 
+        "allproject": allproject
+        }
+    return render(request, "ceo/listallproject.html", context)
+
+
+def clientlist(request):
+    clienilist = Client.objects.all()
+  
+    context = {
+        "is_enquiryList": True, 
+        "clienilist": clienilist
+        }
+    return render(request, "ceo/clientlist.html", context)
+
+
+
+
+
+
+
+
+#################################   pm features  #############################
+
+def enquiryCeo(request):
+    enquirylistdata = Enquiry.objects.filter(status="Enquiry")
+    context = {
+        "enquirylistdata": enquirylistdata,
+    }
+    return render(request,"ceo/pmfeatures/enquiry.html",context)
+
+
+def viewenquriesCeo(request, id):
+    details = Enquiry.objects.get(id=id)
+    forms = PraposalpdfForm(request.POST, request.FILES)
+    if request.method == "POST":
+        if forms.is_valid():
+            data = forms.save()
+            data.enquiry = details
+            data.save()
+            Enquiry.objects.filter(id=id).update(status="Added To Proposal")
+            return redirect("/enquiry-ceo")
+        else:
+            pass
+    else:
+        context = {
+            "details": details,
+            "forms": forms,
+        }
+        return render(request, "ceo/pmfeatures/view-enquires.html",context)
+    return render(request, "ceo/pmfeatures/view-enquires.html",context)
+
+
+
+
+def proposalCeo(request):
+    data = Enquiry.objects.filter(status="Added To Proposal")
+    pm = request.user.employee
+    context = {
+        "is_proposal": True,
+        "data": data,
+    }
+    return render(request, "ceo/pmfeatures/proposal-ceo.html", context)
+
+
+
+def unassigneprojectCeo(request):
+    # enquirylist = Enquiry.objects.filter(status="Advance Paid").exclude(
+    #     type="Graphic Designing"
+    # )
+    enquirylist = Enquiry.objects.filter(status="Advance Paid")
+    context = {
+        "is_unassigneproject": True,
+        "enquirylist": enquirylist,
+    }
+    return render(request, "ceo/pmfeatures/un-assigned-project.html", context)
+
+
+def addprojectCeo(request, id):
+    deatils = Enquiry.objects.get(id=id)
+    form = ProjectForm(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            data = form.save()
+            Project.objects.filter(id=data.id).update(enquiry=deatils)
+            project = Project.objects.get(id=data.id)
+            Enquiry.objects.filter(id=id).update(status="Project Added")
+            projectsrs = SRS(project=project)
+            projectsrs.save()
+
+            return redirect("/addteam-ceo/" + str(data.id))
+        else:
+            pass
+    else:
+
+        context = {
+            "form": form,
+        }
+        return render(request, "ceo/pmfeatures/addproject-ceo.html", context)
+    return render(request, "ceo/pmfeatures/addproject-ceo.html", context)
+
+# http://127.0.0.1:8000/addproject-ceo/1
+
+def addteamCeo(request, id):
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context = {
+        "employee": employee,
+        "id": id,
+    }
+    return render(request, "ceo/pmfeatures/add-team-ceo.html", context)
+
+
+
+def addscheduleCeo(request, id):
+    project_obj = Project.objects.get(id=id)
+    team_mbr = ProjectMembers.objects.get(project=project_obj)
+    mbr = ProjectMembers.objects.filter(project=project_obj)
+    if request.method == "POST":
+        meetingDate = request.POST["meetingDate"]
+        platform = request.POST["platform"]
+        time = request.POST["time"]
+        link = request.POST["link"]
+
+        meeting = Meeting(
+            project=project_obj,
+            date=meetingDate,
+            time=time,
+            platform=platform,
+            meeting_link=link,
+        )
+        meeting.save()
+        project_obj.status = "Waiting for SRS"
+        project_obj.save()
+        return redirect("ceo:ceodashboard")
+
+    context = {
+        "team": team_mbr,
+        "mbr": mbr,
+        "project": project_obj,
+        # "members":memberrs,
+    }
+    return render(request, "ceo/pmfeatures/add-schedule-ceo.html", context)
+
+
+
+ # crm
+
+def viewenquiryCeo(request, id):
+    details = EnquiryNote.objects.get(id=id)
+
+    context = {"details": details, "id": id}
+    return render(request, "ceo/crmfeatures/enquiry-ceo.html", context)
+
+
+
+def createProjectCeo(request, id):
+    details = EnquiryNote.objects.get(id=id)
+    form = EnquiryForm(request.POST, request.FILES)
+    form2 = ClientForm(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            data = form.save()
+            Enquiry.objects.filter(id=data.id).update(Enquirynote=details)
+            EnquiryNote.objects.filter(id=id).update(status="DeActivate")
+            if data.type == "Graphic Designing":
+                print("if")
+                Enquiry.objects.filter(id=data.id).update(status="Added To Proposal")
+                return redirect("ceo:ceodashboard")
+            else:
+                print("else")
+                return redirect("ceo:ceodashboard")
+
+    context = {"details": details, "form": form, "form2": form2, "id": id}
+
+    return render(request, "ceo/crmfeatures/create_project_ceo.html", context)
+
+
+
+
+    # accounts
+
+def praposalAccountsCeo(request):
+    # Enquiry.objects.filter(status='Bill Creation')
+    praposallist = Praposalpdf.objects.filter(enquiry__status="Bill Creation")
+    # praposallist = Enquiry.objects.filter(status='Bill Creation')
+    # print(praposallist,"##"*10)
+    context = {"praposallist": praposallist}
+    return render(request, "ceo/accounts/proposal-ceo.html", context)
+
+
+def followuplistceo(request):
+    followlist = Enquiry.objects.filter(status="Bill Advance")
+    context = {
+        "followlist": followlist,
+    }
+    return render(request, "ceo/accounts/followup-ceo.html", context)
+
+
+
+
+    
+    

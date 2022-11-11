@@ -38,19 +38,17 @@ def employeeHome(request):
     emp = request.user.employee
     print(emp)
     employeedata = Employees.objects.get(id=request.user.employee.id)
-    listdata = ProjectStatus.objects.filter(member__team=employeedata).exclude(
-        status="Completed", project__status="Task"
-    ) | ProjectStatus.objects.filter(member__lead=employeedata).exclude(
-        status="Completed", project__status="Task"
-    )
+    teamdata = ProjectStatus.objects.filter(member__team=employeedata).exclude(status="Completed", project__status="Task") 
+    leaddata=ProjectStatus.objects.filter(member__lead=employeedata).exclude(status="Completed", project__status="Task")
     member = ProjectStatus.objects.filter(member__team=employeedata).count()
     lead = ProjectStatus.objects.filter(member__lead=employeedata).count()
     taskassign = Task.objects.filter(team=employeedata)
     print(taskassign, "#" * 10)
 
-    completepro = ProjectStatus.objects.filter(
+    completeteam = ProjectStatus.objects.filter(
         member__team=employeedata, status="Completed"
-    ) | ProjectStatus.objects.filter(member__lead=employeedata, status="Completed")
+    ) 
+    completedlead=ProjectStatus.objects.filter(member__lead=employeedata, status="Completed")
 
     meetinglist1 = ProjectMembers.objects.filter(
         team=employeedata, project__status="Waiting for SRS"
@@ -74,14 +72,17 @@ def employeeHome(request):
     context = {
         "is_home": True,
         "employeedata": employeedata,
-        "listdata": listdata,
+        "teamdata": teamdata,
         "emp": emp,
         "lead": lead,
         "member": member,
         "meetingcount": meetingcount,
         "reworkcount": reworkcount,
         "taskassign": taskassign,
-        "completepro": completepro,
+        "leaddata":leaddata,
+        "completeteam":completeteam,
+        "completedlead":completedlead
+
     }
     return render(request, "employee/home.html", context)
 
@@ -92,13 +93,16 @@ def employeeHome(request):
 def viewproject(request):
     emp = request.user.employee
     employeedata = Employees.objects.get(id=request.user.employee.id)
-    meetinglist = ProjectMembers.objects.filter(
+    team = ProjectMembers.objects.filter(
         team=employeedata, project__status="Waiting for SRS"
-    ) | ProjectMembers.objects.filter(
+    ) 
+    lead= ProjectMembers.objects.filter(
         lead=employeedata, project__status="Waiting for SRS"
     )
+    print(team)
+    print(lead)
 
-    context = {"is_meeting": True, "meetinglist": meetinglist, "emp": emp}
+    context = {"is_meeting": True, "team": team,"lead":lead, "emp": emp}
     return render(request, "employee/viewproject.html", context)
 
 
@@ -144,14 +148,21 @@ def empMeetingLink(request, id):
 @auth_employee
 def allProjects(request):
     emp = request.user.employee
-    project_count = ProjectStatus.objects.filter(
-        Q(member__lead=request.user.employee) | Q(member__team=request.user.employee)
-    ).count()
+    project_count1 = ProjectStatus.objects.filter(member__lead=request.user.employee) .count()
+    project_count2 = ProjectStatus.objects.filter(member__team=request.user.employee) .count()
+    project_count=project_count1+project_count2
+    
     print(project_count)
     ongoing = ProjectStatus.objects.filter(status="On Going").exclude(status="Qc")
     qc_projects = ProjectStatus.objects.filter(status="Qc")
-    allproject = ProjectStatus.objects.filter(
-        Q(member__lead=request.user.employee) | Q(member__team=request.user.employee)
+    # allproject = ProjectStatus.objects.filter(
+    #     Q(member__lead=request.user.employee) | Q(member__team=request.user.employee)
+    # )
+    team = ProjectStatus.objects.filter(
+        member__team=request.user.employee
+    ) 
+    lead= ProjectStatus.objects.filter(
+        member__lead=request.user.employee
     )
     projectlist = ProjectStatus.objects.all()
     context = {
@@ -160,7 +171,8 @@ def allProjects(request):
         "ongoing": ongoing,
         "qc_projects": qc_projects,
         "project_count": project_count,
-        "allproject": allproject,
+        "team": team,
+        "lead":lead,
         "projectlist": projectlist,
     }
     return render(request, "employee/projects.html", context)
