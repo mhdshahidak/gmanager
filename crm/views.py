@@ -83,7 +83,10 @@ def crmHome(request):
 @auth_crm
 def enquiryList(request):
     enquirylistdata = EnquiryNote.objects.filter(status="Active")
-    context = {"is_enquiryList": True, "enquirylistdata": enquirylistdata}
+    context = {
+        "is_enquiryList": True,
+        "enquirylistdata": enquirylistdata,
+    }
     return render(request, "crm/enquirylist.html", context)
 
 
@@ -255,7 +258,6 @@ def createProject(request, id):
             else:
                 print("else")
                 return redirect("/crm/")
-            return redirect("/crm/")
 
     context = {"details": details, "form": form, "form2": form2, "id": id}
 
@@ -505,6 +507,9 @@ def employeelist(request, id):
 
 def deleteenquery(request, id):
     EnquiryNote.objects.get(id=id).delete()
+    users = request.user
+    if users.is_superuser == True:
+        return redirect("ceo:enquirylist")
     return redirect("/crm/enquirylist")
 
 

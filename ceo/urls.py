@@ -43,6 +43,29 @@ urlpatterns = [
     path("listallproject", views.listallproject, name="listallproject"),
     path("clientlist", views.clientlist, name="clientlist"),
 
-    
+    ###############   pm features ##################
+
+    path("enquiry-ceo", views.enquiryCeo, name="enquiryceo"),
+    path("viewenquries-ceo/<str:id>", views.viewenquriesCeo, name="viewenquriesCeo"),
+    path("proposal-ceo", views.proposalCeo, name="proposalCeo"),
+
+    path("unassigneproject-ceo", views.unassigneprojectCeo, name="unassigneprojectCeo"),
+    path("addproject-ceo/<str:id>", views.addprojectCeo, name="addprojectceo"),
+    path("addteam-ceo/<str:id>", views.addteamCeo, name="addteamceo"),
+    path("addschedule-ceo/<str:id>", views.addscheduleCeo, name="addscheduleCeo"),
+
+    # crm
+    path("viewenquiry-ceo/<str:id>", views.viewenquiryCeo, name="viewenquiryCeo"),
+    path("createproject-ceo/<str:id>", views.createProjectCeo, name="createprojectCeo"),
+
+    # accounts
+    path("accounts-praposal-ceo", views.praposalAccountsCeo, name="praposalAccountsCeo"),
+    path("followuplist-ceo", views.followuplistceo, name="followuplistCeo"),
+
+    #ajax
+    # path("savaProposal", views.savaProposal, name="savaProposal"),
+
+
+
     
 ]
