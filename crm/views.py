@@ -760,7 +760,6 @@ def Changedailyreport(request, id):
 
 def leavereport(request):
     data= LeaveRequests.objects.filter(hr_accept=True, pm_accept=True,viewstatus="Not Seen")
-    print(data)
     context={
     "data":data
     }
@@ -770,12 +769,21 @@ def leavereport(request):
 
 
 def leaverequest(request):
-    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics")
+    # leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics")
+    leave = LeaveRequests.objects.filter(status="Waiting")
     context = {
         "is_leaverequest": True,
         "leave": leave,
     }
     return render(request, "crm/leaverequest.html",context)
+
+
+
+@csrf_exempt
+def acceptdeatilsCrm(request, id):
+    LeaveRequests.objects.filter(id=id).update(pm_accept=True,hr_accept=True, status="Approved")
+    return JsonResponse({"value": "msg"})
+    
 
 
 

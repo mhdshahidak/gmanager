@@ -57,6 +57,9 @@ urlpatterns = [
         "Changedailyreport/<str:id>", views.Changedailyreport, name="Changedailyreport"
     ),
 
+    # leave accepting
+    path("acceptdeatils-crm/<str:id>", views.acceptdeatilsCrm, name="acceptdeatilscrm"),
+
     # pm features
     path("proposal-request-crm", views.proposalRequestCrm, name="proposalRequestCrm"),
     path("viewenquries-crm/<str:id>", views.viewenquriesCrm, name="viewenquriesCrm"),
