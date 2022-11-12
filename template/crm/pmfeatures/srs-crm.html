@@ -1,0 +1,113 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+			
+    <!-- Page Content -->
+    <div class="content container-fluid">
+    
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects </h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Un Assigned Projects</li>
+                    </ul>
+                </div>
+                <!-- <div class="col-auto float-end ms-auto">
+                    <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_designation"><i class="fa fa-plus"></i> Add Designation</a>
+                </div> -->
+            </div>
+        </div>
+        <!-- /Page Header -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Project Name </th>
+                                <th>Department </th>
+                                <th> view SRS</th>
+                                <th  class="text-end">Add Project</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in viewsrs %} 
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{i.project.projectname}}</td>
+                                <td>{{i.project.enquiry.type}}</td>
+                               
+                                <td>
+                                    <a href="{{ i.srsfile.url }} " download class="btn  badge-pill bg-primary-light m-t-10"><i class="las la-file-download"></i> Download</a>
+
+                                </td>
+                                <td>
+                                    <a href="" onclick="ChangeVal({{i.project.id}})" class="btn  badge-pill bg-success-light m-t-10 text-end"> SRS Accept</a>
+                                    <a href="" onclick="RejectVal({{i.project.id}})" class="btn  badge-pill bg-danger-light m-t-10 text-end"> Reject SRS</a>
+                                </td>
+                               
+                            </tr>
+                            {% endfor %}
+                            
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+   
+</div>
+<script>
+    function ChangeVal(id){
+        $.ajax({
+            url: "/pm/srsapprovel",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+
+    }
+
+
+
+    function RejectVal(id){
+        $.ajax({
+            url: "/pm/srsreject",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               
+                window.location.reload()
+            }
+
+        })
+
+    }
+</script>
+
+{% endblock %}

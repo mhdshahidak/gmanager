@@ -1,0 +1,208 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Client Approvel List</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Client Approvel List</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Project Name </th>
+                                <th>Client Name </th>
+                                <th>Whatsapp Number </th>
+                                <th>Email </th>
+
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for details in data %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{details.projectname}}
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">{{details.type}}</span>
+                                    </small>
+                                </td>
+                                <td>{{details.clientname}}</td>
+                                <td>{{details.whatsapp}}</td>
+                                <td>{{details.email}}</td>
+                                <td class="text-end">
+                                    <button onclick="Change_Status('{{ details.id }}')"
+                                        class="btn  badge-pill bg-success-light m-t-10">Approved </button>
+                                    <button onclick="Rejecteddata({{details.id}})" class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
+                                        data-bs-target="#rejected_modal">Rejected </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+    <!-- Add Policy Modal -->
+    <div id="rejected_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejected Reason</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label>Reason <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="reason" rows="4"></textarea>
+                            <input type="hidden"  id="id">
+                        </div>
+                        <div class="submit-section">
+                            <button id="savebutton" class="btn btn-primary   submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Policy Modal -->
+
+    <!-- Edit Policy Modal -->
+    <div id="resent_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Resent Praposal</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label>Client Whatsapp Number <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" value="545645645">
+                        </div>
+                        <div class="form-group">
+                            <label>Client Email Address<span class="text-danger">*</span></label>
+                            <input class="form-control" type="email" value="swhhj@gmail.com">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Upload Policy <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" id="edit_policy_upload">
+                        </div>
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Edit Policy Modal -->
+
+    <!-- Delete Policy Modal -->
+    <div class="modal custom-modal fade" id="delete_policy" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-header">
+                        <h3>Delete Policy</h3>
+                        <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                            </div>
+                            <div class="col-6">
+                                <a href="javascript:void(0);" data-bs-dismiss="modal"
+                                    class="btn btn-primary cancel-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Delete Policy Modal -->
+</div>
+<!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<script>
+    function Change_Status(id) {
+        $.ajax({
+            url: "/pm/savaProposal",
+            type: 'POST',
+            data: {
+                'EnquaryID': id,
+
+            },
+
+            success: function (responce) {
+
+               window.location.href='/crm/clientlist'
+            }
+
+        })
+    }
+
+    function Rejecteddata(id) {
+        // alert('hi')
+        $.ajax({
+            url: "/pm/rejectedreason/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+                // console.log(responce)
+                $('#id').val(responce.value.id)
+                
+            }
+        })
+        $('#savebutton').click(() => {
+            $.ajax({
+                url: "/pm/typereason",
+                type: 'post',
+                data: {
+                    
+                    'id': $('#id').val(),
+                    'reason': $('#reason').val(),
+                    
+                },
+                success: function (responce) {
+
+                    window.location.reload()
+                }
+            })
+        })
+    }
+
+</script>
+
+{% endblock %}

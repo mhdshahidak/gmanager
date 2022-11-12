@@ -11,7 +11,7 @@ from ceo.models import Attendence, Client, Employees, SubCatagory,LeaveRequests
 
 # from datetime import date
 from gmanager.decorators import auth_crm
-from pm.form import ProjectForm
+from pm.form import PraposalpdfForm, ProjectForm
 from pm.models import (
     SRS,
     DailyProgress,
@@ -19,6 +19,7 @@ from pm.models import (
     Praposalpdf,
     Project,
     ProjectMembers,
+    ProjectProgressFiles,
     ProjectStatus,
     Updation,
 )
@@ -53,6 +54,23 @@ def crmHome(request):
     completed_project = Project.objects.filter(status="Completed").count()
     leavecount = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics").count()
 
+    # pm features
+    proposalrequested = Enquiry.objects.filter(status="Enquiry").exclude(type="Graphic Designing").count()
+    employees = Employees.objects.all().count()
+    enquirylist1 = EnquiryNote.objects.filter(status="Active").count()
+    advancepaidweb = (Enquiry.objects.filter(status="Advance Paid").exclude(type="Graphic Designing").count())
+
+    notstated = ProjectStatus.objects.filter(status="Not Started").count()
+    ongoing = ProjectStatus.objects.filter(status="On Going").count()
+    onscheduling = ProjectStatus.objects.filter(status="On Scheduling").count()
+    delayed = ProjectStatus.objects.filter(status="Delayed").count()
+    qc = ProjectStatus.objects.filter(status="Qc").count()
+    w4c = ProjectStatus.objects.filter(status="W4C").count()
+    rework = ProjectStatus.objects.filter(status="Rework").count()
+
+    srs = SRS.objects.filter(project__status="SRS uploaded").count()
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS").count()
+    # print(proposalrequested,"#"*20)
 
     if request.method == "POST":
         instructions = request.POST["instruction"]
@@ -65,16 +83,34 @@ def crmHome(request):
         "is_home": True,
         "projectcount": projectcount,
         "completed": completed_project,
-        "addedtoprop": addedtoprop,
         "billcreation": billcreation,
         "billadvance": billadvance,
-        "advancepaid": advancepaid,
         "rejected": rejected,
         "enquirylist": enquirylist,
         # "enquirylistToday":enquirylistToday,
         "clientsCount": clientsCount,
         "clients": clients,
-        "leavecount":leavecount
+        "leavecount":leavecount,
+
+        # pm features
+
+
+        "employees": employees,
+        "proposalrequested":proposalrequested,
+        "addedtoprop": addedtoprop,
+        "advancepaid": advancepaid,
+        "enquirylist": enquirylist,
+        "advancepaidweb":advancepaidweb,
+        "notstated": notstated,
+        "ongoing": ongoing,
+        "delayed": delayed,
+        "onscheduling": onscheduling,
+        "qc": qc,
+        "w4c": w4c,
+        "rework": rework,
+        "enquirylist1":enquirylist1,
+        "srs":srs,
+        "meetings":meetings,
     }
     return render(request, "crm/home.html", context)
 
@@ -748,3 +784,207 @@ def leavestatus(request):
     id = request.POST["EnquaryID"]
     LeaveRequests.objects.filter(id=id).update(viewstatus="Seen")
     return JsonResponse({"message": "sucesses"})
+
+
+
+
+
+# pm features
+
+def proposalRequestCrm(request):
+    enquirylistdata = Enquiry.objects.filter(status="Enquiry").exclude(
+        type="Graphic Designing"
+    )
+    context = {"is_enquiry": True, "enquirylistdata": enquirylistdata}
+    return render(request, "crm/pmfeatures/addtoprop.html", context)
+
+
+def viewenquriesCrm(request, id):
+    details = Enquiry.objects.get(id=id)
+    forms = PraposalpdfForm(request.POST, request.FILES)
+    if request.method == "POST":
+        if forms.is_valid():
+            data = forms.save()
+            data.enquiry = details
+            data.save()
+            Enquiry.objects.filter(id=id).update(status="Added To Proposal")
+            return redirect("crm:proposalRequestCrm")
+        else:
+            pass
+    else:
+
+        context = {
+            "details": details,
+            "forms": forms,
+
+        }
+        return render(request, "crm/pmfeatures/view-enquiry.html", context)
+    return render(request, "crm/pmfeatures/view-enquiry.html")
+
+
+
+def unassigneprojectCrm(request):
+    enquirylist = Enquiry.objects.filter(status="Advance Paid").exclude(
+        type="Graphic Designing"
+    )
+    # enquirylist = Enquiry.objects.filter(status="Advance Paid")
+    context = {
+        "is_unassigneproject": True,
+        "enquirylist": enquirylist,
+    }
+    return render(request, "crm/pmfeatures/un-assigned-project-crm.html", context)
+
+
+def addprojectCrm(request, id):
+    deatils = Enquiry.objects.get(id=id)
+    form = ProjectForm(request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            data = form.save()
+            Project.objects.filter(id=data.id).update(enquiry=deatils)
+            project = Project.objects.get(id=data.id)
+            Enquiry.objects.filter(id=id).update(status="Project Added")
+            projectsrs = SRS(project=project)
+            projectsrs.save()
+
+            return redirect("/crm/addteam-crm/" + str(data.id))
+        else:
+            pass
+    else:
+
+        context = {
+            "form": form,
+        }
+        return render(request, "crm/pmfeatures/addproject-crm.html", context)
+    return render(request, "crm/pmfeatures/addproject-crm.html", context)
+
+
+
+def addteamCrm(request, id):
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context = {
+        "employee": employee,
+        "id": id,
+    }
+    return render(request, "crm/pmfeatures/add-team-crm.html", context)
+
+
+
+def addscheduleCrm(request, id):
+    project_obj = Project.objects.get(id=id)
+    team_mbr = ProjectMembers.objects.get(project=project_obj)
+    mbr = ProjectMembers.objects.filter(project=project_obj)
+    if request.method == "POST":
+        meetingDate = request.POST["meetingDate"]
+        platform = request.POST["platform"]
+        time = request.POST["time"]
+        link = request.POST["link"]
+
+        meeting = Meeting(
+            project=project_obj,
+            date=meetingDate,
+            time=time,
+            platform=platform,
+            meeting_link=link,
+        )
+        meeting.save()
+        project_obj.status = "Waiting for SRS"
+        project_obj.save()
+        return redirect("crm:crmhome")
+
+    context = {
+        "team": team_mbr,
+        "mbr": mbr,
+        "project": project_obj,
+        # "members":memberrs,
+    }
+    return render(request, "crm/pmfeatures/add-schedule-crm.html", context)
+
+
+
+
+def proposalCrm(request):
+    data = Enquiry.objects.filter(status="Added To Proposal")
+    context = {
+        "is_proposal": True,
+        "data": data,
+    }
+    return render(request, "crm/pmfeatures/proposal-crm.html", context)
+
+
+def meetingsCrm(request):
+
+    # meetings = Meeting.objects.filter(project__status="Meeting Scheduled")
+    meetings = Meeting.objects.filter(project__status="Waiting for SRS")
+    context = {
+        "is_meetings": True,
+        "meetings": meetings,
+    }
+    return render(request, "crm/pmfeatures/meeting-crm.html", context)
+
+
+def srsCrm(request):
+    viewsrs = SRS.objects.filter(project__status="SRS uploaded")
+    context = {
+        "is_srs": True,
+        "viewsrs": viewsrs,
+
+    }
+    return render(request, "crm/pmfeatures/srs-crm.html", context)
+
+
+
+# ceo 
+
+def statusprojectCrm(request, selected_status):
+    allproject = ProjectStatus.objects.filter(status=selected_status)
+    context = {
+        "allproject": allproject,
+    }
+    return render(request, "crm/ceofeature/statusproject-crm.html", context)
+
+
+
+def statusviewprojectCrm(request, id):
+
+    projectdetail = Project.objects.get(id=id)
+    daily_report = DailyProgress.objects.filter(project=projectdetail).values(
+        "date", "status", "note", "employee__name"
+    )
+    progressreport = ProjectStatus.objects.get(project=projectdetail)
+    members = ProjectMembers.objects.filter(project=projectdetail)
+    viewsrs = SRS.objects.get(project=projectdetail)
+    uploadedfiles = ProjectProgressFiles.objects.filter(project=projectdetail).exclude(
+        files="New default that isn't None"
+    )
+    context = {
+        "projectdetail": projectdetail,
+        "daily_report": daily_report,
+        "progressreport": progressreport,
+        "members": members,
+        "viewsrs": viewsrs,
+        "uploadedfiles": uploadedfiles,
+    }
+    return render(request, "crm/ceofeature/statusviewproject-crm.html", context)
+
+
+
+# accounts
+
+
+
+
+def praposalAccountsCrm(request):
+
+    praposallist = Praposalpdf.objects.filter(enquiry__status="Bill Creation")
+
+    context = {"praposallist": praposallist}
+    return render(request, "crm/accounts-features/acc-proposal-crm.html", context)
+
+
+def followuplistCrm(request):
+    followlist = Enquiry.objects.filter(status="Bill Advance")
+    context = {
+        "followlist": followlist,
+    }
+    return render(request, "crm/accounts-features/followup-crm.html", context)

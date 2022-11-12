@@ -1,0 +1,93 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title"> Create Quatations</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Create Quatations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Content Starts -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <article class="post">
+                            <h3 class="post-title f-t-w-50" style="color: #6f42c1;">{{details.projectname|upper}} </h3>
+                            <ul class="meta mt-4" style="line-height: 1.8rem;">
+                                <li><span class="sub-title">Client Name :</span> {{details.clientname|capfirst}}</li>
+                                <li><span>Compamy Name :</span> {{details.companyname|capfirst}} </li>
+                                <li><span>Enquried Date :</span> {{details.Enquirynote.added_time}}</li>
+                                <li><span>Proposal Date :</span> {{details.enquirydate}} </li>
+                                <li><span>Category:</span> {{details.type}}</li>
+                                <li><span>Phone Number:</span> {{details.phone}}</li>
+                                <li><span>Whatsapp Number:</span> {{details.whatsapp}}</li>
+                                <li><span>Email:</span> {{details.email}}</li>
+                            </ul>
+
+                            <h4 class="mt-4 f-t-w-50">About Project</h4>
+                            <p>
+                                {{details.details|capfirst}}
+                            </p>
+                        </article>
+                        <!-- <div class="request-btn">
+                            <button class="btn btn-primary" onclick="changeStatus({{details.id}})" href="#">Add To
+                                Proposal</button>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="w-sidebar">
+                    <div class="widget widget-category">
+                        <h4 class="widget-title"><i class="fa fa-folder-o"></i> Categories</h4>
+                        {% if details.files.url != None %}
+                        <a href="{{ details.files.url }}" download> <i class="fa fa-download"></i>Download</a>
+                        {% endif %}
+                    </div>  
+                </div>
+                <div class="w-sidebar">
+                    <div class="widget widget-category">
+                        <h4 class="widget-title"><i class="fa fa-upload"></i> Praposal</h4>
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{forms.praposalpdf}}
+                            <div class="request-btn mt-4">
+                                <button type="submit" class="btn btn-primary">Send proposal</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <!-- /Content End -->
+
+    </div>
+    <!-- /Page Content -->
+
+</div>
+
+
+{% endblock %}

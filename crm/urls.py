@@ -56,4 +56,36 @@ urlpatterns = [
     path(
         "Changedailyreport/<str:id>", views.Changedailyreport, name="Changedailyreport"
     ),
+
+    # pm features
+    path("proposal-request-crm", views.proposalRequestCrm, name="proposalRequestCrm"),
+    path("viewenquries-crm/<str:id>", views.viewenquriesCrm, name="viewenquriesCrm"),
+    path("proposal-crm", views.proposalCrm, name="proposalCrm"),
+
+    path("unassigneproject-crm", views.unassigneprojectCrm, name="unassigneprojectCrm"),
+    path("addproject-crm/<str:id>", views.addprojectCrm, name="addprojectCrm"),
+    path("addteam-crm/<str:id>", views.addteamCrm, name="addteamcrm"),
+    path("addschedule-crm/<str:id>", views.addscheduleCrm, name="addscheduleCrm"),
+
+    path("meetings-crm", views.meetingsCrm, name="meetingsCrm"),
+    path("srs-crm", views.srsCrm, name="srsCrm"),
+
+
+    # ceo feature
+    path(
+        "statusproject-crm/<str:selected_status>", views.statusprojectCrm, name="statusprojectCrm"
+    ),
+    path(
+        "statusviewproject-crm/<int:id>", views.statusviewprojectCrm, name="statusviewprojectCrm"
+    ),
+
+
+    # crm
+    path("accounts-praposal-crm", views.praposalAccountsCrm, name="praposalAccountsCrm"),
+    path("followuplist-crm", views.followuplistCrm, name="followuplistCrm"),
+
+
+
+
+
 ]

@@ -530,7 +530,7 @@ def addprojectCeo(request, id):
         return render(request, "ceo/pmfeatures/addproject-ceo.html", context)
     return render(request, "ceo/pmfeatures/addproject-ceo.html", context)
 
-# http://127.0.0.1:8000/addproject-ceo/1
+
 
 def addteamCeo(request, id):
     employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
