@@ -33,30 +33,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>{{completed}}</h3>
-                            <span>Completed</span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <a href="{% url 'crm:enquirylist' %}">               
-                    <div class="card dash-widget">
-                        <div class="card-body">
-                            <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
-                            <div class="dash-widget-info">
-                                <h3>{{enquirylistToday}}</h3>
-                                <span> New Enquiries</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'crm:enquirylist' %}">
                     <div class="card dash-widget">
@@ -81,7 +57,7 @@
                             </span>
                             <div class="dash-widget-info">
                                 <h3  class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">{{addedtoprop}}</h3>
-                                <span  class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">Proposal Sented</span>
+                                <span  class="{% if addedtoprop == 0 %} text-success {% else %} text-danger {% endif %}">Proposal Sented(Graphics)</span>
                             </div>
                         </div>
                     </div>
@@ -149,17 +125,6 @@
                
                
             </div>
-            {% comment %} <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
-                <div class="card dash-widget">
-                    <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
-                        <div class="dash-widget-info">
-                            <h3>37</h3>
-                            <span>Tasks</span>
-                        </div>
-                    </div>
-                </div>
-            </div> {% endcomment %}
         </div>
 
         <!-- Statistics Widget -->
@@ -177,222 +142,500 @@
         </div>
         <!-- /Statistics Widget -->
 
+        <!-- pm features -->
+
         <div class="row">
-            <div class="col-md-6 d-flex">
-                <div class="card card-table flex-fill">
-                    <div class="card-header">
-                        <h3 class="card-title mb-0">Clients</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table custom-table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Contact Number</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% for client in clients %}
-                                    <tr>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="#" class="avatar"><img alt=""
-                                                        src="{% static 'ceo/img/profiles/avatar-19.jpg' %}"></a>
-                                                <a href="client-profile.html">{{client.name}} </a>
-                                            </h2>
-                                        </td>
-                                        <td>{{client.email}}</td>
-                                        <td>
-                                            {{client.phone}}
-                                        </td>
-                                        
-                                    </tr>
-                                {% endfor %}
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    {% comment %} <div class="card-footer">
-                        <a href="clients.html">View all clients</a>
-                    </div> {% endcomment %}
-                </div>
+            <div class="col-lg-12">
+                <h2 class="text-center">Web projects</h2>
             </div>
-            {% comment %} <div class="col-md-6 d-flex">
-                <div class="card card-table flex-fill">
-                    <div class="card-header">
-                        <h3 class="card-title mb-0">Recent Projects</h3>
-                    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if proposalrequested == 0 %}
+                <a href="" style="color: green;">
+                <div class="card dash-widget">
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table custom-table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Project Name </th>
-                                        <th>Progress</th>
-                                        <th class="text-end">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <h2><a href="project-view.html">Office Management</a></h2>
-                                            <small class="block text-ellipsis">
-                                                <span>1</span> <span class="text-muted">open tasks, </span>
-                                                <span>9</span> <span class="text-muted">tasks completed</span>
-                                            </small>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped">
-                                                <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip"
-                                                    title="65%" style="width: 65%"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2><a href="project-view.html">Project Management</a></h2>
-                                            <small class="block text-ellipsis">
-                                                <span>2</span> <span class="text-muted">open tasks, </span>
-                                                <span>5</span> <span class="text-muted">tasks completed</span>
-                                            </small>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped">
-                                                <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip"
-                                                    title="15%" style="width: 15%"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2><a href="project-view.html">Video Calling App</a></h2>
-                                            <small class="block text-ellipsis">
-                                                <span>3</span> <span class="text-muted">open tasks, </span>
-                                                <span>3</span> <span class="text-muted">tasks completed</span>
-                                            </small>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped">
-                                                <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip"
-                                                    title="49%" style="width: 49%"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2><a href="project-view.html">Hospital Administration</a></h2>
-                                            <small class="block text-ellipsis">
-                                                <span>12</span> <span class="text-muted">open tasks, </span>
-                                                <span>4</span> <span class="text-muted">tasks completed</span>
-                                            </small>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped">
-                                                <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip"
-                                                    title="88%" style="width: 88%"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h2><a href="project-view.html">Digital Marketplace</a></h2>
-                                            <small class="block text-ellipsis">
-                                                <span>7</span> <span class="text-muted">open tasks, </span>
-                                                <span>14</span> <span class="text-muted">tasks completed</span>
-                                            </small>
-                                        </td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped">
-                                                <div class="progress-bar" role="progressbar" data-bs-toggle="tooltip"
-                                                    title="100%" style="width: 100%"></div>
-                                            </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle"
-                                                    data-bs-toggle="dropdown" aria-expanded="false"><i
-                                                        class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0)"><i
-                                                            class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                        </span>
+                        <!-- <span class="dash-widget-icon"><i class="fa fa-user"></i></span> -->
+                        <div class="dash-widget-info">
+                            <h3>{{proposalrequested}}</h3>
+
+                            <span>Proposal Request</span>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <a href="projects.html">View all projects</a>
+                </div>
+            </a>
+                {% else %}
+                <a href="{% url 'crm:proposalRequestCrm' %}" style="color: red;">
+
+                    <div class="card dash-widget">
+                        <div class="card-body">
+
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/enquiry_list.jpg' %}" alt="">
+                            </span>
+                            <!-- <span class="dash-widget-icon"><i class="fa fa-user"></i></span> -->
+                            <div class="dash-widget-info">
+                                <h3>{{proposalrequested}}</h3>
+
+                                <span>Proposal Request</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if addedtoprop == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{addedtoprop}}</h3>
+                            <span>Added to Praposal(Web)</span>
+                        </div>
                     </div>
                 </div>
-            </div> {% endcomment %}
+                {% else %}
+                <a href="{% url 'crm:proposalCrm' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/added_to_proposal.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{addedtoprop}}</h3>
+                                <span>Added to Praposal(Web)</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if billcreation == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/proposal_accepted.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{billcreation}}</h3>
+                            <span>Praposal Acepted </span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <a href=" {% url  'crm:praposalAccountsCrm' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/proposal_accepted.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{billcreation}}</h3>
+                                <span>Praposal Acepted </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if billadvance == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{billadvance}}</h3>
+                            <span>Advance Follow up </span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'crm:followuplistCrm' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{billadvance}}</h3>
+                                <span>Advance Follow up </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            {% comment %}
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+
+                {% if billadvance == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{billadvance}}</h3>
+                            <span>Advance Sented </span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <a href="/projectlist/Bill Advance" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/advance_sented.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{billadvance}}</h3>
+                                <span>Advance Sented </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            {% endcomment %}
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if advancepaidweb == 0 %}
+               
+                    <div class="card dash-widget" style=" color: green;">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ advancepaidweb}}</h3>
+                                <span>Unassigned Project</span>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                <a href="{% url 'crm:unassigneprojectCrm' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ advancepaidweb}}</h3>
+                                <span>Unassigned Project</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if meetings == 0 %}
+               
+                    <div class="card dash-widget" style=" color: green;">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ meetings }}</h3>
+                                <span>Meetings</span>
+                            </div>
+                        </div>
+                    </div>
+               
+                {% else %}
+                <a href="{% url 'crm:meetingsCrm' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ meetings}}</h3>
+                                <span>Meetings</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if srs == 0 %}
+               
+                    <div class="card dash-widget" style=" color: green;">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{srs}}</h3>
+                                <span>SRS view</span>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                <a href="{% url 'crm:srsCrm' %}" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/unassigned_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{srs}}</h3>
+                                <span>SRS view</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if notstated == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                        <span class="dash-widget-icon">
+                            <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
+                        </span>
+                        <div class="dash-widget-info">
+                            <h3>{{notstated}}</h3>
+                            <span>On Scheduling </span>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <a href="/crm/statusproject-crm/Not Started" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/not_started.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{notstated}}</h3>
+                                <span>On Scheduling </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if ongoing == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                    <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ongoing}}</h3>
+                                <span>On Going </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/crm/statusproject-crm/On Going" style="color: red;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/ongoing.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{ongoing}}</h3>
+                                <span>On Going </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if delayed == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                   <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{delayed}}</h3>
+                                <span>Delayed Project </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/crm/statusproject-crm/Delayed" style="color: red;">
+                    <div class="card dash-widget">
+                       <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/delayed_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{delayed}}</h3>
+                                <span>Delayed Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if qc == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                   <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/qc.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{qc}}</h3>
+                                <span>QC Project </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/crm/statusproject-crm/Qc" style="color: red;">
+                    <div class="card dash-widget">
+                       <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/qc.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{qc}}</h3>
+                                <span>QC Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+               
+
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if w4c == 0 %}
+                <div class="card dash-widget" style="color: green;">
+                   <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{w4c}}</h3>
+                                <span>W4C Project </span>
+                            </div>
+                        </div>
+                </div>
+                {% else %}
+                <a href="/crm/statusproject-crm/W4C" style="color: red;">
+                    <div class="card dash-widget">
+                       <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/w4c.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{w4c}}</h3>
+                                <span>W4C Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+               
+
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                {% if rework == 0 %}
+                <a href="#" style="color: green;">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/rework.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{rework}}</h3>
+                                <span>Reworks Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% else %}
+                <a href="/crm/statusproject-crm/Rework">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/rework.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{rework}}</h3>
+                                <span>Reworks Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="/crm/statusproject-crm/Completed">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/completed_projects.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{completed}}</h3>
+                                <span>Completed Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+
+            </div>
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'ceo:rejectedlist' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon">
+                                <img src="{% static 'ceo/img/rejected_project.jpg' %}" alt="">
+                            </span>
+                            <div class="dash-widget-info">
+                                <h3>{{rejected}}</h3>
+                                <span>Rejected Project </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div> -->
         </div>
+
+        <!-- \pmfeatures -->
 
     </div>
     <!-- /Page Content -->
 
 </div>
-
 
 
 <script src="https://cdn.tiny.cloud/1/nklzzr80nbh42fu5eby0d4ipfkv57tp61il9if12c53ie9le/tinymce/5/tinymce.min.js"
