@@ -75,6 +75,7 @@
                                 <th>Sl.no</th>
                                 <th>Employee</th>
                                 <th>Department</th>
+                                <th>Reason</th>
                                 {% if i.status != 'Present' %}
                                 <th class="text-center">Change</th>
                                 {% endif %}
@@ -92,12 +93,19 @@
                                         <a>{{i.employee.name}} <span>#{{i.employee.employee_id}}</span></a>
                                     </h2>
                                 </td>
+                                
                                 <td>{{i.employee.catagory.title}}</td>
+                                {% if i.status != 'Present' %}
+                                <td>{{i.discription}}</td>
+                                {% else %}
+                                <td></td>
+                                {% endif %}
                                 <td class="text-center">
                                     {% if i.status != 'Present' %}
                                     <a href="{% url 'crm:removeLeave' i.id %}"  class="btn btn-outline-success btn-sm">Remove Leave</a>
                                     {% endif %}
                                 </td>
+                                
                                 <td class="text-center">
                                     {% if i.status == 'Present' %}
                                     <button class="btn btn-outline-info btn-sm">{{i.status}}</button>

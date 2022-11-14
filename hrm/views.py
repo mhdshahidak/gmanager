@@ -223,8 +223,9 @@ def leave(request):
     if request.method == "POST":
         date = request.POST["date"]
         Employeeid = request.POST["idleave"]
+        note = request.POST['note']
         employdata = Employees.objects.get(id=Employeeid)
-        saveattendence = Attendence(employee=employdata, date=date, status="Leave")
+        saveattendence = Attendence(employee=employdata, date=date, status="Leave",discription=note)
         saveattendence.save()
         return redirect("/hrm/attantancelist")
 
