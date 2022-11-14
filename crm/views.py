@@ -497,6 +497,20 @@ def attantanceReport(request):
     return render(request, "crm/attantancereport.html", context)
 
 
+def removeLeave(request,id):
+    attantance = Attendence.objects.get(id=id)
+    attantance.morning = True
+    attantance.evening = True
+    attantance.status = "Present"
+    attantance.save()
+    # leave = LeaveRequests.objects.filter(employee=attantance.employee,from_date=attantance.date)
+    # print(leave,"Leaaaaaaaaaave")
+    print(attantance,"success")
+    return redirect("crm:attantancereport")
+
+
+
+
 @login_required(login_url="/")
 def allstaff(request):
     all_emp = Employees.objects.all().order_by("name")
