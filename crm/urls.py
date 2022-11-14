@@ -31,6 +31,9 @@ urlpatterns = [
     path("typereason", views.typereason, name="typereason"),
     path("attantancelist", views.attantanceList, name="attantancelist"),
     path("attantancereport", views.attantanceReport, name="attantancereport"),
+    # leave remove
+    path("remove-leave/<int:id>", views.removeLeave, name="removeLeave"),
+    
     path("getemployeedata/<str:id>", views.getemployeedata, name="getemployeedata"),
     path("getemployeeleave/<str:id>", views.getemployeeleave, name="getemployeeleave"),
     path("adding-leave", views.leave, name="addingleave"),
@@ -56,6 +59,9 @@ urlpatterns = [
     path(
         "Changedailyreport/<str:id>", views.Changedailyreport, name="Changedailyreport"
     ),
+
+    # leave accepting
+    path("acceptdeatils-crm/<str:id>", views.acceptdeatilsCrm, name="acceptdeatilscrm"),
 
     # pm features
     path("proposal-request-crm", views.proposalRequestCrm, name="proposalRequestCrm"),

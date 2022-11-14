@@ -69,10 +69,6 @@
 							<li class="menu-title"> 
 								<span>More</span>
 							</li>
-						   
-							<li {% if is_attantance %} class="active" {% endif %}> 
-								<a href=""><i class="la la-calendar-check"></i> <span>Attendance</span></a>
-							</li>
 							<li {% if is_settings %} class="active" {% endif %}> 
 								<a href="{% url 'common:settings' %}"><i class="la la-cog"></i> <span>Settings</span></a>
 							</li>
@@ -85,7 +81,6 @@
 								<ul style="display: none;">
 									<li><a href="{% url 'common:leaves' %}">Leaves</a></li>
 									<li><a href="{% url 'common:leaveapplication' %}">Leave Form</a></li>
-									<!-- <li><a href="">Excuse Form</a></li> -->
 								</ul>
 							</li>																														
 						</ul>

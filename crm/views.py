@@ -497,6 +497,20 @@ def attantanceReport(request):
     return render(request, "crm/attantancereport.html", context)
 
 
+def removeLeave(request,id):
+    attantance = Attendence.objects.get(id=id)
+    attantance.morning = True
+    attantance.evening = True
+    attantance.status = "Present"
+    attantance.save()
+    # leave = LeaveRequests.objects.filter(employee=attantance.employee,from_date=attantance.date)
+    # print(leave,"Leaaaaaaaaaave")
+    print(attantance,"success")
+    return redirect("crm:attantancereport")
+
+
+
+
 @login_required(login_url="/")
 def allstaff(request):
     all_emp = Employees.objects.all().order_by("name")
@@ -760,7 +774,6 @@ def Changedailyreport(request, id):
 
 def leavereport(request):
     data= LeaveRequests.objects.filter(hr_accept=True, pm_accept=True,viewstatus="Not Seen")
-    print(data)
     context={
     "data":data
     }
@@ -770,12 +783,21 @@ def leavereport(request):
 
 
 def leaverequest(request):
-    leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics")
+    # leave = LeaveRequests.objects.filter(pm_accept=False, status="Waiting",employee__catagory__title="Graphics")
+    leave = LeaveRequests.objects.filter(status="Waiting")
     context = {
         "is_leaverequest": True,
         "leave": leave,
     }
     return render(request, "crm/leaverequest.html",context)
+
+
+
+@csrf_exempt
+def acceptdeatilsCrm(request, id):
+    LeaveRequests.objects.filter(id=id).update(pm_accept=True,hr_accept=True, status="Approved")
+    return JsonResponse({"value": "msg"})
+    
 
 
 
