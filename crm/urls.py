@@ -33,6 +33,11 @@ urlpatterns = [
     path("attantancereport", views.attantanceReport, name="attantancereport"),
     # leave remove
     path("remove-leave/<int:id>", views.removeLeave, name="removeLeave"),
+
+    # excuse
+    path("excuse-crm", views.excuseCrm, name="excuseCrm"),
+    path("excuse-report", views.excuseReport, name="excuseReport"),
+
     
     path("getemployeedata/<str:id>", views.getemployeedata, name="getemployeedata"),
     path("getemployeeleave/<str:id>", views.getemployeeleave, name="getemployeeleave"),

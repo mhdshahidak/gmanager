@@ -59,6 +59,9 @@
 									<li {% if is_attantanceReport %} class="active" {% endif %} > 
 										<a href="{% url 'crm:attantancereport' %}">Attendance Report</a>
 									</li>
+									<li {% if is_excuseReport %} class="active" {% endif %} > 
+										<a href="{% url 'crm:excuseReport' %}">Excuse Report</a>
+									</li>
 									<li {% if is_attantanceReport %} class="active" {% endif %} > 
 										<a href="{% url 'crm:leavereport' %}">Leave Report</a>
 									</li>

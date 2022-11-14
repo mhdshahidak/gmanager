@@ -142,7 +142,9 @@ class Attendence(models.Model):
     punch_outtime = models.TimeField(null=True)
     morning = models.BooleanField(default=False)
     evening = models.BooleanField(default=False)
+    discription = models.CharField(max_length= 1000,null=True)
     status = models.CharField(max_length=25, default="Present")
+
 
 
 class TeamCategory(models.Model):

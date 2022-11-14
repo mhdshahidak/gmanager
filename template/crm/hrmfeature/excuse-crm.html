@@ -1,6 +1,7 @@
-{% extends "hrm/base.html" %}
+{% extends "crm/base.html" %}
 {% load static %}
 {% block content %}
+
 
 <div class="page-wrapper">
 
@@ -68,10 +69,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
     </div>
    
 
@@ -85,17 +82,13 @@
             type: 'POST',
             data: {
                 'EnquaryID': id,
-
             },
-
-            success: function (responce) {
-
-               
+            success: function (responce) { 
                 window.location.reload()
             }
-
         })
     }
 </script>
+
 
 {% endblock %}

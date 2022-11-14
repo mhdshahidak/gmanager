@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
-from ceo.models import Attendence, Client, Employees, SubCatagory,LeaveRequests
+from ceo.models import Attendence, Client, Employees, ExcuseRequests, SubCatagory,LeaveRequests
 
 # from datetime import date
 from gmanager.decorators import auth_crm
@@ -46,6 +46,8 @@ def crmHome(request):
     advancepaid = Enquiry.objects.filter(
         status="Advance Paid", type="Graphic Designing"
     ).count()
+    Excuselist = ExcuseRequests.objects.filter(status="Waiting").count()
+
     # enquirylist = Enquiry.objects.filter(status = 'Advance Paid',type='Graphic Designing')
     rejected = Enquiry.objects.filter(status="Rejected").count()
     clientsCount = Client.objects.all().count()
@@ -91,6 +93,7 @@ def crmHome(request):
         "clientsCount": clientsCount,
         "clients": clients,
         "leavecount":leavecount,
+        "Excuselist":Excuselist,
 
         # pm features
 
@@ -436,8 +439,9 @@ def leave(request):
     if request.method == "POST":
         date = request.POST["date"]
         Employeeid = request.POST["idleave"]
+        note = request.POST['note']
         employdata = Employees.objects.get(id=Employeeid)
-        saveattendence = Attendence(employee=employdata, date=date, status="Leave")
+        saveattendence = Attendence(employee=employdata, date=date, status="Leave",discription=note)
         saveattendence.save()
         return redirect("/crm/attantancelist")
 
@@ -503,10 +507,34 @@ def removeLeave(request,id):
     attantance.evening = True
     attantance.status = "Present"
     attantance.save()
-    # leave = LeaveRequests.objects.filter(employee=attantance.employee,from_date=attantance.date)
-    # print(leave,"Leaaaaaaaaaave")
     print(attantance,"success")
     return redirect("crm:attantancereport")
+
+
+def excuseCrm(request):
+    listvalue = ExcuseRequests.objects.filter(status="Waiting")
+    context = {"listvalue": listvalue}
+    return render(request, "crm/hrmfeature/excuse-crm.html", context)
+
+
+
+def excuseReport(request):
+    employees = Employees.objects.filter(status="Online")
+    if request.method == "POST":
+        empId = request.POST['epk']
+        employee_obj = Employees.objects.get(id=empId)
+        excuses = ExcuseRequests.objects.filter(employee=employee_obj)
+        context = {
+            "is_excuseReport":True,
+            "employees":employees,
+            "excuses":excuses,
+        }
+        return render(request, "crm/hrmfeature/excuse-report.html", context)
+    context = {
+        "is_excuseReport":True,
+        "employees":employees,
+    }
+    return render(request, "crm/hrmfeature/excuse-report.html", context)
 
 
 

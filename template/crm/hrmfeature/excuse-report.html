@@ -1,7 +1,6 @@
-{% extends "hrm/base.html" %}
+{% extends "crm/base.html" %}
 {% load static %}
 {% block content %}
-
 
 <div class="page-wrapper">
 
@@ -31,7 +30,11 @@
                 {% csrf_token %}
                 <div class="col-sm-6 col-md-3">
                     <div class="form-group form-focus">
-                        <input type="date" name="serachdate" class="form-control floating">
+                        <select class="form-control" name="epk">
+                            {% for e in employees %}
+                            <option class="form-control"  value="{{e.id}}">{{e.name}} {{e.employee_id}}</option>
+                            {% endfor %}
+                        </select>
                         
                     </div>
                     {% if status == 1 %}
@@ -48,25 +51,6 @@
             </div>
         </form>
         <!-- Content Starts -->
-        <div class="row justify-content-center">
-
-            <div class="col-md-6 col-sm-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h3 class="text-success"><b>{{presentdate}}</b></h3>
-                        <p>Today Present</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h3 class="text-danger"><b>{{absentdate}}</b></h3>
-                        <p>Today Absent</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -75,17 +59,16 @@
                             <tr>
                                 <th>Sl.no</th>
                                 <th>Employee</th>
-                                <th>Department</th>
+                                <th>Applied Date</th>
+                                <th>Excuse Date</th>
+                                <th>Time</th>
                                 <th>Reason</th>
-                                {% if i.status != 'Present' %}
-                                <th class="text-center">Change</th>
-                                {% endif %}
                                 <th class="text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                            {% for i in employeedetails %}
+                            {% for i in excuses %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
                                 <td>
@@ -94,46 +77,30 @@
                                         <a>{{i.employee.name}} <span>#{{i.employee.employee_id}}</span></a>
                                     </h2>
                                 </td>
-                                
-                                <td>{{i.employee.catagory.title}}</td>
-                                {% if i.status != 'Present' %}
-                                <td>{{i.discription}}</td>
-                                {% else %}
-                                <td></td>
-                                {% endif %}
+                                <td>{{i.aply_date}}</td>
+                                <td>{{i.from_date}}</td>
+                                <td>{{i.time}}</td>
                                 <td class="text-center">
-                                    {% if i.status != 'Present' %}
-                                    <a href="{% url 'crm:removeLeave' i.id %}"  class="btn btn-outline-success btn-sm">Remove Leave</a>
-                                    {% endif %}
+                                   {{i.reason}}
                                 </td>
-                                
                                 <td class="text-center">
-                                    {% if i.status == 'Present' %}
-                                    <button class="btn btn-outline-info btn-sm">{{i.status}}</button>
-                                    {% else %}
-                                    <button class="btn btn-outline-danger btn-sm">{{i.status}}</button>
-                                    {% endif %}
+                                    {{i.status}}
                                 </td>
                             </tr>
-
-
                             {% endfor %}
-
-
-
-
-
-
-
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+
         <!-- /Content End -->
 
     </div>
     <!-- /Page Content -->
 
 </div>
+
+
 {% endblock %}
