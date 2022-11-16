@@ -36,14 +36,14 @@ def base(request):
 @auth_employee
 def employeeHome(request):
     emp = request.user.employee
-    print(emp)
     employeedata = Employees.objects.get(id=request.user.employee.id)
-    teamdata = ProjectStatus.objects.filter(member__team=employeedata).exclude(status="Completed", project__status="Task") 
-    leaddata=ProjectStatus.objects.filter(member__lead=employeedata).exclude(status="Completed", project__status="Task")
+    # teamdata = ProjectStatus.objects.filter(member__team=employeedata).exclude(status="Completed", project__status="Task") 
+    # leaddata=ProjectStatus.objects.filter(member__lead=employeedata).exclude(status="Completed", project__status="Task")
+    teamdata = ProjectStatus.objects.filter(member__team=employeedata).exclude(status="Completed") 
+    leaddata=ProjectStatus.objects.filter(member__lead=employeedata).exclude(status="Completed")
     member = ProjectStatus.objects.filter(member__team=employeedata).count()
     lead = ProjectStatus.objects.filter(member__lead=employeedata).count()
     taskassign = Task.objects.filter(team=employeedata)
-    print(taskassign, "#" * 10)
 
     completeteam = ProjectStatus.objects.filter(
         member__team=employeedata, status="Completed"

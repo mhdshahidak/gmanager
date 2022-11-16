@@ -672,12 +672,10 @@ def addproject(request, id):
             Enquiry.objects.filter(id=id).update(status="Project Added")
             projectsrs = SRS(project=project)
             projectsrs.save()
-
             return redirect("/crm/addteam/" + str(data.id))
         else:
             pass
     else:
-
         context = {
             "form": form,
             "pm": pm,
