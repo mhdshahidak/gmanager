@@ -1,5 +1,6 @@
 from datetime import datetime
 from multiprocessing import context
+from django.db.models import Q
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -21,6 +22,7 @@ from pm.models import (
     ProjectMembers,
     ProjectProgressFiles,
     ProjectStatus,
+    Task,
     Updation,
 )
 
@@ -73,6 +75,8 @@ def crmHome(request):
     srs = SRS.objects.filter(project__status="SRS uploaded").count()
     meetings = Meeting.objects.filter(project__status="Waiting for SRS").count()
     # print(proposalrequested,"#"*20)
+    # task
+    task_count = Updation.objects.filter(status="CRM Checked").count()
 
     if request.method == "POST":
         instructions = request.POST["instruction"]
@@ -114,6 +118,7 @@ def crmHome(request):
         "enquirylist1":enquirylist1,
         "srs":srs,
         "meetings":meetings,
+        "task_count":task_count,
     }
     return render(request, "crm/home.html", context)
 
@@ -550,6 +555,12 @@ def allstaff(request):
     return render(request, "crm/allstaff.html", context)
 
 
+def deleteemployeeCrm(request,id):
+    Employees.objects.get(id=id).delete()
+    return redirect("/crm/allstaff")
+
+
+
 @login_required(login_url="/")
 def departmentwise(request):
     department = SubCatagory.objects.all()
@@ -979,6 +990,61 @@ def srsCrm(request):
 
     }
     return render(request, "crm/pmfeatures/srs-crm.html", context)
+
+
+def qcapprovelCrm(request):
+
+    qclist = ProjectStatus.objects.filter(Q(status="Qc") & Q(completion__gte=95))
+    context = {
+        "is_qcapprovel": True,
+        "qclist": qclist,
+
+    }
+    return render(request, "crm/pmfeatures/qeapproval-crm.html", context)
+
+
+
+def crmtask(request):
+
+    projects = Updation.objects.filter(status="CRM Checked")
+    context = {
+        "is_task": True,
+        "projects": projects,
+
+    }
+    return render(request, "crm/pmfeatures/task.html", context)
+
+
+
+def crmviewtask(request, id):
+    updation = Updation.objects.get(id=id)
+    print(updation.project.id, "**" * 10)
+    if request.method == "POST":
+        type = request.POST["type"]
+        startdate = request.POST["startdate"]
+        enddate = request.POST["enddate"]
+        print(type, startdate, enddate)
+        taskobj = Task(
+            project=updation, type=type, startdate=startdate, enddate=enddate
+        )
+        taskobj.save()
+        id_only = str(taskobj.id)
+        Project.objects.filter(id=updation.project.id).update(status="Task")
+        Updation.objects.filter(id=id).update(status="Team Assigned")
+        return redirect("/crm/crm-taskteam/" + id_only)
+    context = {
+        "updation": updation,
+    }
+    return render(request, "crm/pmfeatures/viewtask.html", context)
+
+
+def crmtaskteam(request, id):
+    employee = Employees.objects.filter(catagory__catagory__catagory_title="EMPLOYEE")
+    context = {
+        "employee": employee,
+        "id": id,
+    }
+    return render(request, "crm/pmfeatures/task-team-crm.html", context)
 
 
 

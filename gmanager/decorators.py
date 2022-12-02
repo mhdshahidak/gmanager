@@ -30,7 +30,6 @@ def auth_hrm(func):
             return func(request, *args, **kwargs)
         else:
             return redirect("ceo:login")
-
     return wrap
 
 
@@ -41,7 +40,6 @@ def auth_pm(func):
             return func(request, *args, **kwargs)
         else:
             return redirect("ceo:login")
-
     return wrap
 
 

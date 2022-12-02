@@ -1,0 +1,180 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="page-wrapper">
+
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Qc Approvel List</h3>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped custom-table mb-0 datatable">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">#</th>
+                                <th>Project Name </th>
+                                <th>Username </th>
+                                <th>Password </th>
+                                
+                                <th>ReWork Count</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            {% for i in qclist %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{i.project.projectname}}
+                                    <small class="block text-ellipsis">
+                                        <span class="text-muted">{{ i.url_project }} </span>
+                                    </small>
+                                </td>
+                                <td>{{ i.username }}</td>
+                                <td>{{ i.password }}</td>
+                                <td class="text-center">
+                                    <ul class="team-members text-nowrap ">
+
+                                        <li class="dropdown avatar-dropdown ">
+                                            <a href="#" class="all-users dropdown-toggle " data-bs-toggle="dropdown"
+                                                aria-expanded="false">+{{ i.rework_count }}</a>
+
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td class="text-end">
+                                    <button onclick="ChangeQc({{ i.id }})" class="btn  badge-pill bg-info-light m-t-10">Accepted </button>
+                                    <button onclick="RejecteQc({{ i.project.id }})" class="btn  badge-pill bg-danger-light m-t-10" data-bs-toggle="modal"
+                                        data-bs-target="#rejected_modal">Rework </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+    <!-- Add Policy Modal -->
+    <div id="rejected_modal" class="modal custom-modal fade" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> Reason For Rejection</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+
+                        <div class="form-group">
+                            <label>Reason <span class="text-danger">*</span></label>
+                            <textarea id="reason" class="form-control" rows="6"></textarea>
+
+
+                            <input type="text" hidden name="" id="projectid">
+                        </div>
+
+
+                        <div class="submit-section">
+                            <button id="Qcrework" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Add Policy Modal -->
+
+    <!-- Edit Policy Modal -->
+   
+    <!-- /Edit Policy Modal -->
+
+    <!-- Delete Policy Modal -->
+  
+    <!-- /Delete Policy Modal -->
+
+</div>
+
+<script>
+    function ChangeQc(id) {
+       $.ajax({
+           url: "/pm/changeqc",
+           type: 'POST',
+           data: {
+               'id': id,
+
+           },
+
+           success: function (responce) {
+
+              
+               window.location.reload()
+           }
+
+       })
+   }
+
+
+
+   function RejecteQc(id) {
+  
+        // alert('hi')
+        $.ajax({
+            url: "/pm/rejectedqc/" + id,
+            type: 'GET',
+            
+            success: function (responce) {
+
+
+                // console.log(responce)
+                $('#projectid').val(responce.value.id)
+                
+            }
+
+        })
+        $('#Qcrework').click(() => {
+            $.ajax({
+                url: "/pm/qcrework",
+                type: 'post',
+                data: {
+                    
+                    'id': $('#projectid').val(),
+                    'reason': $('#reason').val(),
+                    
+                },
+                success: function (responce) {
+
+                    window.location.reload()
+                }
+
+
+            })
+        })
+    }
+</script>
+
+{% endblock %}

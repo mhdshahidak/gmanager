@@ -46,6 +46,22 @@
                     </div>
                 </a>
             </div>
+
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <a href="{% url 'crm:crmtask' %}">
+                    <div class="card dash-widget">
+                        <div class="card-body">
+                            <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
+                            <div class="dash-widget-info">
+                                <h3  class="{% if task_count == 0 %} text-success {% else %} text-danger {% endif %}">{{task_count}}</h3>
+                                <span  class="{% if task_count == 0 %} text-success {% else %} text-danger {% endif %}"> Task</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'crm:proposal' %}">
                     <div class="card dash-widget">
@@ -80,7 +96,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
                         <span class="dash-widget-icon"><i class="fa fa-file-text"></i></span>
@@ -90,7 +106,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <a href="{% url 'crm:clientlist' %}">
                     <div class="card dash-widget">
@@ -539,7 +555,7 @@
                         </div>
                 </div>
                 {% else %}
-                <a href="/crm/statusproject-crm/Qc" style="color: red;">
+                <a href="{% url 'crm:qcapprovelCrm' %}" style="color: red;">
                     <div class="card dash-widget">
                        <div class="card-body">
                             <span class="dash-widget-icon">

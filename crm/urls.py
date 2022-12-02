@@ -43,6 +43,7 @@ urlpatterns = [
     path("getemployeeleave/<str:id>", views.getemployeeleave, name="getemployeeleave"),
     path("adding-leave", views.leave, name="addingleave"),
     path("allstaff", views.allstaff, name="allstaff"),
+    path("deleteemployee-crm/<str:id>", views.deleteemployeeCrm, name="deleteemployeeCrm"),
     path("departmentwise", views.departmentwise, name="departmentwise"),
     path("employeelist/<int:id>", views.employeelist, name="employeelist"),
     path("addclient", views.addclient, name="addclient"),
@@ -80,6 +81,16 @@ urlpatterns = [
 
     path("meetings-crm", views.meetingsCrm, name="meetingsCrm"),
     path("srs-crm", views.srsCrm, name="srsCrm"),
+    path("qcapprovel-crm", views.qcapprovelCrm, name="qcapprovelCrm"),
+
+    # Task
+    path("crm-task", views.crmtask, name="crmtask"),
+    path("crm-viewtask/<str:id>", views.crmviewtask, name="crmviewtask"),
+
+
+    path("crm-taskteam/<int:id>", views.crmtaskteam, name="crmtaskteam"),
+
+    # path("taskmember", views.taskmember, name="taskmember"),
 
 
     # ceo feature

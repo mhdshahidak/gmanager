@@ -1,0 +1,142 @@
+{% extends "crm/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-wrapper">
+
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3 class="page-title">Projects</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Projects</li>
+                    </ul>
+                </div>
+                <div class="col-auto float-end ms-auto">
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <!-- Search Filter -->
+
+        <!-- /Search Filter -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                               
+                                <input type="text" class="form-control" disabled  value="{{updation.project.projectname}}">
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label> Project Type</label>
+                                <select  required  class="form-control"   name="type" id="">
+                                    <option selected disabled value="">Choose</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>
+                                </select>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input class="form-control " name="startdate" type="date">
+                                <!-- <div class="cal-icon">
+                                    <input class="form-control datetimepicker" name="startdate" type="text">
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input class="form-control " name="enddate"type="date">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Content -->
+
+    <script>
+        // function Addemployee() {
+        //     $.ajax({
+        //         url: "/pm/leadersearch",
+        //         type: 'post',
+        //         data: {
+        //             'projectid': $('#projectid').val(),
+        //             'employee': $('#employees').val()
+
+        //         },
+        //         success: function (responce) {
+        //             $('#id').val(responce.value.id)
+        //             $('#projectmemberid').val(responce.value.projectmemberid)
+        //             $('#memberBox').val(responce.value.member)
+
+        //             $('#image').attr("src", responce.value.profile)
+        //             $('#title').attr("title", responce.value.name)
+
+        //             $('#employees').attr('disabled', true);
+        //         }
+
+
+        //     })
+
+        // }
+
+
+
+        function Addmember() {
+            $.ajax({
+                url: "/pm/taskmember",
+                type: 'post',
+                data: {
+                    'employees': $('#employees').val(),
+                    // 'member': $('#member').val(),
+                    // 'projectid': $('#projectid').val(),
+                    // 'memberObj': $('#memberBox').val()
+                    // 'employee': $('#employees').val(),
+                    // 'projectmemberid': $('#projectmemberid').val()
+
+
+                },
+                success: function (responce) {
+                    $('#image').attr("src", responce.value.profile)
+                }
+
+
+            })
+
+        }
+    </script>
+
+</div>
+
+{% endblock %}
